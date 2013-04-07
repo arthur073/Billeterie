@@ -7,9 +7,9 @@
       maxIdle="3" 
       maxWait="10000" 
       name="jdbc/billeterie" 
-      password="root" 
+      password="toor" 
       type="javax.sql.DataSource" 
-      url="jdbc:mysql://localhost:3306/MyTestDB?profileSQL=true" 
+      url="jdbc:mysql://localhost:3306/acvl?profileSQL=true" 
       username="root"
       factory="org.apache.commons.dbcp.BasicDataSourceFactory"
   />
