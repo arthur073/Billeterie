@@ -1,6 +1,7 @@
 package controleur;
 
 import dao.DAOException;
+import dao.RepresentationDAO;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,13 +14,14 @@ import javax.sql.DataSource;
 /**
  * Le contrôleur de l'application.
  */
-@WebServlet(name = "Controleur", urlPatterns = {"/controleur"})
+@WebServlet(name = "PagesControleur", urlPatterns = {"/pagesControleur"})
     public class PagesControleur extends HttpServlet {
 
     
-    // TODO: Changer quand on aura une bd correct ! 
+    // TODO: Changer quand on aura une bd correcte ! 
 	@Resource(name = "jdbc/bibliography")
 	    private DataSource ds;
+
 
 	/**
 	 * La méthode principale d'aiguillage.
@@ -30,9 +32,7 @@ import javax.sql.DataSource;
 
 	    //PrintWriter out = response.getWriter();
 	    //String action = request.getParameter("action");
-            
-            
-            
+                  
             try {
                 actionAfficher(request, response);
             } catch (DAOException e) {
@@ -43,6 +43,9 @@ import javax.sql.DataSource;
 
 	private void actionAfficher(HttpServletRequest request, 
 				    HttpServletResponse response) throws DAOException, ServletException, IOException {
-	    getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+	    RepresentationDAO repDAO = new RepresentationDAO(ds);
+            request.setAttribute("representations", repDAO.getListeRepresentations());                
+
+            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
 	}
     }

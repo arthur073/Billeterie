@@ -2,29 +2,23 @@
  
 <c:import url="Layout/header.jsp"/>
 
-      Ceci est ma première application JSP-MVC ! 
-
-
-     <%--  <p>
-            <a href="ajouter.xhtml">Ajouter une référence bibliographique</a>
-        </p> 
-
+      Liste des spectacles : <br/>
+      
         <table>
             <tr>
-                <th>Auteur</th>
-                <th>Titre</th>
+                <th>Nom</th>
+                <th>Date</th>
                 <th>&nbsp;</th>
             </tr>
-            <c:forEach items="${ouvrages}" var="ouvrage">
+            <c:forEach items="${representations}" var="rep">
                 <tr>
-                    <td>${ouvrage.auteur}</td><td>${ouvrage.titre}</td>
-                    <td><a href="controleur?action=getOuvrage&view=modifier&id=${ouvrage.id}"/>modifier</td>
-                    <td><a href="controleur?action=getOuvrage&view=supprimer&id=${ouvrage.id}">supprimer</a></td>
+                    <td>${rep.auteur}</td><td>${rep.titre}</td>
+                    <td><a href="RepresentationsControleur?action=getRepresentation&view=modifier&id=${rep.id}"/>modifier</td>
+                    <td><a href="RepresentationsControleur?action=getRepresentation&view=supprimer&id=${rep.id}">supprimer</a></td>
                 </tr>
             </c:forEach>
         </table>
      
-     --%>
      
  <c:import url="Layout/footer.jsp"/>
 
