@@ -1,0 +1,37 @@
+/* 
+    Document   : style
+    Created on : 7 avr. 2013, 11:59:41
+    Author     : arthur
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html{
+	background-color:grey;
+}
+
+body{
+	width: 800px;
+	margin: 10px auto;
+	padding: 20px;
+	background-color:white;
+	font-family:   arial;
+}
+
+#erreur{
+    width: 600px;
+    border: medium red solid;
+    margin: 10px auto;
+    padding: 20px;
+}
+
+#erreur h2{
+    color:   red;
+}
+
+table {
+  width: 60%;
+}
+td, th{
+  border-bottom: thin solid #6495ed;
+}
