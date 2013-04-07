@@ -10,6 +10,7 @@
                 <th>Date</th>
                 <th>&nbsp;</th>
             </tr>
+            aa${representations}aa
             <c:forEach items="${representations}" var="rep">
                 <tr>
                     <td>${rep.auteur}</td><td>${rep.titre}</td>

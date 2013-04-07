@@ -33,22 +33,21 @@ public class RepresentationDAO extends AbstractDataBaseDAO {
         ResultSet rs = null;
         String requeteSQL = "";
         Connection conn = null;
-   //     try {
-   //         conn = getConnection();
-   //         Statement st = conn.createStatement();
-   //         requeteSQL = "select * from billeterie";
-   //         rs = st.executeQuery(requeteSQL);
-//
-//            while (rs.next()) {
-//                Ouvrage ouvrage = new Ouvrage(rs.getInt("id"), rs.getString("auteur"), rs.getString("titre"));
-//                System.err.println(ouvrage);
-//                result.add(ouvrage);
-//            }
-//        } catch (SQLException e) {
-//            throw new DAOException("Erreur BD " + e.getMessage(), e);
-//        } finally {
-//            closeConnection(conn);
-//        }
+        try {
+            conn = getConnection();
+            Statement st = conn.createStatement();
+            requeteSQL = "select * from Representation";
+            rs = st.executeQuery(requeteSQL);
+
+            while (rs.next()) {
+                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("Date"));
+                result.add(representation);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
         return result;
     }
 }

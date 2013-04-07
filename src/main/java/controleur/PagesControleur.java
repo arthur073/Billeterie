@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 
     
     // TODO: Changer quand on aura une bd correcte ! 
-	@Resource(name = "jdbc/bibliography")
+	@Resource(name = "jdbc/billeterie")
 	    private DataSource ds;
 
 
@@ -45,7 +45,6 @@ import javax.sql.DataSource;
 				    HttpServletResponse response) throws DAOException, ServletException, IOException {
 	    RepresentationDAO repDAO = new RepresentationDAO(ds);
             request.setAttribute("representations", repDAO.getListeRepresentations());                
-
             getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
 	}
     }
