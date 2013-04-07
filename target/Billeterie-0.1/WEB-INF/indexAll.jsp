@@ -6,17 +6,17 @@
       
         <table>
             <tr>
-                <th>Nom</th>
+                <th>Spectacle</th>
                 <th>Date</th>
                 <th>&nbsp;</th>
             </tr>
-            aa${representations}aa
             <c:forEach items="${representations}" var="rep">
                 <tr>
-                    <td>${rep.auteur}</td><td>${rep.titre}</td>
-                    <td><a href="RepresentationsControleur?action=getRepresentation&view=modifier&id=${rep.id}"/>modifier</td>
+                    <td>${rep.noSpectacle}</td><td>${rep.date}</td>
+                 <%--   <td><a href="RepresentationsControleur?action=getRepresentation&view=modifier&id=${rep.id}"/>modifier</td>
                     <td><a href="RepresentationsControleur?action=getRepresentation&view=supprimer&id=${rep.id}">supprimer</a></td>
-                </tr>
+                       --%>
+</tr>
             </c:forEach>
         </table>
      

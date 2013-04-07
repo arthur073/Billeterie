@@ -12,19 +12,33 @@ import java.util.Date;
  */
 public class Representation {
     
-    private int NoSpectacle;
-    private int NoRepresentation;
+    private int noSpectacle;
+    private int noRepresentation;
     private Date date;
     
+    public int getNoSpectacle() {
+        return noSpectacle;
+    }
+    
+    public int getNoRepresentation() {
+        return noRepresentation;
+    }
+    
+    public Date getDate() {
+        return date;
+    }
+    
     public Representation(int NoS, int NoR, Date date) {
-        this.NoSpectacle = NoS;
-        this.NoRepresentation = NoR;
+        this.noSpectacle = NoS;
+        this.noRepresentation = NoR;
         this.date = date;
     }
     
     public void annulerRepresentation( Representation r) {
-        
+        // TODO
     }
+    
+    
     
     // to be continued
     
