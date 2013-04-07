@@ -13,13 +13,12 @@
             <c:forEach items="${representations}" var="rep">
                 <tr>
                     <td>${rep.noSpectacle}</td><td>${rep.date}</td>
-                 <%--   <td><a href="RepresentationsControleur?action=getRepresentation&view=modifier&id=${rep.id}"/>modifier</td>
-                    <td><a href="RepresentationsControleur?action=getRepresentation&view=supprimer&id=${rep.id}">supprimer</a></td>
-                       --%>
+                   <td><a href="RepresentationsControleur?action=reserver&view=reserver&id=${rep.noSpectacle}"/>Réserver</td>                       
 </tr>
             </c:forEach>
         </table>
      
-     
+<a href="PagesControleur?action=login"/>Me connecter</td>                       
+
  <c:import url="Layout/footer.jsp"/>
 
