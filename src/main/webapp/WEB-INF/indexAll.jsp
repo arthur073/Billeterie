@@ -18,7 +18,7 @@
             </c:forEach>
         </table>
      
-<a href="PagesControleur?action=login"/>Me connecter</td>                       
+<a href="PagesControleur?action=goToLogin"/>Me connecter</td>                       
 
  <c:import url="Layout/footer.jsp"/>
 
