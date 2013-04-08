@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Context antiJARLocking="true" path="/billeterie">
-  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" factory="org.apache.commons.dbcp.BasicDataSourceFactory" maxActive="10" maxIdle="3" maxWait="10000" name="jdbc/billeterie" password="root" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/MyTestDB?profileSQL=true" username="root"/>
+  <Resource auth="Container" driverClassName="com.mysql.jdbc.Driver" factory="org.apache.commons.dbcp.BasicDataSourceFactory" maxActive="10" maxIdle="3" maxWait="10000" name="jdbc/billeterie" password="toor" type="javax.sql.DataSource" url="jdbc:mysql://localhost:3306/acvl?profileSQL=true" username="root"/>
 </Context>
