@@ -15,9 +15,14 @@ public class Representation {
     private int noSpectacle;
     private int noRepresentation;
     private Date date;
+    private String nomSpectacle;
     
     public int getNoSpectacle() {
         return noSpectacle;
+    }
+    
+    public String getNomSpectacle() {
+        return nomSpectacle;
     }
     
     public int getNoRepresentation() {
@@ -28,10 +33,11 @@ public class Representation {
         return date;
     }
     
-    public Representation(int NoS, int NoR, Date date) {
+    public Representation(int NoS, int NoR, Date date, String nomSpectacle) {
         this.noSpectacle = NoS;
         this.noRepresentation = NoR;
         this.date = date;
+        this.nomSpectacle = nomSpectacle;
     }
     
     public void annulerRepresentation( Representation r) {
