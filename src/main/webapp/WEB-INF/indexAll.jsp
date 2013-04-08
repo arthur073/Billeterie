@@ -12,7 +12,7 @@
             </tr>
             <c:forEach items="${representations}" var="rep">
                 <tr>
-                    <td>${rep.noSpectacle}</td><td>${rep.date}</td>
+                    <td>${rep.nomSpectacle}</td><td>${rep.date}</td>
                    <td><a href="RepresentationsControleur?action=reserver&view=reserver&id=${rep.noSpectacle}"/>Réserver</td>                       
 </tr>
             </c:forEach>

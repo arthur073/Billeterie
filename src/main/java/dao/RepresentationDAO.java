@@ -36,11 +36,11 @@ public class RepresentationDAO extends AbstractDataBaseDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "select * from Representation";
+            requeteSQL = "select r.*, s.Nom from Spectacle s, Representation r where s.NoSpectacle=r.NoSpectacle";
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
-                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("Date"));
+                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("Date"), rs.getString("Nom"));
                 result.add(representation);
             }
         } catch (SQLException e) {
