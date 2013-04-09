@@ -26,7 +26,7 @@ public class SqlDAO extends AbstractDataBaseDAO {
         try {
             Properties props = new Properties();
             InputStream stream;
-            stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("sql/requetes.properties");
+            stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("../sql/requetes.properties");
             props.load(stream);
             fic = new HashMap<String, String>(((Map) props));        
         } catch (IOException ex) {

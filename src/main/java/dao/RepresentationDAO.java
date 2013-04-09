@@ -37,7 +37,7 @@ public class RepresentationDAO extends SqlDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "select r.*, s.Nom from Spectacle s, Representation r where s.NoSpectacle=r.NoSpectacle";
+            requeteSQL = getRequete("SELECT_LISTE_REPRESENTATIONS_A_VENIR");
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
