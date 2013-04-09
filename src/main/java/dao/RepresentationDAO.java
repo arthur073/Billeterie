@@ -18,7 +18,7 @@ import modele.Representation;
  * @author arthur
  */
 //on extends le sqlDAO car on s'en sert partout et il extends deja lui-même le abstract
-public class RepresentationDAO extends SqlDAO {
+public class RepresentationDAO extends ProviderDAO {
     
     
      public RepresentationDAO(DataSource ds) {

@@ -17,11 +17,11 @@ import javax.sql.DataSource;
  *
  * @author Michel
  */
-public class SqlDAO extends AbstractDataBaseDAO {
+public class ProviderDAO extends AbstractDataBaseDAO {
     
     private Map<String,String> fic;
     
-     public SqlDAO(DataSource ds) {
+     public ProviderDAO(DataSource ds) {
         super(ds);
         try {
             Properties props = new Properties();
@@ -32,8 +32,8 @@ public class SqlDAO extends AbstractDataBaseDAO {
             else
                 System.err.println("Erreur de lecture du fichier de requetes sql");
             fic = new HashMap<String, String>(((Map) props));        
-        } catch (Exception ex) {
-               Logger.getLogger(SqlDAO.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+               Logger.getLogger(ProviderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
      

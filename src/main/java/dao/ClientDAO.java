@@ -17,7 +17,7 @@ import modele.Representation;
  *
  * @author arthur
  */
-public class ClientDAO extends AbstractDataBaseDAO {
+public class ClientDAO extends ProviderDAO {
     
     
      public ClientDAO(DataSource ds) {
