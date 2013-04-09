@@ -10,10 +10,11 @@
 DROP TABLE AAcheteNPlaces;
 DROP TABLE AReserveNPlaces;
 DROP TABLE Place;
-DROP TABLE Zone;
 DROP TABLE Utilisateur;
-DROP TABLE Spectacle;
+DROP TABLE PrixRepresentation;
+DROP TABLE Zone;
 DROP TABLE Representation;
+DROP TABLE Spectacle;
 
 CREATE TABLE Spectacle (
     NoSpectacle int,
