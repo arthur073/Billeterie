@@ -16,6 +16,8 @@ body{
 	padding: 20px;
 	background-color:white;
 	font-family:   arial;
+        box-shadow: 0px 2px 5px #1c1a19;
+
 }
 
 #erreur{
