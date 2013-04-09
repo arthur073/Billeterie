@@ -70,4 +70,19 @@ public class PagesControleur extends HttpServlet {
         }
     }
     
+    private void ValiderReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        String action = request.getParameter("action");
+        
+        if (action.equalsIgnoreCase("annuler")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+            return;
+        }
+        
+        if (action.equalsIgnoreCase("valider")) {
+            getServletContext().getRequestDispatcher("/WEB-INF/reserver2.jsp").forward(request, response);
+            return;
+        }
+    }
+    
+    
 }
