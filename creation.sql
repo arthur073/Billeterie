@@ -76,7 +76,7 @@ CREATE TABLE AAcheteNPlaces (
     NoSerie int,
     DateAchat datetime,
     CONSTRAINT pk_AAcheteNPlaces PRIMARY KEY (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace, NoDossier, NoSerie),
-    CONSTRAINT fk_AAcheteNPlaces_Place FOREIGN KEY (NoZone, NoRang, NoPlace) REFERENCES Place (NoZone, NoRang, NoPlace),
+    CONSTRAINT fk_AAcheteNPlaces_Place FOREIGN KEY (NoPlace, NoRang, NoZone) REFERENCES Place (NoPlace, NoRang, NoZone),
     CONSTRAINT fk_AAcheteNPlaces_Representation FOREIGN KEY (NoSpectacle, NoRepresentation) REFERENCES Representation (NoSpectacle, NoRepresentation),
     CONSTRAINT fk_AAcheteNPlaces_Client FOREIGN KEY (Login) REFERENCES Utilisateur (Login)
 );
@@ -88,10 +88,10 @@ CREATE TABLE AReserveNPlaces (
     NoZone int,
     NoRang int,
     NoPlace int,
-    CONSTRAINT pk_AAcheteNPlaces PRIMARY KEY (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace),
-    CONSTRAINT fk_AAcheteNPlaces_Place FOREIGN KEY (NoZone, NoRang, NoPlace) REFERENCES Place (NoZone, NoRang, NoPlace),
-    CONSTRAINT fk_AAcheteNPlaces_Representation FOREIGN KEY (NoSpectacle, NoRepresentation) REFERENCES Representation (NoSpectacle, NoRepresentation),
-    CONSTRAINT fk_AAcheteNPlaces_Client FOREIGN KEY (Login) REFERENCES Utilisateur (Login)
+    CONSTRAINT pk_AReserveNPlaces PRIMARY KEY (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace),
+    CONSTRAINT fk_AReserveNPlaces_Place FOREIGN KEY (NoPlace, NoRang, NoZone) REFERENCES Place (NoPlace, NoRang, NoZone),
+    CONSTRAINT fk_AReserveNPlaces_Representation FOREIGN KEY (NoSpectacle, NoRepresentation) REFERENCES Representation (NoSpectacle, NoRepresentation),
+    CONSTRAINT fk_AReserveNPlaces_Client FOREIGN KEY (Login) REFERENCES Utilisateur (Login)
 );
 
 
