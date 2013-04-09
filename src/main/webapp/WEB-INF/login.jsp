@@ -4,11 +4,12 @@
      Veuillez entrer vos identifiants pour vous connecter : <br/>
      
      
-     <form action="PagesControleur" method="get">
-         Login : <input type="text" label="login"/> <br/> 
-         Mot de passe : <input type="password" label="Password"/> <br/>
-         <input type="submit" name="action" value="annuler" />
-         <input type="submit" name="action" value="valider" /> 
+     <form action="PagesControleur" method="get" class="loginForm" >
+         <label> Login : </label><input type="text" label="login"/> <br/> 
+         <label>Mot de passe : </label><input type="password" label="Password"/> <br/> <br/>
+         <input type="submit" class="btnLogin" name="action" value="valider" /> 
+         <input type="reset" class="btnLogin" name="action" value="annuler" />
+
      </form>
      
  <c:import url="Layout/footer.jsp"/>

@@ -2,23 +2,24 @@
  
 <c:import url="Layout/header.jsp"/>
 
-      Liste des spectacles : <br/>
       
-        <table>
+        <table >
             <tr>
+                <th> </th>
                 <th>Spectacle</th>
                 <th>Date</th>
-                <th>&nbsp;</th>
+                <th> </th>
             </tr>
             <c:forEach items="${representations}" var="rep">
                 <tr>
-                    <td>${rep.nomSpectacle}</td><td>${rep.date}</td>
-                   <td><a href="RepresentationsControleur?action=reserver&view=reserver&id=${rep.noSpectacle}"/>Réserver</td>                       
-</tr>
+                    <td><img height="80px"  src="images/defaultSpectacle.jpg"/></td>
+                    <td>${rep.nomSpectacle}</td>
+                    <td>${rep.date}</td>
+                    <td><a class="reserver" href="RepresentationsControleur?action=reserver&view=reserver&nomSpectacle=${rep.nomSpectacle}&date=${rep.date}"/>Réserver</td>                       
+                </tr>
             </c:forEach>
         </table>
      
-<a href="PagesControleur?action=goToLogin"/>Me connecter</td>                       
 
  <c:import url="Layout/footer.jsp"/>
 

@@ -7,11 +7,66 @@
 */
 
 html{
-	background-color:grey;
+	background-color:#a40000;
 }
 
+h2.header {
+    margin-bottom: 2.5em;
+    margin-top : 1em;
+    font-size : 200%;
+}
+
+a.login, a.reserver {
+    float : right;
+    text-align: center;
+    box-shadow: 0px 2px 5px #1c1a19;
+    background-color: #282828;
+    color: white;
+    padding: 0.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    text-decoration: none;
+}
+
+
+
+
+form.loginForm {
+    margin-top: 1em;
+}
+
+form.loginForm label {
+    display : block;
+    float : left;
+    margin-left : 3em;
+    width : 10em;
+}
+
+form.loginForm input[type=text], form.loginForm input[type=password] {
+    width: 20em;
+}
+
+.btnLogin {
+    color: white;
+    background-color: #282828;
+    border-style: none;
+    box-shadow: 0px 2px 5px #1c1a19;
+    padding: 0.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 100%;
+    margin-left : 2em;
+}
+
+div.footer {
+    position : absolute;
+    bottom : 1.5em;   
+    width:70%;
+}
+
+
 body{
-	width: 800px;
+	width: 70%;
 	margin: 10px auto;
 	padding: 20px;
 	background-color:white;
@@ -32,8 +87,25 @@ body{
 }
 
 table {
-  width: 60%;
+        width: 90%;
+        margin : auto;
+        margin-top: 1em;
+        margin-bottom: 3em;
+	border-collapse: collapse;
 }
-td, th{
-  border-bottom: thin solid #6495ed;
+table th {
+	padding-bottom: 0.8em;
+        padding-top: 2em;
 }
+table td {
+        text-align: center;
+	padding-top: 1em;
+	border-top: 1px solid #999999;
+      	padding-bottom: 0.8em;
+
+}
+
+table tr {
+        height : 2em;
+}
+
