@@ -4,8 +4,13 @@
  */
 package dao;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 /**
@@ -14,9 +19,19 @@ import javax.sql.DataSource;
  */
 public class SqlDAO extends AbstractDataBaseDAO {
     
+    private Map<String,String> fic;
     
      public SqlDAO(DataSource ds) {
         super(ds);
+        try {
+            Properties props = new Properties();
+            InputStream stream;
+            stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("sql/requetes.properties");
+            props.load(stream);
+            fic = new HashMap<String, String>(((Map) props));        
+        } catch (IOException ex) {
+            Logger.getLogger(SqlDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
      
          /**
@@ -24,18 +39,6 @@ public class SqlDAO extends AbstractDataBaseDAO {
      * d'un ResultSet
      */
     public String getRequete(String key) throws DAOException {
-        String requeteSQL = null;
-        Properties props = new Properties();
-        InputStream stream;
-        try {
-                stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("/some.properties");
-                props.load(stream);
-                requeteSQL = props.getProperty(key);
-                stream.close();
-        } catch (Exception e) {
-            throw new DAOException("Erreur Fichier " + e.getMessage(), e);
-        } finally {
-        }
-        return requeteSQL;
+        return fic.get(key);
     }
 }
