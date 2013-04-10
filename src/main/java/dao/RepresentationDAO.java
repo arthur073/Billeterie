@@ -25,7 +25,7 @@ public class RepresentationDAO extends ProviderDAO {
         super(ds);
     }
     
-    public List<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) {
+    public ArrayList<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) {
         ArrayList<Integer> prices = new ArrayList<Integer>();
         return prices;
     }
