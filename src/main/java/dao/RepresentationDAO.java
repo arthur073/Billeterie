@@ -43,7 +43,7 @@ public class RepresentationDAO extends ProviderDAO {
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
-                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("DateRepresentation"), rs.getString("Nom"));
+                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("DateRepresentation"), rs.getString("Nom"), rs.getString("Image"));
                 result.add(representation);
             }
         } catch (SQLException e) {

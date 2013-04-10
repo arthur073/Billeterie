@@ -12,7 +12,7 @@
             </tr>
             <c:forEach items="${representations}" var="rep">
                 <tr>
-                    <td><img height="80px"  src="images/defaultSpectacle.jpg"/></td>
+                    <td><img height="80px"  src="images/${rep.image}"/></td>
                     <td>${rep.nomSpectacle}</td>
                     <td>${rep.date}</td>
                     <td><a class="reserver" href="RepresentationsControleur?action=reserver&view=reserver&nomSpectacle=${rep.nomSpectacle}&date=${rep.date}"/>Réserver</td>                       
