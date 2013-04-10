@@ -31,6 +31,33 @@ dir
 
 resources
 dir
+
+
+
+delete
+
+sql
+dir
+
+
+
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+copied
+svn+ssh://reignier@ensiens.imag.fr/home/perms/idani/Cours/AppliWeb/Supports_2012/TPs/TP6/Bibliography/src/main/resources
+217
 
 webapp
 dir

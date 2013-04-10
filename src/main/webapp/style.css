@@ -7,7 +7,8 @@
 */
 
 html{
-	background-color:#a40000;
+        background: url(images/rideau.jpg) no-repeat center center fixed;
+        background-size: cover;
 }
 
 h2.header {
@@ -70,6 +71,7 @@ body{
 	margin: 10px auto;
 	padding: 20px;
 	background-color:white;
+        filter:alpha(opacity=50);
 	font-family:   arial;
         box-shadow: 0px 2px 5px #1c1a19;
 

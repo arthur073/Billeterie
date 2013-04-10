@@ -17,11 +17,10 @@ import modele.Representation;
  *
  * @author arthur
  */
-//on extends le sqlDAO car on s'en sert partout et il extends deja lui-même le abstract
-public class RepresentationDAO extends ProviderDAO {
+public class ReservationDAO extends AbstractDataBaseDAO {
     
     
-     public RepresentationDAO(DataSource ds) {
+     public ReservationDAO(DataSource ds) {
         super(ds);
     }
      
@@ -29,7 +28,7 @@ public class RepresentationDAO extends ProviderDAO {
      * Renvoie la liste des ouvrages de la table bibliographie sous la forme
      * d'un ResultSet
      */
-    public List<Representation> getListeRepresentations() throws DAOException {
+    /*public List<Representation> getListeRepresentations() throws DAOException {
         List<Representation> result = new ArrayList<Representation>();
         ResultSet rs = null;
         String requeteSQL = "";
@@ -37,7 +36,7 @@ public class RepresentationDAO extends ProviderDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = getRequete("SELECT_LISTE_REPRESENTATIONS_A_VENIR");
+            requeteSQL = "select r.*, s.Nom from Spectacle s, Representation r where s.NoSpectacle=r.NoSpectacle";
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
@@ -50,5 +49,5 @@ public class RepresentationDAO extends ProviderDAO {
             closeConnection(conn);
         }
         return result;
-    }
+    }*/
 }

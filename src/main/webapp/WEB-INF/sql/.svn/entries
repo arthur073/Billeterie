@@ -1,0 +1,28 @@
+10
+
+dir
+0
+svn+ssh://reignier@ensiens.imag.fr/home/perms/idani/Cours/AppliWeb/Supports_2012/TPs/TP6/Bibliography/src/main/webapp/WEB-INF/sql
+svn+ssh://reignier@ensiens.imag.fr/home/perms/idani/Cours/AppliWeb
+add
+
+
+
+
+
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+4062baa4-ea1f-4e26-bc84-63e522d81240
+

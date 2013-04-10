@@ -10,11 +10,11 @@
 DROP TABLE AAcheteNPlaces;
 DROP TABLE AReserveNPlaces;
 DROP TABLE Place;
-DROP TABLE Zone;
-DROP TABLE CategorieTarifaire;
 DROP TABLE Utilisateur;
-DROP TABLE Spectacle;
+DROP TABLE PrixRepresentation;
+DROP TABLE Zone;
 DROP TABLE Representation;
+DROP TABLE Spectacle;
 
 CREATE TABLE Spectacle (
     NoSpectacle int,
@@ -25,7 +25,7 @@ CREATE TABLE Spectacle (
 CREATE TABLE Representation (
     NoSpectacle int,
     NoRepresentation int,
-    Date date NOT NULL,
+    DateRepresentation datetime NOT NULL,
     CONSTRAINT pk_Representation PRIMARY KEY (NoSpectacle, NoRepresentation),
     CONSTRAINT fk_Representation FOREIGN KEY (NoSpectacle) REFERENCES Spectacle (NoSpectacle)
 );
@@ -76,6 +76,7 @@ CREATE TABLE AAcheteNPlaces (
     NoSerie int,
     DateAchat datetime,
     CONSTRAINT pk_AAcheteNPlaces PRIMARY KEY (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace, NoDossier, NoSerie),
+    CONSTRAINT uq_AAcheteNPlaces UNIQUE (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace),
     CONSTRAINT fk_AAcheteNPlaces_Place FOREIGN KEY (NoPlace, NoRang, NoZone) REFERENCES Place (NoPlace, NoRang, NoZone),
     CONSTRAINT fk_AAcheteNPlaces_Representation FOREIGN KEY (NoSpectacle, NoRepresentation) REFERENCES Representation (NoSpectacle, NoRepresentation),
     CONSTRAINT fk_AAcheteNPlaces_Client FOREIGN KEY (Login) REFERENCES Utilisateur (Login)
