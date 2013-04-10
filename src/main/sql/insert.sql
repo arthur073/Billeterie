@@ -1,14 +1,14 @@
 
 -- Les spectacles
 
-insert into Spectacle values(1, '-M- Première partie');
-insert into Spectacle values(2, 'Urban peace 3');
-insert into Spectacle values(3, 'La Fouine');
-insert into Spectacle values(4, 'Patrick Sébastien');
-insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses');
-insert into Spectacle values(6, 'Gad Elmaleh');
-insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm');
-insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat');
+insert into Spectacle values(1, '-M- Première partie', 'defaultSpectacle.jpg');
+insert into Spectacle values(2, 'Urban peace 3', 'defaultSpectacle.jpg');
+insert into Spectacle values(3, 'La Fouine', 'defaultSpectacle.jpg');
+insert into Spectacle values(4, 'Patrick Sébastien', 'defaultSpectacle.jpg');
+insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'defaultSpectacle.jpg');
+insert into Spectacle values(6, 'Gad Elmaleh', 'defaultSpectacle.jpg');
+insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm', 'defaultSpectacle.jpg');
+insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', 'defaultSpectacle.jpg');
 
 
 
