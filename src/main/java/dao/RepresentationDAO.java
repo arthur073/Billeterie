@@ -5,6 +5,7 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -19,13 +20,12 @@ import modele.Representation;
  */
 //on extends le sqlDAO car on s'en sert partout et il extends deja lui-même le abstract
 public class RepresentationDAO extends ProviderDAO {
-    
-    
-     public RepresentationDAO(DataSource ds) {
+
+    public RepresentationDAO(DataSource ds) {
         super(ds);
     }
-     
-         /**
+
+    /**
      * Renvoie la liste des ouvrages de la table bibliographie sous la forme
      * d'un ResultSet
      */
@@ -34,12 +34,13 @@ public class RepresentationDAO extends ProviderDAO {
         ResultSet rs = null;
         String requeteSQL = "";
         Connection conn = null;
+
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            
+
             requeteSQL = getRequete("SELECT_LISTE_REPRESENTATIONS_A_VENIR");
-            
+
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
@@ -51,6 +52,7 @@ public class RepresentationDAO extends ProviderDAO {
         } finally {
             closeConnection(conn);
         }
+
         return result;
     }
 }

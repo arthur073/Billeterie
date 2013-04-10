@@ -1,3 +1,4 @@
+source creation.sql;
 
 -- Les spectacles
 
@@ -24,6 +25,19 @@ insert into Representation values(6, 8, '2013-02-10');
 insert into Representation values(7, 9, '2013-01-10');
 insert into Representation values(8, 10, '2014-05-10');
 
+
+-- Les Zones
+insert into Zone values(1, 'Poulailler', 16);
+insert into Zone values(2, 'Orchestre', 56);
+insert into Zone values(3, 'Zone !', 66);
+
+
+
+-- Les prix des représentations 
+
+insert into PrixRepresentation values(1, 1, 1, 15);
+insert into PrixRepresentation values(1, 1, 2, 25);
+insert into PrixRepresentation values(1, 1, 3, 55.55);
 
 -- Les Utilisateurs
 -- Les Clients
