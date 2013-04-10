@@ -2,7 +2,7 @@
 -- Les spectacles
 
 insert into Spectacle values(1, '-M- Première partie', 'defaultSpectacle.jpg');
-insert into Spectacle values(2, 'Urban peace 3', 'defaultSpectacle.jpg');
+insert into Spectacle values(2, 'Urban peace 3', 'urbanpeace.jpg');
 insert into Spectacle values(3, 'La Fouine', 'defaultSpectacle.jpg');
 insert into Spectacle values(4, 'Patrick Sébastien', 'defaultSpectacle.jpg');
 insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'defaultSpectacle.jpg');
