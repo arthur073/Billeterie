@@ -24,6 +24,11 @@ public class RepresentationDAO extends ProviderDAO {
     public RepresentationDAO(DataSource ds) {
         super(ds);
     }
+    
+    public List<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) {
+        ArrayList<Integer> prices = new ArrayList<Integer>();
+        return prices;
+    }
 
     /**
      * Renvoie la liste des ouvrages de la table bibliographie sous la forme
