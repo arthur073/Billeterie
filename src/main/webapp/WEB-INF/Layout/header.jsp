@@ -6,6 +6,7 @@
     
     <body>
         <% if(request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) { %>
+        
         <a href="PagesControleur?action=goToLogin" class="login"/>Me connecter</a>
         <% } else { %>
         <a href="PagesControleur" class="login"/>Accueil</a>
