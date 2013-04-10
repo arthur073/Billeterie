@@ -12,10 +12,20 @@ insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat');
 
 
 
--- Les spectacles
+-- Les Réservations
 
 insert into Representation values(1, 1, '2013-05-01');
-insert into Representation values(1, 2, '2013-05-02');
 insert into Representation values(2, 3, '2013-05-11');
 insert into Representation values(2, 4, '2013-05-10');
+insert into Representation values(3, 5, '2013-05-12');
+insert into Representation values(4, 6, '2013-05-01');
+insert into Representation values(5, 7, '2013-04-20');
+insert into Representation values(6, 8, '2013-02-10');
+insert into Representation values(7, 9, '2013-01-10');
+insert into Representation values(8, 10, '2014-05-10');
+
+
+-- Les Utilisateurs
+-- Les Clients
+-- Les Responsables
 

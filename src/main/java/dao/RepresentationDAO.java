@@ -37,7 +37,9 @@ public class RepresentationDAO extends ProviderDAO {
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
+            
             requeteSQL = getRequete("SELECT_LISTE_REPRESENTATIONS_A_VENIR");
+            
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
