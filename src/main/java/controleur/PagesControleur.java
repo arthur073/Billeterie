@@ -31,9 +31,9 @@ public class PagesControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            if (action == null) {
+            if (action == null || action.equalsIgnoreCase("annuler")) {
                 actionAfficher(request, response);
-            } else if (action.equals("goToLogin")) {
+            } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
                 logMeIn(request, response);
@@ -70,7 +70,8 @@ public class PagesControleur extends HttpServlet {
         }
     }
     
-    private void ValiderReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+    private void validerReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        
         String action = request.getParameter("action");
         
         if (action.equalsIgnoreCase("annuler")) {

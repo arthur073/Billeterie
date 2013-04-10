@@ -4,11 +4,11 @@
      Veuillez entrer vos identifiants pour vous connecter : <br/>
      
      
-     <form action="PagesControleur" method="get" class="loginForm" >
+     <form action="PagesControleur" method="push" class="loginForm" >
          <label> Login : </label><input type="text" label="login"/> <br/> 
          <label>Mot de passe : </label><input type="password" label="Password"/> <br/> <br/>
-         <input type="submit" class="btnLogin" name="action" value="valider" /> 
-         <input type="reset" class="btnLogin" name="action" value="annuler" />
+         <input type="submit" class="btnLogin" name="action" value="Valider" /> 
+         <input type="submit" class="btnLogin" name="action" value="Annuler" />
 
      </form>
      
