@@ -46,7 +46,7 @@ AND NoRepresentation = ?
 
 ------------------
 
-SELECT_LISTE_RESERVATIONS_CLIENT=
+SELECT_LISTE_RESERVATIONS_CLIENT_REPRESENTATION=
 
 SELECT *
 FROM AReserveNPlaces
@@ -55,6 +55,15 @@ AND NoSpectacle = ?
 AND NoRepresentation = ?
 
 -------------------
+
+SELECT_LISTE_RESERVATIONS_CLIENT=
+
+SELECT *
+FROM AReserveNPlaces 
+WHERE Login = ?
+
+-----------------
+
 
 SELECT_PRIX_ZONE_REPRESENTATION=
 
@@ -65,6 +74,12 @@ AND NoRepresentation = ?
 AND NoZone = ?
 
 --------------------
+
+SELECT_EXISTENCE_CLIENT=
+
+SELECT Login
+FROM Utilisateur
+WHERE Login = ?
 
 
 select liste places pas encore reservees (pour tout, par zone)

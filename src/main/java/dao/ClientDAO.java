@@ -54,20 +54,28 @@ public class ClientDAO extends ProviderDAO {
      * 
      * pre-condition : le login n'est pas utilisé
      */
-        public void ClientCreation(String login, String password, String nom, String prenom, String mail) throws DAOException {
+        public boolean ClientCreation(String login, String password, String nom, String prenom, String mail) throws DAOException {
         List<Representation> result = new ArrayList<Representation>();
         ResultSet rs = null;
         String requeteSQL = "";
         Connection conn = null;
         try {
             conn = getConnection();
-            PreparedStatement st = conn.prepareStatement(getRequete("INSERT_CLIENT"));
+            
+            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_EXISTENCE_CLIENT"));
+            st.setString(1, login);
+            rs = st.executeQuery(requeteSQL);
+            if( ! rs.next() )
+                return false;
+
+            st = conn.prepareStatement(getRequete("INSERT_CLIENT"));
             st.setString(1, login);
             st.setString(2, nom);
             st.setString(3, prenom);
             st.setString(4, mail);
             st.setString(5, password);
-            rs = st.executeQuery(requeteSQL);
+            st.executeQuery(requeteSQL);
+            return true;
             //les identifiants sont ok
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
