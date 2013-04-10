@@ -60,9 +60,8 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
 }
 
 div.footer {
-    position : absolute;
-    bottom : 1.5em;   
-    width:70%;
+    position : relative;
+    width:100%;
 }
 
 
