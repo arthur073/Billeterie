@@ -19,6 +19,7 @@ DROP TABLE Spectacle;
 CREATE TABLE Spectacle (
     NoSpectacle int,
     Nom varchar(100) NOT NULL,
+    Image varchar(300),
     CONSTRAINT pk_Spectacle PRIMARY KEY (NoSpectacle)
 );
 
