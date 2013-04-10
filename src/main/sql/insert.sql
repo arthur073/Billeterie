@@ -16,6 +16,8 @@ insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', '
 -- Les Réservations
 
 insert into Representation values(1, 1, '2013-05-01');
+insert into Representation values(1, 2, '2013-05-02');
+insert into Representation values(1, 3, '2013-05-04');
 insert into Representation values(2, 3, '2013-05-11');
 insert into Representation values(2, 4, '2013-05-10');
 insert into Representation values(3, 5, '2013-05-12');
@@ -34,6 +36,14 @@ insert into Zone values(3, 'Zone !', 66);
 
 
 -- Les prix des représentations 
+
+insert into PrixRepresentation values(1, 1, 1, 15);
+insert into PrixRepresentation values(1, 1, 2, 25);
+insert into PrixRepresentation values(1, 1, 3, 55.55);
+
+insert into PrixRepresentation values(1, 2, 1, 10);
+insert into PrixRepresentation values(1, 2, 2, 14);
+insert into PrixRepresentation values(1, 2, 3, 57);
 
 insert into PrixRepresentation values(1, 1, 1, 15);
 insert into PrixRepresentation values(1, 1, 2, 25);
