@@ -45,11 +45,15 @@ insert into PrixRepresentation values(1, 2, 1, 10);
 insert into PrixRepresentation values(1, 2, 2, 14);
 insert into PrixRepresentation values(1, 2, 3, 57);
 
-insert into PrixRepresentation values(1, 1, 1, 15);
-insert into PrixRepresentation values(1, 1, 2, 25);
-insert into PrixRepresentation values(1, 1, 3, 55.55);
+insert into PrixRepresentation values(1, 3, 1, 15);
+insert into PrixRepresentation values(1, 3, 2, 25);
+insert into PrixRepresentation values(1, 3, 3, 55.55);
 
 -- Les Utilisateurs
+
+insert into Utilisateur values ("vernadat","Vernadat","Thibault", "titi@ensimag.fr","titi",'Client');
+
+
 -- Les Clients
 -- Les Responsables
 

@@ -32,7 +32,7 @@ CREATE TABLE Representation (
 );
 
 CREATE TABLE Utilisateur (
-    Login int,
+    Login varchar(30) NOT NULL,
     Nom varchar(50) NOT NULL,
     Prenom varchar(50) NOT NULL,
     Mail varchar(100),

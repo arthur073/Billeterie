@@ -5,8 +5,8 @@
      
      
      <form action="PagesControleur" method="push" class="loginForm" >
-         <label> Login : </label><input type="text" label="login"/> <br/> 
-         <label>Mot de passe : </label><input type="password" label="Password"/> <br/> <br/>
+         <label> Login : </label><input type="text" name="username"/> <br/> 
+         <label>Mot de passe : </label><input type="password" name="passwd"/> <br/> <br/>
          <input type="submit" class="btnLogin" name="action" value="Valider" /> 
          <input type="submit" class="btnLogin" name="action" value="Annuler" />
 

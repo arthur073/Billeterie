@@ -2,6 +2,7 @@ package controleur;
 
 import dao.DAOException;
 import dao.RepresentationDAO;
+import dao.UtilisateurDAO;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,6 +30,8 @@ public class PagesControleur extends HttpServlet {
             throws IOException, ServletException {
 
         String action = request.getParameter("action");
+        String login = request.getParameter("username");
+        String password = request.getParameter("passwd");
 
         try {
             if (action == null || action.equalsIgnoreCase("annuler")) {
@@ -36,7 +39,7 @@ public class PagesControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
-                logMeIn(request, response);
+                logMeIn(request, response,login,password);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
@@ -55,16 +58,26 @@ public class PagesControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
-    private void logMeIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+    private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
         String action = request.getParameter("action");
-        
-        if (action.equalsIgnoreCase("annuler")) {
-            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
-            return;
-        }
+    
+        // Thib : je pense que ce bloc sert a rien car on vient du doGet et on
+        // a déjà fait le test de l'action. De meme le if suivant sert a rien je
+        // pense. Si quelqu'un valide il peut faire le ménage ;-)
+//        if (action.equalsIgnoreCase("annuler")) {
+//            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+//            return;
+//        }
         
         if (action.equalsIgnoreCase("valider")) {
-            request.getSession(true).setAttribute("LoggedIn", true);
+            UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
+            Boolean logged =  utilDAO.ClientIdentification(login, password);
+            System.out.println(logged);
+            if (logged) {
+                request.getSession(true).setAttribute("LoggedIn", true);
+            } else {
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+            }
             actionAfficher(request, response);
             return;
         }

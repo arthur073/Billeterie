@@ -37,7 +37,6 @@ public class RepresentationDAO extends ProviderDAO {
             st.setInt(1, NoSpectacle);
             st.setInt(2, NoRepresentation);
             rs = st.executeQuery(requeteSQL);
-
             while (rs.next()) {
                 prices.add(rs.getInt("Prix"));
             }

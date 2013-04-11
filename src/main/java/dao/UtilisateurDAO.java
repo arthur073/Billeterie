@@ -38,7 +38,8 @@ public class UtilisateurDAO extends ProviderDAO {
             PreparedStatement st = conn.prepareStatement(getRequete("SELECT_CONNEXION_CLIENT"));
             st.setString(1, login);
             st.setString(2, password);
-            rs = st.executeQuery(requeteSQL);
+            rs = st.executeQuery();
+            //rs = st.executeQuery(requeteSQL);
             //les identifiants sont ok
             if( rs.next() )
                 return true;
