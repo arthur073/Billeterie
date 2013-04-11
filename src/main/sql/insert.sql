@@ -52,7 +52,7 @@ insert into PrixRepresentation values(1, 3, 3, 55.55);
 -- Les Utilisateurs
 
 insert into Utilisateur values ("vernadat","Vernadat","Thibault", "titi@ensimag.fr","titi",'Client');
-
+insert into Utilisateur values ("Michel57390", "Haha", "Michel", "michel@haha.fr", "root", 'Responsable');
 
 -- Les Clients
 -- Les Responsables
