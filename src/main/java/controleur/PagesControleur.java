@@ -25,13 +25,13 @@ public class PagesControleur extends HttpServlet {
     /**
      * La méthode principale d'aiguillage.
      */
+    @Override
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
 
         String action = request.getParameter("action");
-        String login = request.getParameter("username");
-        String password = request.getParameter("passwd");
+        
 
         try {
             if (action == null || action.equalsIgnoreCase("annuler")) {
@@ -39,6 +39,8 @@ public class PagesControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
+                String login = request.getParameter("username");
+                String password = request.getParameter("passwd");
                 logMeIn(request, response,login,password);
             }
         } catch (DAOException e) {
