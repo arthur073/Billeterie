@@ -8,7 +8,7 @@
         <% if(request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) { %>
             <% Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn"); %>
             <% if(logged) { %>
-            <a href="PagesControleur?action=goToLogin" class="login"/>Me déconnecter</a>
+            <a href="PagesControleur?action=goToLogOut" class="login"/>Me déconnecter</a>
             <% } else { %>
             <a href="PagesControleur?action=goToLogin" class="login"/>Me connecter</a>
             <% } %>

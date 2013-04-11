@@ -38,6 +38,8 @@ public class PagesControleur extends HttpServlet {
                 actionAfficher(request, response);
             } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
+            } else if (action.equalsIgnoreCase("goToLogOut")) {
+                goToLogOut(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
                 String login = request.getParameter("username");
                 String password = request.getParameter("passwd");
@@ -58,6 +60,11 @@ public class PagesControleur extends HttpServlet {
 
     private void goToLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+    }
+    
+    private void goToLogOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        request.getSession().setAttribute("LoggedIn", false);
+        actionAfficher(request,response);
     }
 
     private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
