@@ -4,6 +4,9 @@
  */
 package dao;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +29,7 @@ public class UtilisateurDAO extends ProviderDAO {
      
          /**
      * Renvoie un boolean a true si les identifiants sont OK
-     * pre-conditions : le password a deja été haché et les identifiants ont été échapés
+     * pre-conditions : le password n'a pas deja été haché
      */
     public boolean ClientIdentification(String login, String password) throws DAOException {
         List<Representation> result = new ArrayList<Representation>();
@@ -37,9 +40,8 @@ public class UtilisateurDAO extends ProviderDAO {
             conn = getConnection();
             PreparedStatement st = conn.prepareStatement(getRequete("SELECT_CONNEXION_CLIENT"));
             st.setString(1, login);
-            st.setString(2, password);
+            st.setString(2, getHexDigest(password));
             rs = st.executeQuery();
-            //rs = st.executeQuery(requeteSQL);
             //les identifiants sont ok
             if( rs.next() )
                 return true;
@@ -51,6 +53,21 @@ public class UtilisateurDAO extends ProviderDAO {
             closeConnection(conn);
         }
     }
+    
+    	public static String getHexDigest(String password) {
+		StringBuffer hexPass = new StringBuffer();
+		try {
+			byte[] passwdMd5 = MessageDigest.getInstance("MD5").digest(password.getBytes("UTF-8"));
+			for (int i = 0 ; i < passwdMd5.length ; i++) {
+				hexPass.append(Integer.toHexString(0xFF & passwdMd5[i]));
+			}
+		} catch (NoSuchAlgorithmException e1) {
+			e1.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		return new String(hexPass);
+	}
          /**
      * 
      * pre-condition : le login n'est pas utilisé
@@ -76,7 +93,7 @@ public class UtilisateurDAO extends ProviderDAO {
             st.setString(2, nom);
             st.setString(3, prenom);
             st.setString(4, mail);
-            st.setString(5, password);
+            st.setString(5, getHexDigest(password));
             st.setString(6, client);
             st.executeUpdate();
             
