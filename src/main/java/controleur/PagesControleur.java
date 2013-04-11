@@ -40,6 +40,10 @@ public class PagesControleur extends HttpServlet {
                 goToLogIn(request, response);
             } else if (action.equalsIgnoreCase("goToLogOut")) {
                 goToLogOut(request, response);
+            } else if (action.equalsIgnoreCase("Creer un compte")) {
+                CreerUnCompte(request, response);
+            } else if (action.equalsIgnoreCase("FormCreateUser")) {
+                FormulaireCreerUnCompte(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
                 String login = request.getParameter("username");
                 String password = request.getParameter("passwd");
@@ -107,5 +111,19 @@ public class PagesControleur extends HttpServlet {
         }
     }
     
+    private void CreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+            getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response); 
+    }
+    
+    private void FormulaireCreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        UtilisateurDAO userDAO = new UtilisateurDAO(ds);
+        String nom = (String) request.getParameter("nom");
+        String prenom = (String) request.getParameter("prenom");
+        String login = (String) request.getParameter("username");
+        String passwd = (String) request.getParameter("passwd");
+        String email = (String) request.getParameter("email");
+        userDAO.ClientCreation(login, passwd, nom, prenom, email);
+        getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response); 
+    }
     
 }

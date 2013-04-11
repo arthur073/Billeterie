@@ -55,7 +55,7 @@ public class UtilisateurDAO extends ProviderDAO {
      * 
      * pre-condition : le login n'est pas utilisé
      */
-        public boolean ClientCreation(String login, String password, String nom, String prenom, String mail) throws DAOException {
+        public void ClientCreation(String login, String password, String nom, String prenom, String mail) throws DAOException {
         List<Representation> result = new ArrayList<Representation>();
         ResultSet rs = null;
         String requeteSQL = "";
@@ -63,20 +63,24 @@ public class UtilisateurDAO extends ProviderDAO {
         try {
             conn = getConnection();
             
-            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_EXISTENCE_CLIENT"));
-            st.setString(1, login);
-            rs = st.executeQuery(requeteSQL);
-            if( ! rs.next() )
-                return false;
+            //PreparedStatement st = conn.prepareStatement(getRequete("SELECT_EXISTENCE_CLIENT"));
+            //st.setString(1, login);
+            //rs = st.executeQuery();
+            //if( rs.next() ){
+            //    return false;
+            //} else {
 
-            st = conn.prepareStatement(getRequete("INSERT_CLIENT"));
+            PreparedStatement st = conn.prepareStatement(getRequete("INSERT_CLIENT"));
+            String client = "Client";
             st.setString(1, login);
             st.setString(2, nom);
             st.setString(3, prenom);
             st.setString(4, mail);
             st.setString(5, password);
-            st.executeQuery(requeteSQL);
-            return true;
+            st.setString(6, client);
+            st.executeUpdate();
+            
+            //}
             //les identifiants sont ok
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
