@@ -82,6 +82,46 @@ FROM Utilisateur
 WHERE Login = ?
 
 
+----------------------
+
+SELECT_LISTE_REPRESENTATIONS_A_VENIR=
+
+SELECT r.*, s.Nom, s.Image, pr.Prix as PrixMin
+FROM Representation r,Spectacle s, PrixRepresentation pr
+WHERE DateRepresentation > CURRENT_DATE() 
+AND r.NoSpectacle = s.NoSpectacle
+AND pr.NoSpectacle = s.NoSpectacle
+AND pr.NoRepresentation = r.NoRepresentation
+AND Prix = (SELECT  min(pr.Prix)
+FROM Representation r2,Spectacle s, PrixRepresentation pr
+WHERE DateRepresentation > CURRENT_DATE() 
+AND r.NoSpectacle = s.NoSpectacle
+AND pr.NoSpectacle = s.NoSpectacle
+AND r.NoRepresentation = r2.NoRepresentation
+AND pr.NoRepresentation = r.NoRepresentation
+GROUP BY r.NoRepresentation) 
+GROUP BY r.NoRepresentation
+UNION
+SELECT r.*, s.Nom, s.Image, pr.Prix as PrixMax
+FROM Representation r,Spectacle s, PrixRepresentation pr
+WHERE DateRepresentation > CURRENT_DATE() 
+AND r.NoSpectacle = s.NoSpectacle
+AND pr.NoSpectacle = s.NoSpectacle
+AND pr.NoRepresentation = r.NoRepresentation
+AND Prix = (SELECT  max(pr.Prix)
+FROM Representation r2,Spectacle s, PrixRepresentation pr
+WHERE DateRepresentation > CURRENT_DATE() 
+AND r.NoSpectacle = s.NoSpectacle
+AND pr.NoSpectacle = s.NoSpectacle
+AND r.NoRepresentation = r2.NoRepresentation
+AND pr.NoRepresentation = r.NoRepresentation
+GROUP BY r.NoRepresentation) 
+GROUP BY r.NoRepresentation)
+
+
+
+
+
 select liste places pas encore reservees (pour tout, par zone)
 select verif que representation a plus de 70 places
 

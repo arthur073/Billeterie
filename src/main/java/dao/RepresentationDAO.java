@@ -25,8 +25,31 @@ public class RepresentationDAO extends ProviderDAO {
         super(ds);
     }
     
+<<<<<<< HEAD
     public ArrayList<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) {
+=======
+    public List<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) throws DAOException {
+>>>>>>> 637cb8d0b8d13890a124719cd547590962041160
         ArrayList<Integer> prices = new ArrayList<Integer>();
+        ResultSet rs = null;
+        String requeteSQL = "";
+        Connection conn = null;
+
+        try {
+            conn = getConnection();
+            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_PRIX_ZONE_REPRESENTATION"));
+            st.setInt(1, NoSpectacle);
+            st.setInt(2, NoRepresentation);
+            rs = st.executeQuery(requeteSQL);
+            while (rs.next()) {
+                prices.add(rs.getInt("Prix"));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+        
         return prices;
     }
 
