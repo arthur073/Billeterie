@@ -50,7 +50,7 @@ public class ReservationControleur extends HttpServlet {
     private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
         RepresentationDAO rep = new RepresentationDAO(ds);
         ArrayList<Integer> ListePrix = new ArrayList<Integer>();
-        ListePrix = rep.getRepresentationPrice(Integer.parseInt(request.getAttribute("NoSpectacle").toString()), Integer.parseInt(request.getAttribute("NoRepresentation").toString()));
+        //ListePrix = rep.getRepresentationPrice(Integer.parseInt(request.getAttribute("NoSpectacle").toString()), Integer.parseInt(request.getAttribute("NoRepresentation").toString()));
         
         // TODO : prendre les prix de la requête de thib
         request.setAttribute("p1", 15);

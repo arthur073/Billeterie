@@ -24,12 +24,8 @@ public class RepresentationDAO extends ProviderDAO {
     public RepresentationDAO(DataSource ds) {
         super(ds);
     }
-    
-<<<<<<< HEAD
-    public ArrayList<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) {
-=======
+
     public List<Integer> getRepresentationPrice(int NoSpectacle, int NoRepresentation) throws DAOException {
->>>>>>> 637cb8d0b8d13890a124719cd547590962041160
         ArrayList<Integer> prices = new ArrayList<Integer>();
         ResultSet rs = null;
         String requeteSQL = "";
@@ -49,7 +45,7 @@ public class RepresentationDAO extends ProviderDAO {
         } finally {
             closeConnection(conn);
         }
-        
+
         return prices;
     }
 
