@@ -4,7 +4,7 @@
 <h2 align="center" class="header"> Formulaire de création d'un utilisateur  </h2>
      <br/>
           
-     <form action="UtilisateursControleur" method="push" class="loginForm" >
+     <form action="UtilisateursControleur" method="post" class="loginForm" >
          <label> Nom : </label><input type="text" name="nom"/> <br/> 
          <label> Prénom : </label><input type="text" name="prenom"/> <br/> 
          <label> Login : </label><input type="text" name="username"/> <br/> 

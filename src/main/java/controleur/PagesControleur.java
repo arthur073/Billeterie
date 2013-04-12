@@ -52,7 +52,7 @@ public class PagesControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
-
+    
     private void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
