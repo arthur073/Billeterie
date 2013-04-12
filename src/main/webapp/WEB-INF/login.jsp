@@ -3,6 +3,11 @@
 <c:import url="Layout/header.jsp"/>      
 <h2 align="center" class="header"> Connexion à votre espace client  </h2>
 
+    <% Boolean b = (Boolean) request.getSession().getAttribute("FailedLogIn"); %>
+    <% if (b) { %>
+        !! Mauvais identifiants !! <br/><br/>
+    <% } %>
+
      Veuillez entrer vos identifiants pour vous connecter : <br/>
      
      

@@ -69,22 +69,6 @@ public class PagesControleur extends HttpServlet {
         actionAfficher(request,response);
     }
 
-    private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
-        String action = request.getParameter("action");
-    
-        UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
-        Boolean logged =  utilDAO.ClientIdentification(login, password);
-        // TODO à clarifier
-        System.out.println(logged);
-        if (logged) {
-            request.getSession(true).setAttribute("LoggedIn", true);
-        } else {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        }
-        actionAfficher(request, response);
-        return;
-    }
-    
     private void validerReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         
         String action = request.getParameter("action");
