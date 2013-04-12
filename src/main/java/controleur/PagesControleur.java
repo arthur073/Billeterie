@@ -42,7 +42,7 @@ public class PagesControleur extends HttpServlet {
                 goToLogOut(request, response);
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
-            } else if (action.equalsIgnoreCase("FormCreateUser")) {
+            } else if (action.equalsIgnoreCase("Creer")) {
                 FormulaireCreerUnCompte(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
                 String login = request.getParameter("username");
