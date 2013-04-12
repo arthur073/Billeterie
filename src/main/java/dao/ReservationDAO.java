@@ -5,19 +5,19 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
-import modele.Representation;
+import modele.Reservation;
 
 /**
  *
  * @author arthur
  */
-public class ReservationDAO extends AbstractDataBaseDAO {
+public class ReservationDAO extends ProviderDAO {
     
     
      public ReservationDAO(DataSource ds) {
@@ -25,23 +25,26 @@ public class ReservationDAO extends AbstractDataBaseDAO {
     }
      
          /**
-     * Renvoie la liste des ouvrages de la table bibliographie sous la forme
-     * d'un ResultSet
+     * Renvoie la liste des reservations non payees pour une representation donnee
      */
-    /*public List<Representation> getListeRepresentations() throws DAOException {
-        List<Representation> result = new ArrayList<Representation>();
+    public List<Reservation> getListeReservationsNonPayeesRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
+        List<Reservation> result = new ArrayList<Reservation>();
         ResultSet rs = null;
         String requeteSQL = "";
         Connection conn = null;
         try {
             conn = getConnection();
-            Statement st = conn.createStatement();
-            requeteSQL = "select r.*, s.Nom from Spectacle s, Representation r where s.NoSpectacle=r.NoSpectacle";
-            rs = st.executeQuery(requeteSQL);
+            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_NON_PAYEES_REPRESENTATION"));
+            st.setInt(1, noSpectacle);
+            st.setInt(2, noRepresentation);
+            st.executeQuery();
 
             while (rs.next()) {
-                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("Date"), rs.getString("Nom"));
-                result.add(representation);
+                Reservation reservation = new Reservation(rs.getString("Login"), 
+                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        );
+                result.add(reservation);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -49,5 +52,65 @@ public class ReservationDAO extends AbstractDataBaseDAO {
             closeConnection(conn);
         }
         return result;
-    }*/
+    }
+    
+       /**
+     * Renvoie la liste des reservations non payees pour un client a une representation donnee
+     */
+    public List<Reservation> getListeReservationsClientRepresentation(String login, int noSpectacle, int noRepresentation) throws DAOException {
+        List<Reservation> result = new ArrayList<Reservation>();
+        ResultSet rs = null;
+        String requeteSQL = "";
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_CLIENT_REPRESENTATION"));
+            st.setString(1, login);
+            st.setInt(2, noSpectacle);
+            st.setInt(3, noRepresentation);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Reservation reservation = new Reservation(rs.getString("Login"), 
+                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        );
+                result.add(reservation);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+        return result;
+    }
+    
+      /**
+     * Renvoie la liste des reservations non payees pour un client
+     */
+    public List<Reservation> getListeReservationsClient(String login) throws DAOException {
+        List<Reservation> result = new ArrayList<Reservation>();
+        ResultSet rs = null;
+        String requeteSQL = "";
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_CLIENT"));
+            st.setString(1, login);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Reservation reservation = new Reservation(rs.getString("Login"), 
+                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        );
+                result.add(reservation);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+        return result;
+    }
 }

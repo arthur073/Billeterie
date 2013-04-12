@@ -17,20 +17,23 @@ import javax.sql.DataSource;
  *
  * @author Michel
  */
-public class SqlDAO extends AbstractDataBaseDAO {
+public class ProviderDAO extends AbstractDataBaseDAO {
     
     private Map<String,String> fic;
     
-     public SqlDAO(DataSource ds) {
+     public ProviderDAO(DataSource ds) {
         super(ds);
         try {
             Properties props = new Properties();
             InputStream stream;
-            stream = Thread.currentThread().getContextClassLoader().getResourceAsStream("WEB-INF/sql/requetes.properties");
-            props.load(stream);
+            stream = this.getClass().getClassLoader().getResourceAsStream("../sql/requetes.properties");
+            if( stream != null )
+                props.load(stream);
+            else
+                System.err.println("Erreur de lecture du fichier de requetes sql");
             fic = new HashMap<String, String>(((Map) props));        
         } catch (IOException ex) {
-            Logger.getLogger(SqlDAO.class.getName()).log(Level.SEVERE, null, ex);
+               Logger.getLogger(ProviderDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
      

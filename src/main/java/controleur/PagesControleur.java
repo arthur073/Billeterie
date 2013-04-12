@@ -2,6 +2,7 @@ package controleur;
 
 import dao.DAOException;
 import dao.RepresentationDAO;
+import dao.UtilisateurDAO;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,19 +25,27 @@ public class PagesControleur extends HttpServlet {
     /**
      * La méthode principale d'aiguillage.
      */
+    @Override
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
 
         String action = request.getParameter("action");
+        
 
         try {
-            if (action == null) {
+            if (action == null || action.equalsIgnoreCase("annuler")) {
                 actionAfficher(request, response);
-            } else if (action.equals("goToLogin")) {
+            } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
+            } else if (action.equalsIgnoreCase("goToLogOut")) {
+                goToLogOut(request, response);
+            } else if (action.equalsIgnoreCase("Creer un compte")) {
+                CreerUnCompte(request, response);
             } else if (action.equalsIgnoreCase("valider")) {
-                logMeIn(request, response);
+                String login = request.getParameter("username");
+                String password = request.getParameter("passwd");
+                logMeIn(request, response,login,password);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
@@ -54,23 +63,30 @@ public class PagesControleur extends HttpServlet {
     private void goToLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
+    
+    private void goToLogOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        request.getSession().setAttribute("LoggedIn", false);
+        actionAfficher(request,response);
+    }
 
-    private void logMeIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+    private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
         String action = request.getParameter("action");
-        
-        if (action.equalsIgnoreCase("annuler")) {
-            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
-            return;
-        }
-        
-        if (action.equalsIgnoreCase("valider")) {
+    
+        UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
+        Boolean logged =  utilDAO.ClientIdentification(login, password);
+        // TODO à clarifier
+        System.out.println(logged);
+        if (logged) {
             request.getSession(true).setAttribute("LoggedIn", true);
-            actionAfficher(request, response);
-            return;
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
+        actionAfficher(request, response);
+        return;
     }
     
-    private void ValiderReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+    private void validerReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        
         String action = request.getParameter("action");
         
         if (action.equalsIgnoreCase("annuler")) {
@@ -84,5 +100,9 @@ public class PagesControleur extends HttpServlet {
         }
     }
     
+    private void CreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+            getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response); 
+    }
     
+  
 }

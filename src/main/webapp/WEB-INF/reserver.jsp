@@ -2,6 +2,12 @@
 
 <c:import url="Layout/header.jsp"/>    
 
+TEMPORAIRE : prix des places <br/>
+Orchestre :  <%= request.getAttribute("p1") %> <br/>
+Poulailler : ? <br/>
+Balcon : ? <br/>
+
+
 Vous souhaitez réserver pour le spectacle <%= request.getParameter("nomSpectacle")%> dont la representation
 est le <%= request.getParameter("date")%>.
 

@@ -21,6 +21,7 @@ DROP TABLE Spectacle;
 CREATE TABLE Spectacle (
     NoSpectacle int,
     Nom varchar(100) NOT NULL,
+    Image varchar(300),
     CONSTRAINT pk_Spectacle PRIMARY KEY (NoSpectacle)
 );
 
@@ -33,7 +34,7 @@ CREATE TABLE Representation (
 );
 
 CREATE TABLE Utilisateur (
-    Login int,
+    Login varchar(30),
     Nom varchar(50) NOT NULL,
     Prenom varchar(50) NOT NULL,
     Mail varchar(100),
@@ -68,7 +69,7 @@ CREATE TABLE Place (
 );
 
 CREATE TABLE AAcheteNPlaces (
-    Login int,
+    Login varchar(30),
     NoSpectacle int,
     NoRepresentation int,
     NoZone int,
@@ -88,7 +89,7 @@ CREATE TABLE AAcheteNPlaces (
 );
 
 CREATE TABLE AReserveNPlaces (
-    Login int,
+    Login varchar(30),
     NoSpectacle int,
     NoRepresentation int,
     NoZone int,
