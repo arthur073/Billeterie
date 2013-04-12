@@ -8,8 +8,8 @@ Poulailler : ? <br/>
 Balcon : ? <br/>
 
 
-Vous souhaitez réserver pour le spectacle <%= request.getParameter("nomSpectacle")%> dont la representation
-est le <%= request.getParameter("date")%>.
+Vous souhaitez réserver pour le spectacle <%= request.getParameter("NomSpectacle")%> dont la representation
+est le <%= request.getParameter("Date")%>.
 
 <form action="ReservationControleur" method="post">
     Nombre de places souhaitées : <input type="text" label="nbPlaces"/> <br/> 
@@ -18,7 +18,7 @@ est le <%= request.getParameter("date")%>.
         <OPTION VALUE="Pelouse">Pelouse</OPTION>
         <OPTION VALUE="SiegeCuir">Siège Cuir</OPTION>
         <OPTION VALUE="CarreGold">Carré Gold</OPTION>
-        <OPTION VALUE="ChezLaSoeurAtiti">Chez la soeur à Titi</OPTION>
+        <OPTION VALUE="Sur les genoux de la soeur à Titi">Chez la soeur à Titi</OPTION>
     </SELECT>
     <input type="submit" name="action" value="annuler" />
     <input type="submit" name="action" value="valider" /> 

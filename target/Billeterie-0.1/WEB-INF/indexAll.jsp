@@ -16,7 +16,7 @@
             <td><img height="80px"  src="images/${rep.image}"/></td>
             <td>${rep.nomSpectacle}</td>
             <td>${rep.date}</td>
-            <td><a class="reserver" href="RepresentationsControleur?action=reserver&NoSpectacle=${rep.noSpectacle}&NoRepresentation=${rep.noRepresentation}"/>Réserver</td>                       
+            <td><a class="reserver" href="RepresentationsControleur?action=reserver&Date=${rep.date}&NomSpectacle=${rep.nomSpectacle}&NoSpectacle=${rep.noSpectacle}&NoRepresentation=${rep.noRepresentation}"/>Réserver</td>                       
         </tr>
     </c:forEach>
 </table>
