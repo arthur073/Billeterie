@@ -11,7 +11,7 @@ Balcon : ? <br/>
 Vous souhaitez réserver pour le spectacle <%= request.getParameter("nomSpectacle")%> dont la representation
 est le <%= request.getParameter("date")%>.
 
-<form action="ReservationControleur method="post">
+<form action="ReservationControleur" method="post">
     Nombre de places souhaitées : <input type="text" label="nbPlaces"/> <br/> 
     En zone :
     <SELECT name="zone">

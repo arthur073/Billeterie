@@ -36,6 +36,10 @@ public class UtilisateursControleur extends HttpServlet {
         try {
             if (action.equalsIgnoreCase("Creer")) {
                 FormulaireCreerUnCompte(request, response);
+            } else if (action.equalsIgnoreCase("Annuler")) {
+                // Retour à la page précédente
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
