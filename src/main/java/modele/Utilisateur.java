@@ -1,60 +1,138 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
+import dao.AbstractDataBaseDAO;
+import java.lang.String;
+
 
 /**
- *
- * @author Michel
+ * Class Utilisateur
  */
-public class Utilisateur {
-    
-    private String login;
-    private String nom;
-    private String prenom;
-    private String mail;
-    private String password;
-    private String type;
+abstract public class Utilisateur extends AbstractDataBaseDAO {
 
-    public String getLogin() {
-        return login;
-    }
+  //
+  // Fields
+  //
 
-    public String getNom() {
-        return nom;
-    }
+  
+  //
+  // Constructors
+  //
+  public Utilisateur () { };
+  
+  //
+  // Methods
+  //
 
-    public String getPrenom() {
-        return prenom;
-    }
 
-    public String getMail() {
-        return mail;
-    }
+  //
+  // Accessor methods
+  //
 
-    public String getPassword() {
-        return password;
-    }
+  //
+  // Other methods
+  //
 
-    public String getType() {
-        return type;
-    }
+  /**
+   * @param        login
+   * @param        mdpClair
+   * @param        nom
+   * @param        prenom
+   */
+  public void Utilisateur( java.lang.String login, java.lang.String mdpClair, java.lang.String nom, java.lang.String prenom )
+  {
+  }
 
-    public Utilisateur(String login, String nom, String prenom, String mail, String password, String type) {
-        this.login = login;
-        this.nom = nom;
-        this.prenom = prenom;
-        this.mail = mail;
-        this.password = password;
-        this.type = type;
-    }
-   
-    
-    
-    public void annulerReservation( Reservation r) {
-        
-    }
-    
-    // ......
+
+  /**
+   * @return       java.lang.String
+   * @param        clair
+   */
+  public static java.lang.String chiffrerMotDePasse( java.lang.String clair )
+  {
+  }
+
+
+  /**
+   * @return       modele.Utilisateur
+   * @param        login
+   */
+  public static modele.Utilisateur trouverParClef( java.lang.String login )
+  {
+  }
+
+
+  /**
+   */
+  public void getLogin(  )
+  {
+  }
+
+
+  /**
+   * @return       java.lang.String
+   */
+  public java.lang.String getNom(  )
+  {
+  }
+
+
+  /**
+   */
+  public void getPrenom(  )
+  {
+  }
+
+
+  /**
+   */
+  public void getEmail(  )
+  {
+  }
+
+
+  /**
+   * @return       java.lang.String
+   */
+  public java.lang.String getMotDePasseChiffre(  )
+  {
+  }
+
+
+  /**
+   * @return       modele.TypeUtilisateur
+   */
+  abstract public modele.TypeUtilisateur getType(  );
+
+
+  /**
+   * @param        nom
+   */
+  public void setNom( void nom )
+  {
+  }
+
+
+  /**
+   * @param        prenom
+   */
+  public void setPrenom( void prenom )
+  {
+  }
+
+
+  /**
+   * @param        email
+   */
+  public void setEmail( java.lang.String email )
+  {
+  }
+
+
+  /**
+   * @param        mdp
+   */
+  public void setMotDePasseClair( java.lang.String mdp )
+  {
+  }
+
+
 }

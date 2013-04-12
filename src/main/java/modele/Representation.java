@@ -1,57 +1,121 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
 
 import java.util.Date;
 
 /**
- *
- * @author arthur
+ * Class Representation
  */
 public class Representation {
-    
-    private int noSpectacle;
-    private int noRepresentation;
-    private Date date;
-    private String nomSpectacle;
-    private String image;
-    
-    public int getNoSpectacle() {
-        return noSpectacle;
-    }
-    
-    public String getNomSpectacle() {
-        return nomSpectacle;
-    }
-    
-    public int getNoRepresentation() {
-        return noRepresentation;
-    }
-    
-    public Date getDate() {
-        return date;
-    }
-    
-    public String getImage() {
-        return image;
-    }
-    
-    public Representation(int NoS, int NoR, Date date, String nomSpectacle, String image) {
-        this.noSpectacle = NoS;
-        this.noRepresentation = NoR;
-        this.date = date;
-        this.nomSpectacle = nomSpectacle;
-        this.image = image;
-    }
-    
-    public void annulerRepresentation( Representation r) {
-        // TODO
-    }
-    
-    
-    
-    // to be continued
-    
+
+  //
+  // Fields
+  //
+
+  
+  //
+  // Constructors
+  //
+  public Representation () { };
+  
+  //
+  // Methods
+  //
+
+
+  //
+  // Accessor methods
+  //
+
+  //
+  // Other methods
+  //
+
+  /**
+   * @param        spec
+   * @param        date
+   */
+  public void Representation(Spectacle spec, java.util.Date date )
+  {
+  }
+
+
+  /**
+   * @param        noSpectacle
+   * @param        noRepresentation
+   */
+  public static void trouverParClef( int noSpectacle, int noRepresentation )
+  {
+  }
+
+
+  /**
+   * @return       int
+   */
+  public int getNo()
+  {
+  }
+
+
+  /**
+   * @return       java.util.Date
+   */
+  public java.util.Date getDate()
+  {
+  }
+
+
+  /**
+   * @return      Spectacle
+   */
+  publicSpectacle getSpectacle()
+  {
+  }
+
+
+  /**
+   * @param        d
+   */
+  public void setDate(Date d)
+  {
+  }
+
+
+  /**
+   * @param        spec
+   */
+  public void setSpectacle(Spectacle spec)
+  {
+  }
+
+
+  /**
+   */
+  public void libererReservationImpayees()
+  {
+  }
+
+
+  /**
+   */
+  public void annuler()
+  {
+  }
+
+
+  /**
+   * @return       int
+   * @param        z
+   */
+  public int getPrix(Zone z)
+  {
+  }
+
+
+  /**
+   * @param        z
+   * @param        prix
+   */
+  public void setPrix(Zone z, int prix)
+  {
+  }
 }

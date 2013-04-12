@@ -1,54 +1,118 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
+import java.lang.String;
+
 
 /**
- *
- * @author Michel
+ * Class Reservation
  */
 public class Reservation {
-    
-    private String login;
-    private int noSpectacle;
-    private int noRepresentation;
-    private int noZone;
-    private int noRang;
-    private int noPlace;
 
-    public String getLogin() {
-        return login;
-    }
+  //
+  // Fields
+  //
 
-    public int getNoSpectacle() {
-        return noSpectacle;
-    }
+  
+  //
+  // Constructors
+  //
+  public Reservation () { };
+  
+  //
+  // Methods
+  //
 
-    public int getNoRepresentation() {
-        return noRepresentation;
-    }
 
-    public int getNoZone() {
-        return noZone;
-    }
+  //
+  // Accessor methods
+  //
 
-    public int getNoRang() {
-        return noRang;
-    }
+  //
+  // Other methods
+  //
 
-    public int getNoPlace() {
-        return noPlace;
-    }
+  /**
+   * @param        c
+   * @param        r
+   * @param        p
+   */
+  public void Reservation( modele.Client c, modele.Representation r, modele.Place p )
+  {
+  }
 
-    public Reservation(String login, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace) {
-        this.login = login;
-        this.noSpectacle = noSpectacle;
-        this.noRepresentation = noRepresentation;
-        this.noZone = noZone;
-        this.noRang = noRang;
-        this.noPlace = noPlace;
-    }
-    
-    
+
+  /**
+   * @return       modele.Reservation
+   * @param        loginClient
+   * @param        noSpectacle
+   * @param        noRepresentation
+   * @param        noZone
+   * @param        noRang
+   * @param        noPlace
+   */
+  public static modele.Reservation trouverParClef( java.lang.String loginClient, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace )
+  {
+  }
+
+
+  /**
+   * @return       modele.Client
+   */
+  public modele.Client getClient(  )
+  {
+  }
+
+
+  /**
+   */
+  public void getPlace(  )
+  {
+  }
+
+
+  /**
+   */
+  public void getRepresentation(  )
+  {
+  }
+
+
+  /**
+   * @param        c
+   */
+  public void setClient( modele.Client c )
+  {
+  }
+
+
+  /**
+   * @param        p
+   */
+  public void setPlace( void p )
+  {
+  }
+
+
+  /**
+   * @param        r
+   */
+  public void setRepresentation( void r )
+  {
+  }
+
+
+  /**
+   */
+  public void liberer(  )
+  {
+  }
+
+
+  /**
+   * @return       int
+   */
+  public int getPrix(  )
+  {
+  }
+
+
 }
