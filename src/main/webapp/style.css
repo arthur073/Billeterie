@@ -57,6 +57,8 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
     padding-right: 1em;
     font-size: 100%;
     margin-left : 2em;
+    cursor: pointer;
+
 }
 
 div.footer {

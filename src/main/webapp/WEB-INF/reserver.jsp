@@ -3,7 +3,7 @@
 <c:import url="Layout/header.jsp"/>    
 
 TEMPORAIRE : prix des places <br/>
-Orchestre : ? <br/>
+Orchestre :  <%= request.getAttribute("p1") %> <br/>
 Poulailler : ? <br/>
 Balcon : ? <br/>
 
