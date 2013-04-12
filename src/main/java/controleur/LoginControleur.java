@@ -50,10 +50,12 @@ public class LoginControleur extends HttpServlet {
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
         Boolean logged =  utilDAO.ClientIdentification(login, password);
         // TODO à clarifier
-        System.out.println(logged);
+        
         if (logged) {
             request.getSession(true).setAttribute("LoggedIn", true);
+            request.getSession(true).setAttribute("FailedLogIn", false);
         } else {
+            request.getSession(true).setAttribute("FailedLogIn", true);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
         actionAfficher(request, response);

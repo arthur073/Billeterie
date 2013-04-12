@@ -16,7 +16,6 @@
         <a href="PagesControleur" class="login"/>Accueil</a>
         <% } %>
     
-<h2 align="center" class="header"> ${titre} </h2>
 
         
         

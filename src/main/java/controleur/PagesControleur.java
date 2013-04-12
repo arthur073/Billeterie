@@ -65,8 +65,6 @@ public class PagesControleur extends HttpServlet {
         actionAfficher(request,response);
     }
 
- 
-  
     
     private void CreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
             getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response); 
