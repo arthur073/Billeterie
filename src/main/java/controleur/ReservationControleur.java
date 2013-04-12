@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  *
  * @author arthur
  */
-@WebServlet(name = "RepresentationsControleur", urlPatterns = {"/RepresentationsControleur"})
+@WebServlet(name = "ReservationControleur", urlPatterns = {"/ReservationControleur"})
 public class ReservationControleur extends HttpServlet {
 
     @Resource(name = "jdbc/billeterie")
@@ -49,13 +49,13 @@ public class ReservationControleur extends HttpServlet {
 
     private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
         RepresentationDAO rep = new RepresentationDAO(ds);
-        ArrayList<Integer> ListePrix = new ArrayList<Integer>();
-        //ListePrix = rep.getRepresentationPrice(Integer.parseInt(request.getAttribute("NoSpectacle").toString()), Integer.parseInt(request.getAttribute("NoRepresentation").toString()));
+        ArrayList<Float> listePrix = new ArrayList<Float>();
+        listePrix = rep.getRepresentationPrice(Integer.parseInt(request.getParameter("NoSpectacle").toString()), Integer.parseInt(request.getParameter("NoRepresentation").toString()));
         
         // TODO : prendre les prix de la requête de thib
-        request.setAttribute("p1", 15);
-        request.setAttribute("p2", 25);
-        request.setAttribute("p3", 35);
+        request.setAttribute("p1", listePrix.remove(0));
+        request.setAttribute("p2", listePrix.remove(0));
+        request.setAttribute("p3", listePrix.remove(0));
         
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }

@@ -46,7 +46,6 @@ public class LoginControleur extends HttpServlet {
     }
     
     private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
-        String action = request.getParameter("action");
     
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
         Boolean logged =  utilDAO.ClientIdentification(login, password);
@@ -58,7 +57,7 @@ public class LoginControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
         actionAfficher(request, response);
-   }
+    }
 
     private void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
