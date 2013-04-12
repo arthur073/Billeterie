@@ -42,10 +42,6 @@ public class PagesControleur extends HttpServlet {
                 goToLogOut(request, response);
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
-            } else if (action.equalsIgnoreCase("valider")) {
-                String login = request.getParameter("username");
-                String password = request.getParameter("passwd");
-                logMeIn(request, response,login,password);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());

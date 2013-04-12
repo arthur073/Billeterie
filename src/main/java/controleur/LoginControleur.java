@@ -51,7 +51,7 @@ public class LoginControleur extends HttpServlet {
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
         Boolean logged =  utilDAO.ClientIdentification(login, password);
         // TODO à clarifier
-        System.out.println(logged);
+        
         if (logged) {
             request.getSession(true).setAttribute("LoggedIn", true);
             request.getSession(true).setAttribute("FailedLogIn", false);
