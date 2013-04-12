@@ -28,7 +28,7 @@ public class UtilisateursControleur extends HttpServlet {
     private DataSource ds;
 
     @Override
-    public void doGet(HttpServletRequest request,
+    public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
 

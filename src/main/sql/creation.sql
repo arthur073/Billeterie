@@ -37,7 +37,7 @@ CREATE TABLE Utilisateur (
     Prenom varchar(50) NOT NULL,
     Mail varchar(100),
     MotDePasse varchar(128) NOT NULL,
-    Type varchar(11) NOT NULL CHECK(Type = 'Responsable' OR Type = 'Client'),
+    Type varchar(11) NOT NULL,
     CONSTRAINT pk_Client PRIMARY KEY (Login)
 );
 
