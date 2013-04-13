@@ -191,3 +191,35 @@ span.price {
 .btnReserverSmall {
     margin-top: 1em;
 }
+
+
+/* work in progress */
+
+
+#selectable { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    width: 450px; 
+    height : 200px;
+    cursor: pointer;
+}
+
+#selectable tr td { 
+    margin: 3px; 
+    padding: 1px; 
+    float: left; 
+    width: 100px; 
+    height: 80px; 
+    font-size: 4em; 
+    text-align: center; 
+}
+
+#selectable tr td.ui-selecting { 
+    background: #FECA40; 
+}
+
+#selectable tr td.ui-selected { 
+    background: #F39814; 
+    color: white; 
+}
