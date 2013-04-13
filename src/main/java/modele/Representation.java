@@ -14,7 +14,7 @@ public class Representation {
     
     private int noSpectacle;
     private int noRepresentation;
-    private Date date;
+    private String date;
     private String nomSpectacle;
     private String image;
     
@@ -30,7 +30,7 @@ public class Representation {
         return noRepresentation;
     }
     
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
     
@@ -38,7 +38,7 @@ public class Representation {
         return image;
     }
     
-    public Representation(int NoS, int NoR, Date date, String nomSpectacle, String image) {
+    public Representation(int NoS, int NoR, String date, String nomSpectacle, String image) {
         this.noSpectacle = NoS;
         this.noRepresentation = NoR;
         this.date = date;

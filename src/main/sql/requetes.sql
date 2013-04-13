@@ -118,6 +118,16 @@ AND pr.NoRepresentation = r.NoRepresentation
 GROUP BY r.NoRepresentation) 
 GROUP BY r.NoRepresentation)
 
+----------------------
+
+SELECT_LISTE_REPRESENTATIONS_DU_SPECTACLE =
+
+SELECT r.*, s.Nom, s.Image
+FROM Representation r, Spectacle s
+WHERE r.NoSpectacle = ? 
+AND r.NoSPectacle = s.NoSpectacle
+AND DateRepresentation > CURRENT_DATE();
+
 
 
 

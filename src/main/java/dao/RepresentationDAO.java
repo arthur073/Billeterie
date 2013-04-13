@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
@@ -68,7 +69,36 @@ public class RepresentationDAO extends ProviderDAO {
             rs = st.executeQuery(requeteSQL);
 
             while (rs.next()) {
-                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("DateRepresentation"), rs.getString("Nom"), rs.getString("Image"));
+                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), new SimpleDateFormat("dd MMMM yyyy").format(rs.getDate("DateRepresentation")), rs.getString("Nom"), rs.getString("Image"));
+                result.add(representation);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeConnection(conn);
+        }
+
+        return result;
+    }
+
+    /**
+     * Renvoie la liste des ouvrages de la table bibliographie sous la forme
+     * d'un ResultSet
+     */
+    public ArrayList<Representation> getListeRepresentations(int NoSpectacle, int NoRepresentation) throws DAOException {
+        ArrayList<Representation> result = new ArrayList<Representation>();
+        ResultSet rs = null;
+        Connection conn = null;
+
+        try {
+            conn = getConnection();
+            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_REPRESENTATIONS_DU_SPECTACLE"));
+            st.setInt(1, NoSpectacle);
+            st.setInt(2, NoRepresentation);
+            rs = st.executeQuery();
+
+            while (rs.next()) {
+                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), new SimpleDateFormat("dd MMMM yyyy").format(rs.getDate("DateRepresentation")), rs.getString("Nom"), rs.getString("Image"));
                 result.add(representation);
             }
         } catch (SQLException e) {

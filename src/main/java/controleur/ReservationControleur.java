@@ -57,6 +57,9 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("p2", listePrix.remove(0));
         request.setAttribute("p3", listePrix.remove(0));
         
+        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
+        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
+        request.setAttribute("representations", rep.getListeRepresentations(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
 }
