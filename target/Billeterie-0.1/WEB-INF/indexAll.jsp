@@ -17,17 +17,16 @@
             <td>${rep.nomSpectacle}</td>
             <td>${rep.date}</td>
             <td> 
-                <form action="ReservationControleur" method="get">
-                    <input type="text" label="Date" value="${rep.date}" style="display:none"/>
-                    <input type="text" label="NomSpectacle" value="${rep.nomSpectacle}" style="display:none"/>
-                    <input type="text" label="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
-                    <input type="text" label="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
-                    <input type="submit" name="action" label="reserver" value="reserver" class="btnBlack"/>
+                <form action="ReservationControleur" method="post">
+                    <input type="text" name="Date" value="${rep.date}" style="display:none"/>
+                    <input type="text" name="NomSpectacle" value="${rep.nomSpectacle}" style="display:none"/>
+                    <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
+                    <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
+                    <input type="submit" name="action" label="reserver" value="Réserver" class="btnBlack"/>
                 </form>
 
 
             </td>
-            <td><a class="reserver" href="ReservationControleur?action=reserver&Date=${rep.date}&NomSpectacle=${rep.nomSpectacle}&NoSpectacle=${rep.noSpectacle}&NoRepresentation=${rep.noRepresentation}"/>Réserver</td>                       
         </tr>
     </c:forEach>
 </table>

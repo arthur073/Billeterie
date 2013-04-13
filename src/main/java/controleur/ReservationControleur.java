@@ -26,7 +26,7 @@ public class ReservationControleur extends HttpServlet {
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
-    public void doGet(HttpServletRequest request,
+    public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
 
