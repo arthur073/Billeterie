@@ -9,29 +9,6 @@ import java.lang.String;
  */
 public class Zone {
 
-  //
-  // Fields
-  //
-
-  
-  //
-  // Constructors
-  //
-  public Zone () { };
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
   /**
    * @param        no
    */
@@ -43,8 +20,9 @@ public class Zone {
   /**
    * @return       modele.Set<Zone>
    */
-  public static modele.Set<Zone> getZones(  )
-  {
+  public static Set<Zone> getZones(  )
+ {
+      return null;
   }
 
 
@@ -52,7 +30,8 @@ public class Zone {
    * @return       int
    */
   public int getTarifBase(  )
-  {
+ {
+      return 0;
   }
 
 
@@ -60,29 +39,32 @@ public class Zone {
    * @return       int
    */
   public int getNo(  )
-  {
+ {
+      return 0;
   }
 
 
   /**
    * @return       java.lang.String
    */
-  public java.lang.String getCategorie(  )
-  {
+  public String getCategorie(  )
+ {
+      return null;
   }
 
 
   /**
    * @return       modele.Set<Places>
    */
-  public modele.Set<Places> getPlaces(  )
-  {
+   public Set<Place> getPlaces(  )
+ {
+      return null;
   }
 
 
   /**
    */
-  private void Zone(  )
+  private Zone(  )
   {
   }
 

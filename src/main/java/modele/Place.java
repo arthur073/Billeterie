@@ -1,91 +1,69 @@
 package modele;
 
-import java.util.*;
-
+import java.util.Set;
 
 /**
- * Class Place
+ * Représente une place de la salle de spectacle.
  */
 public class Place {
 
-  //
-  // Fields
-  //
-
-  
-  //
-  // Constructors
-  //
-  public Place () { };
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
   /**
+   * Renvoie une place dont on connait la clé.
    * @param        noRang
    * @param        noPlace
    */
-  public static void trouverParClef( int noRang, int noPlace )
-  {
+  public static void trouverParClef(int noRang, int noPlace) {
   }
 
 
   /**
-   * @return       modele.Set<Place>
+   * Renvoie l'ensemble des places existantes.
+   * @return Set<Place>
    */
-  public static modele.Set<Place> getPlaces(  )
-  {
+   public static Set<Place> getPlaces() {
+      return null;
   }
 
 
   /**
    * @return       int
    */
-  public int getNoPlace(  )
-  {
+   public int getNoPlace() {
+      return 0;
   }
-
 
   /**
    * @return       int
    */
-  public int getNoRang(  )
-  {
+   public int getNoRang() {
+      return 0;
   }
 
 
   /**
-   * @return       modele.Client
+   * Renvoie le client qui a réservé cette place pour la réprésentation donnée.
+   * @return       Le client, ou null si la place est libre.
    * @param        r
    */
-  public modele.Client getReservateurPour( modele.Representation r )
-  {
+  public Client getReservateurPour(Representation r) {
+      return null;
   }
 
 
   /**
-   * @return       modele.Zone
+   * @return      Zone
    */
-  public modele.Zone getZone(  )
-  {
+   public Zone getZone() {
+      return null;
   }
 
 
   /**
+   * Le constructeur est privé parce que les places disponibles sont fixées une
+   * fois pour toutes.
+   * @see getPlaces
    */
-  private void Place(  )
-  {
+  private Place() {
   }
-
 
 }

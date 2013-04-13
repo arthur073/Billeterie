@@ -1,39 +1,16 @@
 package modele;
-import java.lang.String;
 
+import java.lang.String;
+import java.util.Set;
 
 /**
  * Class Spectacle
  */
 public class Spectacle {
-
-  //
-  // Fields
-  //
-
-  
-  //
-  // Constructors
-  //
-  public Spectacle () { };
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
   /**
    * @param        nom
    */
-  public void Spectacle( java.lang.String nom )
+   public Spectacle(String nom)
   {
   }
 
@@ -43,15 +20,22 @@ public class Spectacle {
    * @param        no
    */
   public static modele.Spectacle trouverParClef( int no )
-  {
+ {
+      return null;
   }
 
 
   /**
-   * @return       modele.Set<Spectacle>
+   * Renvoie la liste de tous les spectacles programmés.
+   * 
+   *
+   * TODO : ajouter des possibilités de filtrage par période
+   * 
+   * @return       Set<Spectacle>
    */
-  public static modele.Set<Spectacle> getSpectacles(  )
-  {
+  public static Set<Spectacle> getSpectacles()
+ {
+      return null;
   }
 
 
@@ -59,30 +43,34 @@ public class Spectacle {
    * @return       int
    */
   public int getNo(  )
-  {
+ {
+      return 0;
   }
 
 
   /**
-   * @return       modele.Set<Representation>
+   * Renvoie les représentations de ce spectacle.
+   * @return       Set<Representation>
    */
-  public modele.Set<Representation> getRepresentations(  )
-  {
+  public Set<Representation> getRepresentations(  )
+ {
+      return null;
   }
 
 
   /**
    * @return       java.lang.String
    */
-  public java.lang.String getNom(  )
-  {
+  public String getNom(  )
+ {
+      return null;
   }
 
 
   /**
    * @param        nom
    */
-  public void setNom( java.lang.String nom )
+  public void setNom(String nom )
   {
   }
 

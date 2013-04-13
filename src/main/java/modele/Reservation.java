@@ -1,5 +1,4 @@
 package modele;
-import java.lang.String;
 
 
 /**
@@ -7,36 +6,12 @@ import java.lang.String;
  */
 public class Reservation {
 
-  //
-  // Fields
-  //
-
-  
-  //
-  // Constructors
-  //
-  public Reservation () { };
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
   /**
    * @param        c
    * @param        r
    * @param        p
    */
-  public void Reservation( modele.Client c, modele.Representation r, modele.Place p )
-  {
+  public Reservation(Client c, Representation r, Place p ) {
   }
 
 
@@ -49,70 +24,63 @@ public class Reservation {
    * @param        noRang
    * @param        noPlace
    */
-  public static modele.Reservation trouverParClef( java.lang.String loginClient, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace )
-  {
+  public static Reservation trouverParClef(String loginClient, int noSpectacle,
+        int noRepresentation, int noZone, int noRang, int noPlace) {
+      return null;
   }
 
 
   /**
    * @return       modele.Client
    */
-  public modele.Client getClient(  )
-  {
+  public Client getClient() {
+     return null;
   }
 
 
   /**
    */
-  public void getPlace(  )
-  {
+  public void getPlace() {
   }
 
 
   /**
    */
-  public void getRepresentation(  )
-  {
+  public void getRepresentation() {
   }
 
 
   /**
    * @param        c
    */
-  public void setClient( modele.Client c )
-  {
+  public void setClient(Client c) {
   }
 
 
   /**
    * @param        p
    */
-  public void setPlace( void p )
-  {
+  public void setPlace(Place p) {
   }
 
 
   /**
    * @param        r
    */
-  public void setRepresentation( void r )
-  {
+  public void setRepresentation(Representation r) {
   }
 
 
   /**
    */
-  public void liberer(  )
-  {
+  public void liberer() {
   }
 
 
   /**
    * @return       int
    */
-  public int getPrix(  )
-  {
+  public int getPrix() {
+     return 24;
   }
-
-
 }

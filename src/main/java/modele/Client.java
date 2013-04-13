@@ -2,55 +2,33 @@ package modele;
 
 
 /**
- * Class Client
+ * Représente un client du système.
  */
 public class Client extends Utilisateur {
 
-  //
-  // Fields
-  //
-
-  
-  //
-  // Constructors
-  //
-  public Client () { };
-  
-  //
-  // Methods
-  //
-
-
-  //
-  // Accessor methods
-  //
-
-  //
-  // Other methods
-  //
-
   /**
-   * @return       modele.TypeUtilisateur
+   * FIXME c'est ça ou les instanceof, vous préférez quoi ?
+   * @return       TypeUtilisateur
    */
-  public modele.TypeUtilisateur getType(  )
-  {
+  public TypeUtilisateur getType() {
+    return TypeUtilisateur.CLIENT;
   }
 
 
   /**
-   * @return       modele.Set<Place>
-   * @param        r
+   * Renvoie l'ensemble des places réservées par ce client pour une
+   * représentation donnée.
+   * @return       L'ensemble des places réservées.
+   * @param        r Représentation pour laquelle les places sont réservées.
    */
-  public modele.Set<Place> getPlacesReserveesPour( modele.Representation r )
-  {
+  public Set<Place> getPlacesReserveesPour(Representation r) {
   }
 
 
   /**
-   * @return       modele.Set<Reservation>
+   * @return Ensemble des réservations effectuées par ce client.
    */
-  public modele.Set<Reservation> getReservations(  )
-  {
+  public Set<Reservation> getReservations() {
   }
 
 

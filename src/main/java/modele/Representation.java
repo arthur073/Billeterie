@@ -3,119 +3,100 @@ package modele;
 import java.util.Date;
 
 /**
- * Class Representation
+ * Correspond à une représentation d'un spectable.
  */
 public class Representation {
-
-  //
-  // Fields
-  //
-
-  
-  //
-  // Constructors
-  //
-  public Representation () { };
-  
-  //
-  // Methods
-  //
+   /**
+    * Crée une nouvelle représentation, et l'insère dans la BDD.
+    * @param        spec
+    * @param        date
+    */
+   public Representation(Spectacle spec, Date date )
+   {
+   }
 
 
-  //
-  // Accessor methods
-  //
+   /**
+    * @param        noSpectacle
+    * @param        noRepresentation
+    */
+   public static void trouverParClef(int noSpectacle, int noRepresentation)
+   {
+   }
 
-  //
-  // Other methods
-  //
 
-  /**
-   * @param        spec
-   * @param        date
+   /**
+    * @return       int
+    */
+   public int getNo()
+   {
+      return 0;
+   }
+
+
+   /**
+    * @return      
+    */
+   public Date getDate()
+   {
+      return null;
+   }
+
+
+   /**
+    * @return      Spectacle
+    */
+   public Spectacle getSpectacle()
+   {
+      return null;
+   }
+
+
+   /**
+    * @param        d
+    */
+   public void setDate(Date d)
+   {
+   }
+
+
+   /**
+    * @param        spec
+    */
+   public void setSpectacle(Spectacle spec)
+   {
+   }
+
+
+   /**
    */
-  public void Representation(Spectacle spec, java.util.Date date )
-  {
-  }
+   public void libererReservationImpayees()
+   {
+   }
 
 
-  /**
-   * @param        noSpectacle
-   * @param        noRepresentation
+   /**
    */
-  public static void trouverParClef( int noSpectacle, int noRepresentation )
-  {
-  }
+   public void annuler()
+   {
+   }
 
 
-  /**
-   * @return       int
-   */
-  public int getNo()
-  {
-  }
+   /**
+    * @return       int
+    * @param        z
+    */
+   public int getPrix(Zone z)
+   {
+      return 0;
+   }
 
 
-  /**
-   * @return       java.util.Date
-   */
-  public java.util.Date getDate()
-  {
-  }
-
-
-  /**
-   * @return      Spectacle
-   */
-  publicSpectacle getSpectacle()
-  {
-  }
-
-
-  /**
-   * @param        d
-   */
-  public void setDate(Date d)
-  {
-  }
-
-
-  /**
-   * @param        spec
-   */
-  public void setSpectacle(Spectacle spec)
-  {
-  }
-
-
-  /**
-   */
-  public void libererReservationImpayees()
-  {
-  }
-
-
-  /**
-   */
-  public void annuler()
-  {
-  }
-
-
-  /**
-   * @return       int
-   * @param        z
-   */
-  public int getPrix(Zone z)
-  {
-  }
-
-
-  /**
-   * @param        z
-   * @param        prix
-   */
-  public void setPrix(Zone z, int prix)
-  {
-  }
+   /**
+    * @param        z
+    * @param        prix
+    */
+   public void setPrix(Zone z, int prix)
+   {
+   }
 }
