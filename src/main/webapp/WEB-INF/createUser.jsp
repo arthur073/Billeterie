@@ -10,8 +10,8 @@
          <label> Login : </label><input type="text" name="username"/> <br/> 
          <label> Mot de passe : </label><input type="password" name="passwd"/> <br/>
          <label> Adresse e-mail : </label><input type="email" name="email" size='40'/> <br/>  <br/>
-         <input type="submit" class="btnLogin" name="action" value="Creer" /> 
-         <input type="submit" class="btnLogin" name="action" value="Annuler" />
+         <input type="submit" class="btnBlack" name="action" value="Creer" /> 
+         <input type="submit" class="btnBlack" name="action" value="Annuler" />
      </form>
      
      <br/>
