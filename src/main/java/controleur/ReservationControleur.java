@@ -38,8 +38,11 @@ public class ReservationControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            // TODO : if à mettre
-            actionReserver(request, response);
+            if (action.equalsIgnoreCase("Réserver")) {
+                actionReserver(request, response);
+            } else if (action.equalsIgnoreCase("Choisir mes places")){
+                actionChoixPlaces(request, response);
+            }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
             //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
@@ -51,15 +54,19 @@ public class ReservationControleur extends HttpServlet {
         RepresentationDAO rep = new RepresentationDAO(ds);
         ArrayList<Float> listePrix = new ArrayList<Float>();
         listePrix = rep.getRepresentationPrice(Integer.parseInt(request.getParameter("NoSpectacle").toString()), Integer.parseInt(request.getParameter("NoRepresentation").toString()));
-        
+
         // TODO : prendre les prix de la requête de thib
         request.setAttribute("p1", listePrix.remove(0));
         request.setAttribute("p2", listePrix.remove(0));
         request.setAttribute("p3", listePrix.remove(0));
-        
+
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
         request.setAttribute("representations", rep.getListeRepresentations(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
+    }
+
+    private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 }

@@ -18,10 +18,12 @@ Vous avez choisi la représentation suivante : <br/>
             <td>
                 <form action="ReservationControleur"  class="reserverForm" method="post">
                     <h4> Choisissez vos places : </h4> 
+                    <input type="text" label="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
+                    <input type="text" label="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                     <label> Pelouse : </label><input type="text" label="nbPlacesPelouse"/> <span class="price"> (  une place = <%= request.getAttribute("p1")%> &euro; )</span><br/> 
                     <label> Orchestre : </label><input type="text" label="nbPlacesOrchestre"/><span class="price"> (  une place = <%= request.getAttribute("p2")%> &euro; )</span><br/> 
                     <label> Balcon : </label><input type="text" label="nbPlacesBalcon"/> <span class="price"> (  une place = <%= request.getAttribute("p3")%> &euro; )</span> <br/> 
-                    <input type="submit" name="action" label="reserverPlaces" value="Réserver mes places" class="btnReserver"/> 
+                    <input type="submit" name="action" label="reserverPlaces" value="Choisir mes places" class="btnReserver"/> 
                 </form>
             </td>
         </tr>
