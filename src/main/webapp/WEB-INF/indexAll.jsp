@@ -2,9 +2,9 @@
 
 <c:import url="Layout/header.jsp"/>
 
-<h2 align="center" class="header"> Mes billets en ligne </h2>
+<h2 align="center" class="titre"> Mes billets en ligne </h2>
 
-<table >
+<table class="indexTable">
     <tr>
         <th> </th>
         <th>Spectacle</th>
@@ -16,7 +16,16 @@
             <td><img height="80px"  src="images/${rep.image}"/></td>
             <td>${rep.nomSpectacle}</td>
             <td>${rep.date}</td>
-            <td><a class="reserver" href="RepresentationsControleur?action=reserver&NoSpectacle=${rep.noSpectacle}&NoRepresentation=${rep.noRepresentation}"/>Réserver</td>                       
+            <td> 
+                <form action="ReservationControleur" method="post">
+                    <input type="text" name="Date" value="${rep.date}" style="display:none"/>
+                    <input type="text" name="Image" value="${rep.image}" style="display:none"/>
+                    <input type="text" name="NomSpectacle" value="${rep.nomSpectacle}" style="display:none"/>
+                    <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
+                    <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
+                    <input type="submit" name="action" label="reserver" value="Réserver" class="btnBlack"/>
+                </form>
+            </td>
         </tr>
     </c:forEach>
 </table>

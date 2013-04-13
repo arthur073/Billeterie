@@ -2,10 +2,7 @@ package controleur;
 
 import dao.DAOException;
 import dao.RepresentationDAO;
-import dao.UtilisateurDAO;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -42,18 +39,14 @@ public class PagesControleur extends HttpServlet {
                 goToLogOut(request, response);
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
-            } else if (action.equalsIgnoreCase("valider")) {
-                String login = request.getParameter("username");
-                String password = request.getParameter("passwd");
-                logMeIn(request, response,login,password);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
-
-    private void actionAfficher(HttpServletRequest request,
+    
+    public void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getListeRepresentations());
@@ -69,36 +62,6 @@ public class PagesControleur extends HttpServlet {
         actionAfficher(request,response);
     }
 
-    private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
-        String action = request.getParameter("action");
-    
-        UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
-        Boolean logged =  utilDAO.ClientIdentification(login, password);
-        // TODO à clarifier
-        System.out.println(logged);
-        if (logged) {
-            request.getSession(true).setAttribute("LoggedIn", true);
-        } else {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        }
-        actionAfficher(request, response);
-        return;
-    }
-    
-    private void validerReservation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-        
-        String action = request.getParameter("action");
-        
-        if (action.equalsIgnoreCase("annuler")) {
-            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
-            return;
-        }
-        
-        if (action.equalsIgnoreCase("valider")) {
-            getServletContext().getRequestDispatcher("/WEB-INF/reserver2.jsp").forward(request, response);
-            return;
-        }
-    }
     
     private void CreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
             getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response); 

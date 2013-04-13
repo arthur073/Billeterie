@@ -7,8 +7,6 @@ package controleur;
 import dao.DAOException;
 import dao.UtilisateurDAO;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +26,7 @@ public class UtilisateursControleur extends HttpServlet {
     private DataSource ds;
 
     @Override
-    public void doGet(HttpServletRequest request,
+    public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
 
@@ -36,6 +34,10 @@ public class UtilisateursControleur extends HttpServlet {
         try {
             if (action.equalsIgnoreCase("Creer")) {
                 FormulaireCreerUnCompte(request, response);
+            } else if (action.equalsIgnoreCase("Annuler")) {
+                // Retour à la page précédente
+                getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
