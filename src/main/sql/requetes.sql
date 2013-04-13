@@ -120,8 +120,52 @@ GROUP BY r.NoRepresentation)
 
 
 
+---------------
+
+SELECT_LISTE_ACHATS_CLIENT_REPRESENTATION=
+
+SELECT *
+FROM AAcheteNPlaces
+WHERE Login = ?
+AND NoSpectacle = ?
+AND NoRepresentation = ?
 
 
+----------------
+
+SELECT_LISTE_ACHATS_CLIENT_AVEC_HISTORIQUE=
+
+SELECT * 
+FROM AAcheteNPlaces 
+WHERE Login = ?
+
+
+----------------
+SELECT_LISTE_ACHATS_CLIENT_SANS_HISTORIQUE=
+
+SELECT a.* 
+FROM AAcheteNPlaces a, Representation r 
+WHERE Login = ? 
+AND DateRepresentation > CURRENT_DATE() 
+AND a.NoRepresentation = r.NoRepresentation
+
+-----------------
+
+SELECT_LISTE_ACHATS_REPRESENTATION= 
+
+SELECT * 
+FROM AAcheteNPlaces 
+WHERE NoSpectacle = ? 
+AND NoRepresentation = ?
+
+---------------
+
+INSERT_ACHAT=
+
+INSERT INTO AAcheteNPlaces
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_DATE());
+
+--------------
 select liste places pas encore reservees (pour tout, par zone)
 select verif que representation a plus de 70 places
 

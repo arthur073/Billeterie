@@ -7,8 +7,6 @@ package controleur;
 import dao.DAOException;
 import dao.UtilisateurDAO;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
