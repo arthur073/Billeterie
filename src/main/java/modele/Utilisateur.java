@@ -54,7 +54,6 @@ public class Utilisateur {
             e1.printStackTrace();
         }
         return new String(hexPass);
-
     }
 
     public String getLogin() {

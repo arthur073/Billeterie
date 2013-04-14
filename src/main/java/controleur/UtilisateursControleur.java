@@ -4,8 +4,8 @@
  */
 package controleur;
 
+import dao.ClientDAO;
 import dao.DAOException;
-import dao.UtilisateurDAO;
 import java.io.IOException;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+
+import modele.Client;
 
 /**
  *
@@ -47,13 +49,15 @@ public class UtilisateursControleur extends HttpServlet {
     }
 
     private void FormulaireCreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-        UtilisateurDAO userDAO = new UtilisateurDAO(ds);
-        String nom = (String) request.getParameter("nom");
-        String prenom = (String) request.getParameter("prenom");
-        String login = (String) request.getParameter("username");
-        String passwd = (String) request.getParameter("passwd");
-        String email = (String) request.getParameter("email");
-        userDAO.ClientCreation(login, passwd, nom, prenom, email);
+        ClientDAO clientDAO = new ClientDAO(ds);
+        Client client = new Client(
+        (String) request.getParameter("username"),
+        Client.chiffrerMotDePasse((String) request.getParameter("passwd")),
+        (String) request.getParameter("nom"),
+        (String) request.getParameter("prenom"),
+                (String) request.getParameter("email"));
+
+        clientDAO.creer(client);
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 }

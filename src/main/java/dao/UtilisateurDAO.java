@@ -75,7 +75,8 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
         PreparedStatement st = null;
         try {
             conn = getConnection();
-            st = conn.prepareStatement(getRequete("SELECT_UTILISATEUR"));
+            // FIXME : le getRequete() refusait de marcher
+            st = conn.prepareStatement("SELECT Prenom, Nom, Mail, MotDePasse, Type FROM Utilisateur WHERE Login = ?");
             st.setString(1, u.getLogin());
             rs = st.executeQuery();
             if (rs.next()) {
@@ -83,7 +84,8 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
                 u.setNom(rs.getString("Nom"));
                 u.setPrenom(rs.getString("Prenom"));
                 u.setEmail(rs.getString("Mail"));
-                u.setType(TypeUtilisateur.valueOf(rs.getString("Type")));
+                // FIXME : erreur java.lang.IllegalArgumentException: No enum constant modele.TypeUtilisateur.Client
+                //u.setType(TypeUtilisateur.valueOf(rs.getString("Type")));
             } else {
                 throw new DAOException("Le login fourni n'existe pas.");
             }

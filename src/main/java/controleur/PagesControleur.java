@@ -49,7 +49,7 @@ public class PagesControleur extends HttpServlet {
     public void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
-        request.setAttribute("representations", repDAO.getListeRepresentations());
+        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 

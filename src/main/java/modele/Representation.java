@@ -37,7 +37,7 @@ public class Representation {
         return noSpectacle;
     }
 
-    public int getNo() {
+    public int getNoRepresentation() {
         return no;
     }
 
