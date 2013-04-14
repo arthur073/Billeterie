@@ -1,69 +1,85 @@
 package modele;
 
-import java.util.Set;
-
 /**
  * Représente une place de la salle de spectacle.
  */
 public class Place {
 
-  /**
-   * Renvoie une place dont on connait la clé.
-   * @param        noRang
-   * @param        noPlace
-   */
-  public static void trouverParClef(int noRang, int noPlace) {
-  }
+    int noPlace;
+    int noRang;
+    int noZone;
 
+    /**
+     * Zone associée à cette place.
+     */
+    Zone zone = null;
 
-  /**
-   * Renvoie l'ensemble des places existantes.
-   * @return Set<Place>
-   */
-   public static Set<Place> getPlaces() {
-      return null;
-  }
+    /**
+     * Constructeur minimal.
+     */
+    public Place(int noPlace, int noRang, int noZone) {
+        this.noPlace = noPlace;
+        this.noZone = noZone;
+        this.noRang = noRang;
+    }
 
+    /**
+     * @return the noPlace
+     */
+    public int getNoPlace() {
+        return noPlace;
+    }
 
-  /**
-   * @return       int
-   */
-   public int getNoPlace() {
-      return 0;
-  }
+    /**
+     * @param noPlace the noPlace to set
+     */
+    public Place setNoPlace(int noPlace) {
+        this.noPlace = noPlace;
+        return this;
+    }
 
-  /**
-   * @return       int
-   */
-   public int getNoRang() {
-      return 0;
-  }
+    /**
+     * @return the noRang
+     */
+    public int getNoRang() {
+        return noRang;
+    }
 
+    /**
+     * @param noRang the noRang to set
+     */
+    public Place setNoRang(int noRang) {
+        this.noRang = noRang;
+        return this;
+    }
 
-  /**
-   * Renvoie le client qui a réservé cette place pour la réprésentation donnée.
-   * @return       Le client, ou null si la place est libre.
-   * @param        r
-   */
-  public Client getReservateurPour(Representation r) {
-      return null;
-  }
+    /**
+     * @return the noZone
+     */
+    public int getNoZone() {
+        return noZone;
+    }
 
+    /**
+     * @param noZone the noZone to set
+     */
+    public Place setNoZone(int noZone) {
+        this.noZone = noZone;
+        return this;
+    }
 
-  /**
-   * @return      Zone
-   */
-   public Zone getZone() {
-      return null;
-  }
+    /**
+     * @return the zone
+     */
+    public Zone getZone() {
+        return zone;
+    }
 
-
-  /**
-   * Le constructeur est privé parce que les places disponibles sont fixées une
-   * fois pour toutes.
-   * @see getPlaces
-   */
-  private Place() {
-  }
+    /**
+     * @param zone the zone to set
+     */
+    public void setZone(Zone zone) {
+        this.zone = zone;
+    }
 
 }

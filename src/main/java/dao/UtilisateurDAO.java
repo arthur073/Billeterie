@@ -4,104 +4,107 @@
  */
 package dao;
 
-import java.io.UnsupportedEncodingException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.sql.DataSource;
-import modele.Representation;
+import modele.Utilisateur;
+import modele.TypeUtilisateur;
 
 /**
  *
- * @author Michel
+ * @author Michel, Jany
  */
-public class UtilisateurDAO extends ProviderDAO {
+public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
 
     public UtilisateurDAO(DataSource ds) {
         super(ds);
-    }
+    }        
 
     /**
-     * Renvoie un boolean a true si les identifiants sont OK pre-conditions : le
-     * password n'a pas deja été haché
-     */
-    public boolean ClientIdentification(String login, String password) throws DAOException {
-        List<Representation> result = new ArrayList<Representation>();
-        ResultSet rs = null;
-        String requeteSQL = "";
-        Connection conn = null;
-        try {
-            conn = getConnection();
-            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_CONNEXION_CLIENT"));
-            st.setString(1, login);
-            st.setString(2, getHexDigest(password));
-            rs = st.executeQuery();
-            //les identifiants sont ok
-            if (rs.next()) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } finally {
-            closeConnection(conn);
-        }
-    }
-
-    public static String getHexDigest(String password) {
-        StringBuffer hexPass = new StringBuffer();
-        try {
-            byte[] passwdMd5 = MessageDigest.getInstance("MD5").digest(password.getBytes("UTF-8"));
-            for (int i = 0; i < passwdMd5.length; i++) {
-                hexPass.append(Integer.toHexString(0xFF & passwdMd5[i]));
-            }
-        } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
-        } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
-        }
-        return new String(hexPass);
-    }
-
-    /**
+     * Renvoie un objet Utilisateur si les identifiants sont OK, null sinon.
      *
-     * pre-condition : le login n'est pas utilisé
+     * Précondition : le password n'a pas deja été haché.
      */
-    public void ClientCreation(String login, String password, String nom, String prenom, String mail) throws DAOException {
-        List<Representation> result = new ArrayList<Representation>();
-        ResultSet rs = null;
-        String requeteSQL = "";
+    public Utilisateur connexion(String login, String password) throws DAOException {
+        Utilisateur u = new Utilisateur(login);
+        lire(u);
+        if (u.getMotDePasseChiffre() == Utilisateur.chiffrerMotDePasse(password)) {
+            return u;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Insère un utilisateur dans la BDD, en utilisant tous les champs fournis.
+     *
+     * Précondition : le login n'est pas utilisé.
+     */
+    @Override
+    public void creer(Utilisateur u) throws DAOException {
         Connection conn = null;
+        PreparedStatement st = null;
         try {
             conn = getConnection();
-
-            //PreparedStatement st = conn.prepareStatement(getRequete("SELECT_EXISTENCE_CLIENT"));
-            //st.setString(1, login);
-            //rs = st.executeQuery();
-            //if( rs.next() ){
-            //    return false;
-            //} else {
-
-            PreparedStatement st = conn.prepareStatement(getRequete("INSERT_CLIENT"));
-            st.setString(1, login);
-            st.setString(2, nom);
-            st.setString(3, prenom);
-            st.setString(4, mail);
-            st.setString(5, getHexDigest(password));
+            st = conn.prepareStatement(getRequete("INSERT_CLIENT"));
+            st.setString(1, u.getLogin());
+            st.setString(2, u.getNom());
+            st.setString(3, u.getPrenom());
+            st.setString(4, u.getEmail());
+            st.setString(5, u.getMotDePasseChiffre());
             st.executeUpdate();
-
-            //}
-            //les identifiants sont ok
+            // Le client a bien été inséré, le login était donc dispo.
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
+            closeStatement(st);
             closeConnection(conn);
         }
+    }
+
+    /**
+     * Lit le champ 'login' et remplit les autres.
+     * @throws DAOException
+     */
+    @Override
+    public void lire(Utilisateur u) throws DAOException {
+        Connection conn = null;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_UTILISATEUR"));
+            st.setString(1, u.getLogin());
+            rs = st.executeQuery();
+            if (rs.next()) {
+                u.setMotDePasseChiffre(rs.getString("MotDePasse"));
+                u.setNom(rs.getString("Nom"));
+                u.setPrenom(rs.getString("Prenom"));
+                u.setEmail(rs.getString("Mail"));
+                u.setType(TypeUtilisateur.valueOf(rs.getString("Type")));
+            } else {
+                throw new DAOException("Le login fourni n'existe pas.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+    }
+
+    @Override
+    public void mettreAJour(Utilisateur obj) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void supprimer(Utilisateur obj) {
+        // TODO Auto-generated method stub
+
     }
 }

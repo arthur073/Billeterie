@@ -1,72 +1,38 @@
 package modele;
 
-import java.util.*;
-import java.lang.String;
-
-
 /**
- * Class Zone
+ * Représente une zone de la salle de spectacle.
  */
 public class Zone {
+    private int no;
+    private String categorie = null;
+    private Float tarifBase = null;
 
-  /**
-   * @param        no
-   */
-  public static void trouverParClef( int no )
-  {
-  }
+    /**
+     * Constructeur minimal.
+     */
+    public Zone(int no) {
+        this.no = no;
+    }
 
+    /**
+     * Constructeur complet.
+     */
+    public Zone(int no, String categorie, float tarifBase) {
+        this.no = no;
+        this.categorie = categorie;
+        this.tarifBase = tarifBase;
+    }
 
-  /**
-   * @return       modele.Set<Zone>
-   */
-  public static Set<Zone> getZones(  )
- {
-      return null;
-  }
+    public float getTarifBase() {
+        return tarifBase;
+    }
 
+    public int getNo() {
+        return no;
+    }
 
-  /**
-   * @return       int
-   */
-  public int getTarifBase(  )
- {
-      return 0;
-  }
-
-
-  /**
-   * @return       int
-   */
-  public int getNo(  )
- {
-      return 0;
-  }
-
-
-  /**
-   * @return       java.lang.String
-   */
-  public String getCategorie(  )
- {
-      return null;
-  }
-
-
-  /**
-   * @return       modele.Set<Places>
-   */
-   public Set<Place> getPlaces(  )
- {
-      return null;
-  }
-
-
-  /**
-   */
-  private Zone(  )
-  {
-  }
-
-
+    public String getCategorie() {
+        return categorie;
+    }
 }

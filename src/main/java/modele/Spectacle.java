@@ -1,78 +1,53 @@
 package modele;
 
-import java.lang.String;
-import java.util.Set;
-
 /**
- * Class Spectacle
+ * Représente un spectacle.
  */
 public class Spectacle {
-  /**
-   * @param        nom
-   */
-   public Spectacle(String nom)
-  {
-  }
+    int no;
+    String nom = null;
+    String image = null;
 
+    /**
+     * Constructeur minimal.
+     */
+    public Spectacle(int no) {
+        this.no = no;
+    }
 
-  /**
-   * @return       modele.Spectacle
-   * @param        no
-   */
-  public static modele.Spectacle trouverParClef( int no )
- {
-      return null;
-  }
+    /**
+     * Constructeur complet.
+     */
+    public Spectacle(int no, String nom, String image) {
+        this.no = no;
+        this.nom = nom;
+        this.image = image;
+    }
 
+    public int getNo() {
+        return no;
+    }
 
-  /**
-   * Renvoie la liste de tous les spectacles programmés.
-   * 
-   *
-   * TODO : ajouter des possibilités de filtrage par période
-   * 
-   * @return       Set<Spectacle>
-   */
-  public static Set<Spectacle> getSpectacles()
- {
-      return null;
-  }
+    public Spectacle setNo(int no) {
+        this.no = no;
+        return this;
+    }
 
+    public String getNom() {
+        return nom;
+    }
 
-  /**
-   * @return       int
-   */
-  public int getNo(  )
- {
-      return 0;
-  }
+    public Spectacle setNom(String nom) {
+        this.nom = nom;
+        return this;
+    }
 
+    public String getImage() {
+        return image;
+    }
 
-  /**
-   * Renvoie les représentations de ce spectacle.
-   * @return       Set<Representation>
-   */
-  public Set<Representation> getRepresentations(  )
- {
-      return null;
-  }
-
-
-  /**
-   * @return       java.lang.String
-   */
-  public String getNom(  )
- {
-      return null;
-  }
-
-
-  /**
-   * @param        nom
-   */
-  public void setNom(String nom )
-  {
-  }
-
-
+    public Spectacle setImage(String image) {
+        this.image = image;
+        return this;
+    }
 }

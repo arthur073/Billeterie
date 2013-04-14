@@ -1,107 +1,113 @@
 package modele;
-import dao.UtilisateurDAO;
-import javax.sql.DataSource;
 
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Class Utilisateur
  */
-abstract public class Utilisateur extends UtilisateurDAO {
+public class Utilisateur {
 
-  /**
-   * @param        login
-   * @param        mdpClair
-   * @param        nom
-   * @param        prenom
-   */
-  public Utilisateur(String login, String mdpClair, String nom, String prenom, DataSource ds) {
-      super(ds);
-  }
+    private String login;
+    private String mdpChiffre = null;
+    private String nom = null;
+    private String prenom = null;
+    private String email = null;
+    private TypeUtilisateur type = null;
 
+    /**
+     * Contructeur minimal.
+     */
+    public Utilisateur(String login) {
+        this.login = login;
+    }
 
-  /**
-   * @return       String
-   * @param        clair
-   */
-   public static String chiffrerMotDePasse(String clair) {
-      return clair;
-  }
-
-
-  /**
-   * @return       modele.Utilisateur
-   * @param        login
-   */
-   public static Utilisateur trouverParClef(String login) {
-      return null;
-  }
-
-
-  /**
-   */
-  public void getLogin() {
-  }
+    /**
+     * Constructeur complet.
+     */
+    public Utilisateur(String login, String mdpChiffre, String nom,
+            String prenom, String email, TypeUtilisateur type) {
+        this.login = login;
+        this.mdpChiffre = mdpChiffre;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.type = type;
+    }
 
 
-  /**
-   * @return       java.lang.String
-   */
-   public String getNom() {
-      return null;
-  }
+    /**
+     * @return       String
+     * @param        clair
+     */
+    public static String chiffrerMotDePasse(String clair) {
+        StringBuffer hexPass = new StringBuffer();
+        try {
+            byte[] passwdMd5 = MessageDigest.getInstance("MD5").digest(clair.getBytes("UTF-8"));
+            for (int i = 0; i < passwdMd5.length; i++) {
+                hexPass.append(Integer.toHexString(0xFF & passwdMd5[i]));
+            }
+        } catch (NoSuchAlgorithmException e1) {
+            e1.printStackTrace();
+        } catch (UnsupportedEncodingException e1) {
+            e1.printStackTrace();
+        }
+        return new String(hexPass);
 
+    }
 
-  /**
-   */
-  public void getPrenom() {
-  }
+    public String getLogin() {
+        return login;
+    }
 
+    public String getNom() {
+        return nom;
+    }
 
-  /**
-   */
-  public void getEmail() {
-  }
+    public String getPrenom() {
+        return prenom;
+    }
 
+    public String getEmail() {
+        return email;
+    }
 
-  /**
-   * @return       String
-   */
-   public String getMotDePasseChiffre() {
-      return null;
-  }
+    public String getMotDePasseChiffre() {
+        return mdpChiffre;
+    }
 
+    public TypeUtilisateur getType() {
+        return type;
+    }
 
-  /**
-   * @return       modele.TypeUtilisateur
-   */
-  abstract public TypeUtilisateur getType();
+    public Utilisateur setNom(String nom) {
+        this.nom = nom;
+        return this;
+    }
 
+    public Utilisateur setPrenom(String prenom) {
+        this.prenom = prenom;
+        return this;
+    }
 
-  /**
-   * @param        nom
-   */
-  public void setNom(String nom) {
-  }
+    public Utilisateur setEmail(String email) {
+        this.email = email;
+        return this;
+    }
 
+    public Utilisateur setMotDePasseClair(String mdp) {
+        this.mdpChiffre = chiffrerMotDePasse(mdp);
+        return this;
+    }
 
-  /**
-   * @param        prenom
-   */
-  public void setPrenom(String prenom) {
-  }
+    public Utilisateur setMotDePasseChiffre(String mdp) {
+        this.mdpChiffre = mdp;
+        return this;
+    }
 
-
-  /**
-   * @param        email
-   */
-  public void setEmail(String email) {
-  }
-
-
-  /**
-   * @param        mdp
-   */
-  public void setMotDePasseClair(String mdp) {
-  }
-
+    public Utilisateur setType(TypeUtilisateur type){
+        this.type = type;
+        return this;
+    }
 }

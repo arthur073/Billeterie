@@ -7,78 +7,71 @@ import java.util.Date;
  */
 public class Representation {
 
+    int noSpectacle;
+    int no;
+    Date date = null;
+
     /**
-     * Crée une nouvelle représentation, et l'insère dans la BDD.
-     *
-     * @param spec
-     * @param date
+     * Spectacle associé à cette représentation.
      */
-    public Representation(int noSpectacle, int noRepresentation, String date, String nom, String image) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    Spectacle spectacle = null;
+    
+    /**
+     * Constructeur minimal.
+     */
+    public Representation(int noSpectacle, int no) {
+        this.noSpectacle = noSpectacle;
+        this.no = no;
     }
 
     /**
-     * @param noSpectacle
-     * @param noRepresentation
+     * Constructeur complet.
      */
-    public static void trouverParClef(int noSpectacle, int noRepresentation) {
+    public Representation(int noSpectacle, int no, Date date) {
+        this.noSpectacle = noSpectacle;
+        this.no = no;
+        this.date = date;
     }
 
-    /**
-     * @return int
-     */
+    public int getNoSpectacle() {
+        return noSpectacle;
+    }
+
     public int getNo() {
-        return 0;
+        return no;
     }
 
-    /**
-     * @return
-     */
     public Date getDate() {
-        return null;
+        return date;
     }
 
-    /**
-     * @return Spectacle
-     */
     public Spectacle getSpectacle() {
-        return null;
+        return spectacle;
+    }
+
+    public Representation setNoSpectacle(int noSpectacle) {
+        this.noSpectacle = noSpectacle;
+        return this;
+    }
+
+    public Representation setNo(int no) {
+        this.no = no;
+        return this;
+    }
+ 
+    public Representation setDate(Date date) {
+        this.date = date;
+        return this;
     }
 
     /**
-     * @param d
+     * FIXME : j'aurais préféré que ce soit dans RepresentationDAO vu que pour
+     * bien faire il faudrait que si spectacle == null, on aille le chercher
+     * dans la BDD.
      */
-    public void setDate(Date d) {
+    public Representation setSpectacle(Spectacle spectacle) {
+        this.spectacle = spectacle;
+        return this;
     }
 
-    /**
-     * @param spec
-     */
-    public void setSpectacle(Spectacle spec) {
-    }
-
-    /**
-     */
-    public void libererReservationImpayees() {
-    }
-
-    /**
-     */
-    public void annuler() {
-    }
-
-    /**
-     * @return int
-     * @param z
-     */
-    public int getPrix(Zone z) {
-        return 0;
-    }
-
-    /**
-     * @param z
-     * @param prix
-     */
-    public void setPrix(Zone z, int prix) {
-    }
 }
