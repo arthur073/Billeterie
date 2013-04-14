@@ -30,27 +30,28 @@ public class ReservationControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
-        if (request.getSession(false).getAttribute("LoggedIn") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            return;
-        }
-
+        //    if (request.getSession(false).getAttribute("LoggedIn") == null) {
+        //        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        //        return;
+        //    }
         String action = request.getParameter("action");
 
         try {
             if (action.equalsIgnoreCase("Réserver")) {
                 actionReserver(request, response);
-            } else if (action.equalsIgnoreCase("Choisir mes places")){
+            } else if (action.equalsIgnoreCase("Choisir mes places")) {
                 actionChoixPlaces(request, response);
+            } else if (action.equalsIgnoreCase("Valider mes places")) {
+                actionConfirmation(request, response);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
-            //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
-
     }
 
     private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
+
         RepresentationDAO rep = new RepresentationDAO(ds);
         ArrayList<Float> listePrix = new ArrayList<Float>();
         listePrix = rep.getRepresentationPrice(Integer.parseInt(request.getParameter("NoSpectacle").toString()), Integer.parseInt(request.getParameter("NoRepresentation").toString()));
@@ -68,5 +69,9 @@ public class ReservationControleur extends HttpServlet {
 
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
+    }
+
+    private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
     }
 }

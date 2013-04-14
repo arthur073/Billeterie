@@ -17,13 +17,13 @@
             <td>${rep.nomSpectacle}</td>
             <td>${rep.date}</td>
             <td> 
-                <form action="ReservationControleur" method="post">
+                <form action="ReservationControleur" method="post" >
                     <input type="text" name="Date" value="${rep.date}" style="display:none"/>
                     <input type="text" name="Image" value="${rep.image}" style="display:none"/>
                     <input type="text" name="NomSpectacle" value="${rep.nomSpectacle}" style="display:none"/>
                     <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
                     <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
-                    <input type="submit" name="action" label="reserver" value="Réserver" class="btnBlack"/>
+                    <input type="submit" name="action" label="reserver" value="R&eacute;server" class="btnBlack"/>
                 </form>
             </td>
         </tr>
