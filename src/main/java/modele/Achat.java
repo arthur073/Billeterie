@@ -1,5 +1,7 @@
 package modele;
 
+import java.sql.Date;
+
 /**
  * Représente l'achat d'une place, effectué par un client pour une
  * représentation.
@@ -12,7 +14,9 @@ public class Achat {
    * @param        r La représentation pour laquelle 
    * @param        p La place achetée.
    */
-  public Achat(Client c, Representation r, Place p) {
+ 
+  public Achat(String login, int NoSpectacle, int noRepresentation, int noZone, int noRang, int noPlace, 
+          int noDossier, int noSerie, Date date) {
   }
 
 
@@ -63,4 +67,28 @@ public class Achat {
    public int getNoSerie() {
       return 0;
   }
+
+    public String getLogin() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getNoSpectacle() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getNoRepresentation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getNoZone() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getNoRang() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public int getNoPlace() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

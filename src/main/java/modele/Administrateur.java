@@ -1,5 +1,7 @@
 package modele;
 
+import javax.sql.DataSource;
+
 
 /**
  * Représente l'administrateur du système.
@@ -9,7 +11,9 @@ public class Administrateur extends Utilisateur {
   /*
    * FIXME il faut déterminer la bonne visibilité pour que seule la classe Utilisateur puisse le construire.
    */
-  Administrateur() {
+  
+  public Administrateur(String login, String mdpClair, String nom, String prenom, DataSource ds) {
+      super(login, mdpClair, nom, prenom, ds);
   }
 
    /**

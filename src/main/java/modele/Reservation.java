@@ -13,6 +13,9 @@ public class Reservation {
    */
   public Reservation(Client c, Representation r, Place p ) {
   }
+  public Reservation(String login, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  }
 
 
   /**
@@ -28,6 +31,8 @@ public class Reservation {
         int noRepresentation, int noZone, int noRang, int noPlace) {
       return null;
   }
+
+  
 
 
   /**

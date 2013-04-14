@@ -40,7 +40,7 @@ public class ReservationDAO extends ProviderDAO {
             st.executeQuery();
 
             while (rs.next()) {
-                Reservation reservation = new Reservation(rs.getString("Login"), 
+                        Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
                         );

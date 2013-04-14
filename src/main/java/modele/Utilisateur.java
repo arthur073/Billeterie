@@ -1,5 +1,6 @@
 package modele;
 import dao.UtilisateurDAO;
+import javax.sql.DataSource;
 
 
 /**
@@ -13,7 +14,8 @@ abstract public class Utilisateur extends UtilisateurDAO {
    * @param        nom
    * @param        prenom
    */
-  public Utilisateur(String login, String mdpClair, String nom, String prenom) {
+  public Utilisateur(String login, String mdpClair, String nom, String prenom, DataSource ds) {
+      super(ds);
   }
 
 
