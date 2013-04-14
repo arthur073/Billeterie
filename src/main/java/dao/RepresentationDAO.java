@@ -147,7 +147,7 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
     }
 
     public void annuler(Representation r) {
-        annuler(r.getNoSpectacle(), r.getNo());
+        annuler(r.getNoSpectacle(), r.getNoRepresentation());
     }
 
     public void annuler(int noSpectacle, int noRepresentation) {
@@ -156,7 +156,7 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
 
     public float getPrix(Representation r, Zone z) throws DAOException {
         // TODO avec une vraie requête
-        return getPrixParZones(r.getNoSpectacle(), r.getNo()).get(z);
+        return getPrixParZones(r.getNoSpectacle(), r.getNoRepresentation()).get(z);
     }
 
     public void setPrix(Zone z, int prix) {
