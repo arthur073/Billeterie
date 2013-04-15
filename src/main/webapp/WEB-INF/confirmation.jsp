@@ -8,7 +8,10 @@
 
 Récapitulatif de la commande : <br/>
 
-Vous avez selectionné les places : <%= request.getParameter("places").replaceAll("/", " ") %> 
+Vous avez selectionné les places : 
+<% String pl = request.getParameter("places").replaceAll("/", " "); %>
+<%= pl %>
+
 <% request.getParameter("NomSpectacle"); %>
 
 
