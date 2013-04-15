@@ -30,7 +30,10 @@ Vous avez choisi la représentation suivante : <br/>
     </table>
 </div>
 <br/>
-Le spectacle <%= request.getParameter("NomSpectacle")%> est aussi disponible aux dates suivantes : <br/><br/>
+
+<c:if test="${not empty representations}">
+    Le spectacle <%= request.getParameter("NomSpectacle")%> est aussi disponible aux dates suivantes : <br/><br/>
+</c:if>
 
 <c:forEach items="${representations}" var="rep">
     <div class="reserverSmall" >
