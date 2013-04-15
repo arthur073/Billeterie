@@ -31,7 +31,7 @@ insert into Representation values(8, 10, '2014-05-10');
 -- Les Zones
 insert into Zone values(1, 'Poulailler', 16);
 insert into Zone values(2, 'Orchestre', 56);
-insert into Zone values(3, 'Zone !', 66);
+insert into Zone values(3, 'Balcon', 66);
 
 
 

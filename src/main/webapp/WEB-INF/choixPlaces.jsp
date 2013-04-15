@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="vue.RangToZone"%> 
 
 <c:import url="Layout/header.jsp"/>    
 
@@ -40,14 +41,19 @@
     function selectChair(obj) {
         //       alert(obj.innerHTML+document.getElementById("selected").innerHTML); 
         var pos = getElementPosition(obj);
+        var noPlace = obj.getAttribute("noPlace");
+        var noRang = obj.getAttribute("noRang");
+        var noZone = obj.getAttribute("noZone");
 
         if (obj.className === "sit") {
             obj.className = "sat";
-            document.getElementById("selected").value += convertToInt(pos) + "/";
+            document.getElementById("selected").value += noPlace + "/" + noRang
+                    + "/" + noZone + "//";
             //alert(pos.x + "," + pos.y+"->"+convertToInt(pos));
         } else {
             obj.className = "sit";
-            document.getElementById("selected").value = document.getElementById("selected").value.replace(convertToInt(pos) + "/", '');
+            document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
+                    + "/" + noZone + "//", '');
         }
     }
 
@@ -59,249 +65,35 @@
 
 Cliquez sur les places que vous désirez : <br/>
 
-
+<% RangToZone rtz = new RangToZone(); %>
 <table id="chairs" >
+ 
     <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
-    <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
-    <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
+        <% for (int rang = 1 ; rang <= 9 ; rang++) { %>
+            <% for (int place = 1; place<10 ; place++) {%>
+                <td class="sit" noPlace="<%= place %>" noRang="<%= rang %>" noZone="<%= rtz.rangToZone(rang)%>"   onclick="selectChair(this);"/>
+            <% } %>
+               <td class="sitstop"/>
+               <% if (rang % 3 == 0) { %>
+                    </tr>
+                    <tr>
+               <% } %>
+        <% } %>
+    </tr>
     <tr class="sitstop"/>
-
     <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
-
-    <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
-    <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
-    <tr>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sitstop"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-        <td class="sit" onclick="selectChair(this);"/>
-    </tr> 
+        <% for (int rang = 10 ; rang <= 18 ; rang++) { %>
+            <% for (int place = 1; place<10 ; place++) {%>
+                <td class="sit" noPlace="<%= place %>" noRang="<%= rang %>" noZone="<%= rtz.rangToZone(rang)%>"   onclick="selectChair(this);"/>
+            <% } %>
+               <td class="sitstop"/>
+               <% if (rang % 3 == 0) { %>
+                    </tr>
+                    <tr>
+               <% } %>
+        <% } %>
+    </tr>
+    
 
 </table>
 
