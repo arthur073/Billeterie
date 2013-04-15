@@ -42,7 +42,7 @@ public class ReservationControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            if (action.equalsIgnoreCase("Réserver")) {
+            if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
                 actionChoixPlaces(request, response);
@@ -70,7 +70,7 @@ public class ReservationControleur extends HttpServlet {
 
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
-        request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle));
+        request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
 
@@ -81,4 +81,6 @@ public class ReservationControleur extends HttpServlet {
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
     }
+
+
 }

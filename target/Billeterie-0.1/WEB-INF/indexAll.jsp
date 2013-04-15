@@ -23,7 +23,7 @@
                     <input type="text" name="NomSpectacle" value="${rep.spectacle.nom}" style="display:none"/>
                     <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
                     <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
-                    <input type="submit" name="action" label="reserver" value="R&eacute;server" class="btnBlack"/>
+                    <input type="submit" name="action" label="reserver" value="Reserver" class="btnBlack"/>
                 </form>
             </td>
         </tr>
