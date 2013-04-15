@@ -35,27 +35,28 @@ public class ReservationControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
-        if (request.getSession(false).getAttribute("LoggedIn") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            return;
-        }
-
+        //    if (request.getSession(false).getAttribute("LoggedIn") == null) {
+        //        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        //        return;
+        //    }
         String action = request.getParameter("action");
 
         try {
-            if (action.equalsIgnoreCase("Réserver")) {
+            if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
-            } else if (action.equalsIgnoreCase("Choisir mes places")){
+            } else if (action.equalsIgnoreCase("Choisir mes places")) {
                 actionChoixPlaces(request, response);
+            } else if (action.equalsIgnoreCase("Valider mes places")) {
+                actionConfirmation(request, response);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
-            //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
-
     }
 
     private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
+
         RepresentationDAO rep = new RepresentationDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         Map<Zone, Float> listePrix =
@@ -69,11 +70,17 @@ public class ReservationControleur extends HttpServlet {
 
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
-        request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle));
+        request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
 
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
+
+    private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+    }
+
+
 }

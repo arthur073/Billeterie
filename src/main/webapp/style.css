@@ -6,6 +6,11 @@
         Purpose of the stylesheet follows.
 */
 
+@font-face {
+	font-family: title_font;
+	src: url('telegrafico.ttf');
+}
+
 html{
     background: url(images/rideau2.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -21,6 +26,10 @@ h2.header {
     position : relative;
     left : -12.5em;
     top : -0.5em;
+    font-family: title_font;
+    line-height: 30px;
+    color : #C11B17;
+    letter-spacing: 1px;
 }
 
 a.login, a.reserver {
@@ -192,34 +201,53 @@ span.price {
     margin-top: 1em;
 }
 
+#chairs {
+    margin : auto;
+    margin-top : 2em;
 
-/* work in progress */
-
-
-#selectable { 
-    list-style-type: none; 
-    margin: 0; 
-    padding: 0; 
-    width: 450px; 
-    height : 200px;
-    cursor: pointer;
 }
 
-#selectable tr td { 
-    margin: 3px; 
-    padding: 1px; 
-    float: left; 
-    width: 100px; 
-    height: 80px; 
-    font-size: 4em; 
-    text-align: center; 
+#chairs tr td.sitstop {
+    width : 20px;
 }
 
-#selectable tr td.ui-selecting { 
-    background: #FECA40; 
+#chairs tr.sitstop {
+    height : 20px;
 }
 
-#selectable tr td.ui-selected { 
-    background: #F39814; 
-    color: white; 
+#chairs tr td.sit {
+    width : 20px;
+    height : 20px;
+    border: black solid 2px;
+    text-align: center;
+    color : white;
+    background : black;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+
+}
+
+#chairs tr td.sat {
+    width : 20px;
+    height : 20px;
+    border: red solid 2px;
+    text-align: center;
+    color : white;
+    background: red;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#scene {
+    width : 400px;
+    margin : auto; 
+    text-align : center;
+    padding : 1em;
+    margin-top : 1em;
+    margin-bottom : 2em;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    box-shadow: 0px 2px 5px #1c1a19;
+    background : #BD782E;
+    border: black solid 1px;
 }

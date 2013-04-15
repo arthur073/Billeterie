@@ -24,7 +24,7 @@ public class SpectacleDAO extends ProviderDAO<Spectacle> {
      *
      * La liste est triée par dates de représentation croissantes.
      */
-    public List<Representation> getRepresentationsPour(int NoSpectacle) throws DAOException {
+    public List<Representation> getRepresentationsPour(int NoSpectacle, int NoRepresentation) throws DAOException {
         List<Representation> result = new ArrayList<Representation>();
         ResultSet rs = null;
         PreparedStatement st = null;
@@ -33,6 +33,7 @@ public class SpectacleDAO extends ProviderDAO<Spectacle> {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_LISTE_REPRESENTATIONS_DU_SPECTACLE"));
             st.setInt(1, NoSpectacle);
+            st.setInt(2, NoRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
                 result.add(RepresentationDAO.construire(rs));
