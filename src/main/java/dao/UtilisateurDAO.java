@@ -29,7 +29,11 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
      */
     public Utilisateur connexion(String login, String password) throws DAOException {
         Utilisateur u = new Utilisateur(login);
-        lire(u);
+        try { 
+            lire(u);
+        } catch (DAOException e) {
+            return null;
+        }
         if (u.getMotDePasseChiffre().equals( Utilisateur.chiffrerMotDePasse(password))) {
             return u;
         } else {
