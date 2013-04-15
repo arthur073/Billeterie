@@ -32,6 +32,15 @@ h2.header {
     letter-spacing: 1px;
 }
 
+.flash {
+    width : 100%;
+    padding-top : 0.5em;
+    padding-bottom : 0.5em;
+    border : red solid 2px;
+    text-align: center;
+    background-color:  rgba(255, 0, 0, 0.5);    
+}
+
 a.login, a.reserver {
     float : right;
     text-align: center;
@@ -204,7 +213,6 @@ span.price {
 #chairs {
     margin : auto;
     margin-top : 2em;
-
 }
 
 #chairs tr td.sitstop {

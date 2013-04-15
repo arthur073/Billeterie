@@ -15,12 +15,12 @@
     <% }%>
     <% } else {%>
 <a href="PagesControleur" class="login"/>Accueil</a>
-<% }%>
+<% } %>
 
 <h2 align="center" class="header"> MesBillets.com</h2> 
 
 <c:if test="${!flash.emptyMessage}" >
-    <div class="${flash.klass}">${flash.message}</div>
+    <div class="${flash.klass}"><strong> ${flash.start} </strong> ${flash.message}</div>
 </c:if>
 
 

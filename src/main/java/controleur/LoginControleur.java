@@ -65,7 +65,7 @@ public class LoginControleur extends HttpServlet {
             actionAfficher(request, response);
         } else {
             request.getSession(true).setAttribute("FailedLogIn", true);
-            FlashImpl fl = new FlashImpl("Failed login", request);
+            FlashImpl fl = new FlashImpl("Mauvais identifiants", request);
 
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }

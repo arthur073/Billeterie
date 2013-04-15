@@ -12,33 +12,26 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class FlashImpl {
 
-    private static final String ERROR = "error";
-    private static final String WARNING = "warning";
-    private static final String NOTICE = "notice";
     private String message;
     private String klass;
+    private static String start = "Erreur : ";
 
     public FlashImpl(String message, HttpServletRequest request) {
         this.message = message;
+        this.klass = "flash";
         request.setAttribute("flash", this);
     }
-    
-    
+
+    // Constructeur pour changer la classe
+    public FlashImpl(String message, HttpServletRequest request, String classe) {
+        this.message = message;
+        this.klass = classe;
+        request.setAttribute("flash", this);
+    }
+
     public void message(String klass, String message) {
         this.klass = klass;
         this.message = message;
-    }
-
-    public void notice(String message) {
-        this.message(NOTICE, message);
-    }
-
-    public void warning(String message) {
-        this.message(WARNING, message);
-    }
-
-    public void error(String message) {
-        this.message(ERROR, message);
     }
 
     public boolean isEmptyMessage() {
@@ -54,6 +47,10 @@ public class FlashImpl {
         String msg = message;
         this.clear();
         return msg;
+    }
+
+    public String getStart() {
+        return start;
     }
 
     public void setMessage(String message) {
