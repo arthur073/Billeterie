@@ -70,7 +70,7 @@ Cliquez sur les places que vous désirez : <br/>
  
     <tr>
         <% for (int rang = 1 ; rang <= 9 ; rang++) { %>
-            <% for (int place = 1; place<10 ; place++) {%>
+            <% for (int place = 1; place<=10 ; place++) {%>
                 <td class="sit" noPlace="<%= place %>" noRang="<%= rang %>" noZone="<%= rtz.rangToZone(rang)%>"   onclick="selectChair(this);"/>
             <% } %>
                <td class="sitstop"/>
@@ -83,7 +83,7 @@ Cliquez sur les places que vous désirez : <br/>
     <tr class="sitstop"/>
     <tr>
         <% for (int rang = 10 ; rang <= 18 ; rang++) { %>
-            <% for (int place = 1; place<10 ; place++) {%>
+            <% for (int place = 1; place<=10 ; place++) {%>
                 <td class="sit" noPlace="<%= place %>" noRang="<%= rang %>" noZone="<%= rtz.rangToZone(rang)%>"   onclick="selectChair(this);"/>
             <% } %>
                <td class="sitstop"/>
