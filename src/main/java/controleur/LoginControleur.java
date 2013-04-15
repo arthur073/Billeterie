@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import modele.Utilisateur;
+import vue.FlashImpl;
 
 /**
  *
@@ -24,7 +25,7 @@ import modele.Utilisateur;
  */
 @WebServlet(name = "LoginControleur", urlPatterns = {"/LoginControleur"})
 public class LoginControleur extends HttpServlet {
-    
+
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
@@ -38,7 +39,7 @@ public class LoginControleur extends HttpServlet {
             if (action.equalsIgnoreCase("Valider")) {
                 String login = request.getParameter("username");
                 String password = request.getParameter("passwd");
-                logMeIn(request, response,login,password);
+                logMeIn(request, response, login, password);
             }
         } catch (DAOException e) {
             /*
@@ -51,28 +52,29 @@ public class LoginControleur extends HttpServlet {
         }
 
     }
-    
+
     private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
-    
+
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
-        Utilisateur utilisateur =  utilDAO.connexion(login, password);
+        Utilisateur utilisateur = utilDAO.connexion(login, password);
         // TODO à clarifier
-        
+
         if (utilisateur != null) {
             request.getSession(true).setAttribute("LoggedIn", true);
             request.getSession(true).setAttribute("FailedLogIn", false);
             actionAfficher(request, response);
         } else {
             request.getSession(true).setAttribute("FailedLogIn", true);
+            FlashImpl fl = new FlashImpl("Failed login", request);
+
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 
     private void actionAfficher(HttpServletRequest request,
-        HttpServletResponse response) throws DAOException, ServletException, IOException {
+            HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
-    
 }

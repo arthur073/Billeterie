@@ -4,6 +4,8 @@
  */
 package vue;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  *
  * @author arthur
@@ -16,6 +18,12 @@ public class FlashImpl {
     private String message;
     private String klass;
 
+    public FlashImpl(String message, HttpServletRequest request) {
+        this.message = message;
+        request.setAttribute("flash", this);
+    }
+    
+    
     public void message(String klass, String message) {
         this.klass = klass;
         this.message = message;

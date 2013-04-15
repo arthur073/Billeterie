@@ -5,10 +5,7 @@
 
     <% Boolean b = (Boolean) request.getSession().getAttribute("FailedLogIn"); %>
     
-    <% if (b) { %>
-        !! Mauvais identifiants !! <br/><br/>
-    <% } %>
-
+   
      Veuillez entrer vos identifiants pour vous connecter : <br/>
      
      
