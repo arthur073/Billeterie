@@ -240,6 +240,7 @@ span.price {
 
 #scene {
     width : 400px;
+    height : 10px;
     margin : auto; 
     text-align : center;
     padding : 1em;
