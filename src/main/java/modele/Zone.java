@@ -70,7 +70,7 @@ public class Zone {
     public boolean equals(Object other){
         if (other == null) return false;
         if (other == this) return true;
-        if (!(other instanceof Zone))return false;
+        if (!(other instanceof Zone)) return false;
         Zone otherZone = (Zone)other;
         return otherZone.noZone == this.noZone;
     }
