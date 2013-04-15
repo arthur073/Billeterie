@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
+import vue.FlashImpl;
 
 /**
  * Le contrôleur de l'application.
@@ -47,7 +48,7 @@ public class PagesControleur extends HttpServlet {
     }
     
     public void actionAfficher(HttpServletRequest request,
-        HttpServletResponse response) throws DAOException, ServletException, IOException {
+        HttpServletResponse response) throws DAOException, ServletException, IOException {       
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
