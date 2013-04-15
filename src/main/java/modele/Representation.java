@@ -1,57 +1,77 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package modele;
 
 import java.util.Date;
 
 /**
- *
- * @author arthur
+ * Correspond à une représentation d'un spectable.
  */
 public class Representation {
+
+    int noSpectacle;
+    int no;
+    Date date = null;
+
+    /**
+     * Spectacle associé à cette représentation.
+     */
+    Spectacle spectacle = null;
     
-    private int noSpectacle;
-    private int noRepresentation;
-    private String date;
-    private String nomSpectacle;
-    private String image;
-    
+    /**
+     * Constructeur minimal.
+     */
+    public Representation(int noSpectacle, int no) {
+        this.noSpectacle = noSpectacle;
+        this.no = no;
+    }
+
+    /**
+     * Constructeur complet.
+     */
+    public Representation(int noSpectacle, int no, Date date) {
+        this.noSpectacle = noSpectacle;
+        this.no = no;
+        this.date = date;
+    }
+
     public int getNoSpectacle() {
         return noSpectacle;
     }
-    
-    public String getNomSpectacle() {
-        return nomSpectacle;
-    }
-    
+
     public int getNoRepresentation() {
-        return noRepresentation;
+        return no;
     }
-    
-    public String getDate() {
+
+    public Date getDate() {
         return date;
     }
-    
-    public String getImage() {
-        return image;
+
+    public Spectacle getSpectacle() {
+        return spectacle;
     }
-    
-    public Representation(int NoS, int NoR, String date, String nomSpectacle, String image) {
-        this.noSpectacle = NoS;
-        this.noRepresentation = NoR;
+
+    public Representation setNoSpectacle(int noSpectacle) {
+        this.noSpectacle = noSpectacle;
+        return this;
+    }
+
+    public Representation setNo(int no) {
+        this.no = no;
+        return this;
+    }
+ 
+    public Representation setDate(Date date) {
         this.date = date;
-        this.nomSpectacle = nomSpectacle;
-        this.image = image;
+        return this;
     }
-    
-    public void annulerRepresentation( Representation r) {
-        // TODO
+
+    /**
+     * FIXME : j'aurais préféré que ce soit dans RepresentationDAO vu que pour
+     * bien faire il faudrait que si spectacle == null, on aille le chercher
+     * dans la BDD.
+     */
+    public Representation setSpectacle(Spectacle spectacle) {
+        this.spectacle = spectacle;
+        return this;
     }
-    
-    
-    
-    // to be continued
-    
+
 }

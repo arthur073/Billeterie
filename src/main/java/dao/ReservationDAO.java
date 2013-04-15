@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import java.sql.Connection;
@@ -17,8 +13,7 @@ import modele.Reservation;
  *
  * @author arthur
  */
-public class ReservationDAO extends ProviderDAO {
-    
+public class ReservationDAO extends ProviderDAO<Reservation> {
     
      public ReservationDAO(DataSource ds) {
         super(ds);
@@ -30,17 +25,16 @@ public class ReservationDAO extends ProviderDAO {
     public List<Reservation> getListeReservationsNonPayeesRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
         List<Reservation> result = new ArrayList<Reservation>();
         ResultSet rs = null;
-        String requeteSQL = "";
+        PreparedStatement st = null;
         Connection conn = null;
         try {
             conn = getConnection();
-            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_NON_PAYEES_REPRESENTATION"));
+            st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_NON_PAYEES_REPRESENTATION"));
             st.setInt(1, noSpectacle);
             st.setInt(2, noRepresentation);
-            st.executeQuery();
-
+            rs = st.executeQuery();
             while (rs.next()) {
-                Reservation reservation = new Reservation(rs.getString("Login"), 
+                        Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
                         );
@@ -49,6 +43,8 @@ public class ReservationDAO extends ProviderDAO {
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
+            closeResultSet(rs);
+            closeStatement(st);
             closeConnection(conn);
         }
         return result;
@@ -60,16 +56,15 @@ public class ReservationDAO extends ProviderDAO {
     public List<Reservation> getListeReservationsClientRepresentation(String login, int noSpectacle, int noRepresentation) throws DAOException {
         List<Reservation> result = new ArrayList<Reservation>();
         ResultSet rs = null;
-        String requeteSQL = "";
+        PreparedStatement st = null;
         Connection conn = null;
         try {
             conn = getConnection();
-            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_CLIENT_REPRESENTATION"));
+            st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_CLIENT_REPRESENTATION"));
             st.setString(1, login);
             st.setInt(2, noSpectacle);
             st.setInt(3, noRepresentation);
             rs = st.executeQuery();
-
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
@@ -80,6 +75,8 @@ public class ReservationDAO extends ProviderDAO {
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
+            closeResultSet(rs);
+            closeStatement(st);
             closeConnection(conn);
         }
         return result;
@@ -91,14 +88,13 @@ public class ReservationDAO extends ProviderDAO {
     public List<Reservation> getListeReservationsClient(String login) throws DAOException {
         List<Reservation> result = new ArrayList<Reservation>();
         ResultSet rs = null;
-        String requeteSQL = "";
+        PreparedStatement st = null;
         Connection conn = null;
         try {
             conn = getConnection();
-            PreparedStatement st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_CLIENT"));
+            st = conn.prepareStatement(getRequete("SELECT_LISTE_RESERVATIONS_CLIENT"));
             st.setString(1, login);
             rs = st.executeQuery();
-
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
@@ -109,8 +105,34 @@ public class ReservationDAO extends ProviderDAO {
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
+            closeResultSet(rs);
+            closeStatement(st);
             closeConnection(conn);
         }
         return result;
+    }
+
+    @Override
+    public void creer(Reservation obj) throws DAOException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void lire(Reservation obj) throws DAOException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mettreAJour(Reservation obj) throws DAOException {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void supprimer(Reservation obj) throws DAOException {
+        // TODO Auto-generated method stub
+
     }
 }

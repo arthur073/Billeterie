@@ -2,10 +2,7 @@ package controleur;
 
 import dao.DAOException;
 import dao.RepresentationDAO;
-import dao.UtilisateurDAO;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -52,7 +49,7 @@ public class PagesControleur extends HttpServlet {
     public void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
-        request.setAttribute("representations", repDAO.getListeRepresentations());
+        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 

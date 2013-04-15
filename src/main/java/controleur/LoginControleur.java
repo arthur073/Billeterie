@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import modele.Utilisateur;
+
 /**
  *
  * @author thib
@@ -39,8 +41,13 @@ public class LoginControleur extends HttpServlet {
                 logMeIn(request, response,login,password);
             }
         } catch (DAOException e) {
-            request.setAttribute("erreurMessage", e.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            /*
+             * Pour avoir une page d'infos bien détaillée.
+             * TODO retirer ça pour le rendu.
+             */
+            throw new RuntimeException(e);
+            // request.setAttribute("erreurMessage", e.getMessage());
+            // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
 
     }
@@ -48,23 +55,23 @@ public class LoginControleur extends HttpServlet {
     private void logMeIn(HttpServletRequest request, HttpServletResponse response, String login, String password) throws ServletException, IOException, DAOException {
     
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
-        Boolean logged =  utilDAO.ClientIdentification(login, password);
+        Utilisateur utilisateur =  utilDAO.connexion(login, password);
         // TODO à clarifier
         
-        if (logged) {
+        if (utilisateur != null) {
             request.getSession(true).setAttribute("LoggedIn", true);
             request.getSession(true).setAttribute("FailedLogIn", false);
+            actionAfficher(request, response);
         } else {
             request.getSession(true).setAttribute("FailedLogIn", true);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
-        actionAfficher(request, response);
     }
 
     private void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
-        request.setAttribute("representations", repDAO.getListeRepresentations());
+        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
     
