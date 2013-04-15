@@ -16,11 +16,6 @@ public class FlashImpl {
     private String klass;
     private static String start = "Erreur : ";
 
-    public FlashImpl(String message, HttpServletRequest request) {
-        this.message = message;
-        this.klass = "flash";
-        request.setAttribute("flash", this);
-    }
 
     // Constructeur pour changer la classe
     public FlashImpl(String message, HttpServletRequest request, String classe) {
