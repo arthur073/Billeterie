@@ -51,12 +51,11 @@ public class UtilisateursControleur extends HttpServlet {
     private void FormulaireCreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         ClientDAO clientDAO = new ClientDAO(ds);
         Client client = new Client(
-        (String) request.getParameter("username"),
-        Client.chiffrerMotDePasse((String) request.getParameter("passwd")),
-        (String) request.getParameter("nom"),
-        (String) request.getParameter("prenom"),
+                (String) request.getParameter("username"),
+                Client.chiffrerMotDePasse((String) request.getParameter("passwd")),
+                (String) request.getParameter("nom"),
+                (String) request.getParameter("prenom"),
                 (String) request.getParameter("email"));
-
         clientDAO.creer(client);
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }

@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+
+import modele.Client;
+import modele.Place;
+import modele.Representation;
 import modele.Reservation;
 
 /**
@@ -50,7 +54,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         return result;
     }
     
-       /**
+    /**
      * Renvoie la liste des reservations non payees pour un client a une representation donnee
      */
     public List<Reservation> getListeReservationsClientRepresentation(String login, int noSpectacle, int noRepresentation) throws DAOException {
@@ -118,10 +122,24 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
 
     }
 
+    /**
+     * Ajoute les objets Client, Representation et Place à une reservation
+     * dont on connaît les attributs clés (càd tous les attributs).
+     */
     @Override
-    public void lire(Reservation obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void lire(Reservation r) throws DAOException {
+        ClientDAO uDAO = new ClientDAO(dataSource);
+        Client c = new Client(r.getLogin());
+        uDAO.lire(c);
+        r.setClient(c);
+        RepresentationDAO repDAO = new RepresentationDAO(dataSource);
+        Representation rep = new Representation(r.getNoRepresentation(), r.getNoSpectacle());
+        repDAO.lire(rep);
+        r.setRepresentation(rep);
+        PlaceDAO pDAO = new PlaceDAO(dataSource);
+        Place p = new Place(r.getNoPlace(), r.getNoRang(), r.getNoZone());
+        pDAO.lire(p);
+        r.setPlace(p);
     }
 
     @Override
