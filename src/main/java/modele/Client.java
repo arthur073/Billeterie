@@ -8,9 +8,13 @@ import java.util.Set;
  * TODO : je ne sais pas si cette classe sert à quelquechose.
  */
 public class Client extends Utilisateur {
-    
-  public Client(String login, String mdpClair, String nom, String prenom, String email) {
-      super(login, mdpClair, nom, prenom, email, TypeUtilisateur.CLIENT);
-  }
+
+    public Client(String login) {
+        super(login);
+    }
+
+    public Client(String login, String mdpClair, String nom, String prenom, String email) {
+        super(login, mdpClair, nom, prenom, email, TypeUtilisateur.CLIENT);
+    }
 
 }
