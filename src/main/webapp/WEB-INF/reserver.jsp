@@ -20,9 +20,9 @@ Vous avez choisi la représentation suivante : <br/>
                     <h4> Choisissez vos places : </h4> 
                     <input type="text" label="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                     <input type="text" label="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
-                    <label> Pelouse : </label><input type="text" label="nbPlacesPelouse"/> <span class="price"> (  une place = <%= request.getAttribute("p1")%> &euro; )</span><br/> 
-                    <label> Orchestre : </label><input type="text" label="nbPlacesOrchestre"/><span class="price"> (  une place = <%= request.getAttribute("p2")%> &euro; )</span><br/> 
-                    <label> Balcon : </label><input type="text" label="nbPlacesBalcon"/> <span class="price"> (  une place = <%= request.getAttribute("p3")%> &euro; )</span> <br/> 
+                    <label> Pelouse : </label><span class="price"> <%= request.getAttribute("pelouse")%> &euro;</span><br/> 
+                    <label> Orchestre : </label><span class="price"> <%= request.getAttribute("orchestre")%> &euro;</span><br/> 
+                    <label> Balcon : </label><span class="price"> <%= request.getAttribute("balcon")%> &euro;</span> <br/> 
                     <input type="submit" name="action" label="reserverPlaces" value="Choisir mes places" class="btnReserver"/> 
                 </form>
             </td>

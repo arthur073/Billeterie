@@ -45,12 +45,9 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
             st.setInt(2, noRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
-                // TODO à CHANGER : "z.NoZone" ou juste "NoZone" ?
                 prix.put(new Zone(rs.getInt("NoZone"),
-                            "TODO",
-                            23), rs.getFloat("Prix"));
-                // TODO si une zone n'a pas de tarif spcécial pour une
-                // représentation, faut-il mettre le tarif de base dans la map ?
+                            rs.getString("Categorie"),
+                            rs.getFloat("TarifBase")), rs.getFloat("Prix"));
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);

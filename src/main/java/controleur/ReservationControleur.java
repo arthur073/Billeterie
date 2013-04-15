@@ -9,7 +9,7 @@ import dao.RepresentationDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -63,10 +63,10 @@ public class ReservationControleur extends HttpServlet {
             rep.getPrixParZones(Integer.parseInt(request.getParameter("NoSpectacle").toString()),
                     Integer.parseInt(request.getParameter("NoRepresentation").toString()));
 
-        // TODO : prendre les prix de la requête de thib
-        request.setAttribute("p1", listePrix.remove(0));
-        request.setAttribute("p2", listePrix.remove(0));
-        request.setAttribute("p3", listePrix.remove(0));
+             Iterator<Map.Entry<Zone, Float> > i = listePrix.entrySet().iterator();
+        request.setAttribute("pelouse", i.next().getValue());
+        request.setAttribute("orchestre", i.next().getValue());
+        request.setAttribute("balcon", i.next().getValue());
 
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
