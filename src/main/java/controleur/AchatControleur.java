@@ -5,9 +5,9 @@
 package controleur;
 
 import dao.DAOException;
-import dao.RepresentationDAO;
+import dao.ZoneDAO;
 import java.io.IOException;
-import java.util.Map;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -52,14 +52,12 @@ public class AchatControleur extends HttpServlet {
     }
 
     private void actionAcheter(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
-        RepresentationDAO rep = new RepresentationDAO(ds);
-        Map<Zone, Float> listePrix =
-            rep.getPrixParZones(Integer.parseInt(request.getParameter("NoSpectacle").toString()),
-                    Integer.parseInt(request.getParameter("NoRepresentation").toString()));
+        ZoneDAO zone = new ZoneDAO(ds);
+        List<Zone> listeZones = zone.getZones();
         // TODO : prendre les prix de la requête de thib
-        request.setAttribute("p1", listePrix.remove(0));
-        request.setAttribute("p2", listePrix.remove(0));
-        request.setAttribute("p3", listePrix.remove(0));
+        request.setAttribute("p1", listeZones.remove(0));
+        request.setAttribute("p2", listeZones.remove(0));
+        request.setAttribute("p3", listeZones.remove(0));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
 }
