@@ -68,7 +68,8 @@ public class PagesControleur extends HttpServlet {
     }
 
     private void goToLogOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-        request.getSession().setAttribute("LoggedIn", "false");
+        request.getSession().setAttribute("LoggedIn", false);
+        request.getSession().setAttribute("Login", "");
         actionAfficher(request, response);
     }
 

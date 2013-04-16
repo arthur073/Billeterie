@@ -65,7 +65,8 @@ public class LoginControleur extends HttpServlet {
         // TODO à clarifier
 
         if (utilisateur != null) {
-            request.getSession().setAttribute("LoggedIn", utilisateur.getLogin());
+            request.getSession().setAttribute("LoggedIn", true);
+            request.getSession().setAttribute("Login", utilisateur.getLogin());
             request.getSession().setAttribute("FailedLogIn", false);
             FlashImpl fl = new FlashImpl("Succès", request, "success");
             actionAfficher(request, response);
