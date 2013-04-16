@@ -21,6 +21,7 @@
 
 
     <body onload="getSelected();">
+        <h2 class="header"> MesBillets.com</h2>
 
 
         <% if (request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) {%>
@@ -34,7 +35,6 @@
 <a href="PagesControleur" class="login"/>Accueil</a>
 <% }%>
 
-<h2 class="header"> MesBillets.com</h2>
 <h2 align="center" class="titre"> ${titre} </h2>
 
 
