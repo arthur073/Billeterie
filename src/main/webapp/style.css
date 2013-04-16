@@ -330,6 +330,51 @@ span.price {
     border-top-right-radius: 8px;
 }
 
+#chairs tr td.poulailler {
+    width : 20px;
+    height : 20px;
+    border: red solid 2px;
+    text-align: center;
+    color : white;
+    background: yellow;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#chairs tr td.orchestre {
+    width : 20px;
+    height : 20px;
+    border: red solid 2px;
+    text-align: center;
+    color : white;
+    background: green;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#chairs tr td.balcon {
+    width : 20px;
+    height : 20px;
+    border: red solid 2px;
+    text-align: center;
+    color : white;
+    background: orange;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+#chairs tr td.occupe {
+    width : 20px;
+    height : 20px;
+    border: red solid 2px;
+    text-align: center;
+    color : white;
+    background: grey;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+
 #scene {
     width : 400px;
     height : 10px;

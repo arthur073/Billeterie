@@ -1,3 +1,6 @@
+<%@page import="java.util.LinkedList"%>
+<%@page import="modele.Reservation"%>
+<%@page import="java.util.List"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="vue.RangToZone"%> 
 
@@ -59,7 +62,9 @@
 </script>
 
 
-
+<%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees"); %>
+<%  int noSpectacle = 1; %>
+<%  int noRepresentation = 1; %>
 Cliquez sur les places que vous désirez : <br/>
 
 <% RangToZone rtz = new RangToZone(); %>
@@ -68,7 +73,7 @@ Cliquez sur les places que vous désirez : <br/>
     <tr>
         <% for (int rang = 1 ; rang <= 9 ; rang++) { %>
             <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="sit" noPlace="<%= place %>" noRang="<%= rang %>" noZone="<%= rtz.rangToZone(rang)%>"   onclick="selectChair(this);"/>
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, rtz.rangToZone(rang)) %>" noPlace="<%= place %>" noRang="<%= rang %>" noZone="<%= rtz.rangToZone(rang)%>"   onclick="selectChair(this);"/>
             <% } %>
                <td class="sitstop"/>
                <% if (rang % 3 == 0) { %>

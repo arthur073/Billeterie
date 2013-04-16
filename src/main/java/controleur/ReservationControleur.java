@@ -5,10 +5,12 @@
 package controleur;
 
 import dao.DAOException;
+import dao.ReservationDAO;
 import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -17,6 +19,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import modele.Place;
+import modele.Reservation;
 
 import modele.Zone;
 
@@ -46,6 +50,8 @@ public class ReservationControleur extends HttpServlet {
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
+                request.setAttribute("NoSpectacle", 1);
+                request.setAttribute("NoReservation", 1);
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 actionConfirmation(request, response);
@@ -66,12 +72,22 @@ public class ReservationControleur extends HttpServlet {
 
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
+        request.setAttribute("NoSpectacle",NoSpectacle);
+        request.setAttribute("NoRepresentation",NoRepresentation);
         request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
 
-    private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Reservation de billets");
+        ReservationDAO resDAO = new ReservationDAO(ds);
+        int NoSpectacle = 1;
+        int NoRepresentation = 1;
+        //int NoSpectacle = (int) request.getAttribute("NoSpectacle");
+        //int NoRepresentation = Integer.parseInt(request.getAttribute("NoRepresentation"));
+        LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
+        
+        request.setAttribute("PlacesOccupees", PlacesOccupees);
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 

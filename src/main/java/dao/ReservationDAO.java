@@ -1,10 +1,12 @@
 package dao;
 
+import static dao.ProviderDAO.closeResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.sql.DataSource;
 
@@ -54,6 +56,40 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         return result;
     }
 
+    /** 
+     * Renvoie la liste des reservations pour une representation donnee
+     */
+    
+    public LinkedList<Reservation> getListeReservationsPourRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
+        LinkedList<Reservation> result = new LinkedList<Reservation>();
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_PLACES_RESERVEES"));
+            st.setInt(1, noSpectacle);
+            st.setInt(2, noRepresentation);
+            st.setInt(3, noSpectacle);
+            st.setInt(4, noRepresentation);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                Reservation reservation = new Reservation("anonymous", 
+                        noSpectacle, noRepresentation, 
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        );
+                result.add(reservation);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
+    }
+    
     /**
      * Renvoie la liste des reservations non payees pour un client a une representation donnee
      */
