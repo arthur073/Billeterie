@@ -59,9 +59,15 @@ Vos places Balcon:
 <%= p.toString() %>
 <br/>
 <% } %>
-
 <br/>
 
+<% String tt = request.getParameter("Poulailler"); %>
+<%= tt %>
+<% String tt2 = request.getParameter("Orchestre"); %>
+<%= tt2 %>
 
+Recapitulatif de votre facture:
+
+<br/>
 <c:import url="Layout/footer.jsp"/>
 

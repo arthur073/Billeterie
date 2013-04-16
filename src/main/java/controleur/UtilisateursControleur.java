@@ -45,6 +45,10 @@ public class UtilisateursControleur extends HttpServlet {
                 Logger.getLogger(UtilisateursControleur.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        else
+        {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
     }
 
     @Override
