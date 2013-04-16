@@ -37,6 +37,10 @@ public class UtilisateursControleur extends HttpServlet {
         if (action.equalsIgnoreCase("goToMyAccount")) {
             goToMyAccount(request, response);
         }
+        else
+        {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
     }
 
     @Override

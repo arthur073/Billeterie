@@ -41,6 +41,8 @@ public class PagesControleur extends HttpServlet {
                 goToAbout(request, response);
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
+            } else {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
