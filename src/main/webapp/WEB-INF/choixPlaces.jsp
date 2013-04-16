@@ -69,8 +69,11 @@
 
 
 <%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees"); %>
-<%  int noSpectacle = 1; %>
-<%  int noRepresentation = 1; %>
+<%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle")); %>
+<%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation")); %>
+
+noSpectacle = <%= noSpectacle %>
+noRepresentation = <%= noRepresentation %>
 Cliquez sur les places que vous désirez : <br/>
 
 <% RangToZone rtz = new RangToZone(); %>

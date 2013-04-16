@@ -23,8 +23,8 @@ Vous avez choisi la représentation suivante : <br/>
             <td>
                 <form action="ReservationControleur"  class="reserverForm" method="post">
                     <h4> Choisissez vos places : </h4> 
-                    <input type="text" label="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
-                    <input type="text" label="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
+                    <input type="text" name="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
+                    <input type="text" name="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                         <% 
                             List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
                             for(Zone zone:listeCateg) {
@@ -36,7 +36,9 @@ Vous avez choisi la représentation suivante : <br/>
                                 <%
                             }
 
-                        %>                            
+                        %>   
+                        noSpectacle = <%= request.getParameter("NoSpectacle") %>
+                        noRepresentation = <%= noRepresentation %>
                     <input type="submit" name="action" label="reserverPlaces" value="Choisir mes places" class="btnReserver"/> 
                 </form>
             </td>

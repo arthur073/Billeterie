@@ -60,8 +60,8 @@ public class ReservationControleur extends HttpServlet {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
                 /* TODO : a corriger !!! */
-                request.setAttribute("NoSpectacle", 1);
-                request.setAttribute("NoReservation", 1);
+                request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                request.setAttribute("NoReservation", request.getParameter("NoRepresentation"));
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 actionConfirmation(request, response);
@@ -92,10 +92,10 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("titre", "Reservation de billets");
         ReservationDAO resDAO = new ReservationDAO(ds);
         /* TODO : à corriger !! */
-        int NoSpectacle = 1;
-        int NoRepresentation = 1;
-        //int NoSpectacle = (int) request.getAttribute("NoSpectacle");
-        //int NoRepresentation = Integer.parseInt(request.getAttribute("NoRepresentation"));
+        //int NoSpectacle = 1;
+        //int NoRepresentation = 1;
+        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
+        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
         LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
         
         request.setAttribute("PlacesOccupees", PlacesOccupees);
@@ -114,6 +114,7 @@ public class ReservationControleur extends HttpServlet {
         }
         else
         {
+            
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         }
     }
