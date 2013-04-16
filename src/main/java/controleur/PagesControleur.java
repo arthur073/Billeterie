@@ -26,12 +26,12 @@ public class PagesControleur extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        
+
         if (request.getCharacterEncoding() == null) {
-        request.setCharacterEncoding("UTF-8");
+            request.setCharacterEncoding("UTF-8");
         }
         String action = request.getParameter("action");
-        
+
         try {
             if (action == null || action.equalsIgnoreCase("annuler")) {
                 actionAfficher(request, response);
@@ -39,6 +39,10 @@ public class PagesControleur extends HttpServlet {
                 goToLogIn(request, response);
             } else if (action.equalsIgnoreCase("goToLogOut")) {
                 goToLogOut(request, response);
+            } else if (action.equalsIgnoreCase("goToAbout")) {
+                goToAbout(request, response);
+            } else if (action.equalsIgnoreCase("goToMyAccount")) {
+                goToMyAccount(request, response);
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
             }
@@ -47,9 +51,9 @@ public class PagesControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
-    
+
     public void actionAfficher(HttpServletRequest request,
-        HttpServletResponse response) throws DAOException, ServletException, IOException { 
+            HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
@@ -60,16 +64,22 @@ public class PagesControleur extends HttpServlet {
         request.getSession().setAttribute("FailedLogIn", false);
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
-    
+
     private void goToLogOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.getSession().setAttribute("LoggedIn", false);
-        actionAfficher(request,response);
+        actionAfficher(request, response);
     }
 
-    
     private void CreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-            getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response); 
+        getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response);
     }
-    
-  
+
+    private void goToAbout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/about.jsp").forward(request, response);
+    }
+
+    private void goToMyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO : Tester si logged in !!
+        getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
+    }
 }
