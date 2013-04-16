@@ -30,6 +30,8 @@ public class TraitementPlaces {
                 PlacesOrchestre.add(new Place(noP, noR, noZ));
             } else if (noZ == 3) {
                 PlacesBalcon.add(new Place(noP, noR, noZ));
+            } else if (noZ == 4) {
+                PlacesLoge.add(new Place(noP, noR, noZ));
             }
         }
 

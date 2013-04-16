@@ -295,9 +295,11 @@ span.price {
 }
 
 #chairs {
+    align : center;
     margin : auto;
     margin-top : 2em;
 }
+
 
 #chairs tr td.sitstop {
     width : 20px;

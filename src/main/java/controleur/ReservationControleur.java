@@ -59,6 +59,7 @@ public class ReservationControleur extends HttpServlet {
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
+                /* TODO : a corriger !!! */
                 request.setAttribute("NoSpectacle", 1);
                 request.setAttribute("NoReservation", 1);
                 actionChoixPlaces(request, response);
@@ -90,6 +91,7 @@ public class ReservationControleur extends HttpServlet {
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Reservation de billets");
         ReservationDAO resDAO = new ReservationDAO(ds);
+        /* TODO : à corriger !! */
         int NoSpectacle = 1;
         int NoRepresentation = 1;
         //int NoSpectacle = (int) request.getAttribute("NoSpectacle");

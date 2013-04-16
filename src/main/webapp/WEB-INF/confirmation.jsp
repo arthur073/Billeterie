@@ -48,10 +48,15 @@ Vos places Balcon:
 <% } %>
 <br/>
 
-<% String tt = request.getParameter("Poulailler"); %>
-<%= tt %>
-<% String tt2 = request.getParameter("Orchestre"); %>
-<%= tt2 %>
+<br/>
+Vos places Loge:
+<br/>
+<% for (Place p : PlacesBalcon) { %>
+<%= p.toString() %>
+<br/>
+<% } %>
+<br/>
+
 
 Recapitulatif de votre facture:
 
