@@ -86,8 +86,17 @@ public class LoginControleur extends HttpServlet {
     }
 
     private void actionAfficher(HttpServletRequest request,
-        HttpServletResponse response) throws DAOException, ServletException, IOException {
 
-        getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
+        HttpServletResponse response) throws DAOException, ServletException, IOException {        
+        Object previousPage = request.getSession().getAttribute("previousPage");
+        if (previousPage == null || (previousPage != null && previousPage.equals(false))) {
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+        }
+        else
+        {
+            getServletContext().getRequestDispatcher((String)previousPage).forward(request, response);
+        }
     }
 }
