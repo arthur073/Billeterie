@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import modele.Utilisateur;
-import modele.TypeUtilisateur;
 
 /**
  *
