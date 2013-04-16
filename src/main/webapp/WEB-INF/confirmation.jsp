@@ -1,3 +1,4 @@
+<%@page import="vue.TraitementPlaces"%>
 <%@page import="modele.Place"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.regex.Matcher"%>
@@ -13,30 +14,16 @@
 Récapitulatif de la commande : <br/>
 
 Vous avez selectionné les places : 
-<% String pl = request.getParameter("places").replaceAll("/", " "); %>
-<%= pl %>
+<% String places = request.getParameter("places").replaceAll("/", " "); %>
+<%= places %>
 <br/><br/>
 
 <% ArrayList<Place> PlacesPoulailler = new ArrayList<Place>(); %> 
 <% ArrayList<Place> PlacesOrchestre = new ArrayList<Place>(); %> 
 <% ArrayList<Place> PlacesBalcon = new ArrayList<Place>(); %> 
-<% int noP, noR, noZ; %>
-<% String[] tmp; %>
-<% request.getParameter("NomSpectacle"); %>
-<% String[] strArray = pl.split("!"); %>
-<% for (String el : strArray) { %>
-    <% tmp = el.split(" "); %>
-    <% noP = Integer.parseInt(tmp[0]); %>
-    <% noR = Integer.parseInt(tmp[1]); %>
-    <% noZ = Integer.parseInt(tmp[2]); %>
-    <% if (noZ == 1) { %>
-        <% PlacesPoulailler.add(new Place(noP,noR,noZ)); %>
-    <% } else if (noZ == 2) { %>
-        <% PlacesOrchestre.add(new Place(noP,noR,noZ)); %>
-    <% } else if (noZ == 3) { %>
-        <% PlacesBalcon.add(new Place(noP,noR,noZ)); %>
-    <% } %>
-<% } %>
+<% ArrayList<Place> PlacesLoge = new ArrayList<Place>(); %> 
+<% TraitementPlaces tp = new TraitementPlaces(); %>
+<% tp.TraiterPlaces(places, PlacesPoulailler, PlacesOrchestre, PlacesBalcon, PlacesLoge); %>
 
 Vos places Poulailler:
 <br/>
