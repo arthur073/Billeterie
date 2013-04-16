@@ -105,7 +105,12 @@ ul.menu li:last-child a {
 }
 
 ul.menu li a:hover {
-    text-decoration: underline;
+    box-shadow:0 0 5px #000000; 
+    padding-top : 0.3em;
+    padding-bottom : 0.35em;
+    background: #900000;
+    border : none;
+    border-radius: 5px;
 }
 
 ul.menu li a.current {
