@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  
 <c:import url="Layout/header.jsp"/>      
-<h2 align="center" class="titre"> Connexion à votre espace client  </h2>
 
     <% Boolean b = (Boolean) request.getSession().getAttribute("FailedLogIn"); %>
     

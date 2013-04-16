@@ -59,8 +59,6 @@
 </script>
 
 
-<h2 align="center" class="titre"> Choisissez vos places </h2>
-
 
 Cliquez sur les places que vous désirez : <br/>
 

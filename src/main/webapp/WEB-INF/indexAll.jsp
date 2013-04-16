@@ -2,7 +2,6 @@
 
 <c:import url="Layout/header.jsp"/>
 
-<h2 align="center" class="titre"> Mes billets en ligne </h2>
 
 <table class="indexTable">
     <tr>
