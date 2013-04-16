@@ -15,11 +15,13 @@ import modele.Reservation;
 public class RangToZone {
 
     public int rangToZone(int noRang){
-        if (noRang == 1) {
+        if (noRang <= 12) {
             return 1; // Poulailler
-        } else if (noRang == 2) {
+        } else if (12 < noRang && noRang <= 21 ) {
             return 2; //Orchestre
-        } 
+        } else if (21 < noRang && noRang <= 27 ) {
+            return 4; // Loge
+        }
         return 3;  //Balcon
     }
     

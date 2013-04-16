@@ -335,7 +335,7 @@ span.price {
 #chairs tr td.poulailler {
     width : 20px;
     height : 20px;
-    border: red solid 2px;
+    border: black solid 2px;
     text-align: center;
     color : white;
     background: yellow;
@@ -346,7 +346,7 @@ span.price {
 #chairs tr td.orchestre {
     width : 20px;
     height : 20px;
-    border: red solid 2px;
+    border: black solid 2px;
     text-align: center;
     color : white;
     background: green;
@@ -357,7 +357,7 @@ span.price {
 #chairs tr td.balcon {
     width : 20px;
     height : 20px;
-    border: red solid 2px;
+    border: black solid 2px;
     text-align: center;
     color : white;
     background: orange;
@@ -365,16 +365,29 @@ span.price {
     border-top-right-radius: 8px;
 }
 
+#chairs tr td.loge {
+    width : 20px;
+    height : 20px;
+    border: black solid 2px;
+    text-align: center;
+    color : white;
+    background: purple;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
 #chairs tr td.occupe {
     width : 20px;
     height : 20px;
-    border: red solid 2px;
+    border: black solid 2px;
     text-align: center;
     color : white;
     background: grey;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
+
+
 
 
 #scene {

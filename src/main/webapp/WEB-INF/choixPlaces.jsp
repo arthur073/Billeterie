@@ -57,10 +57,11 @@
                     + "/" + noZone + "!";
             //alert(pos.x + "," + pos.y+"->"+convertToInt(pos));
         } else {
-        
-            obj.className =  obj.EtatPrec;
-            document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
-                    + "/" + noZone + "!", '');
+            if (obj.className === "sat") {
+                obj.className =  obj.EtatPrec;
+                document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
+                       + "/" + noZone + "!", '');
+            }
         }
     }
 
@@ -93,7 +94,7 @@ Cliquez sur les places que vous désirez : <br/>
         <% for (int rang = 13 ; rang <= 21 ; rang++) { %>
             <% for (int place = 1; place<=10 ; place++) {%>
                 <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, rtz.rangToZone(rang)) %>" 
-                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="1" onclick="selectChair(this);"/>
+                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="2" onclick="selectChair(this);"/>
             <% } %>
             <td class="sitstop"/>
                <% if ((rang-12) % 3 == 0) { %>
@@ -109,7 +110,7 @@ Cliquez sur les places que vous désirez : <br/>
         <% for (int rang = 22 ; rang <= 27 ; rang++) { %>
             <% for (int place = 1; place<=10 ; place++) {%>
                 <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, rtz.rangToZone(rang)) %>" 
-                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="1" onclick="selectChair(this);"/>
+                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="4" onclick="selectChair(this);"/>
             <% } %>
             <td class="sitstop"/>
                <% if ((rang-21) % 2 == 0) { %>

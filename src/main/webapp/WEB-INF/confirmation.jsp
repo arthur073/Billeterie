@@ -51,7 +51,7 @@ Vos places Balcon:
 <br/>
 Vos places Loge:
 <br/>
-<% for (Place p : PlacesBalcon) { %>
+<% for (Place p : PlacesLoge) { %>
 <%= p.toString() %>
 <br/>
 <% } %>
