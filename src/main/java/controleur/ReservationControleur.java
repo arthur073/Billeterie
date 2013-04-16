@@ -105,6 +105,9 @@ public class ReservationControleur extends HttpServlet {
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             request.getSession().setAttribute("previousPage", "/WEB-INF/confirmation.jsp");
+            Object o = request.getParameterMap();
+            response.setHeader("Location", "PagesControleur?action=goToLogin"); 
+            response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT); 
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
         else
