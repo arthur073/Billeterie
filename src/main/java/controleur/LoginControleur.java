@@ -41,6 +41,11 @@ public class LoginControleur extends HttpServlet {
                 String password = request.getParameter("passwd");
                 logMeIn(request, response, login, password);
             }
+            else if (action.equalsIgnoreCase("Annuler")) {
+                RepresentationDAO repDAO = new RepresentationDAO(ds);
+                request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+                getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+            }
         } catch (DAOException e) {
             /*
              * Pour avoir une page d'infos bien détaillée.
@@ -60,12 +65,13 @@ public class LoginControleur extends HttpServlet {
         // TODO à clarifier
 
         if (utilisateur != null) {
-            request.getSession(true).setAttribute("LoggedIn", true);
-            request.getSession(true).setAttribute("FailedLogIn", false);
+            request.getSession().setAttribute("LoggedIn", true);
+            request.getSession().setAttribute("Login", utilisateur.getLogin());
+            request.getSession().setAttribute("FailedLogIn", false);
             FlashImpl fl = new FlashImpl("Succès", request, "success");
             actionAfficher(request, response);
         } else {
-            request.getSession(true).setAttribute("FailedLogIn", true);
+            request.getSession().setAttribute("FailedLogIn", true);
             FlashImpl fl = new FlashImpl("Mauvais identifiants", request, "error");
 
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -73,7 +79,7 @@ public class LoginControleur extends HttpServlet {
     }
 
     private void actionAfficher(HttpServletRequest request,
-            HttpServletResponse response) throws DAOException, ServletException, IOException {
+        HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);

@@ -8,7 +8,7 @@ import java.util.Date;
 public class Representation {
 
     int noSpectacle;
-    int no;
+    int noRepresentation;
     Date date = null;
 
     /**
@@ -21,15 +21,15 @@ public class Representation {
      */
     public Representation(int noSpectacle, int no) {
         this.noSpectacle = noSpectacle;
-        this.no = no;
+        this.noRepresentation = no;
     }
 
     /**
      * Constructeur complet.
      */
-    public Representation(int noSpectacle, int no, Date date) {
+    public Representation(int noSpectacle, int noRepresentation, Date date) {
         this.noSpectacle = noSpectacle;
-        this.no = no;
+        this.noRepresentation = noRepresentation;
         this.date = date;
     }
 
@@ -38,7 +38,7 @@ public class Representation {
     }
 
     public int getNoRepresentation() {
-        return no;
+        return noRepresentation;
     }
 
     public Date getDate() {
@@ -54,8 +54,8 @@ public class Representation {
         return this;
     }
 
-    public Representation setNo(int no) {
-        this.no = no;
+    public Representation setNoRepresentation(int noRepresentation) {
+        this.noRepresentation = noRepresentation;
         return this;
     }
  
@@ -64,11 +64,6 @@ public class Representation {
         return this;
     }
 
-    /**
-     * FIXME : j'aurais préféré que ce soit dans RepresentationDAO vu que pour
-     * bien faire il faudrait que si spectacle == null, on aille le chercher
-     * dans la BDD.
-     */
     public Representation setSpectacle(Spectacle spectacle) {
         this.spectacle = spectacle;
         return this;

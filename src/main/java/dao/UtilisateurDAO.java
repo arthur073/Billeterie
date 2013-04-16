@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
 import modele.Utilisateur;
-import modele.TypeUtilisateur;
 
 /**
  *
@@ -34,7 +33,7 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
         } catch (DAOException e) {
             return null;
         }
-        if (u.getMotDePasseChiffre().equals( Utilisateur.chiffrerMotDePasse(password))) {
+        if (u.getMotDePasseChiffre().equals(Utilisateur.chiffrerMotDePasse(password))) {
             return u;
         } else {
             return null;
@@ -61,6 +60,7 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
             st.executeUpdate();
             // Le client a bien été inséré, le login était donc dispo.
         } catch (SQLException e) {
+            // TODO discriminer entre déjà existant et erreur BD.
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
             closeStatement(st);
@@ -91,7 +91,7 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
                 // FIXME : erreur java.lang.IllegalArgumentException: No enum constant modele.TypeUtilisateur.Client
                 //u.setType(TypeUtilisateur.valueOf(rs.getString("Type")));
             } else {
-                throw new DAOException("Le login fourni n'existe pas.");
+                throw new DAOException(DAOException.Type.NON_TROUVE, "Le login fourni n'existe pas.");
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);

@@ -13,7 +13,6 @@ DROP TABLE AAcheteNPlaces;
 DROP TABLE AReserveNPlaces;
 DROP TABLE Place;
 DROP TABLE Utilisateur;
-DROP TABLE PrixRepresentation;
 DROP TABLE Zone;
 DROP TABLE Representation;
 DROP TABLE Spectacle;
@@ -48,16 +47,6 @@ CREATE TABLE Zone (
     Categorie varchar(20) NOT NULL,
     TarifBase double(6,2) NOT NULL,
     CONSTRAINT pk_Zone PRIMARY KEY (NoZone)
-);
-
-CREATE TABLE PrixRepresentation (
-    NoSpectacle int,
-    NoRepresentation int,
-    NoZone int,
-    Prix double(6,2) NOT NULL,
-    CONSTRAINT pk_PrixRepresentation PRIMARY Key (NoSpectacle, NoRepresentation, NoZone),
-    CONSTRAINT fk_PrixRepresentation FOREIGN KEY (NoSpectacle, NoRepresentation) REFERENCES Representation (NoSpectacle, NoRepresentation),
-    CONSTRAINT fk_PrixRepresentation2 FOREIGN KEY (NoZone) REFERENCES Zone (NoZone)
 );
 
 CREATE TABLE Place (

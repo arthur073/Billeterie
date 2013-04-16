@@ -1,3 +1,4 @@
+<%@page import="java.util.List"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Iterator"%>
@@ -7,8 +8,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>    
-
-<h2 align="center" class="titre"> Réservation de billets </h2>
 
 Vous avez choisi la représentation suivante : <br/>
 <div class="reserver" >
@@ -27,19 +26,15 @@ Vous avez choisi la représentation suivante : <br/>
                     <input type="text" label="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                     <input type="text" label="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                         <% 
-                             Set<Map.Entry<Zone, Float>> listeCateg = (Set<Map.Entry<Zone, Float>>) request.getAttribute("typePlaces");
-                            Iterator<Map.Entry<Zone, Float> > i = listeCateg.iterator();
-                            Entry<Zone, Float> e;
-                            do {
-                                e = i.next(); %>
-                                <label><%= e.getKey().getCategorie() %></label>
-                                <span class="price"> 
-                                <%= e.getValue()%> &euro;</span><br/> 
+                            List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
+                            for(Zone zone:listeCateg) {
+                            
+                              %>
+                            
+                                <label><%=zone.getCategorie() %></label>
+                                <span class="price"> <%= zone.getTarifBase() %>&nbsp;&euro;</span><br/> 
                                 <%
-                                
-                                
                             }
-                            while (i.hasNext() );
 
                         %>                            
                     <input type="submit" name="action" label="reserverPlaces" value="Choisir mes places" class="btnReserver"/> 

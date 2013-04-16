@@ -5,10 +5,11 @@
 package controleur;
 
 import dao.DAOException;
-import dao.RepresentationDAO;
+import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
+import java.util.List;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,7 +17,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import java.util.Map;
 
 import modele.Zone;
 
@@ -39,9 +39,7 @@ public class ReservationControleur extends HttpServlet {
         //        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         //        return;
         //    }
-        if (request.getCharacterEncoding() == null) {
-            request.setCharacterEncoding("UTF-8");
-        }
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
         try {
@@ -58,14 +56,14 @@ public class ReservationControleur extends HttpServlet {
         }
     }
 
-    private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {    
-        RepresentationDAO rep = new RepresentationDAO(ds);
+    private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
+        ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
-        Map<Zone, Float> listePrix =
-            rep.getPrixParZones(Integer.parseInt(request.getParameter("NoSpectacle").toString()),
-                    Integer.parseInt(request.getParameter("NoRepresentation").toString()));
+        List<Zone> listeZones = zone.getZones();
 
-        request.setAttribute("typePlaces", listePrix.entrySet());
+        request.setAttribute("listeZones", listeZones);
+        request.setAttribute("titre", "Reservation de billets");
+
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
         request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
@@ -73,12 +71,11 @@ public class ReservationControleur extends HttpServlet {
     }
 
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("titre", "Reservation de billets");
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
     }
-
-
 }

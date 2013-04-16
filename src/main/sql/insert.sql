@@ -34,26 +34,6 @@ insert into Zone values(2, 'Orchestre', 56);
 insert into Zone values(3, 'Balcon', 66);
 insert into Zone values(4, 'Loge', 120);
 
-
-
-
--- Les prix des représentations 
-
-insert into PrixRepresentation values(1, 1, 1, 15);
-insert into PrixRepresentation values(1, 1, 2, 25);
-insert into PrixRepresentation values(1, 1, 3, 55.55);
-insert into PrixRepresentation values(1, 1, 4, 200);
-
-insert into PrixRepresentation values(1, 2, 1, 10);
-insert into PrixRepresentation values(1, 2, 2, 14);
-insert into PrixRepresentation values(1, 2, 3, 57);
-insert into PrixRepresentation values(1, 2, 4, 123);
-
-insert into PrixRepresentation values(1, 3, 1, 15);
-insert into PrixRepresentation values(1, 3, 2, 25);
-insert into PrixRepresentation values(1, 3, 3, 55.55);
-insert into PrixRepresentation values(1, 3, 4, 174);
-
 -- Les Utilisateurs
 
 insert into Utilisateur values ('vernadat','Vernadat','Thibault', 'titi@ensimag.fr','5d933eef19aee7da192608de61b6c23d','Client');
