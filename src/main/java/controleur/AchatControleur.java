@@ -7,7 +7,6 @@ package controleur;
 import dao.DAOException;
 import dao.RepresentationDAO;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -30,6 +29,7 @@ public class AchatControleur extends HttpServlet {
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
+    @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {

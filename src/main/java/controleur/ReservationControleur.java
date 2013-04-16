@@ -9,7 +9,6 @@ import dao.RepresentationDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
-import java.util.Iterator;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import modele.Zone;
 
@@ -32,6 +30,7 @@ public class ReservationControleur extends HttpServlet {
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
+    @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
@@ -56,8 +55,7 @@ public class ReservationControleur extends HttpServlet {
         }
     }
 
-    private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
-
+    private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {    
         RepresentationDAO rep = new RepresentationDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         Map<Zone, Float> listePrix =
