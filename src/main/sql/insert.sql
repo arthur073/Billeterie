@@ -59,6 +59,45 @@ insert into PrixRepresentation values(1, 3, 4, 174);
 insert into Utilisateur values ('vernadat','Vernadat','Thibault', 'titi@ensimag.fr','5d933eef19aee7da192608de61b6c23d','Client');
 insert into Utilisateur values ('Michel57390', 'Haha', 'Michel', 'michel@haha.fr', '63a9f0ea7bb98050796b649e85481845', 'Responsable');
 
+-- Les Places
+insert into Place values (1,1,1);
+insert into Place values (2,1,1);
+insert into Place values (3,1,1);
+insert into Place values (4,1,1);
+insert into Place values (5,1,1);
+insert into Place values (6,1,1);
+insert into Place values (7,1,1);
+insert into Place values (8,1,1);
+insert into Place values (9,1,1);
+insert into Place values (10,1,1);
+insert into Place values (1,2,2);
+insert into Place values (2,2,2);
+insert into Place values (3,2,2);
+insert into Place values (4,2,2);
+insert into Place values (5,2,2);
+insert into Place values (6,2,2);
+insert into Place values (7,2,2);
+insert into Place values (8,2,2);
+insert into Place values (9,2,2);
+insert into Place values (10,2,2);
+insert into Place values (1,3,3);
+insert into Place values (2,3,3);
+insert into Place values (3,3,3);
+insert into Place values (4,3,3);
+insert into Place values (5,3,3);
+insert into Place values (6,3,3);
+insert into Place values (7,3,3);
+insert into Place values (8,3,3);
+insert into Place values (9,3,3);
+insert into Place values (10,3,3);
+
+-- AReserveNPlaces
+insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
+insert into AReserveNPlaces values ('vernadat',1,1,8,3,3);
+
+
+-- AAcheteNPlaces
+insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
 
 -- Les Clients
 -- Les Responsables
