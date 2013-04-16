@@ -9,7 +9,6 @@ import dao.RepresentationDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -31,6 +30,7 @@ public class ReservationControleur extends HttpServlet {
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
+    @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
@@ -55,19 +55,14 @@ public class ReservationControleur extends HttpServlet {
         }
     }
 
-    private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
-
+    private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {    
         RepresentationDAO rep = new RepresentationDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         Map<Zone, Float> listePrix =
             rep.getPrixParZones(Integer.parseInt(request.getParameter("NoSpectacle").toString()),
                     Integer.parseInt(request.getParameter("NoRepresentation").toString()));
 
-        // TODO : prendre les prix de la requête de thib
-        request.setAttribute("p1", listePrix.remove(0));
-        request.setAttribute("p2", listePrix.remove(0));
-        request.setAttribute("p3", listePrix.remove(0));
-
+        request.setAttribute("typePlaces", listePrix.entrySet());
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
         request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));

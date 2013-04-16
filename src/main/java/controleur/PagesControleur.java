@@ -8,7 +8,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
-import vue.FlashImpl;
 
 /**
  * Le contrôleur de l'application.
@@ -27,7 +26,6 @@ public class PagesControleur extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-
         String action = request.getParameter("action");
         
 
