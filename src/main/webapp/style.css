@@ -45,7 +45,9 @@ h2.header {
     padding-bottom : 0.5em;
     border : green solid 2px;
     text-align: center;
-    background-color:  rgba(0, 255, 0, 0.5);    
+    background-color:  rgba(0, 255, 0, 0.5);  
+    margin-bottom: 1em;
+
 }
 
 .error {
@@ -55,6 +57,7 @@ h2.header {
     border : red solid 2px;
     text-align: center;
     background-color:  rgba(255, 0, 0, 0.5);    
+    margin-bottom: 1em;
 }
 
 ul.menu {
@@ -341,4 +344,9 @@ span.price {
     box-shadow: 0px 2px 5px #1c1a19;
     background : #BD782E;
     border: black solid 1px;
+}
+
+
+div.infoCompte {
+    margin-bottom : 2em;
 }

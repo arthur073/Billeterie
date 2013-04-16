@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
+import vue.FlashImpl;
 
 /**
  * Le contrôleur de l'application.
@@ -41,8 +42,6 @@ public class PagesControleur extends HttpServlet {
                 goToLogOut(request, response);
             } else if (action.equalsIgnoreCase("goToAbout")) {
                 goToAbout(request, response);
-            } else if (action.equalsIgnoreCase("goToMyAccount")) {
-                goToMyAccount(request, response);
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
             }
@@ -69,7 +68,7 @@ public class PagesControleur extends HttpServlet {
     }
 
     private void goToLogOut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-        request.getSession().setAttribute("LoggedIn", false);
+        request.getSession().setAttribute("LoggedIn", "false");
         actionAfficher(request, response);
     }
 
@@ -79,14 +78,8 @@ public class PagesControleur extends HttpServlet {
 
     private void goToAbout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("titre", "A propos");
-
         getServletContext().getRequestDispatcher("/WEB-INF/about.jsp").forward(request, response);
     }
 
-    private void goToMyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO : Tester si logged in !!
-        request.setAttribute("titre", "Mon compte");
-
-        getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
-    }
+ 
 }

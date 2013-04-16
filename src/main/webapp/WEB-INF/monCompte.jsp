@@ -5,11 +5,21 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="vue.RangToZone"%> 
 
 <c:import url="Layout/header.jsp"/>    
 
-Mon compte
+<div class="infoCompte">
+    Mes informations : <br/>
+    Login : <br/>
+    Nom : <br/>
+    Prénom : <br/>
+    Adresse électronique : <br/>
+</div>
+
+Mes places : <br/>
+Réservées : <br/>
+Achetées : <br/>
+
 
 <c:import url="Layout/footer.jsp"/>
 
