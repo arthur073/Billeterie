@@ -10,10 +10,10 @@
 
 <div class="infoCompte">
     Mes informations : <br/>
-    Login : <br/>
-    Nom : <br/>
-    Prénom : <br/>
-    Adresse électronique : <br/>
+    Login : ${login}<br/>
+    Nom : ${nom}<br/>
+    Prénom : ${prenom}<br/>
+    Adresse électronique : ${email}<br/>
 </div>
 
 Mes places : <br/>

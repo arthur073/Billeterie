@@ -6,7 +6,10 @@ package controleur;
 
 import dao.ClientDAO;
 import dao.DAOException;
+import dao.UtilisateurDAO;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import modele.Client;
+import modele.Utilisateur;
 import vue.FlashImpl;
 
 /**
@@ -35,7 +39,11 @@ public class UtilisateursControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         if (action.equalsIgnoreCase("goToMyAccount")) {
-            goToMyAccount(request, response);
+            try {
+                goToMyAccount(request, response);
+            } catch (DAOException ex) {
+                Logger.getLogger(UtilisateursControleur.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -73,7 +81,7 @@ public class UtilisateursControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 
-    private void goToMyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void goToMyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
 
@@ -82,6 +90,18 @@ public class UtilisateursControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
+        
+        // On recherche les attributs de l'utilisateur
+        String login = request.getSession().getAttribute("login").toString();
+        Utilisateur u = new Utilisateur(login);
+        UtilisateurDAO uDAO = new UtilisateurDAO(ds);
+        uDAO.lire(u);
+        
+       
+        request.setAttribute("login", login);       
+        request.setAttribute("nom", u.getNom());
+        request.setAttribute("prenom", u.getPrenom());
+        request.setAttribute("email", u.getEmail());
 
         request.setAttribute("titre", "Mon compte");
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
