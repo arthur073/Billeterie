@@ -3,7 +3,7 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <title>Mes Billets</title>
+        <title>MesBillets.com</title>
 
         <script type="text/javascript">
             function getSelected() {
@@ -35,7 +35,7 @@
 <% }%>
 
 <h2 class="header"> MesBillets.com</h2>
-<h2 align="center" class="titre"> Mes billets en ligne </h2>
+<h2 align="center" class="titre"> ${titre} </h2>
 
 
 

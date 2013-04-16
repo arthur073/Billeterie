@@ -73,7 +73,7 @@ public class LoginControleur extends HttpServlet {
     }
 
     private void actionAfficher(HttpServletRequest request,
-            HttpServletResponse response) throws DAOException, ServletException, IOException {
+        HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);

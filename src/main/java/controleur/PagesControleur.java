@@ -56,10 +56,13 @@ public class PagesControleur extends HttpServlet {
             HttpServletResponse response) throws DAOException, ServletException, IOException {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+        request.setAttribute("titre", "Mes billets en ligne");
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 
     private void goToLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        request.setAttribute("titre", "Connexion a mon espace client");
+
         request.getSession().setAttribute("LoggedIn", false);
         request.getSession().setAttribute("FailedLogIn", false);
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -75,11 +78,15 @@ public class PagesControleur extends HttpServlet {
     }
 
     private void goToAbout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("titre", "A propos");
+
         getServletContext().getRequestDispatcher("/WEB-INF/about.jsp").forward(request, response);
     }
 
     private void goToMyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO : Tester si logged in !!
+        request.setAttribute("titre", "Mon compte");
+
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
     }
 }

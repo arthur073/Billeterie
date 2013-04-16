@@ -8,8 +8,6 @@
 
 <c:import url="Layout/header.jsp"/>    
 
-<h2 align="center" class="titre"> Réservation de billets </h2>
-
 Vous avez choisi la représentation suivante : <br/>
 <div class="reserver" >
     <table>
