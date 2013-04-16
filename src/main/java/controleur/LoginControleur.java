@@ -41,6 +41,11 @@ public class LoginControleur extends HttpServlet {
                 String password = request.getParameter("passwd");
                 logMeIn(request, response, login, password);
             }
+            else if (action.equalsIgnoreCase("Annuler")) {
+                RepresentationDAO repDAO = new RepresentationDAO(ds);
+                request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+                getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+            }
         } catch (DAOException e) {
             /*
              * Pour avoir une page d'infos bien détaillée.
