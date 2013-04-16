@@ -43,6 +43,7 @@
     <li> <a href="PagesControleur" id="li1">Les spectacles</a> </li>
     <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
     <li> <a href="PagesControleur?action=goToAbout" id="li3">A propos</a> </li>
+    <li> <a href="UtilisateursControleur?action=goToAdmin" id="li4">Admin</a> </li>
 </ul>
 
 <c:if test="${!flash.emptyMessage}" >
