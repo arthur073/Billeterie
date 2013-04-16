@@ -10,6 +10,7 @@ import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -23,6 +24,7 @@ import modele.Place;
 import modele.Reservation;
 
 import modele.Zone;
+import vue.TraitementPlaces;
 
 /**
  *
@@ -42,7 +44,7 @@ public class ReservationControleur extends HttpServlet {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         }
     }
-    
+
     @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
@@ -82,8 +84,8 @@ public class ReservationControleur extends HttpServlet {
 
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
-        request.setAttribute("NoSpectacle",NoSpectacle);
-        request.setAttribute("NoRepresentation",NoRepresentation);
+        request.setAttribute("NoSpectacle", NoSpectacle);
+        request.setAttribute("NoRepresentation", NoRepresentation);
         request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
@@ -97,24 +99,27 @@ public class ReservationControleur extends HttpServlet {
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
         LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
-        
+
         request.setAttribute("PlacesOccupees", PlacesOccupees);
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             request.getSession().setAttribute("previousPage", "/WEB-INF/confirmation.jsp");
             Object o = request.getParameterMap();
-            response.setHeader("Location", "PagesControleur?action=goToLogin"); 
-            response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT); 
+            response.setHeader("Location", "PagesControleur?action=goToLogin");
+            response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        }
-        else
-        {
-            
+        } else {
+            String places = request.getParameter("places");
+            ArrayList<Place> PlacesBD = new ArrayList<Place>();
+            TraitementPlaces tp = new TraitementPlaces();
+            tp.TraiterPlacesPourBD(places, PlacesBD);
+            /* TODO thib : a finir */
+
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         }
     }

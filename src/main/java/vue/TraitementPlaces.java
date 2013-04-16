@@ -34,6 +34,18 @@ public class TraitementPlaces {
                 PlacesLoge.add(new Place(noP, noR, noZ));
             }
         }
+    }
 
+    public void TraiterPlacesPourBD(String places, ArrayList<Place> PlacesBD) {
+        int noP, noR, noZ;
+        String[] tmp;
+        String[] strArray = places.split("!");
+        for (String el : strArray) {
+            tmp = el.split(" ");
+            noP = Integer.parseInt(tmp[0]);
+            noR = Integer.parseInt(tmp[1]);
+            noZ = Integer.parseInt(tmp[2]);
+            PlacesBD.add(new Place(noP, noR, noZ));
+        }
     }
 }

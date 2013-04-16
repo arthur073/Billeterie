@@ -72,8 +72,6 @@
 <%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle")); %>
 <%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation")); %>
 
-noSpectacle = <%= noSpectacle %>
-noRepresentation = <%= noRepresentation %>
 Cliquez sur les places que vous désirez : <br/>
 
 <% RangToZone rtz = new RangToZone(); %>
