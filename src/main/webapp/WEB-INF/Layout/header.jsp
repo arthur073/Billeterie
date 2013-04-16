@@ -41,7 +41,7 @@
 
 <ul class="menu">    
     <li> <a href="PagesControleur" id="li1">Les spectacles</a> </li>
-    <li> <a href="PagesControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
+    <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
     <li> <a href="PagesControleur?action=goToAbout" id="li3">A propos</a> </li>
 </ul>
 

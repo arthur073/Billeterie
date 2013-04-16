@@ -10,16 +10,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import modele.Achat;
 import modele.Representation;
 import modele.Spectacle;
-import modele.Zone;
 
 /**
  *
@@ -28,40 +25,6 @@ import modele.Zone;
 public class RepresentationDAO extends ProviderDAO<Representation> {
     public RepresentationDAO(DataSource ds) {
         super(ds);
-    }
-
-    /**
-     * Renvoie la liste des prix associés à chaque catégorie de place pour une
-     * représentation donnée.
-     */
-    public Map<Zone, Float> getPrixParZones(int noSpectacle,
-            int noRepresentation) throws DAOException {
-        Map<Zone, Float> prix = new HashMap<Zone, Float>();
-        Connection conn = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            conn = getConnection();
-            st = conn
-                    .prepareStatement(getRequete("SELECT_PRIX_ZONE_REPRESENTATION"));
-            st.setInt(1, noSpectacle);
-            st.setInt(2, noRepresentation);
-            rs = st.executeQuery();
-            while (rs.next()) {
-                prix.put(
-                        new Zone(rs.getInt("NoZone"),
-                                rs.getString("Categorie"), rs
-                                        .getFloat("TarifBase")), rs
-                                .getFloat("Prix"));
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } finally {
-            closeResultSet(rs);
-            closeStatement(st);
-            closeConnection(conn);
-        }
-        return prix;
     }
 
     /**
