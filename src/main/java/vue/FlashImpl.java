@@ -14,7 +14,8 @@ public class FlashImpl {
 
     private String message;
     private String klass;
-    private static String start = "Erreur : ";
+    private static String error = "Erreur : ";
+    private static String start = "information : ";
 
 
     // Constructeur pour changer la classe
@@ -44,9 +45,14 @@ public class FlashImpl {
         return msg;
     }
 
+    public String getError() {
+        return error;
+    } 
+    
     public String getStart() {
         return start;
     }
+    
 
     public void setMessage(String message) {
         this.message = message;
