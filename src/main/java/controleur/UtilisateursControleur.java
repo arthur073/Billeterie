@@ -96,16 +96,16 @@ public class UtilisateursControleur extends HttpServlet {
         }
         
         // On recherche les attributs de l'utilisateur
-        String login = (String) request.getSession().getAttribute("login");
-  //      Utilisateur u = new Utilisateur(login);
-  //      UtilisateurDAO uDAO = new UtilisateurDAO(ds);
-  //      uDAO.lire(u);
+        String login = (String) request.getSession().getAttribute("Login");
+        Utilisateur u = new Utilisateur(login);
+        UtilisateurDAO uDAO = new UtilisateurDAO(ds);
+        uDAO.lire(u);
         
-       
-        request.setAttribute("login", login);       
-  //      request.setAttribute("nom", u.getNom());
-  //      request.setAttribute("prenom", u.getPrenom());
-  //      request.setAttribute("email", u.getEmail());
+  //        request.setAttribute("login", request.getSession().getAttribute("Login"));
+        request.setAttribute("login", login);
+        request.setAttribute("nom", u.getNom());
+        request.setAttribute("prenom", u.getPrenom());
+        request.setAttribute("email", u.getEmail());
 
         request.setAttribute("titre", "Mon compte");
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);

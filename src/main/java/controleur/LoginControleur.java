@@ -71,13 +71,12 @@ public class LoginControleur extends HttpServlet {
 
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
         Utilisateur utilisateur = utilDAO.connexion(login, password);
-        // TODO à clarifier
 
         if (utilisateur != null) {
             request.getSession().setAttribute("LoggedIn", true);
             request.getSession().setAttribute("Login", utilisateur.getLogin());
             request.getSession().setAttribute("FailedLogIn", false);
-            FlashImpl fl = new FlashImpl("Succès", request, "success");
+            FlashImpl fl = new FlashImpl("Vous êtes loggué en tant que "+ utilisateur.getLogin(), request, "success");
             actionAfficher(request, response);
         } else {
             request.getSession().setAttribute("FailedLogIn", true);
@@ -89,8 +88,7 @@ public class LoginControleur extends HttpServlet {
 
     private void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
-        RepresentationDAO repDAO = new RepresentationDAO(ds);
-        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
-        getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+   
+        getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
     }
 }

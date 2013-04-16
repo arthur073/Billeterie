@@ -8,12 +8,13 @@
 
 <c:import url="Layout/header.jsp"/>    
 
+
 <div class="infoCompte">
     Mes informations : <br/>
-    Login : ${login} <br/>
-    Nom : ${nom} <br/>
-    Prénom : ${prenom}  <br/>
-    Adresse électronique : ${email} <br/>
+    <span> Login : </span><strong> ${login} </strong><br/>
+    <span> Nom : </span><strong> ${nom} </strong><br/>
+    <span> Prénom : </span> <strong> ${prenom} </strong> <br/>
+    <span> Adresse électronique : </span><strong> ${email} </strong> <br/>
 </div>
 
 Mes places : <br/>

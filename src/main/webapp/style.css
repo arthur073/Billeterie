@@ -349,3 +349,7 @@ span.price {
 div.infoCompte {
     margin-bottom : 2em;
 }
+
+div.infoCompte span {
+    width : 3em;
+}
