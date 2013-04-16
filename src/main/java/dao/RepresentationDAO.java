@@ -102,13 +102,6 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
         return result;
     }
 
-
-    /**
-     * Insère dans la BDD la représentation donnée.
-     */
-    public void Insert(Representation r) {
-    }
-
     public List<Achat> getAchats(int noSpectacle, int noRepresentation)
             throws DAOException {
         List<Achat> result = new ArrayList<Achat>();
@@ -120,7 +113,7 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
             st = conn.prepareStatement(getRequete("SELECT_LISTE_ACHATS_REPRESENTATION"));
             st.setInt(1, noSpectacle);
             st.setInt(2, noRepresentation);
-            st.executeQuery();
+            rs = st.executeQuery();
             while (rs.next()) {
                 Achat achat = new Achat(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
@@ -151,14 +144,6 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
         // TODO
     }
 
-    public float getPrix(Representation r, Zone z) throws DAOException {
-        // TODO avec une vraie requête
-        return getPrixParZones(r.getNoSpectacle(), r.getNoRepresentation()).get(z);
-    }
-
-    public void setPrix(Zone z, int prix) {
-        // TODO
-    }
 
     @Override
     public void creer(Representation obj) throws DAOException {
@@ -166,10 +151,33 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
 
     }
 
+    /**
+     * Lit les attributs clés et remplit la date et le spectacle correspondant.
+     */
     @Override
-    public void lire(Representation obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void lire(Representation rep) throws DAOException {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_REPRESENTATION"));
+            st.setInt(1, rep.getNoSpectacle());
+            st.setInt(2, rep.getNoRepresentation());
+            rs = st.executeQuery();
+            if (rs.next()) {
+                rep.setDate(rs.getDate("DateRepresentation"));
+                rep.setSpectacle(SpectacleDAO.construire(rs));
+            } else {
+                throw new DAOException(DAOException.Type.NON_TROUVE, "Représentation non trouvée");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeResultSet(rs);
+            closeConnection(conn);
+        }
     }
 
     @Override
