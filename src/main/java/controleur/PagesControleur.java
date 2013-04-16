@@ -26,9 +26,12 @@ public class PagesControleur extends HttpServlet {
     public void doGet(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
+        
+        if (request.getCharacterEncoding() == null) {
+        request.setCharacterEncoding("UTF-8");
+        }
         String action = request.getParameter("action");
         
-
         try {
             if (action == null || action.equalsIgnoreCase("annuler")) {
                 actionAfficher(request, response);
