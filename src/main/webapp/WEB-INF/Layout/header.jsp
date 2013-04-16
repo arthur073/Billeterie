@@ -17,7 +17,15 @@
 <a href="PagesControleur" class="login"/>Accueil</a>
 <% } %>
 
-<h2 align="center" class="header"> MesBillets.com</h2> 
+<h2 class="header"> MesBillets.com</h2>
+<h2 align="center" class="titre"> Mes billets en ligne </h2>
+
+
+<ul class="menu">    
+    <li> <a href="#" class="current">Bonjour</a> </li>
+    <li> <a href="#">Bonjour</a> </li>
+    <li> <a href="#" class="last">Bonjour</a> </li>
+</ul>
 
 <c:if test="${!flash.emptyMessage}" >
     <div class="flash ${flash.klass}"><strong> ${flash.start} </strong> ${flash.message}</div>
