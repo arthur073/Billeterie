@@ -1,4 +1,4 @@
-source creation.sql;
+--source creation.sql;
 
 -- Les spectacles
 
@@ -72,13 +72,18 @@ insert into Place values (9,3,3);
 insert into Place values (10,3,3);
 
 -- AReserveNPlaces
-insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
-insert into AReserveNPlaces values ('vernadat',1,1,8,3,3);
-
+--insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
+--insert into AReserveNPlaces values ('vernadat',1,1,8,3,3);
+--insert into AReserveNPlaces values ('Michel57390', 1, 1, 1, 1, 1);
+--insert into AReserveNPlaces values ('Michel57390', 1, 2, 8, 3, 2);
 
 -- AAcheteNPlaces
-insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
+--insert into AAcheteNPlaces values ('vernadat',1--1,1,1,1,1,1,20130102);
+insert into AAcheteNPlaces values ('Michel57390', 2, 3, 1, 1, 1, 1, 1, 20130102);
+
 
 -- Les Clients
 -- Les Responsables
+
+
 

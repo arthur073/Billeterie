@@ -8,18 +8,29 @@
 
 <c:import url="Layout/header.jsp"/>    
 
+<strong> Mes informations </strong>
+<table class="infoCompte">
+<tr>
+    <td> Login : </td>
+    <td><strong> ${login} </strong></td>
+</tr>
+<tr>
+    <td> Nom : </td>
+    <td><strong> ${nom} </strong></td>
+</tr>
+<tr>
+    <td> Prénom : </td>
+    <td> <strong> ${prenom} </strong> </td>
+</tr>
+<tr>
+    <td> Adresse électronique : </td>
+    <td><strong> ${email} </strong> </td>
+</tr>
+</table>
 
-<div class="infoCompte">
-    Mes informations : <br/>
-    <span> Login : </span><strong> ${login} </strong><br/>
-    <span> Nom : </span><strong> ${nom} </strong><br/>
-    <span> Prénom : </span> <strong> ${prenom} </strong> <br/>
-    <span> Adresse électronique : </span><strong> ${email} </strong> <br/>
-</div>
-
-Mes places : <br/>
-Réservées : <br/>
-Achetées : <br/>
+Mes places : ${listAchatSuiv}<br/>
+Réservées : ${listRep} <br/>
+Achetées : ${listAchatPrec} <br/>
 
 
 <c:import url="Layout/footer.jsp"/>

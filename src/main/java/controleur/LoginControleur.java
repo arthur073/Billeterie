@@ -81,14 +81,13 @@ public class LoginControleur extends HttpServlet {
         } else {
             request.getSession().setAttribute("FailedLogIn", true);
             FlashImpl fl = new FlashImpl("Mauvais identifiants", request, "error");
-
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 
     private void actionAfficher(HttpServletRequest request,
         HttpServletResponse response) throws DAOException, ServletException, IOException {
-   
+
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
     }
 }
