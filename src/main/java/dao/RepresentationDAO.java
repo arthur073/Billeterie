@@ -9,16 +9,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.sql.DataSource;
 
 import modele.Achat;
 import modele.Representation;
 import modele.Spectacle;
-import modele.Zone;
 
 /**
  *
