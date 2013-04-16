@@ -35,6 +35,15 @@ public class ReservationControleur extends HttpServlet {
     private DataSource ds;
 
     @Override
+    public void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+            throws IOException, ServletException {
+        if (((HttpServletRequest) request).getMethod().equals("GET")) {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
+    }
+    
+    @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
@@ -92,6 +101,15 @@ public class ReservationControleur extends HttpServlet {
     }
 
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+        
+        Object loggedIn = request.getSession().getAttribute("LoggedIn");
+        if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
+            request.getSession().setAttribute("previousPage", "/WEB-INF/confirmation.jsp");
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
+        else
+        {
+            getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+        }
     }
 }

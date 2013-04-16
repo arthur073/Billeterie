@@ -30,6 +30,15 @@ public class LoginControleur extends HttpServlet {
     private DataSource ds;
 
     @Override
+    public void doGet(HttpServletRequest request,
+            HttpServletResponse response)
+            throws IOException, ServletException {
+        if (((HttpServletRequest) request).getMethod().equals("GET")) {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        }
+    }
+        
+    @Override
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
@@ -62,26 +71,32 @@ public class LoginControleur extends HttpServlet {
 
         UtilisateurDAO utilDAO = new UtilisateurDAO(ds);
         Utilisateur utilisateur = utilDAO.connexion(login, password);
-        // TODO à clarifier
 
         if (utilisateur != null) {
             request.getSession().setAttribute("LoggedIn", true);
             request.getSession().setAttribute("Login", utilisateur.getLogin());
             request.getSession().setAttribute("FailedLogIn", false);
-            FlashImpl fl = new FlashImpl("Succès", request, "success");
+            FlashImpl fl = new FlashImpl("Vous êtes loggué en tant que "+ utilisateur.getLogin(), request, "success");
             actionAfficher(request, response);
         } else {
             request.getSession().setAttribute("FailedLogIn", true);
             FlashImpl fl = new FlashImpl("Mauvais identifiants", request, "error");
-
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
 
     private void actionAfficher(HttpServletRequest request,
-        HttpServletResponse response) throws DAOException, ServletException, IOException {
-        RepresentationDAO repDAO = new RepresentationDAO(ds);
-        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
-        getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+
+        HttpServletResponse response) throws DAOException, ServletException, IOException {        
+        Object previousPage = request.getSession().getAttribute("previousPage");
+        if (previousPage == null || (previousPage != null && previousPage.equals(false))) {
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+        }
+        else
+        {
+            getServletContext().getRequestDispatcher((String)previousPage).forward(request, response);
+        }
     }
 }
