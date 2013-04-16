@@ -1,5 +1,7 @@
 package modele;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Représente une zone de la salle de spectacle.
  */
@@ -73,5 +75,11 @@ public class Zone {
         if (!(other instanceof Zone)) return false;
         Zone otherZone = (Zone)other;
         return otherZone.noZone == this.noZone;
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).
+            append(noZone).toHashCode();
     }
 }

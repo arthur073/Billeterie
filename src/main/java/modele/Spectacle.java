@@ -4,32 +4,32 @@ package modele;
  * Représente un spectacle.
  */
 public class Spectacle {
-    int no;
+    int noSpectacle;
     String nom = null;
     String image = null;
 
     /**
      * Constructeur minimal.
      */
-    public Spectacle(int no) {
-        this.no = no;
+    public Spectacle(int noSpectacle) {
+        this.noSpectacle = noSpectacle;
     }
 
     /**
      * Constructeur complet.
      */
-    public Spectacle(int no, String nom, String image) {
-        this.no = no;
+    public Spectacle(int noSpectacle, String nom, String image) {
+        this.noSpectacle = noSpectacle;
         this.nom = nom;
         this.image = image;
     }
 
-    public int getNo() {
-        return no;
+    public int getNoSpectacle() {
+        return noSpectacle;
     }
 
-    public Spectacle setNo(int no) {
-        this.no = no;
+    public Spectacle setNoSpectacle(int noSpectacle) {
+        this.noSpectacle = noSpectacle;
         return this;
     }
 

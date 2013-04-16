@@ -18,12 +18,12 @@ import modele.Reservation;
  * @author arthur
  */
 public class ReservationDAO extends ProviderDAO<Reservation> {
-    
-     public ReservationDAO(DataSource ds) {
+
+    public ReservationDAO(DataSource ds) {
         super(ds);
     }
-     
-         /**
+
+    /**
      * Renvoie la liste des reservations non payees pour une representation donnee
      */
     public List<Reservation> getListeReservationsNonPayeesRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
@@ -38,7 +38,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setInt(2, noRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
-                        Reservation reservation = new Reservation(rs.getString("Login"), 
+                Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
                         );
@@ -53,7 +53,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         }
         return result;
     }
-    
+
     /**
      * Renvoie la liste des reservations non payees pour un client a une representation donnee
      */
@@ -85,8 +85,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         }
         return result;
     }
-    
-      /**
+
+    /**
      * Renvoie la liste des reservations non payees pour un client
      */
     public List<Reservation> getListeReservationsClient(String login) throws DAOException {
@@ -117,9 +117,25 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
     }
 
     @Override
-    public void creer(Reservation obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void creer(Reservation reserv) throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("INSERT_RESERVATION"));
+            st.setString(1, reserv.getLogin());
+            st.setInt(2, reserv.getNoSpectacle());
+            st.setInt(3, reserv.getNoRepresentation());
+            st.setInt(4, reserv.getNoZone());
+            st.setInt(5, reserv.getNoRang());
+            st.setInt(6, reserv.getNoPlace());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 
     /**
@@ -142,15 +158,39 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         r.setPlace(p);
     }
 
+    /**
+     * Cette méthode n'a pas de sens pour une réservation.
+     * @see supprimer
+     * @see creer
+     */
     @Override
-    public void mettreAJour(Reservation obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void mettreAJour(Reservation reserv) throws DAOException {
+        /*
+         * Appeler cette méthode n'a pas de sens : pas de champs autres
+         * qu'attributs clé dans Reservation.
+         */
+        throw new DAOException("Reservation.mettreAJour n'a pas de sens.");
     }
 
     @Override
-    public void supprimer(Reservation obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void supprimer(Reservation reserv) throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("DELETE_RESERVATION"));
+            st.setString(1, reserv.getLogin());
+            st.setInt(2, reserv.getNoSpectacle());
+            st.setInt(3, reserv.getNoRepresentation());
+            st.setInt(4, reserv.getNoZone());
+            st.setInt(5, reserv.getNoRang());
+            st.setInt(6, reserv.getNoPlace());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 }

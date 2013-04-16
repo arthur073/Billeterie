@@ -14,13 +14,16 @@ public class FlashImpl {
 
     private String message;
     private String klass;
-    private static String start = "Erreur : ";
+    private String start = "";
 
 
     // Constructeur pour changer la classe
     public FlashImpl(String message, HttpServletRequest request, String classe) {
         this.message = message;
         this.klass = classe;
+        if (this.klass.equals("error")) {
+            this.start = "Erreur : ";
+        }
         request.setAttribute("flash", this);
     }
 
@@ -42,11 +45,12 @@ public class FlashImpl {
         String msg = message;
         this.clear();
         return msg;
-    }
-
+    } 
+    
     public String getStart() {
         return start;
     }
+    
 
     public void setMessage(String message) {
         this.message = message;

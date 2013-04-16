@@ -1,5 +1,11 @@
 package dao;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.sql.DataSource;
@@ -7,7 +13,7 @@ import javax.sql.DataSource;
 import modele.Zone;
 import modele.Place;
 
-class ZoneDAO extends ProviderDAO<Zone> {
+public class ZoneDAO extends ProviderDAO<Zone> {
 
     public ZoneDAO(DataSource ds) {
         super(ds);
@@ -22,11 +28,31 @@ class ZoneDAO extends ProviderDAO<Zone> {
     }
 
     /**
-     * Renvoie l'ensemble des zones existantes.
+     * Renvoie la liste des zones existantes, triées par tarifs de base
+     * croissants.
+     * @throws DAOException
      */
-    public static Set<Zone> getZones() {
-        // TODO
-        return null;
+    public List<Zone> getZones() throws DAOException {
+        List<Zone> result = new ArrayList<Zone>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_TOUTES_ZONES"));
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(new Zone(rs.getInt("NoZone"),
+                            rs.getString("Categorie"), rs.getFloat("TarifBase")));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
     }
 
     @Override
