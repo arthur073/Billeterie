@@ -40,7 +40,6 @@
 
     function selectChair(obj) {
         //       alert(obj.innerHTML+document.getElementById("selected").innerHTML); 
-        var pos = getElementPosition(obj);
         var noPlace = obj.getAttribute("noPlace");
         var noRang = obj.getAttribute("noRang");
         var noZone = obj.getAttribute("noZone");
@@ -48,12 +47,12 @@
         if (obj.className === "sit") {
             obj.className = "sat";
             document.getElementById("selected").value += noPlace + "/" + noRang
-                    + "/" + noZone + "//";
+                    + "/" + noZone + "!";
             //alert(pos.x + "," + pos.y+"->"+convertToInt(pos));
         } else {
             obj.className = "sit";
             document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
-                    + "/" + noZone + "//", '');
+                    + "/" + noZone + "!", '');
         }
     }
 
