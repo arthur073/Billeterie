@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import modele.Zone;
 
@@ -63,11 +64,7 @@ public class ReservationControleur extends HttpServlet {
             rep.getPrixParZones(Integer.parseInt(request.getParameter("NoSpectacle").toString()),
                     Integer.parseInt(request.getParameter("NoRepresentation").toString()));
 
-             Iterator<Map.Entry<Zone, Float> > i = listePrix.entrySet().iterator();
-        request.setAttribute("pelouse", i.next().getValue());
-        request.setAttribute("orchestre", i.next().getValue());
-        request.setAttribute("balcon", i.next().getValue());
-
+        request.setAttribute("typePlaces", listePrix.entrySet());
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
         request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));

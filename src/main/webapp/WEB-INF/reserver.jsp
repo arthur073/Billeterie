@@ -1,3 +1,9 @@
+<%@page import="java.util.Map.Entry"%>
+<%@page import="java.util.Set"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.Map"%>
+<%@page import="modele.Zone"%>
+<%@page import="modele.Zone"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>    
@@ -20,9 +26,22 @@ Vous avez choisi la représentation suivante : <br/>
                     <h4> Choisissez vos places : </h4> 
                     <input type="text" label="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                     <input type="text" label="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
-                    <label> Pelouse : </label><span class="price"> <%= request.getAttribute("pelouse")%> &euro;</span><br/> 
-                    <label> Orchestre : </label><span class="price"> <%= request.getAttribute("orchestre")%> &euro;</span><br/> 
-                    <label> Balcon : </label><span class="price"> <%= request.getAttribute("balcon")%> &euro;</span> <br/> 
+                        <% 
+                             Set<Map.Entry<Zone, Float>> listeCateg = (Set<Map.Entry<Zone, Float>>) request.getAttribute("typePlaces");
+                            Iterator<Map.Entry<Zone, Float> > i = listeCateg.iterator();
+                            Entry<Zone, Float> e;
+                            do {
+                                e = i.next(); %>
+                                <label><%= e.getKey().getCategorie() %></label>
+                                <span class="price"> 
+                                <%= e.getValue()%> &euro;</span><br/> 
+                                <%
+                                
+                                
+                            }
+                            while (i.hasNext() );
+
+                        %>                            
                     <input type="submit" name="action" label="reserverPlaces" value="Choisir mes places" class="btnReserver"/> 
                 </form>
             </td>
