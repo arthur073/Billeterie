@@ -8,7 +8,6 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.DataSource;
-import vue.FlashImpl;
 
 /**
  * Le contrôleur de l'application.
@@ -28,9 +27,7 @@ public class PagesControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
-        if (request.getCharacterEncoding() == null) {
-            request.setCharacterEncoding("UTF-8");
-        }
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
         try {

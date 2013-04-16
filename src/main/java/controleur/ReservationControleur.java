@@ -39,9 +39,7 @@ public class ReservationControleur extends HttpServlet {
         //        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         //        return;
         //    }
-        if (request.getCharacterEncoding() == null) {
-            request.setCharacterEncoding("UTF-8");
-        }
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
         try {
