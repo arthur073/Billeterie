@@ -81,5 +81,10 @@ public class Place {
     public void setZone(Zone zone) {
         this.zone = zone;
     }
+    
+    @Override
+    public String toString(){
+        return "Place " + this.noPlace + " Rang " + this.noRang;    
+    }
 
 }
