@@ -61,9 +61,28 @@ class ZoneDAO extends ProviderDAO<Zone> {
     }
 
     @Override
-    public void lire(Zone obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void lire(Zone z) throws DAOException {
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_ZONE"));
+            st.setInt(1, z.getNoZone());
+            rs = st.executeQuery();
+            if (rs.next()) {
+                z.setCategorie(rs.getString("Categorie"));
+                z.setTarifBase(rs.getFloat("TarifBase"));
+            } else {
+                throw new DAOException(DAOException.Type.NON_TROUVE, "Zone non trouvé.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 
     @Override
