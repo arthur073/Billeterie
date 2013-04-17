@@ -7,6 +7,7 @@ package controleur;
 import dao.AchatDAO;
 import dao.ClientDAO;
 import dao.DAOException;
+import dao.RepresentationDAO;
 import dao.ReservationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
@@ -23,6 +24,7 @@ import javax.sql.DataSource;
 import modele.Achat;
 
 import modele.Client;
+import modele.Representation;
 import modele.Reservation;
 import modele.Utilisateur;
 import vue.FlashImpl;
@@ -50,10 +52,8 @@ public class UtilisateursControleur extends HttpServlet {
                 Logger.getLogger(UtilisateursControleur.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else if (action.equalsIgnoreCase("goToAdmin")) {
-                goToAdmin(request, response);
-        }
-        else
-        {
+            goToAdmin(request, response);
+        } else {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         }
     }
@@ -101,31 +101,43 @@ public class UtilisateursControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }
-        
+
         // On recherche les attributs de l'utilisateur
         String login = (String) request.getSession().getAttribute("Login");
         Utilisateur u = new Utilisateur(login);
         UtilisateurDAO uDAO = new UtilisateurDAO(ds);
         uDAO.lire(u);
-        
+
         // on regarde ses places achetées
-        ReservationDAO repDAO = new ReservationDAO(ds);
+        ReservationDAO resDAO = new ReservationDAO(ds);
         AchatDAO achDAO = new AchatDAO(ds);
-        
-        //List<Reservation> listRep = repDAO.getListeReservationsClient(login);
+
+        List<Reservation> listRes = resDAO.getListeReservationsClient(login);
+
+        // On complète les champs de classe
+        for (Reservation cur : listRes) {
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            Representation rep = new Representation(cur.getNoSpectacle(),
+                    cur.getNoRepresentation());
+            
+            //repDAO.lire(rep);
+            cur.setRepresentation(rep);
+        }
+
         List<Achat> listAchatPrec = achDAO.getListeAchatsClientAvecHistorique(login);
         List<Achat> listAchatSuiv = achDAO.getListeAchatsClientSansHistorique(login);
         request.setAttribute("login", login);
         request.setAttribute("nom", u.getNom());
         request.setAttribute("prenom", u.getPrenom());
         request.setAttribute("email", u.getEmail());
-        //request.setAttribute("listRep", listRep);
+        request.setAttribute("listRes", listRes);
         request.setAttribute("listAchatPrec", listAchatPrec);
         request.setAttribute("listAchatSuiv", listAchatSuiv);
-        
+
         request.setAttribute("titre", "Mon compte");
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
     }
+
     private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("titre", "Admin");
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);

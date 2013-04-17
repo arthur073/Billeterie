@@ -90,7 +90,7 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        rs.getDate("DateAchat"), rs.getFloat("tarifBase"));
+                        rs.getDate("DateAchat"), rs.getFloat("TarifBase"));
                 result.add(achat);
             }
         } catch (SQLException e) {

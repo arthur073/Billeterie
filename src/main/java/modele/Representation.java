@@ -19,9 +19,9 @@ public class Representation {
     /**
      * Constructeur minimal.
      */
-    public Representation(int noSpectacle, int no) {
+    public Representation(int noSpectacle, int noRepresentation) {
         this.noSpectacle = noSpectacle;
-        this.noRepresentation = no;
+        this.noRepresentation = noRepresentation;
     }
 
     /**
