@@ -319,7 +319,6 @@ insert into AReserveNPlaces values ('vernadat',1,1,3,25,4);
 -- AAcheteNPlaces
 insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
 insert into AAcheteNPlaces values ('Michel57390', 2, 3, 1, 1, 1, 1, 1, 20130102);
-insert into AAcheteNPlaces values ('Michel57390', 6, 8, 1, 1, 1, 2, 2, 20130102);
 
 -- Les Clients
 -- Les Responsables

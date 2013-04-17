@@ -43,7 +43,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("tarifBase")                    
+                        rs.getFloat("TarifBase")                    
                         );
                 result.add(reservation);
             }
@@ -78,7 +78,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
                 Reservation reservation = new Reservation("anonymous", 
                         noSpectacle, noRepresentation, 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("tarifBase")
+                        rs.getFloat("TarifBase")
                         );
                 result.add(reservation);
             }
@@ -111,7 +111,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("tarifBase")
+                        rs.getFloat("TarifBase")
                         );
                 result.add(reservation);
             }
@@ -142,7 +142,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("tarifBase")
+                        rs.getFloat("TarifBase")
                         );
                 result.add(reservation);
             }
