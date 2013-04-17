@@ -6,12 +6,21 @@
 int main(){
         int nbPlacesParRangees=10;
         int rangee=1;
-//        int cpt=1;
-        for (int zone=1; zone < 4 ; zone++){
+        //        int cpt=1;
+        for (int rangee = 1; rangee <= 12 ; rangee++){
                 for (int i  = 1; i <= nbPlacesParRangees; i++) {
-                        printf("insert into Place values (%u,%u,%u);\n",i,rangee,zone);
+                        printf("insert into Place values (%u,%u,%u);\n",i,rangee,1);
                 }
-                rangee++;
+        }
+        for (int rangee = 13; rangee <= 21 ; rangee++){
+                for (int i  = 1; i <= nbPlacesParRangees; i++) {
+                        printf("insert into Place values (%u,%u,%u);\n",i,rangee,2);
+                }
+        }
+        for (int rangee = 22; rangee <= 27 ; rangee++){
+                for (int i  = 1; i <= nbPlacesParRangees; i++) {
+                        printf("insert into Place values (%u,%u,%u);\n",i,rangee,4);
+                }
         }
 
 }
