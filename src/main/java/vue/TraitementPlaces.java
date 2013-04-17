@@ -41,7 +41,7 @@ public class TraitementPlaces {
         String[] tmp;
         String[] strArray = places.split("!");
         for (String el : strArray) {
-            tmp = el.split(" ");
+            tmp = el.split("/");
             noP = Integer.parseInt(tmp[0]);
             noR = Integer.parseInt(tmp[1]);
             noZ = Integer.parseInt(tmp[2]);
