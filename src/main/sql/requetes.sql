@@ -147,7 +147,7 @@ SELECT_LISTE_ACHATS_CLIENT_AVEC_HISTORIQUE=
 
 SELECT * 
 FROM AAcheteNPlaces 
-WHERE Login = ?
+WHERE Login = ? ;
 
 
 ----------------
