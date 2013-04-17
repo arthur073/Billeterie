@@ -16,16 +16,16 @@ public class Achat extends Reservation {
     /**
      * Constructeur minimal.
      */
-    public Achat(String login, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace) {
-        super(login, noSpectacle, noRepresentation, noZone, noRang, noPlace);
+    public Achat(String login, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace, float tarifBase) {
+        super(login, noSpectacle, noRepresentation, noZone, noRang, noPlace, tarifBase);
     }
 
     /**
      * Constructeur complet.
      */
     public Achat(String login, int noSpectacle, int noRepresentation, int noZone, int noRang, int noPlace, 
-            int noDossier, int noSerie, Date dateAchat) {
-        super(login, noSpectacle, noRepresentation, noZone, noRang, noPlace);
+            int noDossier, int noSerie, Date dateAchat, float tarifBase) {
+        super(login, noSpectacle, noRepresentation, noZone, noRang, noPlace, tarifBase);
         this.noDossier = noDossier;
         this.noSerie = noSerie;
         this.dateAchat = dateAchat;
@@ -36,7 +36,7 @@ public class Achat extends Reservation {
      * Constructeur minimal par objet.
      */
     public Achat(Reservation r) {
-        super(r.getLogin(), r.getNoSpectacle(), r.getNoRepresentation(), r.getNoZone(), r.getNoRang(), r.getNoPlace());
+        super(r.getLogin(), r.getNoSpectacle(), r.getNoRepresentation(), r.getNoZone(), r.getNoRang(), r.getNoPlace(), r.getTarifBase());
         setClient(r.getClient());
         setRepresentation(r.getRepresentation());
         setPlace(r.getPlace());
@@ -46,7 +46,7 @@ public class Achat extends Reservation {
      * Constructeur complet par objet.
      */
     public Achat(Reservation r, int noDossier, int noSerie, Date dateAchat) {
-        super(r.getLogin(), r.getNoSpectacle(), r.getNoRepresentation(), r.getNoZone(), r.getNoRang(), r.getNoPlace());
+        super(r.getLogin(), r.getNoSpectacle(), r.getNoRepresentation(), r.getNoZone(), r.getNoRang(), r.getNoPlace(), r.getTarifBase());
         setClient(r.getClient());
         setRepresentation(r.getRepresentation());
         setPlace(r.getPlace());
@@ -58,15 +58,15 @@ public class Achat extends Reservation {
     /**
      * Constructeur minimal par objets.
      */
-    public Achat(Client c, Representation r, Place p) {
-        super(c, r, p);
+    public Achat(Client c, Representation r, Place p, float tarifBase) {
+        super(c, r, p, tarifBase);
     }
 
     /**
      * Constructeur complet par objets.
      */
-    public Achat(Client c, Representation r, Place p, int noDossier, int noSerie, Date dateAchat) {
-        super(c, r, p);
+    public Achat(Client c, Representation r, Place p, int noDossier, int noSerie, Date dateAchat, float tarifBase) {
+        super(c, r, p, tarifBase);
         this.noDossier = noDossier;
         this.noSerie = noSerie;
         this.dateAchat = dateAchat;

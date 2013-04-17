@@ -42,7 +42,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
+                        rs.getFloat("tarifBase")                    
                         );
                 result.add(reservation);
             }
@@ -76,7 +77,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             while (rs.next()) {
                 Reservation reservation = new Reservation("anonymous", 
                         noSpectacle, noRepresentation, 
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
+                        rs.getFloat("tarifBase")
                         );
                 result.add(reservation);
             }
@@ -108,7 +110,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
+                        rs.getFloat("tarifBase")
                         );
                 result.add(reservation);
             }
@@ -138,7 +141,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"), 
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace")
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
+                        rs.getFloat("tarifBase")
                         );
                 result.add(reservation);
             }

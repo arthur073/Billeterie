@@ -111,7 +111,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        rs.getDate("DateAchat"));
+                        rs.getDate("DateAchat"), rs.getFloat("tarifBase"));
                 result.add(achat);
             }
         } catch (SQLException e) {
@@ -144,7 +144,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        rs.getDate("DateAchat"));
+                        rs.getDate("DateAchat"), rs.getFloat("tarifBase"));
                 result.add(achat);
             }
         } catch (SQLException e) {
@@ -177,7 +177,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        rs.getDate("DateAchat"));
+                        rs.getDate("DateAchat"), rs.getFloat("tarifBase"));
                 result.add(achat);
             }
         } catch (SQLException e) {

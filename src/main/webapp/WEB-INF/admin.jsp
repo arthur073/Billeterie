@@ -9,7 +9,8 @@
 
 <c:import url="Layout/header.jsp"/>    
 
-<p style="padding-left: 40px">coucou
-</p>
+<ul>
+    <li></li>
+</ul>
 <c:import url="Layout/footer.jsp"/>
 
