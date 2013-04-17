@@ -113,7 +113,20 @@ public class ReservationControleur extends HttpServlet {
             String places = request.getParameter("places");
             ArrayList<Place> PlacesBD = new ArrayList<Place>();
             TraitementPlaces tp = new TraitementPlaces();
+            String placesTmp = places.replaceAll("/", " ");
+            request.setAttribute("places", placesTmp);
             tp.TraiterPlacesPourBD(places, PlacesBD);
+
+
+            ArrayList<Place> PlacesPoulailler = new ArrayList<Place>();
+            ArrayList<Place> PlacesOrchestre = new ArrayList<Place>();
+            ArrayList<Place> PlacesBalcon = new ArrayList<Place>();
+            ArrayList<Place> PlacesLoge = new ArrayList<Place>();
+            tp.TraiterPlaces(placesTmp, PlacesPoulailler, PlacesOrchestre, PlacesBalcon, PlacesLoge);
+            request.setAttribute("PlacesPoulailler",PlacesPoulailler);
+            request.setAttribute("PlacesOrchestre",PlacesOrchestre);
+            request.setAttribute("PlacesBalcon",PlacesBalcon);
+            request.setAttribute("PlacesLoge",PlacesLoge);
             /* TODO thib : a finir */
 
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);

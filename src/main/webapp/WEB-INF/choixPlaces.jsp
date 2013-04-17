@@ -67,7 +67,7 @@
 
 </script>
 
-
+<% request.setAttribute("listeZones", request.getAttribute("listeZones")); %>
 <%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees"); %>
 <%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle")); %>
 <%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation")); %>

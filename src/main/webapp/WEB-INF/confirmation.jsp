@@ -1,3 +1,6 @@
+<%@page import="java.lang.Integer"%>
+<%@page import="modele.Zone"%>
+<%@page import="java.util.List"%>
 <%@page import="vue.TraitementPlaces"%>
 <%@page import="modele.Place"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,52 +17,50 @@
 Récapitulatif de la commande : <br/>
 
 Vous avez selectionné les places : 
-<% String places = request.getParameter("places").replaceAll("/", " "); %>
-<%= places %>
+${places}
+
+
 <br/><br/>
 
-<% ArrayList<Place> PlacesPoulailler = new ArrayList<Place>(); %> 
-<% ArrayList<Place> PlacesOrchestre = new ArrayList<Place>(); %> 
-<% ArrayList<Place> PlacesBalcon = new ArrayList<Place>(); %> 
-<% ArrayList<Place> PlacesLoge = new ArrayList<Place>(); %> 
-<% TraitementPlaces tp = new TraitementPlaces(); %>
-<% tp.TraiterPlaces(places, PlacesPoulailler, PlacesOrchestre, PlacesBalcon, PlacesLoge); %>
-
 Vos places Poulailler:
-<br/>
-<% for (Place p : PlacesPoulailler) { %>
-<%= p.toString() %>
-<br/>
-<% } %>
-<br/>
+<c:forEach items="${PlacesPoulailler}" var="p">
+    ${p}
+</c:forEach>
+<br/><br/>
+
 Vos places Orchestre:
-<br/>
-<% for (Place p : PlacesOrchestre) { %>
-<%= p.toString() %>
-<br/>
-<% } %>
+<c:forEach items="${PlacesOrchestre}" var="p">
+    ${p}
+</c:forEach>
 
-<br/>
+<br/><br/>
+
 Vos places Balcon:
-<br/>
-<% for (Place p : PlacesBalcon) { %>
-<%= p.toString() %>
-<br/>
-<% } %>
-<br/>
+<c:forEach items="${PlacesBalcon}" var="p">
+    ${p}
+</c:forEach>
+<br/><br/>
 
-<br/>
 Vos places Loge:
-<br/>
-<% for (Place p : PlacesLoge) { %>
-<%= p.toString() %>
-<br/>
-<% } %>
-<br/>
+<c:forEach items="${PlacesLoge}" var="p">
+    ${p}
+</c:forEach>
+<br/><br/>
 
 
 Recapitulatif de votre facture:
+<% 
+    List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
+    for(Zone zone:listeCateg) {
 
+      %>
+
+        <label><%=zone.getCategorie() %></label>
+        <span class="price"> <%= zone.getTarifBase() %>&nbsp;&euro;</span><br/> 
+        <%
+    }
+
+ %> 
 <br/>
 <c:import url="Layout/footer.jsp"/>
 
