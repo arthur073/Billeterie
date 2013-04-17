@@ -42,7 +42,6 @@ public class LoginControleur extends HttpServlet {
     public void doPost(HttpServletRequest request,
             HttpServletResponse response)
             throws IOException, ServletException {
-        Object o = request.getParameterMap();
         String action = request.getParameter("action");
         try {
             if (action.equalsIgnoreCase("Valider")) {
@@ -77,16 +76,8 @@ public class LoginControleur extends HttpServlet {
             request.getSession().setAttribute("Login", utilisateur.getLogin());
             request.getSession().setAttribute("FailedLogIn", false);
             
-            Object previousPage = request.getSession().getAttribute("previousPage");
-            if (previousPage == null || (previousPage != null && previousPage.equals(false))) {
-                FlashImpl fl = new FlashImpl("Vous êtes loggué en tant que "+ utilisateur.getLogin(), request, "success");
-                actionAfficher(request, response);
-            } else {
-                Object o = request.getParameterMap();
-                response.setStatus(HttpServletResponse.SC_TEMPORARY_REDIRECT );
-                response.addHeader("Location",(String)previousPage);
-                getServletContext().getRequestDispatcher((String)previousPage).forward(request, response);
-            }
+            FlashImpl fl = new FlashImpl("Vous êtes loggué en tant que "+ utilisateur.getLogin(), request, "success");
+            actionAfficher(request, response);
         } else {
             request.getSession().setAttribute("FailedLogIn", true);
             FlashImpl fl = new FlashImpl("Mauvais identifiants", request, "error");
