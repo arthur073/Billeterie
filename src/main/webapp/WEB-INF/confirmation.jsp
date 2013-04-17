@@ -49,18 +49,7 @@ Vos places Loge:
 
 
 Recapitulatif de votre facture:
-<% 
-    List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
-    for(Zone zone:listeCateg) {
 
-      %>
-
-        <label><%=zone.getCategorie() %></label>
-        <span class="price"> <%= zone.getTarifBase() %>&nbsp;&euro;</span><br/> 
-        <%
-    }
-
- %> 
 <br/>
 <c:import url="Layout/footer.jsp"/>
 

@@ -78,6 +78,7 @@ public class ReservationControleur extends HttpServlet {
         ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         List<Zone> listeZones = zone.getZones();
+        
 
         request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
@@ -104,7 +105,7 @@ public class ReservationControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 
-    private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
@@ -117,16 +118,27 @@ public class ReservationControleur extends HttpServlet {
             request.setAttribute("places", placesTmp);
             tp.TraiterPlacesPourBD(places, PlacesBD);
 
-
+            float prixPoulailler = 0;
+            float prixOrchestre = 0;
+            float prixBalcon = 0;
+            float prixLoge = 0;
+            ZoneDAO zone = new ZoneDAO(ds);
+            List<Zone> listeCateg = zone.getZones();
+            
             ArrayList<Place> PlacesPoulailler = new ArrayList<Place>();
             ArrayList<Place> PlacesOrchestre = new ArrayList<Place>();
             ArrayList<Place> PlacesBalcon = new ArrayList<Place>();
             ArrayList<Place> PlacesLoge = new ArrayList<Place>();
+            tp.setPrixPlaces(listeCateg, prixPoulailler, prixOrchestre, prixBalcon, prixLoge);
             tp.TraiterPlaces(placesTmp, PlacesPoulailler, PlacesOrchestre, PlacesBalcon, PlacesLoge);
             request.setAttribute("PlacesPoulailler",PlacesPoulailler);
             request.setAttribute("PlacesOrchestre",PlacesOrchestre);
             request.setAttribute("PlacesBalcon",PlacesBalcon);
             request.setAttribute("PlacesLoge",PlacesLoge);
+            //request.setAttribute("PrixPoulailler",tp.getPrixPoulailler());
+            //request.setAttribute("PrixOrchestre",PrixOrchestre);
+            //request.setAttribute("PrixBalcon",PrixBalcon);
+            //request.setAttribute("PrixLoge",PrixLoge);
             /* TODO thib : a finir */
 
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);

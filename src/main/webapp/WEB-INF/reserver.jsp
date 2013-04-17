@@ -25,9 +25,11 @@ Vous avez choisi la représentation suivante : <br/>
                     <h4> Choisissez vos places : </h4> 
                     <input type="text" name="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
                     <input type="text" name="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoRepresentation")%>" />
-                    <% request.setAttribute("listeZones", request.getAttribute("listeZones")); %>
+                    <input type="text" name="listeZones" style="display:none;" value="<%= request.getAttribute("listeZones")%>" />
                         <% 
                             List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
+                            request.setAttribute("listeZones",listeCateg);
+                            
                             for(Zone zone:listeCateg) {
                             
                               %>

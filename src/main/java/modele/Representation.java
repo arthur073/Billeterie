@@ -1,6 +1,7 @@
 package modele;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * Correspond à une représentation d'un spectable.
@@ -10,6 +11,7 @@ public class Representation {
     int noSpectacle;
     int noRepresentation;
     Date date = null;
+    private List<Zone> listeZones;
 
     /**
      * Spectacle associé à cette représentation.
@@ -67,6 +69,20 @@ public class Representation {
     public Representation setSpectacle(Spectacle spectacle) {
         this.spectacle = spectacle;
         return this;
+    }
+
+    /**
+     * @return the listeZones
+     */
+    public List<Zone> getListeZones() {
+        return listeZones;
+    }
+
+    /**
+     * @param listeZones the listeZones to set
+     */
+    public void setListeZones(List<Zone> listeZones) {
+        this.listeZones = listeZones;
     }
 
 }
