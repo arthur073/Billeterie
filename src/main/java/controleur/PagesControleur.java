@@ -80,6 +80,5 @@ public class PagesControleur extends HttpServlet {
         request.setAttribute("titre", "A propos");
         getServletContext().getRequestDispatcher("/WEB-INF/about.jsp").forward(request, response);
     }
-
  
 }

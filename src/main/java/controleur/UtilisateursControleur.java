@@ -7,7 +7,6 @@ package controleur;
 import dao.AchatDAO;
 import dao.ClientDAO;
 import dao.DAOException;
-import dao.RepresentationDAO;
 import dao.ReservationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
@@ -50,6 +49,8 @@ public class UtilisateursControleur extends HttpServlet {
             } catch (DAOException ex) {
                 Logger.getLogger(UtilisateursControleur.class.getName()).log(Level.SEVERE, null, ex);
             }
+        } else if (action.equalsIgnoreCase("goToAdmin")) {
+                goToAdmin(request, response);
         }
         else
         {
@@ -124,5 +125,9 @@ public class UtilisateursControleur extends HttpServlet {
         
         request.setAttribute("titre", "Mon compte");
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
+    }
+    private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("titre", "Admin");
+        getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 }
