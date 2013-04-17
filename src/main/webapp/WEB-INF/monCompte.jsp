@@ -28,7 +28,9 @@
     </tr>
 </table>
 
-<table>
+<strong> Mes places achetées </strong>
+
+<table class="indexTable">
     <tr>
         <th>
             No dossier
@@ -39,9 +41,16 @@
         <th>
             Date Achat
         </th>
+        <th>
+            Prix
+        </th>
+        <th>
+
+        </th>
     </tr>
-    <tr>
-        <c:forEach items="${listAchatSuiv}" var="achat">
+    <c:forEach items="${listAchatSuiv}" var="achat">
+        <tr>
+
             <td>
                 ${achat.noDossier}
             </td>
@@ -52,16 +61,82 @@
                 ${achat.dateAchat}
             </td>
             <td>
-               ${achat.dateAchat} 
+                ${achat.tarifBase} &euro;
             </td>
+            <td>
+                <a href="#" class="btnBlack">Annuler</a>
+            </td>
+        </tr>
+    </c:forEach>
 
-        </c:forEach>
-    </tr>
+    <c:forEach items="${listAchatPrec}" var="achat">
+
+        <tr>
+            <td>
+                ${achat.noDossier}
+            </td>
+            <td>
+                ${achat.noSerie}
+            </td>
+            <td>
+                ${achat.dateAchat}
+            </td>
+            <td>
+                ${achat.tarifBase} &euro;
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </c:forEach>
+
 </table>
-Liste achats à venir : ${listAchatSuiv}<br/>
-Réservées mais non payées : ${listRep} <br/>
-Liste achat passés : ${listAchatPrec} <br/>
 
+
+Réservées mais non payées : ${listRep} <br/>
+
+
+<strong> Mes places réservées </strong>
+
+<table class="indexTable">
+    <tr>
+        <th>
+            
+        </th>
+        <th>
+            Spectacle
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Prix
+        </th>
+        <th>
+
+        </th>
+    </tr>
+    <c:forEach items="${listRep}" var="resa">
+        <tr>
+
+            <td>
+                ${resa.representation.spectacle.image}
+            </td>
+            <td>
+                ${resa.representation.spectacle.nomSpectacle}
+            </td>
+            <td>
+                ${resa.representation.date}
+            </td>
+            <td>
+                ${resa.tarifBase} &euro;
+            </td>
+            <td>
+                <a href="#" class="btnBlack">Annuler</a>
+            </td>
+        </tr>
+    </c:forEach>
+</table>
 
 <c:import url="Layout/footer.jsp"/>
 

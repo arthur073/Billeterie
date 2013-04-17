@@ -112,14 +112,14 @@ public class UtilisateursControleur extends HttpServlet {
         ReservationDAO repDAO = new ReservationDAO(ds);
         AchatDAO achDAO = new AchatDAO(ds);
         
-        List<Reservation> listRep = repDAO.getListeReservationsClient(login);
+        //List<Reservation> listRep = repDAO.getListeReservationsClient(login);
         List<Achat> listAchatPrec = achDAO.getListeAchatsClientAvecHistorique(login);
         List<Achat> listAchatSuiv = achDAO.getListeAchatsClientSansHistorique(login);
         request.setAttribute("login", login);
         request.setAttribute("nom", u.getNom());
         request.setAttribute("prenom", u.getPrenom());
         request.setAttribute("email", u.getEmail());
-        request.setAttribute("listRep", listRep);
+        //request.setAttribute("listRep", listRep);
         request.setAttribute("listAchatPrec", listAchatPrec);
         request.setAttribute("listAchatSuiv", listAchatSuiv);
         
