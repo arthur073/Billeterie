@@ -14,6 +14,7 @@ import modele.Client;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;
+import modele.Spectacle;
 
 /**
  *
@@ -26,7 +27,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
     }
 
     /**
-     * Renvoie la liste des reservations non payees pour une representation donnee
+     * Renvoie la liste des reservations non payees pour une representation
+     * donnee
      */
     public List<Reservation> getListeReservationsNonPayeesRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
         List<Reservation> result = new ArrayList<Reservation>();
@@ -40,11 +42,10 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setInt(2, noRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
-                Reservation reservation = new Reservation(rs.getString("Login"), 
-                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
+                Reservation reservation = new Reservation(rs.getString("Login"),
+                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase")                    
-                        );
+                        rs.getFloat("TarifBase"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -57,10 +58,9 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         return result;
     }
 
-    /** 
+    /**
      * Renvoie la liste des reservations pour une representation donnee
      */
-    
     public LinkedList<Reservation> getListeReservationsPourRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
         LinkedList<Reservation> result = new LinkedList<Reservation>();
         ResultSet rs = null;
@@ -75,11 +75,10 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setInt(4, noRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
-                Reservation reservation = new Reservation("anonymous", 
-                        noSpectacle, noRepresentation, 
+                Reservation reservation = new Reservation("anonymous",
+                        noSpectacle, noRepresentation,
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase")
-                        );
+                        rs.getFloat("TarifBase"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -91,9 +90,10 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         }
         return result;
     }
-    
+
     /**
-     * Renvoie la liste des reservations non payees pour un client a une representation donnee
+     * Renvoie la liste des reservations non payees pour un client a une
+     * representation donnee
      */
     public List<Reservation> getListeReservationsClientRepresentation(String login, int noSpectacle, int noRepresentation) throws DAOException {
         List<Reservation> result = new ArrayList<Reservation>();
@@ -108,11 +108,10 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setInt(3, noRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
-                Reservation reservation = new Reservation(rs.getString("Login"), 
-                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
+                Reservation reservation = new Reservation(rs.getString("Login"),
+                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase")
-                        );
+                        rs.getFloat("TarifBase"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -139,11 +138,11 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setString(1, login);
             rs = st.executeQuery();
             while (rs.next()) {
-                Reservation reservation = new Reservation(rs.getString("Login"), 
-                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), 
+                Reservation reservation = new Reservation(rs.getString("Login"),
+                        rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase")
-                        );
+                        rs.getFloat("TarifBase"));
+
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -153,6 +152,9 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             closeStatement(st);
             closeConnection(conn);
         }
+
+     
+
         return result;
     }
 
@@ -179,8 +181,8 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
     }
 
     /**
-     * Ajoute les objets Client, Representation et Place à une reservation
-     * dont on connaît les attributs clés (càd tous les attributs).
+     * Ajoute les objets Client, Representation et Place à une reservation dont
+     * on connaît les attributs clés (càd tous les attributs).
      */
     @Override
     public void lire(Reservation r) throws DAOException {
@@ -200,6 +202,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
 
     /**
      * Cette méthode n'a pas de sens pour une réservation.
+     *
      * @see supprimer
      * @see creer
      */
