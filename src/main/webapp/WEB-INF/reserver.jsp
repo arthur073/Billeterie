@@ -23,9 +23,12 @@ Vous avez choisi la représentation suivante : <br/>
             <td>
                 <form action="ReservationControleur"  class="reserverForm" method="post">
                     <h4> Choisissez vos places : </h4> 
-                    <input type="text" name="NoSpectacle" style="display:none;" value="<%= request.getParameter("NoSpectacle")%>" />
-                    <input type="text" name="NoRepresentation" style="display:none;" value="<%= request.getParameter("NoRepresentation")%>" />
-                    <input type="text" name="listeZones" style="display:none;" value="<%= request.getAttribute("listeZones")%>" />
+                    <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
+                    <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
+                    <input type="text" name="listeZones" style="display:none;" value="${listeZones}" />
+                    <input type="text" name="Date" value="${Date}" style="display:none;"/>
+                    <input type="text" name="Image" value="${Image}" style="display:none;"/>
+                    <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
                         <% 
                             List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
                             request.setAttribute("listeZones",listeCateg);
@@ -65,11 +68,12 @@ Vous avez choisi la représentation suivante : <br/>
                 </td>
                 <td>
                     <form action="ReservationControleur" method="post">
-                        <input type="text" name="Date" value="${rep.date}" style="display:none"/>
-                        <input type="text" name="Image" value="${rep.spectacle.image}" style="display:none"/>
-                        <input type="text" name="NomSpectacle" value="${rep.spectacle.nom}" style="display:none"/>
-                        <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
-                        <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
+                        <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
+                        <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
+                        <input type="text" name="listeZones" style="display:none;" value="${listeZones}" />
+                        <input type="text" name="Date" value="${Date}" style="display:none;"/>
+                        <input type="text" name="Image" value="${Image}" style="display:none;"/>
+                        <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
                         <input type="submit" name="action" label="reserver" value="Reserver" class="btnBlack btnReserverSmall"/>
                     </form>
                 </td>

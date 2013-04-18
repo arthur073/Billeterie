@@ -74,6 +74,7 @@
 
 Cliquez sur les places que vous désirez : <br/>
 
+
 <% RangToZone rtz = new RangToZone(); %>
 <table id="chairs" >
  
@@ -129,7 +130,10 @@ Cliquez sur les places que vous désirez : <br/>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
     <input type="text" id="selected" name="places"/> <br/>
-    <input type="submit" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
+    <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
+     <input type="text" name="Date" style="display:none;" value="${Date}" />
+     <input type="text" name="Image" style="display:none;" value="${Image}" />
+     <input type="submit" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
 </form>
 
 
