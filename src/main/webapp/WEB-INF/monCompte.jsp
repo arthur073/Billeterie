@@ -5,8 +5,10 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="Layout/header.jsp"/>    
+
+<c:import url="Layout/header.jsp"/>  
 
 <strong> Mes informations </strong>
 <table class="infoCompte">
@@ -58,10 +60,10 @@
                 ${achat.noSerie}
             </td>
             <td>
-                ${achat.dateAchat}
+                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
-                ${achat.tarifBase} &euro;
+                ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
                 <a href="#" class="btnBlack">Annuler</a>
@@ -79,10 +81,10 @@
                 ${achat.noSerie}
             </td>
             <td>
-                ${achat.dateAchat}
+                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
-                ${achat.tarifBase} &euro;
+                ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
 
@@ -93,15 +95,14 @@
 </table>
 
 
-Réservées mais non payées : ${listRes} <br/>
 
-
+<br/>
 <strong> Mes places réservées </strong>
 
 <table class="indexTable">
     <tr>
         <th>
-            
+
         </th>
         <th>
             Spectacle
@@ -119,16 +120,15 @@ Réservées mais non payées : ${listRes} <br/>
     <c:forEach items="${listRes}" var="resa">
         <tr>
             <td>
-                ${resa.representation.spectacle.image}
+                <img height="80px"  src="images/${resa.representation.spectacle.image}"/>   
+            <td>
+                ${resa.representation.spectacle.nom}
             </td>
             <td>
-                ${resa.representation.spectacle.nomSpectacle}
+                Le <fmt:formatDate value="${resa.representation.date}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
-                ${resa.representation.date}
-            </td>
-            <td>
-                ${resa.tarifBase} &euro;
+                ${resa.place.zone.tarifBase} &euro;
             </td>
             <td>
                 <a href="#" class="btnBlack">Annuler</a>

@@ -62,9 +62,8 @@ public class SpectacleDAO extends ProviderDAO<Spectacle> {
     /**
      * Construit un objet Spectacle à partir des champs d'un ResultSet.
      */
-    static Spectacle construire(ResultSet rs) throws SQLException {
-        Spectacle s = new Spectacle(rs.getInt("NoSpectacle"),
-                    rs.getString("Nom"), rs.getString("Image"));
+    public static Spectacle construire(int NoSpectacle, String NomSpectacle, String Image) throws SQLException {
+        Spectacle s = new Spectacle(NoSpectacle, NomSpectacle, Image);
         return s;
     }
 

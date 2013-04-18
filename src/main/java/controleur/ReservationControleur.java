@@ -25,6 +25,7 @@ import modele.Place;
 import modele.Reservation;
 
 import modele.Zone;
+import vue.FlashImpl;
 import vue.TraitementPlaces;
 
 /**
@@ -59,12 +60,15 @@ public class ReservationControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
+            request.setAttribute("Image", request.getParameter("Image"));
+            request.setAttribute("Date", request.getParameter("Date"));
+            request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
                 /* TODO : a corriger !!! */
                 request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoReservation", request.getParameter("NoRepresentation"));
+                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 actionConfirmation(request, response);
@@ -80,7 +84,7 @@ public class ReservationControleur extends HttpServlet {
         ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         List<Zone> listeZones = zone.getZones();
-        
+
 
         request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
@@ -89,6 +93,9 @@ public class ReservationControleur extends HttpServlet {
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
         request.setAttribute("NoSpectacle", NoSpectacle);
         request.setAttribute("NoRepresentation", NoRepresentation);
+        request.setAttribute("Image", request.getParameter("Image"));
+        request.setAttribute("Date", request.getParameter("Date"));
+        request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
         request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
@@ -101,6 +108,9 @@ public class ReservationControleur extends HttpServlet {
         //int NoRepresentation = 1;
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
+        request.setAttribute("Image", request.getParameter("Image"));
+        request.setAttribute("Date", request.getParameter("Date"));
+        request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
         LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
 
         request.setAttribute("PlacesOccupees", PlacesOccupees);
@@ -119,10 +129,14 @@ public class ReservationControleur extends HttpServlet {
             String placesTmp = places.replaceAll("/", " ");
             request.setAttribute("places", placesTmp);
             tp.TraiterPlacesPourBD(places, PlacesBD);
-            
-                      
-            Map<Zone,List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
+
+
+            Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
             request.setAttribute("map", map);
+            request.setAttribute("Image", request.getParameter("Image"));
+            request.setAttribute("Date", request.getParameter("Date"));
+            request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
+            request.setAttribute("titre", "Confirmation de la réservation");
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         }
     }

@@ -24,16 +24,15 @@ public class AchatDAO extends ProviderDAO<Achat> {
         super(ds);
     }
 
-
     @Override
     public void creer(Achat obj) {
         // TODO Auto-generated method stub
-
     }
 
     /**
      * Ajoute les champs non-clés et les objets Client, Representation et Place
      * à un achat dont on connaît les attributs clés.
+     *
      * @throws DAOException
      */
     @Override
@@ -78,15 +77,12 @@ public class AchatDAO extends ProviderDAO<Achat> {
     @Override
     public void mettreAJour(Achat obj) {
         // TODO Auto-generated method stub
-
     }
 
     @Override
     public void supprimer(Achat obj) {
         // TODO Auto-generated method stub
-
     }
-
 
     /**
      * Renvoie la liste des achats pour un client à une representation donnee
@@ -104,6 +100,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
             st.setInt(2, noSpectacle);
             st.setInt(3, noRepresentation);
             rs = st.executeQuery();
+            ReservationDAO resaDAO = new ReservationDAO(dataSource);
 
             while (rs.next()) {
                 Achat achat = new Achat(rs.getString("Login"),
@@ -112,6 +109,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
                         rs.getDate("DateAchat"), rs.getFloat("TarifBase"));
+                resaDAO.lire(achat);
                 result.add(achat);
             }
         } catch (SQLException e) {
@@ -128,7 +126,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
      * Renvoie la liste des achats pour un client avec historique à un an
      */
     public List<Achat> getListeAchatsClientAvecHistorique(String login)
-        throws DAOException {
+            throws DAOException {
         List<Achat> result = new ArrayList<Achat>();
         ResultSet rs = null;
         PreparedStatement st = null;
@@ -138,6 +136,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
             st = conn.prepareStatement(getRequete("SELECT_LISTE_ACHATS_CLIENT_AVEC_HISTORIQUE"));
             st.setString(1, login);
             rs = st.executeQuery();
+            ReservationDAO resaDAO = new ReservationDAO(dataSource);
             while (rs.next()) {
                 Achat achat = new Achat(rs.getString("Login"),
                         rs.getInt("NoSpectacle"),
@@ -145,6 +144,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
                         rs.getDate("DateAchat"), rs.getFloat("TarifBase"));
+                resaDAO.lire(achat);
                 result.add(achat);
             }
         } catch (SQLException e) {
@@ -161,11 +161,13 @@ public class AchatDAO extends ProviderDAO<Achat> {
      * Renvoie la liste des achats pour un client sans historique à un an
      */
     public List<Achat> getListeAchatsClientSansHistorique(String login)
-        throws DAOException {
+            throws DAOException {
         List<Achat> result = new ArrayList<Achat>();
         ResultSet rs = null;
         PreparedStatement st = null;
         Connection conn = null;
+        ReservationDAO resaDAO = new ReservationDAO(dataSource);
+
         try {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_LISTE_ACHATS_CLIENT_SANS_HISTORIQUE"));
@@ -178,6 +180,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
                         rs.getDate("DateAchat"), rs.getFloat("TarifBase"));
+                resaDAO.lire(achat);
                 result.add(achat);
             }
         } catch (SQLException e) {
@@ -191,7 +194,6 @@ public class AchatDAO extends ProviderDAO<Achat> {
     }
 
     /**
-     * Renvoie la liste des achats pour un client sans historique à un an
      */
     public void setAchatClient(Achat a) throws DAOException {
         Connection conn = null;

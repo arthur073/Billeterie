@@ -142,7 +142,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
                         rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getFloat("TarifBase"));
-
+                this.lire(reservation);
                 result.add(reservation);
             }
         } catch (SQLException e) {
