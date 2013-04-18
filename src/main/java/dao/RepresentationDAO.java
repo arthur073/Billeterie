@@ -171,7 +171,7 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
                         rs.getString("nom"), rs.getString("image")));
             } else {
                 throw new DAOException(DAOException.Type.NON_TROUVE,
-                        "Représentation non trouvée");
+                        "Représentation non trouvée"+ st.toString());
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
