@@ -22,30 +22,15 @@ ${places}
 
 <br/><br/>
 
-Vos places Poulailler:
-<c:forEach items="${PlacesPoulailler}" var="p">
-    ${p}
-</c:forEach>
-<br/><br/>
-
-Vos places Orchestre:
-<c:forEach items="${PlacesOrchestre}" var="p">
-    ${p}
-</c:forEach>
+<c:forEach items="${map.entrySet()}" var="tuple" >
+    Vos place en zone ${tuple.key.categorie} :
+    <c:forEach items="${tuple.value}" var="p">
+        ${p}
+    </c:forEach>
+ </c:forEach>
 
 <br/><br/>
 
-Vos places Balcon:
-<c:forEach items="${PlacesBalcon}" var="p">
-    ${p}
-</c:forEach>
-<br/><br/>
-
-Vos places Loge:
-<c:forEach items="${PlacesLoge}" var="p">
-    ${p}
-</c:forEach>
-<br/><br/>
 
 
 Recapitulatif de votre facture:
