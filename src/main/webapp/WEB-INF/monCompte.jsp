@@ -5,8 +5,10 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<c:import url="Layout/header.jsp"/>    
+
+<c:import url="Layout/header.jsp"/>  
 
 <strong> Mes informations </strong>
 <table class="infoCompte">
@@ -58,10 +60,10 @@
                 ${achat.noSerie}
             </td>
             <td>
-                ${achat.dateAchat}
+                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
-                ${achat.tarifBase} &euro;
+                ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
                 <a href="#" class="btnBlack">Annuler</a>
@@ -79,10 +81,10 @@
                 ${achat.noSerie}
             </td>
             <td>
-                ${achat.dateAchat}
+                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
-                ${achat.tarifBase} &euro;
+                ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
 
@@ -100,7 +102,7 @@
 <table class="indexTable">
     <tr>
         <th>
-            
+
         </th>
         <th>
             Spectacle
@@ -123,10 +125,10 @@
                 ${resa.representation.spectacle.nom}
             </td>
             <td>
-                ${resa.representation.date}
+                Le <fmt:formatDate value="${resa.representation.date}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
-                ${resa.tarifBase} &euro;
+                ${resa.place.zone.tarifBase} &euro;
             </td>
             <td>
                 <a href="#" class="btnBlack">Annuler</a>

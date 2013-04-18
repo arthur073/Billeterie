@@ -49,7 +49,8 @@ public class UtilisateursControleur extends HttpServlet {
             try {
                 goToMyAccount(request, response);
             } catch (DAOException ex) {
-                Logger.getLogger(UtilisateursControleur.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("erreurMessage", ex.getMessage());
+                getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
             }
         } else if (action.equalsIgnoreCase("goToAdmin")) {
             goToAdmin(request, response);
@@ -119,7 +120,7 @@ public class UtilisateursControleur extends HttpServlet {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             Representation rep = new Representation(cur.getNoSpectacle(),
                     cur.getNoRepresentation());
-            
+
             repDAO.lire(rep);
             cur.setRepresentation(rep);
         }

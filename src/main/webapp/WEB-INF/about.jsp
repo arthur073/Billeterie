@@ -15,7 +15,8 @@ vos places afin d'assister à une représentation.<br/><br/>
 
 Ce site vous est présenté par la dream team ACVL :<br/><br/>
 
-Arthur Verger, Thibault Vernadat, Jany Belluz et Michel Kuhm.<br/><br/>
+Arthur Verger, Thibault Vernadat, Jany Belluz et Michel Kuhm (et son super 
+<a href="http://cv-michel-kuhm.olympe.in/">CV</a> !!)<br/><br/>
 
 Disclaimer : this website is provided as is without warranty of any kind,<br/> 
 either express or implied, including but not limited to the implied warranties<br/> 
