@@ -12,29 +12,52 @@
 
 <c:import url="Layout/header.jsp"/>    
 
-<h2 align="center" class="titre"> Confirmation de la réservation </h2>
+<h3 align="center" class="titre"> Votre spectacle </h3>
+<br/>
 
-Récapitulatif de la commande : <br/>
+<div class="confirmation">
+    <table>
+        <tr>
+            <td>
+                <img class="reserverImg" src="images/${Image}"/>
+            </td>
+            <td>
+                <h3> ${NomSpectacle}</h3>
+                <h3> Le ${Date}</h3>
+            </td>
+        </tr>
+    </table>
+</div>
 
-Vous avez selectionné les places : 
-${places}
-
-
-<br/><br/>
-
-<c:forEach items="${map.entrySet()}" var="tuple" >
-    Vos place en zone ${tuple.key.categorie} :
-    <c:forEach items="${tuple.value}" var="p">
-        ${p}
-    </c:forEach>
- </c:forEach>
-
-<br/><br/>
-
-
-
-Recapitulatif de votre facture:
 
 <br/>
+<h3 align="center" class="titre"> Vos places </h3>
+
+
+<table class="indexTable">
+    <tr>
+        <th>Place</th>
+        <th>Prix</th>
+    </tr>
+<c:forEach items="${map.entrySet()}" var="tuple" >
+    
+        
+        <c:forEach items="${tuple.value}" var="p">
+            <tr>
+                <td>${p} (${tuple.key.categorie}) </td>
+                <td>${tuple.key.tarifBase}</td>
+            </tr>
+    </c:forEach>
+         </td>
+</tr> </c:forEach>
+</table>
+
+<br/>
+
+<form action="ReservationControleur"  class="reserverFormCentre" method="post">
+     <input type="text" name="map" style="display:none;" value="${map}" />
+     <input type="submit" name="action" label="reserverPlaces" value="Reserver mes places" class="btnReserverCentre"/>
+</form>
+
 <c:import url="Layout/footer.jsp"/>
 
