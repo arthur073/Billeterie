@@ -4,8 +4,13 @@
  */
 package vue;
 
+import dao.DAOException;
+import dao.PlaceDAO;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.sql.DataSource;
 import modele.Place;
 import modele.Zone;
 
@@ -44,31 +49,33 @@ public class TraitementPlaces {
         }
     }
 
-    public void TraiterPlaces(String places, ArrayList<Place> PlacesPoulailler,
-            ArrayList<Place> PlacesOrchestre, ArrayList<Place> PlacesBalcon,
-            ArrayList<Place> PlacesLoge) {
+    public static Map<Zone, List<Place>> TraiterPlaces(DataSource ds, String places) throws DAOException {
         int noP, noR, noZ;
         String[] tmp;
         String[] strArray = places.split("!");
+        PlaceDAO placeDAO = new PlaceDAO(ds);
+        Map<Zone, List<Place>> map = new HashMap<Zone, List<Place>>();
         for (String el : strArray) {
-            tmp = el.split(" ");
+            tmp = el.split("/");
             noP = Integer.parseInt(tmp[0]);
             noR = Integer.parseInt(tmp[1]);
             noZ = Integer.parseInt(tmp[2]);
-            if (noZ == 1) {
-                PlacesPoulailler.add(new Place(noP, noR, noZ));
-            } else if (noZ == 2) {
-                PlacesOrchestre.add(new Place(noP, noR, noZ));
-            } else if (noZ == 3) {
-                PlacesBalcon.add(new Place(noP, noR, noZ));
-            } else if (noZ == 4) {
-                PlacesLoge.add(new Place(noP, noR, noZ));
+            Place place = new Place(noP, noR, noZ);
+            placeDAO.lire(place);
+            List<Place> listPlaces = map.get(place.getZone());
+            if (listPlaces == null) {
+                listPlaces = new ArrayList<Place>();
+                listPlaces.add(place);
+                map.put(place.getZone(), listPlaces);
+            } else {
+                listPlaces.add(place);
             }
         }
-        this.prixTotalPoulailler = this.getPrixPoulailler() * PlacesPoulailler.size();
-        this.prixTotalOrchestre = this.getPrixOrchestre() * PlacesOrchestre.size();
-        this.prixTotalBalcon = this.getPrixBalcon() * PlacesBalcon.size();
-        this.prixTotalLoge = this.getPrixLoge() * PlacesLoge.size();
+        return map;
+        //  this.prixTotalPoulailler = this.getPrixPoulailler() * PlacesPoulailler.size();
+        //  this.prixTotalOrchestre = this.getPrixOrchestre() * PlacesOrchestre.size();
+        //  this.prixTotalBalcon = this.getPrixBalcon() * PlacesBalcon.size();
+        //  this.prixTotalLoge = this.getPrixLoge() * PlacesLoge.size();
     }
 
     public void TraiterPlacesPourBD(String places, ArrayList<Place> PlacesBD) {

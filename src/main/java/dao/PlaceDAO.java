@@ -14,7 +14,7 @@ import modele.Representation;
 import modele.Place;
 import modele.Zone;
 
-class PlaceDAO extends ProviderDAO<Place> {
+public class PlaceDAO extends ProviderDAO<Place> {
 
     public PlaceDAO(DataSource ds) {
         super(ds);
@@ -79,7 +79,7 @@ class PlaceDAO extends ProviderDAO<Place> {
         ResultSet rs = null;
         try {
             conn = getConnection();
-            st = conn.prepareStatement(getRequete("SELECT_PLACE"));
+            st = conn.prepareStatement(getRequete("SELECT_ZONE"));
             st.setInt(1, p.getNoZone());
             rs = st.executeQuery();
             if (rs.next()) {

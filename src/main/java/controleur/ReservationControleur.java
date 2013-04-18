@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -69,8 +70,9 @@ public class ReservationControleur extends HttpServlet {
                 actionConfirmation(request, response);
             }
         } catch (DAOException e) {
-            request.setAttribute("erreurMessage", e.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            throw new RuntimeException(e);
+            //reequest.setAttribute("erreurMessage", e.getMessage());
+            //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
 
@@ -117,30 +119,10 @@ public class ReservationControleur extends HttpServlet {
             String placesTmp = places.replaceAll("/", " ");
             request.setAttribute("places", placesTmp);
             tp.TraiterPlacesPourBD(places, PlacesBD);
-
-            float prixPoulailler = 0;
-            float prixOrchestre = 0;
-            float prixBalcon = 0;
-            float prixLoge = 0;
-            ZoneDAO zone = new ZoneDAO(ds);
-            List<Zone> listeCateg = zone.getZones();
             
-            ArrayList<Place> PlacesPoulailler = new ArrayList<Place>();
-            ArrayList<Place> PlacesOrchestre = new ArrayList<Place>();
-            ArrayList<Place> PlacesBalcon = new ArrayList<Place>();
-            ArrayList<Place> PlacesLoge = new ArrayList<Place>();
-            tp.setPrixPlaces(listeCateg, prixPoulailler, prixOrchestre, prixBalcon, prixLoge);
-            tp.TraiterPlaces(placesTmp, PlacesPoulailler, PlacesOrchestre, PlacesBalcon, PlacesLoge);
-            request.setAttribute("PlacesPoulailler",PlacesPoulailler);
-            request.setAttribute("PlacesOrchestre",PlacesOrchestre);
-            request.setAttribute("PlacesBalcon",PlacesBalcon);
-            request.setAttribute("PlacesLoge",PlacesLoge);
-            //request.setAttribute("PrixPoulailler",tp.getPrixPoulailler());
-            //request.setAttribute("PrixOrchestre",PrixOrchestre);
-            //request.setAttribute("PrixBalcon",PrixBalcon);
-            //request.setAttribute("PrixLoge",PrixLoge);
-            /* TODO thib : a finir */
-
+                      
+            Map<Zone,List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
+            request.setAttribute("map", map);
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         }
     }
