@@ -7,67 +7,26 @@
 <c:import url="Layout/header.jsp"/>    
 
 <script>
-    //document.getElementById("demo").innerHTML = "My First JavaScript";
-    //document.getElementById("chairs").onclick = selectChair();
-    function getElementPosition(theElement) {
-
-        var posX = 0;
-        var posY = 0;
-
-        while (theElement !== null) {
-            posX += theElement.offsetLeft;
-            posY += theElement.offsetTop;
-            theElement = theElement.offsetParent;
-        }
-
-        return {x: posX, y: posY}
-    }
-
-    function convertToInt(position) {
-        offsetX = 208;
-        offsetY = 263;
-
-        if (position.x >= 512) {
-            offsetX += 20;
-        }
-        if (position.x >= 816) {
-            offsetX += 20;
-        }
-        if (position.y >= 351) {
-            offsetY += 22;
-        }
-
-
-        return Math.floor((position.x - offsetX) / 28 + 1) + ((position.y - offsetY) / 22 * 30);
-    }
-
-    function selectChair(obj) {
-        //       alert(obj.innerHTML+document.getElementById("selected").innerHTML); 
-       
-        
-        
+   function selectChair(obj) {            
         var noPlace = obj.getAttribute("noPlace");
         var noRang = obj.getAttribute("noRang");
         var noZone = obj.getAttribute("noZone");
 
         if (obj.className === "poulailler" || obj.className === "balcon" || obj.className === "orchestre" || obj.className === "loge") {
             obj.EtatPrec = obj.className;
-            obj.className =  "sat";
+            obj.className = "sat";
             document.getElementById("selected").value += noPlace + "/" + noRang
                     + "/" + noZone + "!";
-            //alert(pos.x + "," + pos.y+"->"+convertToInt(pos));
         } else {
             if (obj.className === "sat") {
-                obj.className =  obj.EtatPrec;
+                obj.className = obj.EtatPrec;
                 document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
-                       + "/" + noZone + "!", '');
+                        + "/" + noZone + "!", '');
             }
         }
     }
-
 </script>
 
-<% request.setAttribute("listeZones", request.getAttribute("listeZones")); %>
 <%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees"); %>
 <%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle")); %>
 <%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation")); %>
@@ -76,12 +35,28 @@ Cliquez sur les places que vous désirez : <br/>
 
 
 <% RangToZone rtz = new RangToZone(); %>
-<table id="chairs" >
- 
+<table id="chairs">
+    <tr>
+        <c:forEach var="rang" begin="1" end="12" step="1">
+          <c:forEach var="place" begin="1" end="12" step="1">
+              <td class="${rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 1)}" 
+                    noPlace="${place}" noRang="${rang}" noZone="1" onclick="selectChair(this);"/>
+          </c:forEach>
+            <td class="sitstop"/>
+            <c:if test="${ rang % 4 == 0}">
+                </tr>
+                <tr>
+            </c:if>
+            
+        </c:forEach>
+    </tr>
+</table>
+
+<table id="chairs" > 
     <tr>
         <% for (int rang = 1 ; rang <= 12 ; rang++) { %>
             <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, rtz.rangToZone(rang)) %>" 
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 1) %>" 
                     noPlace="<%= place %>" noRang="<%= rang %>" noZone="1" onclick="selectChair(this);"/>
             <% } %>
             <td class="sitstop"/>
@@ -95,7 +70,7 @@ Cliquez sur les places que vous désirez : <br/>
     <tr>
         <% for (int rang = 13 ; rang <= 21 ; rang++) { %>
             <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, rtz.rangToZone(rang)) %>" 
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 2) %>" 
                     noPlace="<%= place %>" noRang="<%= rang %>" noZone="2" onclick="selectChair(this);"/>
             <% } %>
             <td class="sitstop"/>
@@ -111,7 +86,7 @@ Cliquez sur les places que vous désirez : <br/>
     <tr>
         <% for (int rang = 22 ; rang <= 27 ; rang++) { %>
             <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, rtz.rangToZone(rang)) %>" 
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 4) %>" 
                     noPlace="<%= place %>" noRang="<%= rang %>" noZone="4" onclick="selectChair(this);"/>
             <% } %>
             <td class="sitstop"/>
@@ -133,6 +108,7 @@ Cliquez sur les places que vous désirez : <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
      <input type="text" name="Date" style="display:none;" value="${Date}" />
      <input type="text" name="Image" style="display:none;" value="${Image}" />
+     
      <input type="submit" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
 </form>
 
