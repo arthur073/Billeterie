@@ -93,9 +93,8 @@
 </table>
 
 
-Réservées mais non payées : ${listRes} <br/>
 
-
+<br/>
 <strong> Mes places réservées </strong>
 
 <table class="indexTable">
@@ -119,10 +118,9 @@ Réservées mais non payées : ${listRes} <br/>
     <c:forEach items="${listRes}" var="resa">
         <tr>
             <td>
-                ${resa.representation.spectacle.image}
-            </td>
+                <img height="80px"  src="images/${resa.representation.spectacle.image}"/>   
             <td>
-                ${resa.representation.spectacle.nomSpectacle}
+                ${resa.representation.spectacle.nom}
             </td>
             <td>
                 ${resa.representation.date}

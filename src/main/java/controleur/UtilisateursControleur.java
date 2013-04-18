@@ -120,7 +120,7 @@ public class UtilisateursControleur extends HttpServlet {
             Representation rep = new Representation(cur.getNoSpectacle(),
                     cur.getNoRepresentation());
             
-            //repDAO.lire(rep);
+            repDAO.lire(rep);
             cur.setRepresentation(rep);
         }
 

@@ -166,7 +166,9 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
             rs = st.executeQuery();
             if (rs.next()) {
                 rep.setDate(rs.getDate("DateRepresentation"));
-                rep.setSpectacle(SpectacleDAO.construire(rs));
+                System.out.println(rs.getInt("NoSpectacle"));
+                rep.setSpectacle(SpectacleDAO.construire(rs.getInt("NoSpectacle"), 
+                        rs.getString("nom"), rs.getString("image")));
             } else {
                 throw new DAOException(DAOException.Type.NON_TROUVE,
                         "Représentation non trouvée");
