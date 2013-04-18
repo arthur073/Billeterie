@@ -25,6 +25,7 @@ import modele.Place;
 import modele.Reservation;
 
 import modele.Zone;
+import vue.FlashImpl;
 import vue.TraitementPlaces;
 
 /**

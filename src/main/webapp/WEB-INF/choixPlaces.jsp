@@ -24,7 +24,14 @@
                         + "/" + noZone + "!", '');
             }
         }
+        document.getElementById("action").disabled = (document.getElementById("selected").value === "");
     }
+    
+    function griserSubmit(){
+        document.getElementById("action").disabled = (document.getElementById("selected").value === "");
+    }
+    
+    window.onload=griserSubmit;
 </script>
 
 <%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees"); %>
@@ -104,12 +111,12 @@ Cliquez sur les places que vous désirez : <br/>
 <div id="scene">SCÈNE</div>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
-    <input type="text" id="selected" name="places"/> <br/>
+    <input type="text" id="selected" name="places" style="display:none;" onchange="griserSubmit()"/> <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
      <input type="text" name="Date" style="display:none;" value="${Date}" />
      <input type="text" name="Image" style="display:none;" value="${Image}" />
      
-     <input type="submit" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
+     <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
 </form>
 
 

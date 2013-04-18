@@ -300,6 +300,19 @@ span.price {
     margin-top : 0.3em;
 }
 
+.btnReserver[disabled] {
+    color: white;
+    background-color: #CCCCCC;
+    border-style: none;
+    box-shadow: 0px 2px 5px #1c1a19;
+    padding: 0.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 100%;
+    cursor: pointer;
+    margin-top : 0.3em;
+}
+
 .btnReserverCentre {
     color: white;
     text-align: center;
