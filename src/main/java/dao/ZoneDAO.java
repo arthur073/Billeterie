@@ -87,11 +87,11 @@ public class ZoneDAO extends ProviderDAO<Zone> {
 
     @Override
     public void mettreAJour(Zone obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles zones !");
+        throw new DAOException("Impossible de modifier les zones !");
     }
 
     @Override
     public void supprimer(Zone obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles zones !");
+        throw new DAOException("Impossible de supprimer les zones !");
     }
 }
