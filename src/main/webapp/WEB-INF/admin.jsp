@@ -4,8 +4,6 @@
     Author     : michel
 --%>
 
-<%@page import="sun.org.mozilla.javascript.internal.Context"%>
-<%@page import="sun.org.mozilla.javascript.internal.json.JsonParser"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>    
@@ -54,16 +52,34 @@ function ProcessRequest()
     if ( xmlHttp.readyState === 4 ) 
     {
         if( xmlHttp.status === 200 )
-        {              
+        {            
             if ( xmlHttp.responseText === "Not found" ) 
             {
                 alert("error");
             }
             else
             {
-                alert(xmlHttp.responseText);             
-                // No parsing necessary with JSON!        
-                document.getElementById( "valeurBenefTotal"    ).innerHTML = info;
+                //parseur a deplacer surement
+                var parseXml;
+                if (typeof window.DOMParser !== "undefined") {
+                    racine = ( new window.DOMParser() ).parseFromString(xmlHttp.responseText, "text/xml");
+                } else if (typeof window.ActiveXObject !== "undefined" &&
+                       new window.ActiveXObject("Microsoft.XMLDOM")) {
+                    var racine = new window.ActiveXObject("Microsoft.XMLDOM");
+                    racine.async = "false";
+                    racine.loadXML(xmlHttp.responseText);
+                } else {
+                    alert("et merde ! ");
+                    throw new Error("No XML parser found");
+                }
+                //fin parseur
+
+                //parcours des elements
+                var arbre = racine.childNodes[0];
+                var benefTotal = arbre.childNodes[0].childNodes[0].textContent;
+                alert(benefTotal);
+                //element.getAttribute            
+                document.getElementById( "valeurBenefTotal"    ).innerHTML = benefTotal;
             }   
         }
     }
