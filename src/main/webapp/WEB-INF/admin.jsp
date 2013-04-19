@@ -5,7 +5,6 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="vue.RangToZone"%> 
 
 <c:import url="Layout/header.jsp"/>    
 
@@ -33,28 +32,11 @@
     }
     function changeStats() {
         var Url = "StatsControleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
+       alert(Url);
         xmlHttp = new XMLHttpRequest(); 
         xmlHttp.onreadystatechange = ProcessRequest;
         xmlHttp.open( "GET", Url, true );
         xmlHttp.send( null );
-        //alert("TODO");
-        //alert(getDateDebut());
-        //alert(getDateFin());
-        //majBenefTotal();
-        //majListeSpectacles();
-        //majMeilleursTauxRemplissage();
-    }
-    function majBenefTotal() {
- 
-    }
-    function majListeSpectacles() {
-        alert("TODO");
-    }
-    function majSpectaclesPlusRentables() {
-        alert("TODO");    
-    }
-    function majMeilleursTauxRemplissage() {
-        alert("TODO");        
     }
 
     function getDateDebut() {
@@ -70,7 +52,6 @@ function ProcessRequest()
 {
     if ( xmlHttp.readyState == 4 ) 
     {
-        alert(xmlHttp.status);
         if( xmlHttp.status == 200 )
         {              
             if ( xmlHttp.responseText == "Not found" ) 
@@ -79,12 +60,12 @@ function ProcessRequest()
             }
             else
             {
-                alert("ok");
-                var info = eval ( "(" + xmlHttp.responseText + ")" );
+                alert(xmlHttp.responseText);
+                var info = eval ( "{" + xmlHttp.responseText + "}" );
+                alert(info);
 
                 // No parsing necessary with JSON!        
-                document.getElementById( "TextBoxCustomerName"    ).value = info.jsonData[ 0 ].cmname;
-                document.getElementById( "TextBoxCustomerAddress" ).value = info.jsonData[ 0 ].cmaddr1;
+                document.getElementById( "valeurBenefTotal"    ).innerHTML = info;
             }   
         }
     }
@@ -99,7 +80,7 @@ function ProcessRequest()
 <table style="clear:both; border: 1px solid black">
     <tr>
         <td>Bénéfice total</td>
-        <td>100</td>
+        <td id="valeurBenefTotal">100</td>
     </tr>
     <tr>
         <td>Liste deroulante Spectacle </td>

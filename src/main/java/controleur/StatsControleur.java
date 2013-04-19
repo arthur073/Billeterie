@@ -8,7 +8,10 @@ import dao.DAOException;
 import dao.SpectacleDAO;
 import dao.ZoneDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -37,7 +40,6 @@ public class StatsControleur extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response); 
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
         if (action.equalsIgnoreCase("rafraichir")) {
@@ -58,8 +60,16 @@ public class StatsControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }*/
 
-    private void rafraichirStats(HttpServletRequest request, HttpServletResponse response) {
-        SpectacleDAO spec = new SpectacleDAO(ds);
-        //request.set
+    private void rafraichirStats(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+            SpectacleDAO spec = new SpectacleDAO(ds);
+        try {
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            //TODO Jany : mettre les vraies fonctions pour tout !
+            out.print("benefTotal: '200'");
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(StatsControleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
