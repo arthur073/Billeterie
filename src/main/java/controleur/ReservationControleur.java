@@ -72,11 +72,13 @@ public class ReservationControleur extends HttpServlet {
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 actionConfirmation(request, response);
+            } else {
+                throw new DAOException("méthode non reconnue");
             }
         } catch (DAOException e) {
-            throw new RuntimeException(e);
-            //reequest.setAttribute("erreurMessage", e.getMessage());
-            //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            //throw new RuntimeException(e);
+            request.setAttribute("erreurMessage", e.getMessage());
+            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
 
