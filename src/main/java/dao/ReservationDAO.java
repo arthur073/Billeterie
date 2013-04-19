@@ -168,9 +168,9 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setString(1, reserv.getLogin());
             st.setInt(2, reserv.getNoSpectacle());
             st.setInt(3, reserv.getNoRepresentation());
-            st.setInt(4, reserv.getNoZone());
+            st.setInt(4, reserv.getNoPlace());
             st.setInt(5, reserv.getNoRang());
-            st.setInt(6, reserv.getNoPlace());
+            st.setInt(6, reserv.getNoZone());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -191,7 +191,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         uDAO.lire(c);
         r.setClient(c);
         RepresentationDAO repDAO = new RepresentationDAO(dataSource);
-        Representation rep = new Representation(r.getNoRepresentation(), r.getNoSpectacle());
+        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation());
         repDAO.lire(rep);
         r.setRepresentation(rep);
         PlaceDAO pDAO = new PlaceDAO(dataSource);

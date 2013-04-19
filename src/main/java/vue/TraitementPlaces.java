@@ -78,17 +78,8 @@ public class TraitementPlaces {
         //  this.prixTotalLoge = this.getPrixLoge() * PlacesLoge.size();
     }
 
-    public void TraiterPlacesPourBD(String places, ArrayList<Place> PlacesBD) {
-        int noP, noR, noZ;
-        String[] tmp;
-        String[] strArray = places.split("!");
-        for (String el : strArray) {
-            tmp = el.split("/");
-            noP = Integer.parseInt(tmp[0]);
-            noR = Integer.parseInt(tmp[1]);
-            noZ = Integer.parseInt(tmp[2]);
-            PlacesBD.add(new Place(noP, noR, noZ));
-        }
+    public void TraiterPlacesPourBD(Map<Zone, List<Place>> map) {
+        
     }
     
     public static float getPrixTotalPlaces(Map<Zone, List<Place>> map){

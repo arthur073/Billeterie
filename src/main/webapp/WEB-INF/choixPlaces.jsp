@@ -113,6 +113,8 @@ Cliquez sur les places que vous désirez : <br/>
 <form action="ReservationControleur"  class="reserverForm" method="post">
     <input type="text" id="selected" name="places" style="display:none;" onchange="griserSubmit()"/> <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
+    <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
+     <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
      <input type="text" name="Date" style="display:none;" value="${Date}" />
      <input type="text" name="Image" style="display:none;" value="${Image}" />
      
