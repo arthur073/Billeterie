@@ -90,6 +90,18 @@ public class TraitementPlaces {
             PlacesBD.add(new Place(noP, noR, noZ));
         }
     }
+    
+    public static float getPrixTotalPlaces(Map<Zone, List<Place>> map){
+        float total = 0;
+        for (Map.Entry<Zone, List<Place>> entry : map.entrySet()) {
+            Zone z = entry.getKey();
+            for (Place p : entry.getValue()){
+                total += z.getTarifBase();
+            }
+            
+        }
+        return total;
+    }
 
     /**
      * @return the prixPoulailler
