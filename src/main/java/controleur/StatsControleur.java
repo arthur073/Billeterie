@@ -21,7 +21,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-import modele.Zone;
 
 /**
  * @author Michel
@@ -66,10 +65,47 @@ public class StatsControleur extends HttpServlet {
             response.setContentType("application/json");
             PrintWriter out = response.getWriter();
             //TODO Jany : mettre les vraies fonctions pour tout !
-            out.print("benefTotal: '200'");
+
+             String xmlString = 
+                     "<root>"
+                     + "<benefTotal>300</benefTotal>"
+                     + "<listeSpectaclesPlacesVendues>"
+                        + "<spectacle>"
+                            + "<nom>Urban Peace 3</nom>"
+                            + "<placesVendues>245</placesVendues>"
+                        + "</spectacle>"
+                            + "<nom>Patrick Sebastien</nom>"
+                            + "<donnee>132</donnee>"
+                        + "</spectacle>"              
+                     + "</listeSpectaclesPlacesVendues>"
+                     + "<listeSpectaclesLesPlusRentables>"
+                        + "<spectacle>"
+                            + "<nom>Urban Peace 3</nom>"
+                            + "<donnee>50.032€</donnee>"
+                        + "</spectacle>"
+                        + "<spectacle>"
+                            + "<nom>Patrick Sebastien</nom>"
+                            + "<donnee>24.031€</donnee>"
+                        + "</spectacle>"
+                     + "</listeSpectaclesLesPlusRentables>"
+                     + "<listeSpectaclesTauxRemplissage>"
+                        + "<spectacle>"
+                            + "<nom>Urban Peace 3</nom>"
+                            + "<donnee>89,04%</donnee>"
+                        + "</spectacle>"
+                        + "<spectacle>"
+                            + "<nom>Patrick Sebastien</nom>"
+                            + "<donnee>62,3%</donnee>"
+                        + "</spectacle>"
+                     + "</listeSpectaclesTauxRemplissage>"
+                     + "</root>";
+            out.print(xmlString);
+
+
             out.flush();
         } catch (IOException ex) {
             Logger.getLogger(StatsControleur.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
+

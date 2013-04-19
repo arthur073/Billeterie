@@ -4,6 +4,8 @@
     Author     : michel
 --%>
 
+<%@page import="sun.org.mozilla.javascript.internal.Context"%>
+<%@page import="sun.org.mozilla.javascript.internal.json.JsonParser"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>    
@@ -32,7 +34,6 @@
     }
     function changeStats() {
         var Url = "StatsControleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
-       alert(Url);
         xmlHttp = new XMLHttpRequest(); 
         xmlHttp.onreadystatechange = ProcessRequest;
         xmlHttp.open( "GET", Url, true );
@@ -50,18 +51,17 @@
 
 function ProcessRequest() 
 {
-    if ( xmlHttp.readyState == 4 ) 
+    if ( xmlHttp.readyState === 4 ) 
     {
-        if( xmlHttp.status == 200 )
+        if( xmlHttp.status === 200 )
         {              
-            if ( xmlHttp.responseText == "Not found" ) 
+            if ( xmlHttp.responseText === "Not found" ) 
             {
                 alert("error");
             }
             else
             {
-                var info = eval ( "{" + xmlHttp.responseText + "}" );
-
+                alert(xmlHttp.responseText);             
                 // No parsing necessary with JSON!        
                 document.getElementById( "valeurBenefTotal"    ).innerHTML = info;
             }   
@@ -81,7 +81,7 @@ function ProcessRequest()
     </tr>
     <tr>
         <td>Liste deroulante Spectacle </td>
-        <td></td>
+        <td id="listeSpectacles">vide</td>
     </tr>
     <tr>
         <td>Liste des 5 spectacles les plus rentables</td>
