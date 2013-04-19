@@ -30,6 +30,12 @@
             }
     }
     function changeStats() {
+        var Url = "StatsControlleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
+
+        xmlHttp = new XMLHttpRequest(); 
+        xmlHttp.onreadystatechange = ProcessRequest;
+        xmlHttp.open( "GET", Url, true );
+        xmlHttp.send( null );
         alert("TODO");
         alert(getDateDebut());
         alert(getDateFin());
@@ -38,7 +44,7 @@
         majMeilleursTauxRemplissage();
     }
     function majBenefTotal() {
-        alert("TODO");
+ 
     }
     function majListeSpectacles() {
         alert("TODO");
@@ -56,6 +62,29 @@
     function getDateFin() {
         return $("#datepickerFin").datepicker("getDate");
     }
+    
+    var xmlHttp = null;
+
+function ProcessRequest() 
+{
+    if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) 
+    {
+        if ( xmlHttp.responseText == "Not found" ) 
+        {
+            document.getElementById( "TextBoxCustomerName"    ).value = "Not found";
+            document.getElementById( "TextBoxCustomerAddress" ).value = "";
+        }
+        else
+        {
+            var info = eval ( "(" + xmlHttp.responseText + ")" );
+
+            // No parsing necessary with JSON!        
+            document.getElementById( "TextBoxCustomerName"    ).value = info.jsonData[ 0 ].cmname;
+            document.getElementById( "TextBoxCustomerAddress" ).value = info.jsonData[ 0 ].cmaddr1;
+        }                    
+    }
+}
+    
 </script>
  
 <div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" /></div>
