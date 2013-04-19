@@ -45,11 +45,15 @@
         <c:forEach items="${tuple.value}" var="p">
             <tr>
                 <td>${p} (${tuple.key.categorie}) </td>
-                <td>${tuple.key.tarifBase}</td>
+                <td>${tuple.key.tarifBase} &euro;</td>
             </tr>
     </c:forEach>
          </td>
 </tr> </c:forEach>
+<tr>
+    <th> Total :</th>
+    <th> ${prixTotal} &euro; </th>
+</tr>
 </table>
 
 <br/>

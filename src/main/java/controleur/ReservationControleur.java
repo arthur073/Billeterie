@@ -134,7 +134,9 @@ public class ReservationControleur extends HttpServlet {
 
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
+            float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
             request.setAttribute("map", map);
+            request.setAttribute("prixTotal", prixTotal);
             request.setAttribute("Image", request.getParameter("Image"));
             request.setAttribute("Date", request.getParameter("Date"));
             request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
