@@ -15,8 +15,11 @@
 <link rel="stylesheet" href="/resources/demos/style.css" />
 <script>
     $(function() {
-      $( "#datepickerDebut" ).datepicker({dateFormat: "dd-mm-yy"});
-      $( "#datepickerFin" ).datepicker({dateFormat: "dd-mm-yy"});
+        //en supposant que le debut d'une saison est le 1er janvier et la fin le 31 dec
+        // on met le 1er janvier de l'annee suivante pour prendre en compte la journée du 31 dec complete
+        // on initialise les champs a cette valeur pour avoir des stats qui s'affichent direct
+      $( "#datepickerDebut" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '01-01-2013');
+      $( "#datepickerFin" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '01-01-2014');
     });
     
     function checkDate() {
@@ -26,22 +29,54 @@
                 $("#datepickerFin").datepicker('setDate', $( "#datepickerDebut" ).datepicker("getDate"));
             }
     }
+    function changeStats() {
+        alert("TODO");
+        alert(getDateDebut());
+        alert(getDateFin());
+        majBenefTotal();
+        majListeSpectacles();
+        majMeilleursTauxRemplissage();
+    }
+    function majBenefTotal() {
+        alert("TODO");
+    }
+    function majListeSpectacles() {
+        alert("TODO");
+    }
+    function majSpectaclesPlusRentables() {
+        alert("TODO");    
+    }
+    function majMeilleursTauxRemplissage() {
+        alert("TODO");        
+    }
+
+    function getDateDebut() {
+        return $("#datepickerDebut").datepicker("getDate");
+    }
+    function getDateFin() {
+        return $("#datepickerFin").datepicker("getDate");
+    }
 </script>
  
-<div style="float:left;padding-left: 20%">D&eacute;but période : <input type="text" id="datepickerDebut" /></div>
-<div style="float:right;padding-right: 20%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate()"/></div>
+<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" /></div>
+<div style="float:left;padding-left: 5%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate()"/></div>
+<div style="float:left; padding-left: 5%"><button onclick="changeStats()">Valider</button></div>
 <br><br>
-<table style="clear:both">
+<table style="clear:both; border: 1px solid black">
     <tr>
         <td>Bénéfice total</td>
         <td></td>
     </tr>
     <tr>
-        <td> Liste deroulante Spectacle </td>
+        <td>Liste deroulante Spectacle </td>
         <td></td>
     </tr>
     <tr>
-        <td> Liste des 5 spectacles les plus rentables</td>
+        <td>Liste des 5 spectacles les plus rentables</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Taux de remplissage les plus élevés</td>
         <td></td>
     </tr>
 </table>
