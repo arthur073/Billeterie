@@ -8,7 +8,10 @@ import dao.DAOException;
 import dao.SpectacleDAO;
 import dao.ZoneDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -30,11 +33,16 @@ public class StatsControleur extends HttpServlet {
     private DataSource ds;
 
     @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        super.doGet(request, response); 
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-        if (action == null || action.equalsIgnoreCase("rafraichir")) {
+        if (action.equalsIgnoreCase("rafraichir")) {
             rafraichirStats(request, response);
         } else {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
@@ -42,7 +50,7 @@ public class StatsControleur extends HttpServlet {
     }
     
     
-    private void actionAcheter(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
+   /* private void actionAcheter(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
         ZoneDAO zone = new ZoneDAO(ds);
         List<Zone> listeZones = zone.getZones();
         // TODO : prendre les prix de la requête de thib
@@ -50,10 +58,18 @@ public class StatsControleur extends HttpServlet {
         request.setAttribute("p2", listeZones.remove(0));
         request.setAttribute("p3", listeZones.remove(0));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
-    }
+    }*/
 
-    private void rafraichirStats(HttpServletRequest request, HttpServletResponse response) {
-        SpectacleDAO spec = new SpectacleDAO(ds);
-        //request.set
+    private void rafraichirStats(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+            SpectacleDAO spec = new SpectacleDAO(ds);
+        try {
+            response.setContentType("application/json");
+            PrintWriter out = response.getWriter();
+            //TODO Jany : mettre les vraies fonctions pour tout !
+            out.print("benefTotal: '200'");
+            out.flush();
+        } catch (IOException ex) {
+            Logger.getLogger(StatsControleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

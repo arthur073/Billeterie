@@ -5,7 +5,6 @@
 --%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="vue.RangToZone"%> 
 
 <c:import url="Layout/header.jsp"/>    
 
@@ -26,75 +25,59 @@
         if( $("#datepickerDebut").datepicker("getDate") > $("#datepickerFin").datepicker("getDate") )
             {
                 alert("La date de fin ne peut être inférieur à la date de début");
-                $("#datepickerFin").datepicker('setDate', $( "#datepickerDebut" ).datepicker("getDate"));
+                var date = new Date($( "#datepickerDebut" ).datepicker("getDate"));
+                date.setDate(date.getDate() + 1);
+                $("#datepickerFin").datepicker('setDate', date);
             }
     }
     function changeStats() {
-        var Url = "StatsControlleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
-
+        var Url = "StatsControleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
+       alert(Url);
         xmlHttp = new XMLHttpRequest(); 
         xmlHttp.onreadystatechange = ProcessRequest;
         xmlHttp.open( "GET", Url, true );
         xmlHttp.send( null );
-        alert("TODO");
-        alert(getDateDebut());
-        alert(getDateFin());
-        majBenefTotal();
-        majListeSpectacles();
-        majMeilleursTauxRemplissage();
-    }
-    function majBenefTotal() {
- 
-    }
-    function majListeSpectacles() {
-        alert("TODO");
-    }
-    function majSpectaclesPlusRentables() {
-        alert("TODO");    
-    }
-    function majMeilleursTauxRemplissage() {
-        alert("TODO");        
     }
 
     function getDateDebut() {
-        return $("#datepickerDebut").datepicker("getDate");
+        return $("#datepickerDebut").datepicker({ dateFormat: 'yy-mm-dd' }).val();
     }
     function getDateFin() {
-        return $("#datepickerFin").datepicker("getDate");
+        return $("#datepickerFin").datepicker({ dateFormat: 'yy-mm-dd' }).val();
     }
     
     var xmlHttp = null;
 
 function ProcessRequest() 
 {
-    if ( xmlHttp.readyState == 4 && xmlHttp.status == 200 ) 
+    if ( xmlHttp.readyState == 4 ) 
     {
-        if ( xmlHttp.responseText == "Not found" ) 
-        {
-            document.getElementById( "TextBoxCustomerName"    ).value = "Not found";
-            document.getElementById( "TextBoxCustomerAddress" ).value = "";
-        }
-        else
-        {
-            var info = eval ( "(" + xmlHttp.responseText + ")" );
+        if( xmlHttp.status == 200 )
+        {              
+            if ( xmlHttp.responseText == "Not found" ) 
+            {
+                alert("error");
+            }
+            else
+            {
+                var info = eval ( "{" + xmlHttp.responseText + "}" );
 
-            // No parsing necessary with JSON!        
-            document.getElementById( "TextBoxCustomerName"    ).value = info.jsonData[ 0 ].cmname;
-            document.getElementById( "TextBoxCustomerAddress" ).value = info.jsonData[ 0 ].cmaddr1;
-        }                    
+                // No parsing necessary with JSON!        
+                document.getElementById( "valeurBenefTotal"    ).innerHTML = info;
+            }   
+        }
     }
 }
     
 </script>
  
-<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" /></div>
-<div style="float:left;padding-left: 5%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate()"/></div>
-<div style="float:left; padding-left: 5%"><button onclick="changeStats()">Valider</button></div>
+<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 15%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
 <br><br>
 <table style="clear:both; border: 1px solid black">
     <tr>
         <td>Bénéfice total</td>
-        <td></td>
+        <td id="valeurBenefTotal">100</td>
     </tr>
     <tr>
         <td>Liste deroulante Spectacle </td>
