@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import modele.TypeUtilisateur;
 
 import modele.Utilisateur;
 import vue.FlashImpl;
@@ -75,7 +76,10 @@ public class LoginControleur extends HttpServlet {
             request.getSession().setAttribute("LoggedIn", true);
             request.getSession().setAttribute("Login", utilisateur.getLogin());
             request.getSession().setAttribute("FailedLogIn", false);
-            
+            if( utilisateur.getType().equals( TypeUtilisateur.RESPONSABLE ) )
+            {
+                request.getSession().setAttribute("Admin", true);
+            }
             FlashImpl fl = new FlashImpl("Vous êtes loggué en tant que "+ utilisateur.getLogin(), request, "success");
             actionAfficher(request, response);
         } else {

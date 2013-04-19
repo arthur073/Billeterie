@@ -5,6 +5,7 @@
 package controleur;
 
 import dao.DAOException;
+import dao.SpectacleDAO;
 import dao.ZoneDAO;
 import java.io.IOException;
 import java.util.List;
@@ -22,34 +23,25 @@ import modele.Zone;
 /**
  * @author Michel
  */
-@WebServlet(name = "AchatControleur", urlPatterns = {"/AchatControleur"})
-public class AchatControleur extends HttpServlet {
+@WebServlet(name = "StatsControleur", urlPatterns = {"/StatsControleur"})
+public class StatsControleur extends HttpServlet {
 
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
     @Override
-    public void doPost(HttpServletRequest request,
-            HttpServletResponse response)
-            throws IOException, ServletException {
-
-        if (request.getSession(false).getAttribute("LoggedIn") == null) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-            return;
-        }
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        super.doGet(request, response); 
+        request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-
-        try {
-            // TODO : if à mettre
-            actionAcheter(request, response);
-        } catch (DAOException e) {
-            request.setAttribute("erreurMessage", e.getMessage());
-            //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        if (action == null || action.equalsIgnoreCase("rafraichir")) {
+            rafraichirStats(request, response);
+        } else {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         }
-
     }
-
+    
+    
     private void actionAcheter(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
         ZoneDAO zone = new ZoneDAO(ds);
         List<Zone> listeZones = zone.getZones();
@@ -58,5 +50,10 @@ public class AchatControleur extends HttpServlet {
         request.setAttribute("p2", listeZones.remove(0));
         request.setAttribute("p3", listeZones.remove(0));
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
+    }
+
+    private void rafraichirStats(HttpServletRequest request, HttpServletResponse response) {
+        SpectacleDAO spec = new SpectacleDAO(ds);
+        //request.set
     }
 }
