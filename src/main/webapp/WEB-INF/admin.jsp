@@ -60,9 +60,7 @@ function ProcessRequest()
             }
             else
             {
-                alert(xmlHttp.responseText);
                 var info = eval ( "{" + xmlHttp.responseText + "}" );
-                alert(info);
 
                 // No parsing necessary with JSON!        
                 document.getElementById( "valeurBenefTotal"    ).innerHTML = info;
@@ -73,9 +71,8 @@ function ProcessRequest()
     
 </script>
  
-<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate()"/></div>
-<div style="float:left;padding-left: 5%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate()"/></div>
-<div style="float:left; padding-left: 5%"><button onclick="changeStats()">Valider</button></div>
+<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 15%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
 <br><br>
 <table style="clear:both; border: 1px solid black">
     <tr>
