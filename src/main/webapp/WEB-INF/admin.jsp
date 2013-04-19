@@ -74,12 +74,36 @@ function ProcessRequest()
                 }
                 //fin parseur
 
-                //parcours des elements
+                //root
                 var arbre = racine.childNodes[0];
-                var benefTotal = arbre.childNodes[0].childNodes[0].textContent;
-                alert(benefTotal);
-                //element.getAttribute            
+                
+                //noeuds principaux
+                var benefTotal = arbre.childNodes[0].textContent;
+                var listeSpectaclesPlacesVendues = arbre.childNodes[1];
+                var listeSpectaclesLesPlusRentables = arbre.childNodes[2];
+                var listeSpectaclesTauxRemplissage = arbre.childNodes[3];
+                
                 document.getElementById( "valeurBenefTotal"    ).innerHTML = benefTotal;
+                
+                // les 4 boucles de parcours ont été laissées comme tel pour
+                // vous simplifier la lecture, mais on peut factoriser si vous voulez :)
+                for(var i = 0; i< listeSpectaclesPlacesVendues.childNodes.length; i++){
+                    for(var j = 0; j< 2; j++){
+                        alert(listeSpectaclesPlacesVendues.childNodes[i].childNodes[j].textContent);
+                    }
+                }
+                
+                for(var i = 0; i< listeSpectaclesLesPlusRentables.childNodes.length; i++){
+                    for(var j = 0; j< 2; j++){
+                        alert(listeSpectaclesLesPlusRentables.childNodes[i].childNodes[j].textContent);
+                    }
+                }
+                
+                for(var i = 0; i< listeSpectaclesTauxRemplissage.childNodes.length; i++){
+                    for(var j = 0; j< 2; j++){
+                        alert(listeSpectaclesTauxRemplissage.childNodes[i].childNodes[j].textContent);
+                    }
+                }          
             }   
         }
     }
