@@ -4,6 +4,7 @@
  */
 package dao;
 
+import static dao.ProviderDAO.closeResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,38 +26,22 @@ public class AchatDAO extends ProviderDAO<Achat> {
     }
 
     @Override
-    public void creer(Achat obj) {
-        // TODO Auto-generated method stub
-    }
-
-    /**
-     * Ajoute les champs non-clés et les objets Client, Representation et Place
-     * à un achat dont on connaît les attributs clés.
-     *
-     * @throws DAOException
-     */
-    @Override
-    public void lire(Achat achat) throws DAOException {
+    public void creer(Achat achat) throws DAOException {
         ResultSet rs = null;
         PreparedStatement st = null;
         Connection conn = null;
         try {
             conn = getConnection();
-            st = conn.prepareStatement(getRequete("SELECT_ACHAT"));
+            st = conn.prepareStatement(getRequete("INSERT_ACHAT"));
             st.setString(1, achat.getLogin());
             st.setInt(2, achat.getNoSpectacle());
             st.setInt(3, achat.getNoRepresentation());
-            st.setInt(4, achat.getNoZone());
+            st.setInt(4, achat.getNoPlace());
             st.setInt(5, achat.getNoRang());
-            st.setInt(6, achat.getNoPlace());
-            rs = st.executeQuery();
-            if (rs.next()) {
-                achat.setNoDossier(rs.getInt("NoDossier"));
-                achat.setNoSerie(rs.getInt("NoSerie"));
-                achat.setDateAchat(rs.getDate("DateAchat"));
-            } else {
-                throw new DAOException("L'achat demandé n'existe pas");
-            }
+            st.setInt(6, achat.getNoZone());
+            st.setInt(7, achat.getNoDossier());
+            st.setInt(8, achat.getNoSerie());
+            st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
@@ -64,14 +49,7 @@ public class AchatDAO extends ProviderDAO<Achat> {
             closeStatement(st);
             closeConnection(conn);
         }
-        /*
-         * Dans le code Java, un achat est un sous-type de Reservation, et la
-         * méthode lire de ReservationDAO ne fait pas de requêtes SQL, donc ne
-         * fait pas référence à la relation correspondant à Reservation. On
-         * peut donc se servir de cette méthode pour compléter les objets
-         * manquants.
-         */
-        (new ReservationDAO(dataSource)).lire(achat);
+        
     }
 
     @Override
@@ -121,6 +99,52 @@ public class AchatDAO extends ProviderDAO<Achat> {
         }
         return result;
     }
+
+    /**
+     * Ajoute les champs non-clés et les objets Client, Representation et Place
+     * à un achat dont on connaît les attributs clés.
+     *
+     * @throws DAOException
+     */
+    @Override
+    public void lire(Achat achat) throws DAOException {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_ACHAT"));
+            st.setString(1, achat.getLogin());
+            st.setInt(2, achat.getNoSpectacle());
+            st.setInt(3, achat.getNoRepresentation());
+            st.setInt(4, achat.getNoZone());
+            st.setInt(5, achat.getNoRang());
+            st.setInt(6, achat.getNoPlace());
+            rs = st.executeQuery();
+            if (rs.next()) {
+                achat.setNoDossier(rs.getInt("NoDossier"));
+                achat.setNoSerie(rs.getInt("NoSerie"));
+                achat.setDateAchat(rs.getDate("DateAchat"));
+            } else {
+                throw new DAOException("L'achat demandé n'existe pas");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        /*
+         * Dans le code Java, un achat est un sous-type de Reservation, et la
+         * méthode lire de ReservationDAO ne fait pas de requêtes SQL, donc ne
+         * fait pas référence à la relation correspondant à Reservation. On
+         * peut donc se servir de cette méthode pour compléter les objets
+         * manquants.
+         */
+        (new ReservationDAO(dataSource)).lire(achat);
+    }
+
 
     /**
      * Renvoie la liste des achats pour un client avec historique à un an
@@ -216,5 +240,29 @@ public class AchatDAO extends ProviderDAO<Achat> {
             closeStatement(st);
             closeConnection(conn);
         }
+    }
+    
+    public int getProchainNumDossier(int NoSpectacle, int NoRepresentation) throws DAOException{
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        int result = 1;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_PROCHAIN_NUM_DOSSIER"));
+            st.setInt(1, NoSpectacle);
+            st.setInt(2, NoRepresentation);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
     }
 }
