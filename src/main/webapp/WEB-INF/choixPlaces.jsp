@@ -7,26 +7,50 @@
 <c:import url="Layout/header.jsp"/>    
 
 <script>
-    function selectChair(obj) {
-        var noPlace = obj.getAttribute("noPlace");
-        var noRang = obj.getAttribute("noRang");
-        var noZone = obj.getAttribute("noZone");
+    $("#chairs").ready(function () {
+    $("#chairs").children().click(
+        function (e) {       
+            if (e.target.attributes.length > 1) {
+                var zone = e.target.attributes.item(3).nodeValue;
+                var place = e.target.attributes.item(1).nodeValue;
+                var rang = e.target.attributes.item(2).nodeValue;
+                var classe = e.target.attributes.item(0).nodeValue;
+                                
+                if (classe != "sat") {
+                    e.target.attributes.item(0).nodeValue = "sat";
+                    $("#selected").val($("#selected").val() + place + "/" + rang + "/" + zone + "!");
+                } else {
+                    var newVal = $("#selected").val().replace(place + "/" + rang + "/" + zone + "!", '');
+                    $("#selected").val(newVal);
+                    // retrouver la zone et c'est ok !
 
-           // changer le etat prec !! 
-        if (obj.className === "poulailler" || obj.className === "balcon" || obj.className === "orchestre" || obj.className === "loge") {
-            obj.EtatPrec = obj.className;
-            obj.className = "sat";
-            document.getElementById("selected").value += noPlace + "/" + noRang
-                    + "/" + noZone + "!";
-        } else {
-            if (obj.className === "sat") {
-                obj.className = obj.EtatPrec;
-                document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
-                        + "/" + noZone + "!", '');
+                }
             }
         }
-        document.getElementById("action").disabled = (document.getElementById("selected").value === "");
+    );
+    });
+    
+    function selectChair(obj) {
+//        var noPlace = obj.getAttribute("noPlace");
+//        var noRang = obj.getAttribute("noRang");
+//        var noZone = obj.getAttribute("noZone");
+//
+//           // changer le etat prec !! 
+//        if (obj.className === "poulailler" || obj.className === "balcon" || obj.className === "orchestre" || obj.className === "loge") {
+//            obj.EtatPrec = obj.className;
+//            obj.className = "sat";
+//            document.getElementById("selected").value += noPlace + "/" + noRang
+//                    + "/" + noZone + "!";
+//        } else {
+//            if (obj.className === "sat") {
+//                obj.className = obj.EtatPrec;
+//                document.getElementById("selected").value = document.getElementById("selected").value.replace(noPlace + "/" + noRang
+//                        + "/" + noZone + "!", '');
+//            }
+//        }
+//        document.getElementById("action").disabled = (document.getElementById("selected").value === "");
     }
+    
 
     function griserSubmit() {
         document.getElementById("action").disabled = (document.getElementById("selected").value === "");
@@ -183,7 +207,7 @@ Cliquez sur les places que vous désirez : <br/>
 <div id="scene">SCÈNE</div>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
-    <input type="text" id="selected" name="places" style="display: none;" onchange="griserSubmit()"/> <br/>
+    <input type="text" id="selected" name="places" style="display: ;" onchange="griserSubmit()"/> <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
     <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
