@@ -40,6 +40,7 @@ insert into Zone values(4, 'Loge', 120);
 
 insert into Utilisateur values ('vernadat','Vernadat','Thibault', 'titi@ensimag.fr','5d933eef19aee7da192608de61b6c23d','Client');
 insert into Utilisateur values ('Michel57390', 'Haha', 'Michel', 'michel@haha.fr', '63a9f0ea7bb98050796b649e85481845', 'Responsable');
+insert into Utilisateur values ('toto','toto','toto','toto@toto.fr','f71dbe52628a3f83a77ab494817525c6','Client');
 
 -- Les Places
 insert into Place values (1,1,1);
@@ -315,14 +316,15 @@ insert into Place values (10,27,4);
 
 
 -- AReserveNPlaces
-insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
-insert into AReserveNPlaces values ('vernadat',1,1,3,25,4);
-insert into AReserveNPlaces values ('Michel57390',1,1,3,22,4);
-insert into AReserveNPlaces values ('Michel57390',1,1,4,22,4);
+-- insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
+-- insert into AReserveNPlaces values ('vernadat',1,1,3,25,4);
+-- insert into AReserveNPlaces values ('Michel57390',1,1,3,22,4);
+-- insert into AReserveNPlaces values ('Michel57390',1,1,4,22,4);
+
 -- AAcheteNPlaces
-insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
-insert into AAcheteNPlaces values ('Michel57390', 2, 3, 1, 1, 1, 2, 2, 20130102);
-insert into AAcheteNPlaces values ('Michel57390', 6, 8, 1, 1, 1, 3, 3, 20130102);
+-- insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
+-- insert into AAcheteNPlaces values ('Michel57390', 2, 3, 1, 1, 1, 2, 2, 20130102);
+-- insert into AAcheteNPlaces values ('Michel57390', 6, 8, 1, 1, 1, 3, 3, 20130102);
 
 
 -- Les Clients

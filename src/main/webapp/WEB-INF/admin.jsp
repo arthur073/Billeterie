@@ -32,7 +32,6 @@
     }
     function changeStats() {
         var Url = "StatsControleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
-       alert(Url);
         xmlHttp = new XMLHttpRequest(); 
         xmlHttp.onreadystatechange = ProcessRequest;
         xmlHttp.open( "GET", Url, true );
@@ -50,20 +49,61 @@
 
 function ProcessRequest() 
 {
-    if ( xmlHttp.readyState == 4 ) 
+    if ( xmlHttp.readyState === 4 ) 
     {
-        if( xmlHttp.status == 200 )
-        {              
-            if ( xmlHttp.responseText == "Not found" ) 
+        if( xmlHttp.status === 200 )
+        {            
+            if ( xmlHttp.responseText === "Not found" ) 
             {
                 alert("error");
             }
             else
             {
-                var info = eval ( "{" + xmlHttp.responseText + "}" );
+                //parseur a deplacer surement
+                var parseXml;
+                if (typeof window.DOMParser !== "undefined") {
+                    racine = ( new window.DOMParser() ).parseFromString(xmlHttp.responseText, "text/xml");
+                } else if (typeof window.ActiveXObject !== "undefined" &&
+                       new window.ActiveXObject("Microsoft.XMLDOM")) {
+                    var racine = new window.ActiveXObject("Microsoft.XMLDOM");
+                    racine.async = "false";
+                    racine.loadXML(xmlHttp.responseText);
+                } else {
+                    alert("et merde ! ");
+                    throw new Error("No XML parser found");
+                }
+                //fin parseur
 
-                // No parsing necessary with JSON!        
-                document.getElementById( "valeurBenefTotal"    ).innerHTML = info;
+                //root
+                var arbre = racine.childNodes[0];
+                
+                //noeuds principaux
+                var benefTotal = arbre.childNodes[0].textContent;
+                var listeSpectaclesPlacesVendues = arbre.childNodes[1];
+                var listeSpectaclesLesPlusRentables = arbre.childNodes[2];
+                var listeSpectaclesTauxRemplissage = arbre.childNodes[3];
+                
+                document.getElementById( "valeurBenefTotal"    ).innerHTML = benefTotal;
+                
+                // les 4 boucles de parcours ont été laissées comme tel pour
+                // vous simplifier la lecture, mais on peut factoriser si vous voulez :)
+                for(var i = 0; i< listeSpectaclesPlacesVendues.childNodes.length; i++){
+                    for(var j = 0; j< 2; j++){
+                        alert(listeSpectaclesPlacesVendues.childNodes[i].childNodes[j].textContent);
+                    }
+                }
+                
+                for(var i = 0; i< listeSpectaclesLesPlusRentables.childNodes.length; i++){
+                    for(var j = 0; j< 2; j++){
+                        alert(listeSpectaclesLesPlusRentables.childNodes[i].childNodes[j].textContent);
+                    }
+                }
+                
+                for(var i = 0; i< listeSpectaclesTauxRemplissage.childNodes.length; i++){
+                    for(var j = 0; j< 2; j++){
+                        alert(listeSpectaclesTauxRemplissage.childNodes[i].childNodes[j].textContent);
+                    }
+                }          
             }   
         }
     }
@@ -81,7 +121,7 @@ function ProcessRequest()
     </tr>
     <tr>
         <td>Liste deroulante Spectacle </td>
-        <td></td>
+        <td id="listeSpectacles">vide</td>
     </tr>
     <tr>
         <td>Liste des 5 spectacles les plus rentables</td>
