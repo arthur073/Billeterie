@@ -117,7 +117,8 @@ Cliquez sur les places que vous désirez : <br/>
      <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
      <input type="text" name="Date" style="display:none;" value="${Date}" />
      <input type="text" name="Image" style="display:none;" value="${Image}" />
-     
+     <input type ="text" name="from" style="" value="confirmation"/>
+     <input type ="text" name="params" style="" value="<%= request.getParameterMap() %>"/>
      <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
 </form>
 

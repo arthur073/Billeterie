@@ -11,7 +11,9 @@ import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -131,16 +133,31 @@ public class ReservationControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 
+    private Map<String, String> parseToMap(Map<String, String[]> inputMap) {
+        Map<String, String> outputMap = new LinkedHashMap<String, String>();
+
+        for (Map.Entry<String, String[]> entry : inputMap.entrySet()) {
+            if (!entry.getKey().equalsIgnoreCase("params")) {
+                outputMap.put(entry.getKey(), entry.getValue()[0]);
+            }
+        }
+        return outputMap;
+    }
+
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
+            String from = request.getParameter("from");
+            Map<String, String> params = parseToMap(request.getParameterMap());
+
+            request.setAttribute("from", from);
+            request.setAttribute("params", params);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
             String places = request.getParameter("places");
             String placesTmp = places.replaceAll("/", " ");
             request.setAttribute("places", places);
-            
 
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
@@ -157,7 +174,7 @@ public class ReservationControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         }
     }
-    
+
     private void reserverPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         ReservationDAO resDAO = new ReservationDAO(ds);
         String places = request.getParameter("places");
@@ -167,21 +184,20 @@ public class ReservationControleur extends HttpServlet {
         int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
         for (Map.Entry<Zone, List<Place>> entry : map.entrySet()) {
             Zone z = entry.getKey();
-            for (Place p : entry.getValue()){
+            for (Place p : entry.getValue()) {
                 Reservation res = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
                 resDAO.creer(res);
             }
-            
+
         }
         FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte.", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
-        
+
     }
-    
+
     private void payerPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-        
     }
 }
