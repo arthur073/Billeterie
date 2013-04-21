@@ -71,6 +71,29 @@
     
 
 </script>
+
+<script>
+    // on sat tous les sièges selectionnés 
+    $("#chairs").ready(function () {
+        if ($("#selected").val().length > 0) {
+            var placesArray = $("#selected").val().split('!');
+            var champsArray;
+            var noPlace;
+            var noRang;
+            var noZone;
+            for(i = 0; i< placesArray.length-1; i++){
+               // pour chaque place on récupère les champs
+               champsArray = placesArray[i].split('/');
+               noPlace = champsArray[0];
+               noRang = champsArray[1];
+               noZone = champsArray[2];
+               // on la met à sat
+               //alert(noPlace + ":" + noRang + ":" + noZone);
+               $('td[noPlace='+noPlace+'][noRang='+noRang+'][noZone='+noZone+']').attr("class", "sat");
+            };
+        }
+    });
+</script>
     
 
         
