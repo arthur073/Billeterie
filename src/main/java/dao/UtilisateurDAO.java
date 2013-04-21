@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
+import modele.TypeUtilisateur;
 import modele.Utilisateur;
 
 /**
@@ -89,7 +90,7 @@ public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
                 u.setPrenom(rs.getString("Prenom"));
                 u.setEmail(rs.getString("Mail"));
                 // FIXME : erreur java.lang.IllegalArgumentException: No enum constant modele.TypeUtilisateur.Client
-                //u.setType(TypeUtilisateur.valueOf(rs.getString("Type")));
+                u.setType(rs.getString("Type"));
             } else {
                 throw new DAOException(DAOException.Type.NON_TROUVE, "Le login fourni n'existe pas.");
             }

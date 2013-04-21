@@ -20,7 +20,6 @@ import javax.sql.DataSource;
 import modele.Zone;
 
 /**
- *  TODO LA CLASSE EST REPRISE DE RESERVATION ET N EST PAS ENCORE MODIFIEE (BEERK JSP)
  * @author Michel
  */
 @WebServlet(name = "AchatControleur", urlPatterns = {"/AchatControleur"})

@@ -1,7 +1,6 @@
 package modele;
 
-public enum TypeUtilisateur
-{
-  RESPONSABLE,
-  CLIENT;
+public class TypeUtilisateur {
+    public static String RESPONSABLE = "Responsable";
+    public static String CLIENT = "Client";
 }

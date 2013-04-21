@@ -14,7 +14,7 @@ public class Utilisateur {
     private String nom = null;
     private String prenom = null;
     private String email = null;
-    private TypeUtilisateur type = null;
+    private String type = null;
 
     /**
      * Contructeur minimal.
@@ -27,7 +27,7 @@ public class Utilisateur {
      * Constructeur complet.
      */
     public Utilisateur(String login, String mdpChiffre, String nom,
-            String prenom, String email, TypeUtilisateur type) {
+            String prenom, String email, String type) {
         this.login = login;
         this.mdpChiffre = mdpChiffre;
         this.nom = nom;
@@ -76,7 +76,7 @@ public class Utilisateur {
         return mdpChiffre;
     }
 
-    public TypeUtilisateur getType() {
+    public String getType() {
         return type;
     }
 
@@ -105,7 +105,7 @@ public class Utilisateur {
         return this;
     }
 
-    public Utilisateur setType(TypeUtilisateur type){
+    public Utilisateur setType(String type){
         this.type = type;
         return this;
     }

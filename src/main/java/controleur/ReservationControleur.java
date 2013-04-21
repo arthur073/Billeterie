@@ -72,11 +72,13 @@ public class ReservationControleur extends HttpServlet {
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 actionConfirmation(request, response);
+            } else {
+                throw new DAOException("méthode non reconnue");
             }
         } catch (DAOException e) {
-            throw new RuntimeException(e);
-            //reequest.setAttribute("erreurMessage", e.getMessage());
-            //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            //throw new RuntimeException(e);
+            request.setAttribute("erreurMessage", e.getMessage());
+            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
 
@@ -132,7 +134,9 @@ public class ReservationControleur extends HttpServlet {
 
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
+            float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
             request.setAttribute("map", map);
+            request.setAttribute("prixTotal", prixTotal);
             request.setAttribute("Image", request.getParameter("Image"));
             request.setAttribute("Date", request.getParameter("Date"));
             request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));

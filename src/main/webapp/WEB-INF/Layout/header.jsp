@@ -26,8 +26,8 @@
 
 
         <% if (request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) {%>
-        <% Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");%>
-        <% if (logged) {%>
+        <% Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
+           if (logged != null && logged) {%>
         <a href="PagesControleur?action=goToLogOut" class="login"/>Me déconnecter</a>
         <% } else {%>
     <a href="PagesControleur?action=goToLogin" class="login"/>Me connecter</a>
@@ -44,7 +44,10 @@
     <li> <a href="PagesControleur" id="li1">Les spectacles</a> </li>
     <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
     <li> <a href="PagesControleur?action=goToAbout" id="li3">A propos</a> </li>
+    <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
+        if (loggedAdmin != null && loggedAdmin) {%>
     <li> <a href="UtilisateursControleur?action=goToAdmin" id="li4">Admin</a> </li>
+    <% } %>
 </ul>
 
 <c:if test="${!flash.emptyMessage}" >
