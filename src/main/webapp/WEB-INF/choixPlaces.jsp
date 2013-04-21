@@ -12,6 +12,7 @@
         var noRang = obj.getAttribute("noRang");
         var noZone = obj.getAttribute("noZone");
 
+           // changer le etat prec !! 
         if (obj.className === "poulailler" || obj.className === "balcon" || obj.className === "orchestre" || obj.className === "loge") {
             obj.EtatPrec = obj.className;
             obj.className = "sat";
