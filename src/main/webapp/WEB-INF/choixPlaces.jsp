@@ -30,10 +30,50 @@
     function griserSubmit() {
         document.getElementById("action").disabled = (document.getElementById("selected").value === "");
     }
-
+ 
     window.onload = griserSubmit;
 </script>
 
+<script>    
+    $("#chairs").ready(function () {
+        var zone;
+        var place;
+        var rang;
+        var moveLeft = 20;
+        var moveDown = 10;
+        
+        $("#chairs").children().hover(
+        function (e) {
+            $('div#pop-up').show();
+            
+            if (e.target.attributes.length > 1) {
+                zone = e.target.attributes.item(0).nodeValue;
+                place = e.target.attributes.item(1).nodeValue;
+                rang = e.target.attributes.item(2).nodeValue;
+               $('div#pop-up').html(
+                    "<h3>" + zone + "</h3>" +
+                    "<p>" + "Place : " + place + "</p>" +
+                    "<p>" + "Rang : " + rang + "</p>"
+               ); 
+            } else {
+                $('div#pop-up').hide();
+            }
+        },
+        function (e) {
+            $('div#pop-up').hide();
+        }
+    );
+        
+    $('#chairs').mousemove(function(e) {
+        $("div#pop-up").css('top', e.pageY + moveDown).css('left', e.pageX + moveLeft);
+    });
+    });
+    
+
+</script>
+    
+
+        
 <%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees");%>
 <%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));%>
 <%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));%>
@@ -119,7 +159,7 @@ Cliquez sur les places que vous désirez : <br/>
 <div id="scene">SCÈNE</div>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
-    <input type="text" id="selected" name="places" style=";" onchange="griserSubmit()"/> <br/>
+    <input type="text" id="selected" name="places" style="display: none;" onchange="griserSubmit()"/> <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
     <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
@@ -129,7 +169,8 @@ Cliquez sur les places que vous désirez : <br/>
     <input type ="text" name="params" style="display: none" value="<%= request.getParameterMap()%>"/>
     <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
 </form>
-
+    
+<div id='pop-up'/>
 
 <c:import url="Layout/footer.jsp"/>
 

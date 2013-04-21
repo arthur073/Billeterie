@@ -4,6 +4,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <title>MesBillets.com</title>
 
         <script type="text/javascript">
@@ -28,11 +30,11 @@
 
 
         <% Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
-        if (logged != null && logged) { %>
+            if (logged != null && logged) {%>
         <a href="PagesControleur?action=goToLogOut" class="login"/>Me déconnecter</a>
-        <% } else { %>
+        <% } else {%>
     <a href="PagesControleur?action=goToLogin&from=indexAll" class="login"/>Me connecter</a>
-    <% } %>
+    <% }%>
 
 
 <% if (!request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) {%>
