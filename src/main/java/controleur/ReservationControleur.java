@@ -168,6 +168,7 @@ public class ReservationControleur extends HttpServlet {
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
             request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
             request.setAttribute("map", map);
+            request.setAttribute("places", places);
             request.setAttribute("prixTotal", prixTotal);
             request.setAttribute("Image", request.getParameter("Image"));
             request.setAttribute("Date", request.getParameter("Date"));

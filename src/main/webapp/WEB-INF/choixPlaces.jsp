@@ -7,7 +7,7 @@
 <c:import url="Layout/header.jsp"/>    
 
 <script>
-   function selectChair(obj) {            
+    function selectChair(obj) {
         var noPlace = obj.getAttribute("noPlace");
         var noRang = obj.getAttribute("noRang");
         var noZone = obj.getAttribute("noZone");
@@ -26,100 +26,108 @@
         }
         document.getElementById("action").disabled = (document.getElementById("selected").value === "");
     }
-    
-    function griserSubmit(){
+
+    function griserSubmit() {
         document.getElementById("action").disabled = (document.getElementById("selected").value === "");
     }
-    
-    window.onload=griserSubmit;
+
+    window.onload = griserSubmit;
 </script>
 
-<%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees"); %>
-<%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle")); %>
-<%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation")); %>
+<%  LinkedList<Reservation> PlacesOccupees = (LinkedList<Reservation>) request.getAttribute("PlacesOccupees");%>
+<%  int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));%>
+<%  int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));%>
 
 Cliquez sur les places que vous désirez : <br/>
 
 
-<% RangToZone rtz = new RangToZone(); %>
+<% RangToZone rtz = new RangToZone();%>
+
 <table id="chairs">
+    <% for (int rang = 15; rang >= 1; rang-- ) { %>
     <tr>
-        <c:forEach var="rang" begin="1" end="12" step="1">
-          <c:forEach var="place" begin="1" end="12" step="1">
-              <td class="${rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 1)}" 
-                    noPlace="${place}" noRang="${rang}" noZone="1" onclick="selectChair(this);"/>
-          </c:forEach>
-            <td class="sitstop"/>
-            <c:if test="${ rang % 4 == 0}">
-                </tr>
-                <tr>
-            </c:if>
-            
-        </c:forEach>
+        <!-- un rang -->
+        <% if (rang > 13) { %>
+            <!-- les balcons -->
+            <% for (int place = 1; place <= 43; place++) {%>
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 3)%>" 
+                    noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" onclick="selectChair(this);"/>
+            <% } %>
+        <% } %>
+        <% if (rang == 13|| rang == 8 || rang == 4) { %>
+            <% for (int place = 1; place <= 43; place++) {%>
+                <% if (place < 5 || place > 39) { %>
+                    <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 3)%>" 
+                        noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" onclick="selectChair(this);"/>
+                <% } else { %>
+                    <td/>
+                <% } %>
+            <% } %>        
+        <% } %>
+        <% if (rang < 13 && rang > 8) { %>
+            <% for (int place = 1; place <= 41; place++) {%>
+                <% if (place  == 5 || place == 38) { %>
+                    <td class="sitstop"/>
+                <% } %>
+                <% if (place < 5 || place > 37) { %>
+                    <!-- de nouveau des balcons -->
+                    <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 3)%>" 
+                    noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" onclick="selectChair(this);"/>
+                <% } else { %>
+                    <!-- le poulailler -->
+                    <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 1)%>" 
+                    noPlace="<%= place%>" noRang="<%= rang%>" noZone="1" onclick="selectChair(this);"/>
+                <% } %>
+            <% } %>
+        <% } %>
+        <% if (rang < 8 && rang > 4) { %>
+        <% for (int place = 1; place <= 41; place++) {%>
+            <% if (place  == 5 || place == 38) { %>
+                <td class="sitstop"/>
+            <% } %>
+            <% if (place < 5 || place > 37) { %>
+                <!-- de nouveau des balcons -->
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 3)%>" 
+                noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" onclick="selectChair(this);"/>
+            <% } else { %>
+                <!-- les loges -->
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 2)%>" 
+                noPlace="<%= place%>" noRang="<%= rang%>" noZone="2" onclick="selectChair(this);"/>
+            <% } %>
+        <% } %>
+        <% } %>
+        <% if (rang < 4 && rang > 0) { %>
+        <% for (int place = 1; place <= 41; place++) {%>
+            <% if (place  == 5 || place == 38) { %>
+                <td class="sitstop"/>
+            <% } %>
+            <% if (place < 5 || place > 37) { %>
+                <!-- de nouveau des balcons -->
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 3)%>" 
+                noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" onclick="selectChair(this);"/>
+            <% } else { %>
+                <!-- l'orchestre -->
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 4)%>" 
+                noPlace="<%= place%>" noRang="<%= rang%>" noZone="4" onclick="selectChair(this);"/>
+            <% } %>
+        <% } %>
+        <% } %>
     </tr>
+    <% } %>    
 </table>
-
-<table id="chairs" > 
-    <tr>
-        <% for (int rang = 1 ; rang <= 12 ; rang++) { %>
-            <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 1) %>" 
-                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="1" onclick="selectChair(this);"/>
-            <% } %>
-            <td class="sitstop"/>
-               <% if (rang % 4 == 0) { %>
-                    </tr>
-                    <tr>
-               <% } %>
-        <% } %>
-    </tr>
-    <tr class="sitstop"/>
-    <tr>
-        <% for (int rang = 13 ; rang <= 21 ; rang++) { %>
-            <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 2) %>" 
-                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="2" onclick="selectChair(this);"/>
-            <% } %>
-            <td class="sitstop"/>
-               <% if ((rang-12) % 3 == 0) { %>
-                    </tr>
-                    <tr>
-               <% } %>
-        <% } %>
-    </tr>
-    
-    </tr>
-    <tr class="sitstop"/>
-    <tr>
-        <% for (int rang = 22 ; rang <= 27 ; rang++) { %>
-            <% for (int place = 1; place<=10 ; place++) {%>
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 4) %>" 
-                    noPlace="<%= place %>" noRang="<%= rang %>" noZone="4" onclick="selectChair(this);"/>
-            <% } %>
-            <td class="sitstop"/>
-               <% if ((rang-21) % 2 == 0) { %>
-                    </tr>
-                    <tr>
-               <% } %>
-        <% } %>
-    </tr>
-    
-
-</table>
-
 
 <div id="scene">SCÈNE</div>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
-    <input type="text" id="selected" name="places" style="display:none;" onchange="griserSubmit()"/> <br/>
+    <input type="text" id="selected" name="places" style=";" onchange="griserSubmit()"/> <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
-     <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
-     <input type="text" name="Date" style="display:none;" value="${Date}" />
-     <input type="text" name="Image" style="display:none;" value="${Image}" />
-     <input type ="text" name="from" style="" value="confirmation"/>
-     <input type ="text" name="params" style="" value="<%= request.getParameterMap() %>"/>
-     <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
+    <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
+    <input type="text" name="Date" style="display:none;" value="${Date}" />
+    <input type="text" name="Image" style="display:none;" value="${Image}" />
+    <input type ="text" name="from" style="display: none" value="confirmation"/>
+    <input type ="text" name="params" style="display: none" value="<%= request.getParameterMap()%>"/>
+    <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
 </form>
 
 
