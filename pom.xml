@@ -95,6 +95,8 @@
                 <configuration>
                     <server>mytomcat</server> 
                     <url>http://localhost:8080/manager/text</url>           
+                    <username>manager</username>
+                    <password>pouetpouetpouet</password>
                 </configuration>   
             </plugin>
         </plugins>

@@ -5,14 +5,17 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
 
 import modele.Achat;
+import modele.Spectacle;
 
 /**
  *
@@ -22,6 +25,81 @@ public class AchatDAO extends ProviderDAO<Achat> {
 
     public AchatDAO(DataSource ds) {
         super(ds);
+    }
+
+    /**
+     * Renvoie la somme des prix de toutes les places vendues pour les
+     * représentations de la période donnée.
+     * @throws DAOException
+     */
+    public float statBenefTotalPeriode(Date debut, Date fin)
+            throws DAOException {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        float result = 0.0f;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_BENEF_TOTAL_PERIODE"));
+            st.setDate(1, debut);
+            st.setDate(2, fin);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                result = rs.getFloat("BenefTotal");
+            } else {
+                throw new DAOException("Le calcul du bénéfice total n'a rien donné.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
+    }
+
+    /**
+     * Contient des informations sur la rentabilité d'un spectacle.
+     */
+    public static class InfoRenta {
+        public final Spectacle spectacle;
+        public final int nbPlacesVendues;
+        public final float benefTotal;
+        public InfoRenta(Spectacle spectacle, int nbPlacesVendues, float benefTotal) {
+            this.spectacle = spectacle;
+            this.nbPlacesVendues = nbPlacesVendues;
+            this.benefTotal = benefTotal;
+        }
+    }
+
+    /**
+     * Renvoie la liste des n spectacles les plus rentables de tous les temps.
+     * @throws DAOException
+     */
+    public List<InfoRenta> getSpectaclesLesPlusRentables(int n)
+            throws DAOException {
+        List<InfoRenta> plusRentables = new ArrayList<InfoRenta>();
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_SPECTACLES_PLUS_RENTABLES"));
+            st.setInt(1, n);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                plusRentables.add(new InfoRenta(SpectacleDAO.construire(rs),
+                            rs.getInt("NbPlacesVendues"), rs.getFloat("BenefTotal")));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return plusRentables;
     }
 
     @Override
@@ -101,7 +179,6 @@ public class AchatDAO extends ProviderDAO<Achat> {
             st.setInt(3, noRepresentation);
             rs = st.executeQuery();
             ReservationDAO resaDAO = new ReservationDAO(dataSource);
-
             while (rs.next()) {
                 Achat achat = new Achat(rs.getString("Login"),
                         rs.getInt("NoSpectacle"),

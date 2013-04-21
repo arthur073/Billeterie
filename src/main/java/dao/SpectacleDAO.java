@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -20,7 +21,7 @@ public class SpectacleDAO extends ProviderDAO<Spectacle> {
     }
 
     /**
-     * Renvoie la liste des représentations du spectacle donné.
+     * Renvoie la liste des représentations futures du spectacle donné.
      *
      * La liste est triée par dates de représentation croissantes.
      */
@@ -50,27 +51,85 @@ public class SpectacleDAO extends ProviderDAO<Spectacle> {
 
     /**
      * Renvoie la liste de tous les spectacles programmés.
-     * 
-     * TODO : ajouter des possibilités de filtrage par période
+     * @throws DAOException
      */
-    public static List<Spectacle> getSpectacles()
-    {
-        // TODO
-        return null;
+    public List<Spectacle> getSpectacles() throws DAOException {
+        List<Spectacle> result = new ArrayList<Spectacle>();
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_TOUS_SPECTACLES"));
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(construire(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
+    }
+
+    /**
+     * Renvoie la liste de tous les spectacles programmés, ayant au moins une
+     * représentation dans la période donnée.
+     * @throws DAOException
+     */
+    public List<Spectacle> getSpectacles(Date debut, Date fin)
+            throws DAOException {
+        List<Spectacle> result = new ArrayList<Spectacle>();
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_SPECTACLES_PERIODE"));
+            st.setDate(1, new java.sql.Date(debut.getTime()));
+            st.setDate(2, new java.sql.Date(fin.getTime()));
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(construire(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
     }
 
     /**
      * Construit un objet Spectacle à partir des champs d'un ResultSet.
      */
-    public static Spectacle construire(int NoSpectacle, String NomSpectacle, String Image) throws SQLException {
-        Spectacle s = new Spectacle(NoSpectacle, NomSpectacle, Image);
-        return s;
+    static Spectacle construire(ResultSet rs) throws SQLException {
+        return new Spectacle(rs.getInt("NoSpectacle"),
+                    rs.getString("Nom"), rs.getString("Image"));
     }
 
 
     @Override
-    public void creer(Spectacle obj) throws DAOException {
-        // TODO Auto-generated method stub
+    public void creer(Spectacle spec) throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("CREATE_SPECTACLE"));
+            st.setString(1, spec.getNom());
+            st.setString(2, spec.getImage());
+            st.executeQuery();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
 
     }
 
@@ -100,14 +159,38 @@ public class SpectacleDAO extends ProviderDAO<Spectacle> {
     }
 
     @Override
-    public void mettreAJour(Spectacle obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void mettreAJour(Spectacle spec) throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("UPDATE_SPECTACLE"));
+            st.setString(1, spec.getNom());
+            st.setString(2, spec.getImage());
+            st.setInt(3, spec.getNoSpectacle());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 
     @Override
-    public void supprimer(Spectacle obj) throws DAOException {
-        // TODO Auto-generated method stub
-
+    public void supprimer(Spectacle spec) throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("DELETE_SPECTACLE"));
+            st.setInt(1, spec.getNoSpectacle());
+            st.executeQuery();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 }
