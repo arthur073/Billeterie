@@ -99,6 +99,7 @@ public class UtilisateursControleur extends HttpServlet {
 
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             FlashImpl fl = new FlashImpl("Veuillez vous identifier pour accéder à ce service", request, "error");
+            request.setAttribute("from", "indexAll");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
             return;
         }

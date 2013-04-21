@@ -61,6 +61,7 @@ public class PagesControleur extends HttpServlet {
     private void goToLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Connexion a mon espace client");
 
+        request.setAttribute("from", request.getParameter("from"));
         request.getSession().setAttribute("LoggedIn", false);
         request.getSession().setAttribute("FailedLogIn", false);
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);

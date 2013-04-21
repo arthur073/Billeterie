@@ -93,12 +93,14 @@ public class LoginControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         }
     }
-    
+
     private Map<String, String> splitMap(String params) {
         Map<String, String> mapTemp = new LinkedHashMap<String, String>();
-        for (String pair : params.split(", ")) {
-            String[] kv = pair.split("=");
-            mapTemp.put(kv[0].replace("{", ""), kv[1]);
+        if (!params.equals("")) {
+            for (String pair : params.split(", ")) {
+                String[] kv = pair.split("=");
+                mapTemp.put(kv[0].replace("{", ""), kv[1]);
+            }
         }
         return mapTemp;
     }
@@ -112,6 +114,7 @@ public class LoginControleur extends HttpServlet {
         // on set les attributes de la request 
         for (Map.Entry<String, String> entry : splitMap(params).entrySet()) {
             request.setAttribute(entry.getKey().toString(), entry.getValue().toString());
+
         }
 
 
@@ -122,6 +125,12 @@ public class LoginControleur extends HttpServlet {
             float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
             request.setAttribute("map", map);
             request.setAttribute("prixTotal", prixTotal);
+            request.setAttribute("titre", "Confirmation de la réservation");
+
+        } else if (from.equalsIgnoreCase("indexAll")) {
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+            request.setAttribute("titre", "Mes billets en ligne");
         }
 
 

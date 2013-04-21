@@ -2,8 +2,6 @@
  
 <c:import url="Layout/header.jsp"/>      
 
-    from : ${from} <br/>
-    map : ${params} <br/>
    
      Veuillez entrer vos identifiants pour vous connecter : <br/>
      
