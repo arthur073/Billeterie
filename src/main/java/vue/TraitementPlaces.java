@@ -7,6 +7,7 @@ package vue;
 import dao.DAOException;
 import dao.PlaceDAO;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,6 +93,17 @@ public class TraitementPlaces {
             
         }
         return total;
+    }
+    
+    public static String prixString(List<Zone> listeZones){
+        float[] prices = new float[4];
+        int i = 0;
+        for(Zone z:listeZones) {
+            prices[i++] = z .getTarifBase();
+        }
+        Arrays.sort(prices);        
+        String prix = prices[0] + "," + prices[1] + "," + prices[2] + "," + prices[3];
+        return prix;
     }
 
     /**

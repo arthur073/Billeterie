@@ -14,6 +14,7 @@ import dao.SpectacleDAO;
 import java.io.IOException;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Date;
 import java.util.LinkedList;
@@ -75,6 +76,7 @@ public class ReservationControleur extends HttpServlet {
                 /* TODO : a corriger !!! */
                 request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
                 request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                request.setAttribute("prix", request.getParameter("prix"));
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
@@ -111,6 +113,7 @@ public class ReservationControleur extends HttpServlet {
         ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         List<Zone> listeZones = zone.getZones();
+        request.setAttribute("prix",TraitementPlaces.prixString(listeZones));
         request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
@@ -134,6 +137,7 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("Image", request.getParameter("Image"));
         request.setAttribute("Date", request.getParameter("Date"));
         request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
+        request.setAttribute("prix", request.getParameter("prix"));
         LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
         request.setAttribute("PlacesOccupees", PlacesOccupees);
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
@@ -165,6 +169,7 @@ public class ReservationControleur extends HttpServlet {
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
             float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
+            
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
             request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
             request.setAttribute("map", map);

@@ -33,15 +33,17 @@
     }
  
     window.onload = griserSubmit;
-</script>
-
-<script>    
+   
     $("#chairs").ready(function () {
         var zone;
         var place;
         var rang;
         var moveLeft = 20;
         var moveDown = 10;
+        var tmp = document.getElementById("prix").value;
+        var prix = tmp.split(",");        
+        var tabPrix = new Array (prix[0]+" &euro;",prix[1]+" &euro;",prix[2]+" &euro;",prix[3]+" &euro;");
+        
         
         $("#chairs").children().hover(
         function (e) {
@@ -51,10 +53,12 @@
                 zone = e.target.attributes.item(0).nodeValue;
                 place = e.target.attributes.item(1).nodeValue;
                 rang = e.target.attributes.item(2).nodeValue;
+                prix = tabPrix[e.target.attributes.item(3).nodeValue-1];
                $('div#pop-up').html(
                     "<h3>" + zone + "</h3>" +
                     "<p>" + "Place : " + place + "</p>" +
-                    "<p>" + "Rang : " + rang + "</p>"
+                    "<p>" + "Rang : " + rang + "</p>" +
+                    "<p>" + "Prix : " + prix + "</p>"
                ); 
             } else {
                 $('div#pop-up').hide();
@@ -71,9 +75,7 @@
     });
     
 
-</script>
 
-<script>
     // on sat tous les sièges selectionnés 
     $("#chairs").ready(function () {
         if ($("#selected").val().length > 0) {
@@ -184,6 +186,7 @@ Cliquez sur les places que vous désirez : <br/>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
     <input type="text" id="selected" name="places" style="display: none;" onchange="griserSubmit()"/> <br/>
+    <input type="text" name="prix" id="prix" style="display:none;" value="${prix}" />
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
     <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />

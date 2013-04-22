@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.Arrays"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map.Entry"%>
 <%@page import="java.util.Set"%>
@@ -21,6 +23,7 @@ Vous avez choisi la représentation suivante : <br/>
                 <h3> Le  <%= request.getParameter("Date")%></h3>
             </td>
             <td>
+                
                 <form action="ReservationControleur"  class="reserverForm" method="post">
                     <h4> Choisissez vos places : </h4> 
                     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
@@ -39,11 +42,11 @@ Vous avez choisi la représentation suivante : <br/>
                             
                                 <label><%=zone.getCategorie() %></label>
                                 <span class="price"> <%= zone.getTarifBase() %>&nbsp;&euro;</span><br/> 
-                                <%
+                                <% 
                             }
-
                         %> 
-                    <input type="submit" name="action" label="reserverPlaces" value="Choisir mes places" class="btnReserver"/> 
+                       <input type="text" name="prix" style="display:none;" value="${prix}"/>  
+                    <input type="submit" name="action" value="Choisir mes places" class="btnReserver"/> 
                 </form>
             </td>
         </tr>
@@ -74,7 +77,8 @@ Vous avez choisi la représentation suivante : <br/>
                         <input type="text" name="Date" value="${Date}" style="display:none;"/>
                         <input type="text" name="Image" value="${Image}" style="display:none;"/>
                         <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
-                        <input type="submit" name="action" label="reserver" value="Reserver" class="btnBlack btnReserverSmall"/>
+                        <input type="text" name="prix" style="display:none;" value="${prix}"/>  
+                        <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
                     </form>
                 </td>
             </tr>
