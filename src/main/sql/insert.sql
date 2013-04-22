@@ -43,6 +43,7 @@ insert into Utilisateur values ('Michel57390', 'Haha', 'Michel', 'michel@haha.fr
 insert into Utilisateur values ('toto','toto','toto','toto@toto.fr','f71dbe52628a3f83a77ab494817525c6','Client');
 
 -- Les Places
+
 insert into Place values (1,15,3);
 insert into Place values (2,15,3);
 insert into Place values (3,15,3);
@@ -563,7 +564,6 @@ insert into Place values (38,1,3);
 insert into Place values (39,1,3);
 insert into Place values (40,1,3);
 insert into Place values (41,1,3);
-
 
 -- AReserveNPlaces
 -- insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
