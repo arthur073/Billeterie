@@ -352,13 +352,11 @@ span.price {
 }
 
 
-
 #chairs {
     align : center;
     margin : auto;
     margin-top : 2em;
 }
-
 
 #chairs tr td.sitstop {
     width : 20px;
@@ -366,18 +364,6 @@ span.price {
 
 #chairs tr.sitstop {
     height : 20px;
-}
-
-#chairs tr td.sit {
-    width : 20px;
-    height : 20px;
-    border: black solid 2px;
-    text-align: center;
-    color : white;
-    background : black;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-
 }
 
 #chairs tr td.sat {

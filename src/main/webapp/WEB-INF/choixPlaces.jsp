@@ -11,38 +11,41 @@
     $("#chairs").children().click(
         function (e) {       
             if (e.target.attributes.length > 1) {
-
                 var zone = e.target.attributes.item(3).nodeValue;
-                var place = e.target.attributes.item(1).nodeValue;
-                var rang = e.target.attributes.item(2).nodeValue;
-                var classe = e.target.attributes.item(0).nodeValue;
-                                
-                if (classe != "sat") {
-                    // cas du premier click
-                    e.target.attributes.item(0).nodeValue = "sat";
-                    $("#selected").val($("#selected").val() + place + "/" + rang + "/" + zone + "!");
-                } else {
-                    // cas du deuxième click
-                    var newVal = $("#selected").val().replace(place + "/" + rang + "/" + zone + "!", '');
-                    $("#selected").val(newVal);
-                    // retrouver la zone 
-                    var zonePrec = e.target.attributes.item(3).nodeValue;
-                    
-                    if (zonePrec === "1") {
-                        e.target.attributes.item(0).nodeValue = "poulailler";
-                    }
-                    if (zonePrec === "2") {
-                        e.target.attributes.item(0).nodeValue = "orchestre";
-                    }
-                    if (zonePrec === "3") {
-                        e.target.attributes.item(0).nodeValue = "balcon";
-                    }
-                    if (zonePrec === "4") {
-                        e.target.attributes.item(0).nodeValue = "loge";
-                    }
-                }
-                $('#selected:first').trigger('change');
+                 var place = e.target.attributes.item(1).nodeValue;
+                 var rang = e.target.attributes.item(2).nodeValue;
+                 var classe = e.target.attributes.item(0).nodeValue;
 
+                if (classe !== "occupe" ) {
+                    
+                
+                   
+                    if (classe != "sat") {
+                        // cas du premier click
+                        e.target.attributes.item(0).nodeValue = "sat";
+                        $("#selected").val($("#selected").val() + place + "/" + rang + "/" + zone + "!");
+                    } else {
+                        // cas du deuxième click
+                        var newVal = $("#selected").val().replace(place + "/" + rang + "/" + zone + "!", '');
+                        $("#selected").val(newVal);
+                        // retrouver la zone 
+                        var zonePrec = e.target.attributes.item(3).nodeValue;
+
+                        if (zonePrec === "1") {
+                            e.target.attributes.item(0).nodeValue = "poulailler";
+                        }
+                        if (zonePrec === "2") {
+                            e.target.attributes.item(0).nodeValue = "orchestre";
+                        }
+                        if (zonePrec === "3") {
+                            e.target.attributes.item(0).nodeValue = "balcon";
+                        }
+                        if (zonePrec === "4") {
+                            e.target.attributes.item(0).nodeValue = "loge";
+                        }
+                    }
+                    $('#selected:first').trigger('change');
+                }
             }
         }
     );
@@ -74,27 +77,34 @@
         
         $("#chairs").children().hover(
         function (e) {
+           
             $('div#pop-up').show();
             
             if (e.target.attributes.length > 1) {
+
+                
                 zone = e.target.attributes.item(0).nodeValue;
                 place = e.target.attributes.item(1).nodeValue;
                 rang = e.target.attributes.item(2).nodeValue;
                 noZone = e.target.attributes.item(3).nodeValue;
-                var tmp= document.getElementById("prix").value.split(",");
-                var p1 = tmp[0] + " &euro;"
-                var p2 = tmp[1] + " &euro;"
-                var p3 = tmp[2] + " &euro;"
-                var p4 = tmp[3] + " &euro;"
-                var prix = new Array (p1,p2,p3,p4);
                 
-            prix 
-               $('div#pop-up').html(
-                    "<h3>" + zone + "</h3>" +
-                    "<p>" + "Place : " + place + "</p>" +
-                    "<p>" + "Rang : " + rang + "</p>" +
-                    "<p>" + "Prix : " + prix[noZone-1] + "</p>"
-               ); 
+                if (zone !== "occupe") {
+                    var tmp= $("#prix").val().split(",");
+                    var p1 = tmp[0] + " &euro;";
+                    var p2 = tmp[1] + " &euro;";
+                    var p3 = tmp[2] + " &euro;";
+                    var p4 = tmp[3] + " &euro;";
+                    var prix = new Array (p1,p2,p3,p4);
+
+                   $('div#pop-up').html(
+                        "<h3>" + zone + "</h3>" +
+                        "<p>" + "Place : " + place + "</p>" +
+                        "<p>" + "Rang : " + rang + "</p>" +
+                        "<p>" + "Prix : " + prix[noZone-1] + "</p>"
+                   );
+                } else {
+                   $('div#pop-up').hide();
+                }
             } else {
                 $('div#pop-up').hide();
             }
