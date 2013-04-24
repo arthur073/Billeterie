@@ -32,7 +32,7 @@ int main(){
             if (place < 5 || place > 37) {
                printf("insert into Place values (%u,%u,3);\n", place, rang);
             } else { 
-               printf("insert into Place values (%u,%u,2);\n", place, rang);
+               printf("insert into Place values (%u,%u,4);\n", place, rang);
             }
          }
       }
@@ -41,7 +41,7 @@ int main(){
             if (place < 5 || place > 37) { 
                printf("insert into Place values (%u,%u,3);\n", place, rang);
             } else { 
-               printf("insert into Place values (%u,%u,4);\n", place, rang);
+               printf("insert into Place values (%u,%u,2);\n", place, rang);
             }
          }
       }

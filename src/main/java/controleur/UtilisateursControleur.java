@@ -54,6 +54,13 @@ public class UtilisateursControleur extends HttpServlet {
             }
         } else if (action.equalsIgnoreCase("goToAdmin")) {
             goToAdmin(request, response);
+        } else if (action.equalsIgnoreCase("annulerPlaces")) {
+            try {
+                cancelPlaces(request, response);
+            } catch (DAOException ex) {
+                request.setAttribute("erreurMessage", ex.getMessage());
+                getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            }
         } else {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         }
@@ -143,5 +150,24 @@ public class UtilisateursControleur extends HttpServlet {
     private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("titre", "Admin");
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+    }
+
+    
+    private void cancelPlaces(HttpServletRequest request, HttpServletResponse response) throws IOException, DAOException, ServletException {
+
+        String login = request.getParameter("login");
+        Integer noS = Integer.parseInt(request.getParameter("noS"));
+        Integer noR = Integer.parseInt(request.getParameter("noR"));
+        Integer noZ = Integer.parseInt(request.getParameter("noZ"));
+        Integer noRang = Integer.parseInt(request.getParameter("noRang"));
+        Integer noP = Integer.parseInt(request.getParameter("noP"));
+        Float tarif = Float.parseFloat(request.getParameter("tarif"));
+        
+        Reservation resa = new Reservation(login, noS, noR, noZ, noRang, noP, tarif);
+        ReservationDAO resDAO = new ReservationDAO(ds);    
+        resDAO.supprimer(resa);
+        
+        FlashImpl fl = new FlashImpl("Votre réservation a bien été annulée", request, "success");
+        goToMyAccount(request, response);
     }
 }

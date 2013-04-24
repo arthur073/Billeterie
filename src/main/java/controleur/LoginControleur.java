@@ -109,6 +109,11 @@ public class LoginControleur extends HttpServlet {
             throws DAOException, ServletException, IOException {
 
         String from = request.getParameter("from");
+        
+        if (from.equalsIgnoreCase("")) {
+            from = "indexAll";
+        }
+        
         String params = request.getParameter("params");
 
         // on set les attributes de la request 

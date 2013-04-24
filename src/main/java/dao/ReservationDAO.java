@@ -153,7 +153,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             closeConnection(conn);
         }
 
-     
+
 
         return result;
     }

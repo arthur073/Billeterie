@@ -207,8 +207,8 @@ Cliquez sur les places que vous désirez : <br/>
                 noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" />
             <% } else { %>
                 <!-- les loges -->
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 2)%>" 
-                noPlace="<%= place%>" noRang="<%= rang%>" noZone="2" />
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 4)%>" 
+                noPlace="<%= place%>" noRang="<%= rang%>" noZone="4" />
             <% } %>
         <% } %>
         <% } %>
@@ -223,8 +223,8 @@ Cliquez sur les places que vous désirez : <br/>
                 noPlace="<%= place%>" noRang="<%= rang%>" noZone="3" />
             <% } else { %>
                 <!-- l'orchestre -->
-                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 4)%>" 
-                noPlace="<%= place%>" noRang="<%= rang%>" noZone="4" />
+                <td class="<%= rtz.etatSiege(PlacesOccupees, noSpectacle, noRepresentation, place, rang, 2)%>" 
+                noPlace="<%= place%>" noRang="<%= rang%>" noZone="2" />
             <% } %>
         <% } %>
         <% } %>
@@ -244,7 +244,7 @@ Cliquez sur les places que vous désirez : <br/>
     <input type="text" name="Image" style="display:none;" value="${Image}" />
     <input type ="text" name="from" style="display: none" value="confirmation"/>
     <input type ="text" name="params" style="display: none" value="<%= request.getParameterMap()%>"/>
-    <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver"/>
+    <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver centre"/>
 </form>
     
 <div id='pop-up'/>

@@ -170,8 +170,26 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
     text-decoration: none;
 }
 
+.btnBlack[disabled] {
+    color: white;
+    background-color: #CCCCCC;
+    border-style: none;
+    box-shadow: 0px 2px 5px #1c1a19;
+    padding: 0.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 100%;
+    margin-left : 2em;
+    cursor: default;
+    text-decoration: none;
+}
+
 .btnBlack:hover {
     text-decoration: underline;
+}
+
+.btnBlack[disabled]:hover {
+    text-decoration: none;
 }
 
 div.footer {
@@ -310,7 +328,7 @@ span.price {
     padding-left: 1em;
     padding-right: 1em;
     font-size: 100%;
-    cursor: pointer;
+    cursor: default;
     margin-top : 0.3em;
 }
 
@@ -517,3 +535,4 @@ div.confirmation {
     margin-top : 1em;
     margin-bottom : 2em;
 }
+

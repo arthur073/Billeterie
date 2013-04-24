@@ -22,7 +22,12 @@
                     <input type="text" name="NomSpectacle" value="${rep.spectacle.nom}" style="display:none"/>
                     <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
                     <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
-                    <input type="submit" name="action" value="Reserver" class="btnBlack"/>
+                    <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
+                        if (loggedAdmin != null && loggedAdmin) {%>
+                            <input type="submit" name="action" value="Reserver" class="btnBlack" disabled="disabled"/>
+                    <% } else {%>
+                            <input type="submit" name="action" value="Reserver" class="btnBlack"/>
+                    <% }%>
                 </form>
             </td>
         </tr>
