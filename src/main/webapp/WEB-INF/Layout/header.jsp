@@ -41,7 +41,7 @@
 <a href="PagesControleur" class="login"/>Accueil</a>
 <% }%>
 
-<h2 align="center" class="titre"> ${titre} </h2>
+<h2 style="padding-left: 37%" > ${titre} </h2>
 
 
 

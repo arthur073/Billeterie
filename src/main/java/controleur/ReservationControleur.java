@@ -12,9 +12,6 @@ import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.Date;
 import java.util.LinkedList;
@@ -198,7 +195,7 @@ public class ReservationControleur extends HttpServlet {
             }
 
         }
-        FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte.", request, "success");
+        FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte jusqu'à une heure avant le début de la représentation.", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
