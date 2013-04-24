@@ -1,5 +1,6 @@
 package modele;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -45,6 +46,19 @@ public class Representation {
 
     public Date getDate() {
         return date;
+    }
+    /**
+     * Format param only to override method
+     * @param format
+     * @return 
+     */
+    public String getDate(String format) {
+        if( format == null )
+        {
+            format = "dd/MM/yy hh:mi:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        return sdf.format(this.date);
     }
 
     public Spectacle getSpectacle() {
