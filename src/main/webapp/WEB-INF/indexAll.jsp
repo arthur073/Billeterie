@@ -17,7 +17,7 @@
             <td>${rep.getDate(null)}</td>
             <td> 
                 <form action="ReservationControleur" method="post" >
-                    <input type="text" name="Date" value="${rep.getDate(null)}" style="display:none"/>
+                    <input type="text" name="Date" value="${rep.date}" style="display:none"/>
                     <input type="text" name="Image" value="${rep.spectacle.image}" style="display:none"/>
                     <input type="text" name="NomSpectacle" value="${rep.spectacle.nom}" style="display:none"/>
                     <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>

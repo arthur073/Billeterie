@@ -106,7 +106,7 @@
                 ${resa.representation.spectacle.nom}
             </td>
             <td>
-                Le <fmt:formatDate value="${resa.representation.date}" pattern="dd-MM-yyyy à HH:mm" />
+                Le <fmt:formatDate value="${resa.representation.getDate()}" pattern="dd-MM-yyyy à HH:mm" />
             </td>
             <td>
                 ${resa.place.zone.tarifBase} &euro;
