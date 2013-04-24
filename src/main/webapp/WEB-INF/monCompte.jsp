@@ -65,7 +65,7 @@
                 ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
-                <a href="#" class="btnBlack">Imprimer</a>
+                <a href="UtilisateursControleur?action=imprPlaces" target="_blank" class="btnBlack">Imprimer</a>
             </td>
         </tr>
     </c:forEach>
