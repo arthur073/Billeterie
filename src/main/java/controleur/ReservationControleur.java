@@ -195,7 +195,7 @@ public class ReservationControleur extends HttpServlet {
             }
 
         }
-        FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte jusqu'à une heure avant le début de la représentation.", request, "success");
+        FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte jusqu'à une heure avant le début de la représentation. Au dela de ce délai, vos places seront remises en vente.", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
