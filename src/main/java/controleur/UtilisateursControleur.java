@@ -18,8 +18,6 @@ import dao.ReservationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,7 +31,6 @@ import modele.Client;
 import modele.Representation;
 import modele.Reservation;
 import modele.Utilisateur;
-import org.dom4j.DocumentException;
 import vue.FlashImpl;
 
 /**
