@@ -98,16 +98,21 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
             st.setInt(2, noRepresentation);
             rs = st.executeQuery();
             while (rs.next()) {
+                Date dateFormatted = new Date( rs.getTimestamp("DateAchat").getTime() );
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
+                Date dat = df.parse(df.format(dateFormatted));
                 Achat achat = new Achat(rs.getString("Login"),
                         rs.getInt("NoSpectacle"),
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        rs.getDate("DateAchat"), rs.getFloat("TarifBase"));
+                        dat, rs.getFloat("TarifBase"));
                 result.add(achat);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } catch (ParseException ex) {
+            Logger.getLogger(RepresentationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeStatement(st);
             closeResultSet(rs);
@@ -178,7 +183,10 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
             st.setInt(2, rep.getNoRepresentation());
             rs = st.executeQuery();
             if (rs.next()) {
-                rep.setDate(rs.getDate("DateRepresentation"));
+                Date dateFormatted = new Date( rs.getTimestamp("DateRepresentation").getTime() );
+                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
+                Date dat = df.parse(df.format(dateFormatted));
+                rep.setDate(dat);
                 System.out.println(rs.getInt("NoSpectacle"));
                 rep.setSpectacle(SpectacleDAO.construire(rs.getInt("NoSpectacle"), 
                         rs.getString("nom"), rs.getString("image")));
@@ -188,6 +196,8 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } catch (ParseException ex) {
+            Logger.getLogger(RepresentationDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeStatement(st);
             closeResultSet(rs);

@@ -14,7 +14,6 @@ import modele.Client;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;
-import modele.Spectacle;
 
 /**
  *

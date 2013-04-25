@@ -59,7 +59,7 @@
                 ${achat.noSerie}
             </td>
             <td>
-                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
+                ${achat.getDateAchat(null)}
             </td>
             <td>
                 ${achat.place.zone.tarifBase} &euro;
@@ -106,7 +106,7 @@
                 ${resa.representation.spectacle.nom}
             </td>
             <td>
-                Le <fmt:formatDate value="${resa.representation.getDate()}" pattern="dd-MM-yyyy à HH:mm" />
+                Le ${resa.representation.getDate(null)} 
             </td>
             <td>
                 ${resa.place.zone.tarifBase} &euro;
