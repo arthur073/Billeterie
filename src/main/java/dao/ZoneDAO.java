@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 import modele.Zone;
 import modele.Place;
 
-public class ZoneDAO extends ProviderDAO<Zone> {
+public class ZoneDAO extends ProviderDAO implements DAOMetier<Zone> {
 
     public ZoneDAO(DataSource ds) {
         super(ds);

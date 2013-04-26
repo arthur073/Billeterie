@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import modele.Spectacle;
 import modele.Representation;
 
-public class SpectacleDAO extends ProviderDAO<Spectacle> {
+public class SpectacleDAO extends ProviderDAO implements DAOMetier<Spectacle> {
 
     public SpectacleDAO(DataSource ds) {
         super(ds);

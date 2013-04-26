@@ -151,6 +151,7 @@ public class UtilisateursControleur extends HttpServlet {
 
     private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("titre", "Admin");
+        StatsControleur.remplirRequeteDeStats(ds, request, response);
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 
