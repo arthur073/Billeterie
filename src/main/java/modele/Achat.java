@@ -1,5 +1,6 @@
 package modele;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -105,6 +106,19 @@ public class Achat extends Reservation {
      */
     public Date getDateAchat() {
         return dateAchat;
+    }
+     /**
+     * Format param only to override method
+     * @param format
+     * @return 
+     */
+    public String getDateAchat(String format) {
+        if( format == null )
+        {
+            format = "dd/MM/yy hh:mi:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat();
+        return sdf.format(this.dateAchat);
     }
 
     /**

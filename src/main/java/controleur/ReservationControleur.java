@@ -12,7 +12,7 @@ import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -73,6 +73,7 @@ public class ReservationControleur extends HttpServlet {
                 /* TODO : a corriger !!! */
                 request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
                 request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                request.setAttribute("prix", request.getParameter("prix"));
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
@@ -109,6 +110,7 @@ public class ReservationControleur extends HttpServlet {
         ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         List<Zone> listeZones = zone.getZones();
+        request.setAttribute("prix",TraitementPlaces.prixString(listeZones));
         request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
@@ -132,25 +134,43 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("Image", request.getParameter("Image"));
         request.setAttribute("Date", request.getParameter("Date"));
         request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
+        request.setAttribute("prix", request.getParameter("prix"));
         LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
         request.setAttribute("PlacesOccupees", PlacesOccupees);
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
+    }
+
+    private Map<String, String> parseToMap(Map<String, String[]> inputMap) {
+        Map<String, String> outputMap = new LinkedHashMap<String, String>();
+
+        for (Map.Entry<String, String[]> entry : inputMap.entrySet()) {
+            if (!entry.getKey().equalsIgnoreCase("params")) {
+                outputMap.put(entry.getKey(), entry.getValue()[0]);
+            }
+        }
+        return outputMap;
     }
 
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
+            String from = request.getParameter("from");
+            Map<String, String> params = parseToMap(request.getParameterMap());
+
+            request.setAttribute("from", from);
+            request.setAttribute("params", params);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
             String places = request.getParameter("places");
-            String placesTmp = places.replaceAll("/", " ");
-            request.setAttribute("places", places);
+
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
             float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
+            
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
             request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
             request.setAttribute("map", map);
+            request.setAttribute("places", places);
             request.setAttribute("prixTotal", prixTotal);
             request.setAttribute("Image", request.getParameter("Image"));
             request.setAttribute("Date", request.getParameter("Date"));
@@ -173,12 +193,14 @@ public class ReservationControleur extends HttpServlet {
                 Reservation res = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
                 resDAO.creer(res);
             }
+
         }
-        FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte.", request, "success");
+        FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte jusqu'à une heure avant le début de la représentation. Au dela de ce délai, vos places seront remises en vente.", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+
 
     }
 

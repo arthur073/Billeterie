@@ -15,6 +15,7 @@
 <h3 align="center" class="titre"> Votre spectacle </h3>
 <br/>
 
+
 <div class="confirmation">
     <table>
         <tr>

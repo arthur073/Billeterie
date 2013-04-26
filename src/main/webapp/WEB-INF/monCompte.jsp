@@ -30,8 +30,8 @@
     </tr>
 </table>
 
+<c:if test="${not empty listAchatSuiv}">
 <strong> Mes places achetées </strong>
-
 <table class="indexTable">
     <tr>
         <th>
@@ -52,7 +52,6 @@
     </tr>
     <c:forEach items="${listAchatSuiv}" var="achat">
         <tr>
-
             <td>
                 ${achat.noDossier}
             </td>
@@ -60,43 +59,25 @@
                 ${achat.noSerie}
             </td>
             <td>
-                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
+                ${achat.getDateAchat(null)}
             </td>
             <td>
                 ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
-                <a href="#" class="btnBlack">Annuler</a>
+                <a href="UtilisateursControleur?action=imprPlaces" target="_blank" class="btnBlack">Imprimer</a>
             </td>
         </tr>
     </c:forEach>
-
-    <c:forEach items="${listAchatPrec}" var="achat">
-
-        <tr>
-            <td>
-                ${achat.noDossier}
-            </td>
-            <td>
-                ${achat.noSerie}
-            </td>
-            <td>
-                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
-            </td>
-            <td>
-                ${achat.place.zone.tarifBase} &euro;
-            </td>
-            <td>
-
-            </td>
-        </tr>
-    </c:forEach>
-
 </table>
+</c:if>
+
 
 
 
 <br/>
+
+<c:if test="${not empty listRes}">
 <strong> Mes places réservées </strong>
 
 <table class="indexTable">
@@ -125,17 +106,19 @@
                 ${resa.representation.spectacle.nom}
             </td>
             <td>
-                Le <fmt:formatDate value="${resa.representation.date}" pattern="dd-MM-yyyy à HH:mm" />
+                Le ${resa.representation.getDate(null)} 
             </td>
             <td>
                 ${resa.place.zone.tarifBase} &euro;
             </td>
             <td>
-                <a href="#" class="btnBlack">Annuler</a>
+                <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${resa.noSpectacle}&noR=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&tarif=${resa.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
             </td>
         </tr>
     </c:forEach>
 </table>
+</c:if>
+
 
 <c:import url="Layout/footer.jsp"/>
 

@@ -4,6 +4,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
         <title>MesBillets.com</title>
 
         <script type="text/javascript">
@@ -14,6 +16,8 @@
                 document.getElementById("li3").className = " current";
             <% } else if (request.getRequestURI().toString().equals("/billeterie/WEB-INF/monCompte.jsp")) {%>
                 document.getElementById("li2").className = " current";
+            <% } else if (request.getRequestURI().toString().equals("/billeterie/WEB-INF/admin.jsp")) {%>
+                document.getElementById("li4").className = " current";
             <% }%>
             }
         </script>
@@ -25,18 +29,19 @@
         <h2 class="header"> MesBillets.com</h2>
 
 
-        <% if (request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) {
-            Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
-           if (logged != null && logged) {%>
+        <% Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
+            if (logged != null && logged) {%>
         <a href="PagesControleur?action=goToLogOut" class="login"/>Me déconnecter</a>
         <% } else {%>
-    <a href="PagesControleur?action=goToLogin" class="login"/>Me connecter</a>
+    <a href="PagesControleur?action=goToLogin&from=indexAll" class="login"/>Me connecter</a>
     <% }%>
-    <% } else {%>
+
+
+<% if (!request.getRequestURI().equalsIgnoreCase("/billeterie/WEB-INF/indexAll.jsp")) {%>
 <a href="PagesControleur" class="login"/>Accueil</a>
 <% }%>
 
-<h2 align="center" class="titre"> ${titre} </h2>
+<h2 style="padding-left: 37%" > ${titre} </h2>
 
 
 
@@ -44,12 +49,13 @@
     <li> <a href="PagesControleur" id="li1">Les spectacles</a> </li>
     <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
     <li> <a href="PagesControleur?action=goToAbout" id="li3">A propos</a> </li>
-    <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
-        Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
-           if (logged != null && logged) {
-        if (loggedAdmin != null && loggedAdmin) {%>
+        <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
+            logged = (Boolean) request.getSession().getAttribute("LoggedIn");
+            if (logged != null && logged) {
+                if (loggedAdmin != null && loggedAdmin) {%>
     <li> <a href="UtilisateursControleur?action=goToAdmin" id="li4">Admin</a> </li>
-    <% } }%>
+        <% }
+            }%>
 </ul>
 
 <c:if test="${!flash.emptyMessage}" >
