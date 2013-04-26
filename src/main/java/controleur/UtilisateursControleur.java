@@ -226,7 +226,10 @@ public class UtilisateursControleur extends HttpServlet {
             corps.add(new Paragraph(prix + " €", grasFont));
 
             BarcodeEAN codeEAN = new BarcodeEAN();
-            codeEAN.setCode("4512345678906");
+            String innerCode = (String.valueOf(numero.hashCode() * place.hashCode() * rang.hashCode() * prix.hashCode() * nomS.hashCode())
+                    + String.valueOf(img.hashCode())).substring(0, 13);
+            codeEAN.setCode(innerCode);
+
             Image code = codeEAN.createImageWithBarcode(writer.getDirectContent(), null, null);
             code.scalePercent(150);
             code.setAbsolutePosition(280, 180);
@@ -236,8 +239,8 @@ public class UtilisateursControleur extends HttpServlet {
             Paragraph billet = new Paragraph();
             billet.add(new Paragraph(zone.toUpperCase(), grasFont));
             billet.add(new Paragraph("Billet numéro " + numero, grasFont));
-            billet.add(new Paragraph("Place "+place, grasFont));
-            billet.add(new Paragraph("Rang "+rang, grasFont));
+            billet.add(new Paragraph("Place " + place, grasFont));
+            billet.add(new Paragraph("Rang " + rang, grasFont));
 
 
 
