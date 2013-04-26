@@ -63,7 +63,9 @@ public class UtilisateursControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("annulerPlaces")) {
                 cancelPlaces(request, response);
             } else if (action.equalsIgnoreCase("imprPlaces")) {
-                imprPlaces(request, response);
+                imprPlaces(request, response); 
+            } else if (action.equalsIgnoreCase("achatPlaces")) {
+                achatPlaces(request, response);
             } else {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
             }
@@ -277,5 +279,17 @@ public class UtilisateursControleur extends HttpServlet {
         for (int i = 0; i < number; i++) {
             paragraph.add(new Paragraph(" "));
         }
+    }
+
+    private void achatPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        
+        // TODO : mettre ici les bons attributs pour : 
+        // prixToTal [DONE]
+        // places => simplement mettre la place au bon format (on connait déjà tout !)
+        // map => ? 
+        // noSpectacle [DONE]
+        // noRepresentation [DONE]
+
+        getServletContext().getRequestDispatcher("/WEB-INF/payer.jsp").forward(request, response);
     }
 }

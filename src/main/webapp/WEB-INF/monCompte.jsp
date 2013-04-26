@@ -31,50 +31,50 @@
 </table>
 
 <c:if test="${not empty listAchatSuiv}">
-<strong> Mes places achetées </strong>
-<table class="indexTable">
-    <tr>
-        <th>
-
-        </th>
-        <th>
-            Spectacle
-        </th>
-         <th>
-            Date Spectacle
-        </th>
-        <th>
-            Date Achat
-        </th>
-        <th>
-            Prix
-        </th>
-        <th>
-        </th>
-    </tr>
-    <c:forEach items="${listAchatSuiv}" var="achat">
+    <strong> Mes places achetées </strong>
+    <table class="indexTable">
         <tr>
-            <td>
-               <img height="80px"  src="images/${achat.representation.spectacle.image}"/>   
-            </td>
-            <td>
-                ${achat.representation.spectacle.nom}
-            </td>
-            <td>
-                ${achat.representation.getDate(null)}
-            </td>
-            <td>
-                ${achat.getDateAchat(null)}
-            </td>
-            <td>
-                ${achat.place.zone.tarifBase} &euro;
-            </td>
-            <td>
-                <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
-            </td>
+            <th>
+
+            </th>
+            <th>
+                Spectacle
+            </th>
+            <th>
+                Date Spectacle
+            </th>
+            <th>
+                Date Achat
+            </th>
+            <th>
+                Prix
+            </th>
+            <th>
+            </th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${listAchatSuiv}" var="achat">
+            <tr>
+                <td>
+                    <img height="80px"  src="images/${achat.representation.spectacle.image}"/>   
+                </td>
+                <td>
+                    ${achat.representation.spectacle.nom}
+                </td>
+                <td>
+                    ${achat.representation.getDate(null)}
+                </td>
+                <td>
+                    ${achat.getDateAchat(null)}
+                </td>
+                <td>
+                    ${achat.place.zone.tarifBase} &euro;
+                </td>
+                <td>
+                    <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 </c:if>
 
 
@@ -83,45 +83,48 @@
 <br/>
 
 <c:if test="${not empty listRes}">
-<strong> Mes places réservées </strong>
+    <strong> Mes places réservées </strong>
 
-<table class="indexTable">
-    <tr>
-        <th>
-
-        </th>
-        <th>
-            Spectacle
-        </th>
-        <th>
-            Date
-        </th>
-        <th>
-            Prix
-        </th>
-        <th>
-
-        </th>
-    </tr>
-    <c:forEach items="${listRes}" var="resa">
+    <table class="indexTable">
         <tr>
-            <td>
-                <img height="80px"  src="images/${resa.representation.spectacle.image}"/>   
-            <td>
-                ${resa.representation.spectacle.nom}
-            </td>
-            <td>
-                ${resa.representation.getDate(null)}
-            </td>
-            <td>
-                ${resa.place.zone.tarifBase} &euro;
-            </td>
-            <td>
-                <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${resa.noSpectacle}&noR=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&tarif=${resa.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
-            </td>
+            <th>
+
+            </th>
+            <th>
+                Spectacle
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Prix
+            </th>
+            <th>
+
+            </th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach items="${listRes}" var="resa">
+            <tr>
+                <td>
+                    <img height="80px"  src="images/${resa.representation.spectacle.image}"/>   
+                <td>
+                    ${resa.representation.spectacle.nom}
+                </td>
+                <td>
+                    ${resa.representation.getDate(null)}
+                </td>
+                <td>
+                    ${resa.place.zone.tarifBase} &euro;
+                </td>
+                <td>
+                    <a href="UtilisateursControleur?action=achatPlaces&login=${login}&noSpectacle=${resa.noSpectacle}&noRepresentation=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&prixTotal=${resa.tarifBase}" class="btnBlack widthFixed" >Payer</a>
+                    <br/><br/>
+                    <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${resa.noSpectacle}&noR=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&tarif=${resa.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
+                </td>
+
+            </tr>
+        </c:forEach>
+    </table>
 </c:if>
 
 
