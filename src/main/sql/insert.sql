@@ -2,10 +2,10 @@
 
 -- Les spectacles
 
-insert into Spectacle values(1, '-M- Première partie', 'defaultSpectacle.jpg');
+insert into Spectacle values(1, '-M- Je viens du Sud', 'defaultSpectacle.jpg');
 insert into Spectacle values(2, 'Urban peace 3', 'urbanpeace.jpg');
 insert into Spectacle values(3, 'La Fouine', 'defaultSpectacle.jpg');
-insert into Spectacle values(4, 'Patrick Sébastien', 'defaultSpectacle.jpg');
+insert into Spectacle values(4, 'Patrick S. - Patoche et ses bretelles', 'defaultSpectacle.jpg');
 insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'defaultSpectacle.jpg');
 insert into Spectacle values(6, 'Gad Elmaleh', 'defaultSpectacle.jpg');
 insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm', 'defaultSpectacle.jpg');
@@ -571,11 +571,13 @@ insert into Place values (41,1,3);
 -- insert into AReserveNPlaces values ('vernadat',1,1,3,25,4);
 -- insert into AReserveNPlaces values ('Michel57390',1,1,3,22,4);
 -- insert into AReserveNPlaces values ('Michel57390',1,1,4,22,4);
+insert into AReserveNPlaces values ('toto',1,1,1,1,3);
 
 -- AAcheteNPlaces
 -- insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
 -- insert into AAcheteNPlaces values ('Michel57390', 2, 3, 1, 1, 1, 2, 2, 20130102);
 -- insert into AAcheteNPlaces values ('Michel57390', 6, 8, 1, 1, 1, 3, 3, 20130102);
+insert into AAcheteNPlaces values ('toto', 1, 2, 1, 1, 3, 1, 1, 20130102);
 
 
 

@@ -6,10 +6,14 @@ package controleur;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.Font;
+import com.lowagie.text.Image;
 import com.lowagie.text.Paragraph;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.pdf.BarcodeEAN;
 import com.lowagie.text.pdf.BaseFont;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
+import com.lowagie.text.pdf.BarcodePDF417;
 import dao.AchatDAO;
 import dao.ClientDAO;
 import dao.DAOException;
@@ -17,6 +21,7 @@ import dao.RepresentationDAO;
 import dao.ReservationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -180,11 +185,24 @@ public class UtilisateursControleur extends HttpServlet {
 
         Font itaFont = new Font(BaseFont.ASCENT, 14, Font.ITALIC);
         Font titreFont = new Font(BaseFont.ASCENT, 18, Font.BOLD);
-        Document document = new Document();
+        Font grasFont = new Font(BaseFont.ASCENT, 12, Font.BOLD);
+        Document document = new Document(new Rectangle(450, 350));
+
+        // on récupère les informations
+        String nomS = request.getParameter("nomS");
+        String rootUrl = request.getRequestURL().toString().split("billeterie")[0];
+        String image = request.getParameter("image");
+        String imageUrl = rootUrl + "billeterie/images/" + image;
+        String date = request.getParameter("date");
+        String prix = request.getParameter("prix");
+        String place = request.getParameter("place");
+        String rang = request.getParameter("rang");
+        String zone = request.getParameter("zone");
+        String numero = request.getParameter("numero");
 
 
         try {
-            PdfWriter.getInstance(document,
+            PdfWriter writer = PdfWriter.getInstance(document,
                     response.getOutputStream()); // Code 2
             addMetaData(document);
             document.open();
@@ -192,26 +210,54 @@ public class UtilisateursControleur extends HttpServlet {
             Paragraph preface = new Paragraph();
             preface.add(new Paragraph("MesBillets.com", itaFont));
             addEmptyLine(preface, 1);
-            preface.add(new Paragraph("Voici votre billet", titreFont));
-            addEmptyLine(preface, 3);
+            preface.add(new Paragraph("Voici votre e-billet", titreFont));
+            addEmptyLine(preface, 2);
 
 
-            PdfPTable table = new PdfPTable(4);
-            // TODO : récupérer les bonnes informations
-            table.addCell("Image");
-            table.addCell("Nom");
-            table.addCell("Date");
-            table.addCell("Prix");
+            Image img = Image.getInstance(new URL(imageUrl));
+            img.scalePercent(70);
+            img.setAbsolutePosition(60, 180);
+
+            Paragraph corps = new Paragraph();
+            corps.setIndentationLeft(80);
+            corps.add(new Paragraph(nomS, grasFont));
+            // TODO vrais variables
+            corps.add(new Paragraph("Le " + date));
+            corps.add(new Paragraph(prix + " €", grasFont));
+
+            BarcodeEAN codeEAN = new BarcodeEAN();
+            codeEAN.setCode("4512345678906");
+            Image code = codeEAN.createImageWithBarcode(writer.getDirectContent(), null, null);
+            code.scalePercent(150);
+            code.setAbsolutePosition(280, 180);
+            addEmptyLine(corps, 2);
+
+
+            Paragraph billet = new Paragraph();
+            billet.add(new Paragraph(zone.toUpperCase(), grasFont));
+            billet.add(new Paragraph("Billet numéro " + numero, grasFont));
+            billet.add(new Paragraph("Place "+place, grasFont));
+            billet.add(new Paragraph("Rang "+rang, grasFont));
+
+
+
+
+
+
+
 
             Paragraph fin = new Paragraph();
-            addEmptyLine(fin, 3);
+            addEmptyLine(fin, 1);
+            fin.add(new Paragraph("Imprimez ce e-billet et présentez-le à l'entrée du spectacle. "));
 
-            fin.add(new Paragraph("Imprimez ce document et présentez-le à l'entrée du spectacle."));
 
 
 
             document.add(preface);
-            document.add(table);
+            document.add(img);
+            document.add(corps);
+            document.add(code);
+            document.add(billet);
             document.add(fin);
             document.close();
         } catch (com.lowagie.text.DocumentException ex) {

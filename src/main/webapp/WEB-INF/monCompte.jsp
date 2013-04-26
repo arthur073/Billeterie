@@ -35,10 +35,13 @@
 <table class="indexTable">
     <tr>
         <th>
-            No dossier
+
         </th>
         <th>
-            No Billet
+            Spectacle
+        </th>
+         <th>
+            Date Spectacle
         </th>
         <th>
             Date Achat
@@ -47,25 +50,27 @@
             Prix
         </th>
         <th>
-
         </th>
     </tr>
     <c:forEach items="${listAchatSuiv}" var="achat">
         <tr>
             <td>
-                ${achat.noDossier}
+               <img height="80px"  src="images/${achat.representation.spectacle.image}"/>   
             </td>
             <td>
-                ${achat.noSerie}
+                ${achat.representation.spectacle.nom}
             </td>
             <td>
-                Le <fmt:formatDate value="${achat.dateAchat}" pattern="dd-MM-yyyy à HH:mm" />
+                ${achat.representation.getDate(null)}
+            </td>
+            <td>
+                <fmt:formatDate value="${achat.dateAchat}" pattern="dd/MM/yy HH:mm" />
             </td>
             <td>
                 ${achat.place.zone.tarifBase} &euro;
             </td>
             <td>
-                <a href="UtilisateursControleur?action=imprPlaces" target="_blank" class="btnBlack">Imprimer</a>
+                <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
             </td>
         </tr>
     </c:forEach>
@@ -106,7 +111,7 @@
                 ${resa.representation.spectacle.nom}
             </td>
             <td>
-                Le <fmt:formatDate value="${resa.representation.getDate()}" pattern="dd-MM-yyyy à HH:mm" />
+                ${resa.representation.getDate(null)}
             </td>
             <td>
                 ${resa.place.zone.tarifBase} &euro;

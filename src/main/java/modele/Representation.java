@@ -53,10 +53,6 @@ public class Representation {
      * @return 
      */
     public String getDate(String format) {
-        if( format == null )
-        {
-            format = "dd/MM/yy hh:mi:ss";
-        }
         SimpleDateFormat sdf = new SimpleDateFormat();
         return sdf.format(this.date);
     }
