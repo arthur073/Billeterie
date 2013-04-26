@@ -67,7 +67,7 @@ Vous avez choisi la représentation suivante : <br/>
                 </td>
                 
                 <td>
-                    <h3> Le  ${rep.date}</h3>
+                    <h3> Le  ${rep.getDate(null)}</h3>
                 </td>
                 <td>
                     <form action="ReservationControleur" method="post">

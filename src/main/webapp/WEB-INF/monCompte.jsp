@@ -64,7 +64,7 @@
                 ${achat.representation.getDate(null)}
             </td>
             <td>
-                <fmt:formatDate value="${achat.dateAchat}" pattern="dd/MM/yy HH:mm" />
+                ${achat.getDateAchat(null)}
             </td>
             <td>
                 ${achat.place.zone.tarifBase} &euro;
