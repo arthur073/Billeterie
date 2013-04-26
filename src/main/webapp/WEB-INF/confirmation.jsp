@@ -59,8 +59,13 @@
 <br/>
 
 <form action="ReservationControleur"  class="reserverFormCentre" method="post">
+     <input type="text" name="places" style="display:none;" value="${places}" />
      <input type="text" name="map" style="display:none;" value="${map}" />
+     <input type="text" name="prixTotal" style="display:none;" value="${prixTotal}" />
+     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
+     <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
      <input type="submit" name="action" label="reserverPlaces" value="Reserver mes places" class="btnReserverCentre"/>
+     <input type="submit" name="action" label="acheterPlaces" value="Payer mes places" class="btnReserverCentre"/>
 </form>
 
 <c:import url="Layout/footer.jsp"/>

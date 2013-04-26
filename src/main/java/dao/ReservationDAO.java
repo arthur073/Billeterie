@@ -1,6 +1,5 @@
 package dao;
 
-import static dao.ProviderDAO.closeResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +18,7 @@ import modele.Reservation;
  *
  * @author arthur
  */
-public class ReservationDAO extends ProviderDAO<Reservation> {
+public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation> {
 
     private final ClientDAO cDAO;
     private final RepresentationDAO rDAO;
@@ -171,9 +170,9 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             st.setString(1, reserv.getLogin());
             st.setInt(2, reserv.getNoSpectacle());
             st.setInt(3, reserv.getNoRepresentation());
-            st.setInt(4, reserv.getNoZone());
+            st.setInt(4, reserv.getNoPlace());
             st.setInt(5, reserv.getNoRang());
-            st.setInt(6, reserv.getNoPlace());
+            st.setInt(6, reserv.getNoZone());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -192,7 +191,7 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
         Client c = new Client(r.getLogin());
         cDAO.lire(c);
         r.setClient(c);
-        Representation rep = new Representation(r.getNoRepresentation(), r.getNoSpectacle());
+        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation());
         rDAO.lire(rep);
         r.setRepresentation(rep);
         Place p = new Place(r.getNoPlace(), r.getNoRang(), r.getNoZone());
