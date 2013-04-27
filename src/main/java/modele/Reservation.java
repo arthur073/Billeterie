@@ -189,5 +189,15 @@ public class Reservation {
     public void setTarifBase(float tarifBase) {
         this.tarifBase = tarifBase;
     }
+    
+    public String getNomZone() {
+       switch (noZone) {
+           case 1: return "Poulailler";
+           case 2: return "Orchestre";
+           case 3: return "Balcon";
+           case 4: return "Loge";
+           default : return null;
+       }        
+    }
 
 }

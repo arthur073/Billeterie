@@ -56,10 +56,7 @@ public class ReservationControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
-        //    if (request.getSession(false).getAttribute("LoggedIn") == null) {
-        //        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        //        return;
-        //    }
+      
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
@@ -71,30 +68,30 @@ public class ReservationControleur extends HttpServlet {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
                 /* TODO : a corriger !!! */
-                request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                request.setAttribute("prix", request.getParameter("prix"));
+                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                //request.setAttribute("prix", request.getParameter("prix"));
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
-                request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                actionConfirmation(request, response);
+                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                //actionConfirmation(request, response);
             } else if (action.equalsIgnoreCase("Reserver mes places")) {
-                request.setAttribute("places", request.getParameter("places"));
-                request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                //request.setAttribute("places", request.getParameter("places"));
+                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
                 reserverPlaces(request, response);
             } else if (action.equalsIgnoreCase("Payer mes places")) {
-                request.setAttribute("places", request.getParameter("places"));
-                request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                request.setAttribute("prixTotal", request.getParameter("prixTotal"));
+                //request.setAttribute("places", request.getParameter("places"));
+                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                //request.setAttribute("prixTotal", request.getParameter("prixTotal"));
                 sortirCarteBleue(request, response);
             } else if (action.equalsIgnoreCase("Proceder au paiement")) {
-                request.setAttribute("places", request.getParameter("places"));
-                request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                request.setAttribute("prixTotal", request.getParameter("prixTotal"));
+                //request.setAttribute("places", request.getParameter("places"));
+                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                //request.setAttribute("prixTotal", request.getParameter("prixTotal"));
                 payerPlaces(request, response);
             } else {
                 throw new DAOException("méthode non reconnue");

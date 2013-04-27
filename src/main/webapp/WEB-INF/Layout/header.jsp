@@ -4,8 +4,8 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-        <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+        <script src="jquery-1.9.1.min.js"></script>
+        <script src="jquery-ui.min.js"></script>
         <title>MesBillets.com</title>
 
         <script type="text/javascript">

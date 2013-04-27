@@ -156,6 +156,7 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
     width: 20em;
 }
 
+
 .btnBlack {
     color: white;
     background-color: #282828;
@@ -169,6 +170,12 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
     cursor: pointer;
     text-decoration: none;
 }
+
+.widthFixed {
+    font-size : 117%;
+    width : 200px;
+}
+
 
 .btnBlack[disabled] {
     color: white;
@@ -521,4 +528,3 @@ div.confirmation {
     margin-top : 1em;
     margin-bottom : 2em;
 }
-
