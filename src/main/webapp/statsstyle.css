@@ -6,6 +6,10 @@
         Style des statistiques pour le responsable.
 */
 
+#stats-container {
+    padding: 2em 0;
+}
+
 #stats-container table {
     width: 100%;
 }

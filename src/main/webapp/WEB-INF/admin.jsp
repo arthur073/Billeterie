@@ -9,6 +9,7 @@
 <c:import url="Layout/header.jsp"/>
 
 <style type="text/css" media="screen">
+    @import url(http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css);
     @import url(statsstyle.css);
 </style>
 
