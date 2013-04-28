@@ -3,6 +3,7 @@ Document   : Statistiques en HTML, à inclure dans une page complète
 Created on : 21 avr. 2013, 11:34:17
 Author     : Jany
 --%>
+<%@page import="java.text.DecimalFormat"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="dao.StatsDAO.InfoRenta"%>
 <%@page import="java.util.List"%>
@@ -23,6 +24,7 @@ Author     : Jany
 <table id="stats-meilleurs">
     <tr><th colspan="2">Remplissage</th><th colspan="2">Rentabilité</th></tr>
     <%
+    DecimalFormat df = new DecimalFormat("###.##");
     List<InfoRenta> mieuxRemplisListe = (List<InfoRenta>)request.getAttribute("mieuxRemplis");
     Iterator<InfoRenta> mieuxRemplis = mieuxRemplisListe.iterator();
     List<InfoRenta> plusRentablesListe = (List<InfoRenta>)request.getAttribute("plusRentables");
@@ -34,7 +36,7 @@ Author     : Jany
             info = mieuxRemplis.next();
             out.println("<td><strong>" + info.spectacle.getNom() +
                 "</strong></th><td>" + info.nbPlacesVendues +
-                " (" + info.tauxRemplissage + ")</td></th>");
+                " (" + df.format(info.tauxRemplissage) + ")</td></th>");
         } else {
             out.println("<td colspan=\"2\" class=\"invisible\"></td");
         }
@@ -46,16 +48,16 @@ Author     : Jany
             out.println("<td colspan=\"2\" class=\"invisible\"></td");
         }
         out.println("</tr>\n");
-    } %>
+    } %>ui
 </table>
 
 <h2>Tous les spectacles</h2>
 
 <table id="stats-tous">
 	<tr><th>Nom</th><th class="colonne-stats">Bénéfice total</th><th class="colonne-stats">Nombre de places vendues</th></tr>
-	<c:forEach items="${statsSpectacles}" var="stat">
-		<tr><td><strong>${stat.spectacle.nom}</strong></td><td>${stat.benefTotal}&nbsp;&euro;</td><td>${stat.nbPlacesVendues} (${stat.tauxRemplissage}&nbsp;%)</td></tr>
-	</c:forEach>
+    <% for (InfoRenta stat : (List<InfoRenta>) request.getAttribute("statsSpectacles")) { %>
+		<tr><td><strong><%= stat.spectacle.getNom() %></strong></td><td><%= stat.benefTotal %>&nbsp;&euro;</td><td><%= stat.nbPlacesVendues %> (<%= df.format(stat.tauxRemplissage) %>&nbsp;%)</td></tr>
+    <% } %>
 </table>
 
 

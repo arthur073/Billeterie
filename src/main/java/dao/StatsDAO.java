@@ -30,12 +30,12 @@ public class StatsDAO extends ProviderDAO {
      * Renvoie le nombre total de places vendues sur la période.
      * @throws DAOException
      */
-    public float getNbAchatsPeriode(Date debut, Date fin)
+    public int getNbAchatsPeriode(Date debut, Date fin)
             throws DAOException {
         ResultSet rs = null;
         PreparedStatement st = null;
         Connection conn = null;
-        float result = 0.0f;
+        int result = 0;
         try {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_NB_ACHATS_PERIODE"));
@@ -43,7 +43,7 @@ public class StatsDAO extends ProviderDAO {
             st.setDate(2, new java.sql.Date(fin.getTime()));
             rs = st.executeQuery();
             if (rs.next()) {
-                result = rs.getFloat("NbAchats");
+                result = rs.getInt("NbAchats");
             } else {
                 throw new DAOException("Le calcul du nombre d'achats n'a rien donné.");
             }
