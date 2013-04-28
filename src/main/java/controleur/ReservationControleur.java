@@ -56,7 +56,7 @@ public class ReservationControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
-      
+
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
@@ -88,6 +88,7 @@ public class ReservationControleur extends HttpServlet {
                 request.setAttribute("prixTotal", request.getParameter("prixTotal"));
                 sortirCarteBleue(request, response);
             } else if (action.equalsIgnoreCase("Proceder au paiement")) {
+                request.setAttribute("resAsupprimer", request.getParameter("resAsupprimer"));
                 request.setAttribute("places", request.getParameter("places"));
                 request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
                 request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
@@ -107,7 +108,7 @@ public class ReservationControleur extends HttpServlet {
         ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         List<Zone> listeZones = zone.getZones();
-        request.setAttribute("prix",TraitementPlaces.prixString(listeZones));
+        request.setAttribute("prix", TraitementPlaces.prixString(listeZones));
         request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
         int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
@@ -163,7 +164,7 @@ public class ReservationControleur extends HttpServlet {
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
             float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
-            
+
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
             request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
             request.setAttribute("map", map);
@@ -221,8 +222,16 @@ public class ReservationControleur extends HttpServlet {
                         p.getNoPlace(), NoDossier, NoSerie, new Date(), z.getTarifBase());
                 NoSerie++;
                 achatDAO.creer(achat);
+                
+                if (Integer.parseInt(request.getParameter("resAsupprimer")) == 1) {
+                    ReservationDAO resDAO = new ReservationDAO(ds);
+                    Reservation resa = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
+                    resDAO.supprimer(resa);
+                }
             }
         }
+
+
         FlashImpl fl = new FlashImpl("Places correctement payées!", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());

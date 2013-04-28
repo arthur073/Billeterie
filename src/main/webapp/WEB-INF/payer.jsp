@@ -23,6 +23,7 @@
      <input type="text" name="prixTotal" style="display:none;" value="${prixTotal}" />
      <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
      <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
+     <input type="text" name="resAsupprimer" style="" value="${resAsupprimer}" />
     <input type="submit" name="action" label="acheterPlaces" value="Proceder au paiement" class="btnReserverCentre"/>
 </form>
 

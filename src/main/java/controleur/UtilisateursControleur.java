@@ -288,6 +288,7 @@ public class UtilisateursControleur extends HttpServlet {
         request.setAttribute("places", places);
         request.setAttribute("NoSpectacle", request.getParameter("noSpectacle"));
         request.setAttribute("NoRepresentation", request.getParameter("noRepresentation"));
+        request.setAttribute("resAsupprimer", "1");
         getServletContext().getRequestDispatcher("/WEB-INF/payer.jsp").forward(request, response);
     }
 }
