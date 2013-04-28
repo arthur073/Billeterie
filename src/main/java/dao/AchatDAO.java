@@ -62,8 +62,25 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
     }
 
     @Override
-    public void supprimer(Achat obj) {
-        // TODO Auto-generated method stub
+    public void supprimer(Achat ach) throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("DELETE_ACHAT"));
+            st.setString(1, ach.getLogin());
+            st.setInt(2, ach.getNoSpectacle());
+            st.setInt(3, ach.getNoRepresentation());
+            st.setInt(4, ach.getNoZone());
+            st.setInt(5, ach.getNoRang());
+            st.setInt(6, ach.getNoPlace());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 
     /**

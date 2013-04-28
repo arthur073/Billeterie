@@ -71,6 +71,8 @@
                 </td>
                 <td>
                     <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
+                    <br/><br/>
+                    <a href="UtilisateursControleur?action=annulerAchat&login=${login}&noS=${achat.noSpectacle}&noR=${achat.noRepresentation}&noZ=${achat.noZone}&noRang=${achat.noRang}&noP=${achat.noPlace}&tarif=${achat.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet achat ?')">Annuler</a>
                 </td>
             </tr>
         </c:forEach>
@@ -103,23 +105,23 @@
 
             </th>
         </tr>
-        <c:forEach items="${listRes}" var="resa">
+        <c:forEach items="${listRes}" var="achat">
             <tr>
                 <td>
-                    <img height="80px"  src="images/${resa.representation.spectacle.image}"/>   
+                    <img height="80px"  src="images/${achat.representation.spectacle.image}"/>   
                 <td>
-                    ${resa.representation.spectacle.nom}
+                    ${achat.representation.spectacle.nom}
                 </td>
                 <td>
-                    ${resa.representation.getDate(null)}
+                    ${achat.representation.getDate(null)}
                 </td>
                 <td>
-                    ${resa.place.zone.tarifBase} &euro;
+                    ${achat.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=achatPlaces&login=${login}&noSpectacle=${resa.noSpectacle}&noRepresentation=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&prixTotal=${resa.tarifBase}" class="btnBlack widthFixed" >Payer</a>
+                    <a href="UtilisateursControleur?action=achatPlaces&login=${login}&noSpectacle=${achat.noSpectacle}&noRepresentation=${achat.noRepresentation}&noZ=${achat.noZone}&noRang=${achat.noRang}&noP=${achat.noPlace}&prixTotal=${achat.tarifBase}&places=${places}resAsupprimer=1" class="btnBlack widthFixed" >Payer</a>
                     <br/><br/>
-                    <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${resa.noSpectacle}&noR=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&tarif=${resa.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
+                    <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${achat.noSpectacle}&noR=${achat.noRepresentation}&noZ=${achat.noZone}&noRang=${achat.noRang}&noP=${achat.noPlace}&tarif=${achat.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
                 </td>
 
             </tr>

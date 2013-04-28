@@ -35,11 +35,8 @@ Vous avez choisi la représentation suivante : <br/>
                         <% 
                             List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
                             request.setAttribute("listeZones",listeCateg);
-                            
                             for(Zone zone:listeCateg) {
-                            
                               %>
-                            
                                 <label><%=zone.getCategorie() %></label>
                                 <span class="price"> <%= zone.getTarifBase() %>&nbsp;&euro;</span><br/> 
                                 <% 
@@ -71,14 +68,14 @@ Vous avez choisi la représentation suivante : <br/>
                 </td>
                 <td>
                     <form action="ReservationControleur" method="post">
-                        <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
-                        <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
-                        <input type="text" name="listeZones" style="display:none;" value="${listeZones}" />
-                        <input type="text" name="Date" value="${Date}" style="display:none;"/>
-                        <input type="text" name="Image" value="${Image}" style="display:none;"/>
-                        <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
-                        <input type="text" name="prix" style="display:none;" value="${prix}"/>  
-                        <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
+                      <input type="text" name="NoSpectacle" style="display:none;" value="${rep.getNoSpectacle()}" />
+                      <input type="text" name="NoRepresentation" style="display:none;" value="${rep.getNoRepresentation()}" />
+                      <input type="text" name="listeZones" style="display:none;" value="${listeZones}" />
+                      <input type="text" name="Date" value="${rep.getDate(null)}" style="display:none;"/>
+                      <input type="text" name="Image" value="${Image}" style="display:none;"/>
+                      <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
+                      <input type="text" name="prix" style="display:none;" value="${prix}"/>  
+                      <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
                     </form>
                 </td>
             </tr>

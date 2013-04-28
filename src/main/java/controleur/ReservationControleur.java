@@ -56,42 +56,25 @@ public class ReservationControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
 
-      
+
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
 
         try {
-            request.setAttribute("Image", request.getParameter("Image"));
-            request.setAttribute("Date", request.getParameter("Date"));
-            request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
-                /* TODO : a corriger !!! */
-                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                //request.setAttribute("prix", request.getParameter("prix"));
+
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
                 //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
                 actionConfirmation(request, response);
             } else if (action.equalsIgnoreCase("Reserver mes places")) {
-                //request.setAttribute("places", request.getParameter("places"));
-                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
                 reserverPlaces(request, response);
             } else if (action.equalsIgnoreCase("Payer mes places")) {
-                //request.setAttribute("places", request.getParameter("places"));
-                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                //request.setAttribute("prixTotal", request.getParameter("prixTotal"));
                 sortirCarteBleue(request, response);
             } else if (action.equalsIgnoreCase("Proceder au paiement")) {
-                //request.setAttribute("places", request.getParameter("places"));
-                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                //request.setAttribute("prixTotal", request.getParameter("prixTotal"));
                 payerPlaces(request, response);
             } else {
                 throw new DAOException("méthode non reconnue");
@@ -107,11 +90,11 @@ public class ReservationControleur extends HttpServlet {
         ZoneDAO zone = new ZoneDAO(ds);
         SpectacleDAO spec = new SpectacleDAO(ds);
         List<Zone> listeZones = zone.getZones();
-        request.setAttribute("prix",TraitementPlaces.prixString(listeZones));
+        request.setAttribute("prix", TraitementPlaces.prixString(listeZones));
         request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
-        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
-        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
+        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
+        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
         request.setAttribute("NoSpectacle", NoSpectacle);
         request.setAttribute("NoRepresentation", NoRepresentation);
         request.setAttribute("Image", request.getParameter("Image"));
@@ -124,8 +107,8 @@ public class ReservationControleur extends HttpServlet {
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Reservation de billets");
         ReservationDAO resDAO = new ReservationDAO(ds);
-        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
-        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
+        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
+        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
         request.setAttribute("NoSpectacle", NoSpectacle);
         request.setAttribute("NoRepresentation", NoRepresentation);
         request.setAttribute("Image", request.getParameter("Image"));
@@ -151,6 +134,7 @@ public class ReservationControleur extends HttpServlet {
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
+        
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             String from = request.getParameter("from");
             Map<String, String> params = parseToMap(request.getParameterMap());
@@ -158,12 +142,12 @@ public class ReservationControleur extends HttpServlet {
             request.setAttribute("from", from);
             request.setAttribute("params", params);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        } else {
+        }  else {
             String places = request.getParameter("places");
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
             float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
-            
+
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
             request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
             request.setAttribute("map", map);
@@ -221,8 +205,16 @@ public class ReservationControleur extends HttpServlet {
                         p.getNoPlace(), NoDossier, NoSerie, new Date(), z.getTarifBase());
                 NoSerie++;
                 achatDAO.creer(achat);
+                
+                if (Integer.parseInt(request.getParameter("resAsupprimer")) == 1) {
+                    ReservationDAO resDAO = new ReservationDAO(ds);
+                    Reservation resa = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
+                    resDAO.supprimer(resa);
+                }
             }
         }
+
+
         FlashImpl fl = new FlashImpl("Places correctement payées!", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
