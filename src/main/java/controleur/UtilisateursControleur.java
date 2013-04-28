@@ -11,9 +11,8 @@ import com.lowagie.text.Paragraph;
 import com.lowagie.text.Rectangle;
 import com.lowagie.text.pdf.BarcodeEAN;
 import com.lowagie.text.pdf.BaseFont;
-import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfContentByte;
 import com.lowagie.text.pdf.PdfWriter;
-import com.lowagie.text.pdf.BarcodePDF417;
 import dao.AchatDAO;
 import dao.ClientDAO;
 import dao.DAOException;
@@ -23,6 +22,7 @@ import dao.UtilisateurDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -224,8 +224,11 @@ public class UtilisateursControleur extends HttpServlet {
             PdfWriter writer = PdfWriter.getInstance(document,
                     response.getOutputStream()); // Code 2
             addMetaData(document);
+            
             document.open();
-
+            //for barcode generation
+            PdfContentByte cb = writer.getDirectContent();
+            
             Paragraph preface = new Paragraph();
             preface.add(new Paragraph("MesBillets.com", itaFont));
             addEmptyLine(preface, 1);
@@ -245,11 +248,14 @@ public class UtilisateursControleur extends HttpServlet {
             corps.add(new Paragraph(prix + " €", grasFont));
 
             BarcodeEAN codeEAN = new BarcodeEAN();
-            String innerCode = (String.valueOf(numero.hashCode() * place.hashCode() * rang.hashCode() * prix.hashCode() * nomS.hashCode())
-                    + String.valueOf(img.hashCode())).substring(0, 13);
+            String innerCode;
+            long randomNum;
+            randomNum = (long)(Math.random() * (3999999999999L-3000000000000L)) + 3000000000000L;
+            innerCode = String.valueOf(randomNum);
+
             codeEAN.setCode(innerCode);
 
-            Image code = codeEAN.createImageWithBarcode(writer.getDirectContent(), null, null);
+            Image code = codeEAN.createImageWithBarcode(cb, null, null);
             code.scalePercent(150);
             code.setAbsolutePosition(280, 180);
             addEmptyLine(corps, 2);
@@ -291,8 +297,8 @@ public class UtilisateursControleur extends HttpServlet {
         document.addTitle("Votre facture");
         document.addSubject("Avec MesBillets.com");
         document.addKeywords("Billets, iText");
-        document.addAuthor("Arthur Verger");
-        document.addCreator("Arthur Verger");
+        document.addAuthor("DreamTeam ACVL");
+        document.addCreator("DreamTeam ACVL");
     }
 
     private void addEmptyLine(Paragraph paragraph, int number) {
