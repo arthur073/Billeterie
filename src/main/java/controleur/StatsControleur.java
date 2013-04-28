@@ -66,17 +66,13 @@ public class StatsControleur extends HttpServlet {
             String sDebut = (String) request.getParameter("dateDebut");
             String sFin = (String) request.getParameter("dateFin");
             if (sDebut == null) {
-                // Par défaut : date courante - 1 an
-                debut = new Date();
-                debut.setYear(debut.getYear() - 1);
-            } else {
-                debut = fmt.parse(sDebut);
+                sDebut = "2013-01-01";
             }
+            debut = fmt.parse(sDebut);
             if (sFin == null) {
-                fin = new Date();
-            } else {
-                fin = fmt.parse(sFin);
+                sFin = "2014-01-01";
             }
+            fin = fmt.parse(sFin);
             StatsDAO sDAO = new StatsDAO(ds);
             request.setAttribute("benefTotal", sDAO.getBenefTotalPeriode(debut, fin));
             request.setAttribute("totalPlacesVendues", sDAO.getNbAchatsPeriode(debut, fin));
