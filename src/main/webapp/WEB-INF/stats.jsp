@@ -48,7 +48,7 @@ Author     : Jany
             out.println("<td colspan=\"2\" class=\"invisible\"></td");
         }
         out.println("</tr>\n");
-    } %>ui
+    } %>
 </table>
 
 <h2>Tous les spectacles</h2>
