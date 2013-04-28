@@ -35,11 +35,8 @@ Vous avez choisi la représentation suivante : <br/>
                         <% 
                             List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
                             request.setAttribute("listeZones",listeCateg);
-                            
                             for(Zone zone:listeCateg) {
-                            
                               %>
-                            
                                 <label><%=zone.getCategorie() %></label>
                                 <span class="price"> <%= zone.getTarifBase() %>&nbsp;&euro;</span><br/> 
                                 <% 
