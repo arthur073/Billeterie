@@ -117,7 +117,7 @@
                     ${resa.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=achatPlaces&login=${login}&noSpectacle=${resa.noSpectacle}&noRepresentation=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&prixTotal=${resa.tarifBase}" class="btnBlack widthFixed" >Payer</a>
+                    <a href="UtilisateursControleur?action=achatPlaces&login=${login}&noSpectacle=${resa.noSpectacle}&noRepresentation=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&prixTotal=${resa.tarifBase}&places=${places}" class="btnBlack widthFixed" >Payer</a>
                     <br/><br/>
                     <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${resa.noSpectacle}&noR=${resa.noRepresentation}&noZ=${resa.noZone}&noRang=${resa.noRang}&noP=${resa.noPlace}&tarif=${resa.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
                 </td>

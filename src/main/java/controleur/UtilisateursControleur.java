@@ -283,13 +283,11 @@ public class UtilisateursControleur extends HttpServlet {
 
     private void achatPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
-        // TODO : mettre ici les bons attributs pour : 
-        // prixToTal [DONE]
-        // places => simplement mettre la place au bon format (on connait déjà tout !)
-        // map => ? 
-        // noSpectacle [DONE]
-        // noRepresentation [DONE]
-
+         String places = request.getParameter("noP") + "/" + request.getParameter("noRang")
+                        + "/" + request.getParameter("noZ");
+        request.setAttribute("places", places);
+        request.setAttribute("NoSpectacle", request.getParameter("noSpectacle"));
+        request.setAttribute("NoRepresentation", request.getParameter("noRepresentation"));
         getServletContext().getRequestDispatcher("/WEB-INF/payer.jsp").forward(request, response);
     }
 }
