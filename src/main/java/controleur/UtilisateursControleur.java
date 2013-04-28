@@ -62,6 +62,8 @@ public class UtilisateursControleur extends HttpServlet {
                 goToAdmin(request, response);
             } else if (action.equalsIgnoreCase("annulerPlaces")) {
                 cancelPlaces(request, response);
+            } else if (action.equalsIgnoreCase("annulerAchat")) {
+                cancelAchat(request, response);
             } else if (action.equalsIgnoreCase("imprPlaces")) {
                 imprPlaces(request, response); 
             } else if (action.equalsIgnoreCase("achatPlaces")) {
@@ -176,6 +178,24 @@ public class UtilisateursControleur extends HttpServlet {
         resDAO.supprimer(resa);
 
         FlashImpl fl = new FlashImpl("Votre réservation a bien été annulée", request, "success");
+        goToMyAccount(request, response);
+    }
+    
+    private void cancelAchat(HttpServletRequest request, HttpServletResponse response) throws IOException, DAOException, ServletException {
+
+        String login = request.getParameter("login");
+        Integer noS = Integer.parseInt(request.getParameter("noS"));
+        Integer noR = Integer.parseInt(request.getParameter("noR"));
+        Integer noZ = Integer.parseInt(request.getParameter("noZ"));
+        Integer noRang = Integer.parseInt(request.getParameter("noRang"));
+        Integer noP = Integer.parseInt(request.getParameter("noP"));
+        Float tarif = Float.parseFloat(request.getParameter("tarif"));
+
+        Achat achat = new Achat(login, noS, noR, noZ, noRang, noP, tarif);
+        AchatDAO achatDAO = new AchatDAO(ds);
+        achatDAO.supprimer(achat);
+
+        FlashImpl fl = new FlashImpl("Votre achat a bien été annulé", request, "success");
         goToMyAccount(request, response);
     }
 
