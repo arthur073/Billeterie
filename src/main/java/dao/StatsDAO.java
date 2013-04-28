@@ -1,7 +1,7 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,9 +21,40 @@ public class StatsDAO extends ProviderDAO {
     // Calculé une fois pour être dispo dans toutes les requêtes.
     private final int nbTotalPlaces;
 
-    public StatsDAO(DataSource ds, int nbTotalPlaces) {
+    public StatsDAO(DataSource ds) throws DAOException {
         super(ds);
-        this.nbTotalPlaces = nbTotalPlaces;
+        this.nbTotalPlaces = (new PlaceDAO(ds)).getNombrePlaces();
+    }
+
+    /**
+     * Renvoie le nombre total de places vendues sur la période.
+     * @throws DAOException
+     */
+    public float getNbAchatsPeriode(Date debut, Date fin)
+            throws DAOException {
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        float result = 0.0f;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_NB_ACHATS_PERIODE"));
+            st.setDate(1, new java.sql.Date(debut.getTime()));
+            st.setDate(2, new java.sql.Date(fin.getTime()));
+            rs = st.executeQuery();
+            if (rs.next()) {
+                result = rs.getFloat("NbAchats");
+            } else {
+                throw new DAOException("Le calcul du nombre d'achats n'a rien donné.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
     }
 
     /**
@@ -31,7 +62,7 @@ public class StatsDAO extends ProviderDAO {
      * représentations de la période donnée.
      * @throws DAOException
      */
-    public float statBenefTotalPeriode(Date debut, Date fin)
+    public float getBenefTotalPeriode(Date debut, Date fin)
             throws DAOException {
         ResultSet rs = null;
         PreparedStatement st = null;
@@ -40,8 +71,8 @@ public class StatsDAO extends ProviderDAO {
         try {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_BENEF_TOTAL_PERIODE"));
-            st.setDate(1, debut);
-            st.setDate(2, fin);
+            st.setDate(1, new java.sql.Date(debut.getTime()));
+            st.setDate(2, new java.sql.Date(fin.getTime()));
             rs = st.executeQuery();
             if (rs.next()) {
                 result = rs.getFloat("BenefTotal");
@@ -67,6 +98,11 @@ public class StatsDAO extends ProviderDAO {
         public final int nbPlacesVendues;
         public final float tauxRemplissage;
         public final float benefTotal;
+       
+        public Spectacle getSpectacle() { return spectacle; };
+        public int getNbPlacesVendues() { return nbPlacesVendues; };
+        public float getTauxRemplissage() { return tauxRemplissage; };
+        public float getBenefTotal() { return benefTotal; };
 
         public InfoRenta(Spectacle spectacle, int nbPlacesVendues, float benefTotal) {
             this.spectacle = spectacle;
@@ -89,9 +125,9 @@ public class StatsDAO extends ProviderDAO {
         try {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_SPECTACLES_PLUS_RENTABLES"));
-            st.setInt(1, n);
-            st.setDate(2, debut);
-            st.setDate(3, fin);
+            st.setDate(1, new java.sql.Date(debut.getTime()));
+            st.setDate(2, new java.sql.Date(fin.getTime()));
+            st.setInt(3, n);
             rs = st.executeQuery();
             while (rs.next()) {
                 plusRentables.add(new InfoRenta(SpectacleDAO.construire(rs),
@@ -120,9 +156,9 @@ public class StatsDAO extends ProviderDAO {
         try {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_SPECTACLES_PLUS_REMPLIS"));
-            st.setInt(1, n);
-            st.setDate(2, debut);
-            st.setDate(3, fin);
+            st.setDate(1, new java.sql.Date(debut.getTime()));
+            st.setDate(2, new java.sql.Date(fin.getTime()));
+            st.setInt(3, n);
             rs = st.executeQuery();
             while (rs.next()) {
                 plusRemplis.add(new InfoRenta(SpectacleDAO.construire(rs),
@@ -144,7 +180,7 @@ public class StatsDAO extends ProviderDAO {
      * représentations décroissantes.
      * @throws DAOException
      */
-    public List<InfoRenta> getStatsTousSpectacles()
+    public List<InfoRenta> getStatsTousSpectacles(Date debut, Date fin)
             throws DAOException {
         List<InfoRenta> stats = new ArrayList<InfoRenta>();
         ResultSet rs = null;
@@ -153,6 +189,8 @@ public class StatsDAO extends ProviderDAO {
         try {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_STATS_SPECTACLES"));
+            st.setDate(1, new java.sql.Date(debut.getTime()));
+            st.setDate(2, new java.sql.Date(fin.getTime()));
             rs = st.executeQuery();
             while (rs.next()) {
                 stats.add(new InfoRenta(SpectacleDAO.construire(rs),

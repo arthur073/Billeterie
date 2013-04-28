@@ -84,22 +84,18 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
             rs = st.executeQuery();
             ReservationDAO resaDAO = new ReservationDAO(dataSource);
             while (rs.next()) {
-                Date dateFormatted = new Date( rs.getTimestamp("DateAchat").getTime() );
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
-                Date dat = df.parse(df.format(dateFormatted));
                 Achat achat = new Achat(rs.getString("Login"),
                         rs.getInt("NoSpectacle"),
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        dat, rs.getFloat("TarifBase"));
+                        new Date(rs.getTimestamp("DateAchat").getTime()),
+			rs.getFloat("TarifBase"));
                 resaDAO.lire(achat);
                 result.add(achat);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } catch (ParseException ex) {
-            Logger.getLogger(AchatDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeResultSet(rs);
             closeStatement(st);
@@ -130,19 +126,14 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
             st.setInt(6, achat.getNoPlace());
             rs = st.executeQuery();
             if (rs.next()) {
-                Date dateFormatted = new Date( rs.getTimestamp("DateAchat").getTime() );
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
-                Date dat = df.parse(df.format(dateFormatted));
                 achat.setNoDossier(rs.getInt("NoDossier"));
                 achat.setNoSerie(rs.getInt("NoSerie"));
-                achat.setDateAchat(dat);
+                achat.setDateAchat(new Date(rs.getTimestamp("DateAchat").getTime()));
             } else {
                 throw new DAOException("L'achat demandé n'existe pas");
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } catch (ParseException ex) {
-            Logger.getLogger(AchatDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeResultSet(rs);
             closeStatement(st);
@@ -175,22 +166,18 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
             rs = st.executeQuery();
             ReservationDAO resaDAO = new ReservationDAO(dataSource);
             while (rs.next()) {
-                Date dateFormatted = new Date( rs.getTimestamp("DateAchat").getTime() );
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
-                Date dat = df.parse(df.format(dateFormatted));
                 Achat achat = new Achat(rs.getString("Login"),
                         rs.getInt("NoSpectacle"),
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        dat, rs.getFloat("TarifBase"));
+                        new Date( rs.getTimestamp("DateAchat").getTime() ),
+			rs.getFloat("TarifBase"));
                 resaDAO.lire(achat);
                 result.add(achat);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } catch (ParseException ex) {
-            Logger.getLogger(AchatDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeResultSet(rs);
             closeStatement(st);
@@ -216,9 +203,7 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
             st.setString(1, login);
             rs = st.executeQuery();
             while (rs.next()) {
-                Date dateFormatted = new Date( rs.getTimestamp("DateAchat").getTime() );
-                DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
-                Date dat = df.parse(df.format(dateFormatted));
+                Date dat= new Date( rs.getTimestamp("DateAchat").getTime() );
                 Achat achat = new Achat(rs.getString("Login"),
                         rs.getInt("NoSpectacle"),
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
@@ -230,8 +215,6 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } catch (ParseException ex) {
-            Logger.getLogger(AchatDAO.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             closeResultSet(rs);
             closeStatement(st);

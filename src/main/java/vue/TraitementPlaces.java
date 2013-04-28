@@ -62,7 +62,7 @@ public class TraitementPlaces {
         return total;
     }
     
-    public static String prixString(List<Zone> listeZones){
+    public static String prixString(List<Zone> listeZones) {
         float[] prices = new float[4];
         int i = 0;
         for(Zone z:listeZones) {

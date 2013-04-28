@@ -6,12 +6,12 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="Layout/header.jsp"/>    
+<c:import url="Layout/header.jsp"/>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css" />
+<style type="text/css" media="screen">
+    @import url(statsstyle.css);
+</style>
+
 <script>
     $(function() {
         //en supposant que le debut d'une saison est le 1er janvier et la fin le 31 dec
@@ -68,10 +68,10 @@ function ProcessRequest()
     
 </script>
  
-<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
-<div style="float:left;padding-left: 15%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 10%;">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 15%;">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
 
-<div id="stats-container">
+<div id="stats-container" class="clearer">
     <c:import url="stats.jsp"/>
 </div>
 
