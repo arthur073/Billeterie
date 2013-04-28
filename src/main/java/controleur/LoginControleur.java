@@ -124,13 +124,20 @@ public class LoginControleur extends HttpServlet {
 
         // actions spécifiques selon page
         if (from.equalsIgnoreCase("confirmation")) {
-            String places = splitMap(params).get("places");
-            Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
-            float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
-            request.setAttribute("map", map);
-            request.setAttribute("prixTotal", prixTotal);
-            request.setAttribute("titre", "Confirmation de la réservation");
-
+            
+            Object admin = request.getSession().getAttribute("Admin");
+            //on test si on vient de se logguer en admin
+            if ( admin != null && admin.equals(true)) {
+                response.sendRedirect("PagesControleur");
+                return;
+            } else {
+                String places = splitMap(params).get("places");
+                Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
+                float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
+                request.setAttribute("map", map);
+                request.setAttribute("prixTotal", prixTotal);
+                request.setAttribute("titre", "Confirmation de réservation");
+            }
         } else if (from.equalsIgnoreCase("indexAll")) {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             request.setAttribute("representations", repDAO.getRepresentationsAVenir());

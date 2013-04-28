@@ -152,6 +152,7 @@ public class ReservationControleur extends HttpServlet {
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
+        
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             String from = request.getParameter("from");
             Map<String, String> params = parseToMap(request.getParameterMap());
@@ -159,7 +160,7 @@ public class ReservationControleur extends HttpServlet {
             request.setAttribute("from", from);
             request.setAttribute("params", params);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        } else {
+        }  else {
             String places = request.getParameter("places");
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
