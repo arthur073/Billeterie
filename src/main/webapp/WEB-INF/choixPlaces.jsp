@@ -77,12 +77,12 @@
             for(i = 0; i< placesArray.length-1; i++){
                // pour chaque place on récupère les champs
                champsArray = placesArray[i].split('/');
-               noPlace = champsArray[0];write 
+               noPlace = champsArray[0]; 
                noRang = champsArray[1];
                noZone = champsArray[2];
                // on la met à sat
                $('td.numero-'+noPlace+'.rang-'+noRang+'.zone-'+noZone).addClass("sat");
-            };
+            }
         }
     });
 </script>
@@ -132,15 +132,9 @@ Cliquez sur les places que vous désirez : <br/>
 <div id="scene">SCÈNE</div>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
-    <input type="hidden" id="selected" name="places"/> <br/>
-    <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
-    <input type="text" name="prix" id="prix" style="display:none;" value="${prix}" />
-    <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
-    <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
-    <input type="text" name="Date" style="display:none;" value="${Date}" />
-    <input type="text" name="Image" style="display:none;" value="${Image}" />
-    <input type ="text" name="from" style="display: none" value="confirmation"/>
-    <input type ="text" name="params" style="display: none" value="<%= request.getParameterMap()%>"/>
+    <input type="hidden" id="selected" name="places"/> 
+    <input type="hidden" name="NoSpectacle" value="${NoSpectacle}" />
+    <input type="hidden" name="NoRepresentation" value="${NoRepresentation}" />
     <input type="submit" id="action" name="action" label="validerPlaces" value="Valider mes places" class="btnReserver centre"/>
 </form>
     

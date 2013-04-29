@@ -15,6 +15,7 @@ import dao.SpectacleDAO;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -65,8 +66,8 @@ public class ReservationControleur extends HttpServlet {
 
         try {
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-                
+            request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
@@ -138,42 +139,29 @@ public class ReservationControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 
-    private Map<String, String> parseToMap(Map<String, String[]> inputMap) {
-        Map<String, String> outputMap = new LinkedHashMap<String, String>();
-
-        for (Map.Entry<String, String[]> entry : inputMap.entrySet()) {
-            if (!entry.getKey().equalsIgnoreCase("params")) {
-                outputMap.put(entry.getKey(), entry.getValue()[0]);
-            }
-        }
-        return outputMap;
-    }
-
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
+        // Pour la suite (paiement, réservation, login si besoin...), toutes les
+        // infos concernant la transaction en cours seront dans la session.
+        // De plus on la copie pour régler un bug 
+        request.getSession().setAttribute("paramsConfirmation",
+                new HashMap<String, String[]>(request.getParameterMap()));
 
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
-            String from = request.getParameter("from");
-            Map<String, String> params = parseToMap(request.getParameterMap());
-
-            request.setAttribute("from", from);
-            request.setAttribute("params", params);
+            request.setAttribute("redirectionVers", "confirmation");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
         } else {
             String places = request.getParameter("places");
-
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
             float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
-
-            request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
-            request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
             request.setAttribute("map", map);
-            request.setAttribute("places", places);
             request.setAttribute("prixTotal", prixTotal);
-            request.setAttribute("Image", request.getParameter("Image"));
-            request.setAttribute("Date", request.getParameter("Date"));
-            request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            Representation rep = new Representation(
+                    Integer.parseInt(request.getParameter("NoSpectacle")),
+                    Integer.parseInt(request.getParameter("NoRepresentation")));
+            repDAO.lire(rep);
+            request.setAttribute("rep", rep);
             request.setAttribute("titre", "Confirmation de la réservation");
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         }
@@ -181,11 +169,12 @@ public class ReservationControleur extends HttpServlet {
 
     private void reserverPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         ReservationDAO resDAO = new ReservationDAO(ds);
-        String places = request.getParameter("places");
+        Map<String, String[]> params = (Map<String, String[]>) request.getSession().getAttribute("paramsConfirmation");
+        String places = params.get("places")[0];
         Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
         String login = (String) request.getSession().getAttribute("Login");
-        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
-        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
+        int NoSpectacle = Integer.parseInt(params.get("NoSpectacle")[0]);
+        int NoRepresentation = Integer.parseInt(params.get("NoRepresentation")[0]);
         for (Map.Entry<Zone, List<Place>> entry : map.entrySet()) {
             Zone z = entry.getKey();
             for (Place p : entry.getValue()) {

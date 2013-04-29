@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import modele.Place;
+import modele.Representation;
 import modele.TypeUtilisateur;
 
 import modele.Utilisateur;
@@ -93,34 +94,13 @@ public class LoginControleur extends HttpServlet {
         }
     }
 
-    private Map<String, String> splitMap(String params) {
-        Map<String, String> mapTemp = new LinkedHashMap<String, String>();
-        if (!params.equals("")) {
-            for (String pair : params.split(", ")) {
-                String[] kv = pair.split("=");
-                mapTemp.put(kv[0].replace("{", ""), kv[1]);
-            }
-        }
-        return mapTemp;
-    }
-
     private void actionAfficher(HttpServletRequest request, HttpServletResponse response)
             throws DAOException, ServletException, IOException {
 
-        String from = request.getParameter("from");
-        
+        String from = request.getParameter("redirectionVers");
         if (from.equalsIgnoreCase("")) {
             from = "indexAll";
         }
-        
-        String params = request.getParameter("params");
-
-        // on set les attributes de la request 
-        for (Map.Entry<String, String> entry : splitMap(params).entrySet()) {
-            request.setAttribute(entry.getKey().toString(), entry.getValue().toString());
-
-        }
-
 
         // actions spécifiques selon page
         if (from.equalsIgnoreCase("confirmation")) {
@@ -131,21 +111,26 @@ public class LoginControleur extends HttpServlet {
                 response.sendRedirect("PagesControleur");
                 return;
             } else {
-                String places = splitMap(params).get("places");
+                Map<String, String[]> params = (Map<String, String[]>) request.getSession().getAttribute("paramsConfirmation");
+                String places = params.get("places")[0];
                 Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
                 float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
                 request.setAttribute("map", map);
                 request.setAttribute("prixTotal", prixTotal);
+                RepresentationDAO repDAO = new RepresentationDAO(ds);
+                Representation rep = new Representation(
+                        Integer.parseInt(params.get("NoSpectacle")[0]),
+                        Integer.parseInt(params.get("NoRepresentation")[0]));
+                repDAO.lire(rep);
+                request.setAttribute("rep", rep);
                 request.setAttribute("titre", "Confirmation de réservation");
             }
+            getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
         } else if (from.equalsIgnoreCase("indexAll")) {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             request.setAttribute("representations", repDAO.getRepresentationsAVenir());
             request.setAttribute("titre", "Mes billets en ligne");
+            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
         }
-
-
-        // on redirige vers la bonne page
-        getServletContext().getRequestDispatcher("/WEB-INF/" + from + ".jsp").forward(request, response);
     }
 }
