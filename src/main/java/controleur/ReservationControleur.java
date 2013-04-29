@@ -64,6 +64,9 @@ public class ReservationControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
+            request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
+                
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
@@ -76,6 +79,8 @@ public class ReservationControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("Reserver mes places")) {
                 reserverPlaces(request, response);
             } else if (action.equalsIgnoreCase("Payer mes places")) {
+                request.setAttribute("places", request.getParameter("places"));
+                request.setAttribute("resAsupprimer", request.getParameter("resAsupprimer"));
                 sortirCarteBleue(request, response);
             } else if (action.equalsIgnoreCase("Proceder au paiement")) {
                 payerPlaces(request, response);

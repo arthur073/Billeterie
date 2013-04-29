@@ -60,11 +60,12 @@
 <br/>
 
 <form action="ReservationControleur"  class="reserverFormCentre" method="post">
-     <input type="text" name="places" style="display:none;" value="${places}" />
+     <input type="text" name="places" style="" value="${places}" />
      <input type="text" name="map" style="display:none;" value="${map}" />
      <input type="text" name="prixTotal" style="display:none;" value="${prixTotal}" />
      <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
      <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
+     <input type="text" name="resAsupprimer" style="display:none;" value="0" />
      <input type="submit" name="action" label="reserverPlaces" value="Reserver mes places" class="btnReserverCentre"/>
      <input type="submit" name="action" label="acheterPlaces" value="Payer mes places" class="btnReserverCentre"/>
 </form>
