@@ -21,20 +21,20 @@ public class SpectacleDAO extends ProviderDAO implements DAOMetier<Spectacle> {
     }
 
     /**
-     * Renvoie la liste des représentations futures du spectacle donné.
+     * Renvoie la liste des représentations futures du spectacle donné, excepté la représentation donnée.
      *
      * La liste est triée par dates de représentation croissantes.
      */
-    public List<Representation> getRepresentationsPour(int NoSpectacle, int NoRepresentation) throws DAOException {
+    public List<Representation> getAutresRepresentationsPour(Representation rep) throws DAOException {
         List<Representation> result = new ArrayList<Representation>();
         ResultSet rs = null;
         PreparedStatement st = null;
         Connection conn = null;
         try {
             conn = getConnection();
-            st = conn.prepareStatement(getRequete("SELECT_LISTE_REPRESENTATIONS_DU_SPECTACLE"));
-            st.setInt(1, NoSpectacle);
-            st.setInt(2, NoRepresentation);
+            st = conn.prepareStatement(getRequete("SELECT_LISTE_AUTRES_REPRESENTATIONS_DU_SPECTACLE"));
+            st.setInt(1, rep.getNoSpectacle());
+            st.setInt(2, rep.getNoRepresentation());
             rs = st.executeQuery();
             while (rs.next()) {
                 result.add(RepresentationDAO.construire(rs));

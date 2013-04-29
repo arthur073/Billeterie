@@ -12,26 +12,20 @@
 <c:import url="Layout/header.jsp"/>    
 
 Vous avez choisi la représentation suivante : <br/>
-<div class="reserver" >
-    <table>
+    <table class="reserver">
         <tr>
             <td>
-                <img class="reserverImg" src="images/<%= request.getParameter("Image")%>"/>
+                <img class="reserverImg" src="images/${rep.spectacle.image}"/>
             </td>
             <td>
-                <h3> <%= request.getParameter("NomSpectacle")%> </h3>
-                <h3> Le  <%= request.getParameter("Date")%></h3>
+                <h3>${rep.spectacle.nom}</h3>
+                <h3>Le ${rep.date}</h3>
             </td>
             <td>
-                
                 <form action="ReservationControleur"  class="reserverForm" method="post">
                     <h4> Choisissez vos places : </h4> 
-                    <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
-                    <input type="text" name="NoRepresentation" style="display:none;" value="${NoRepresentation}" />
-                    <input type="text" name="listeZones" style="display:none;" value="${listeZones}" />
-                    <input type="text" name="Date" value="${Date}" style="display:none;"/>
-                    <input type="text" name="Image" value="${Image}" style="display:none;"/>
-                    <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
+                    <input type="hidden" name="NoSpectacle" value="${rep.noSpectacle}" />
+                    <input type="hidden" name="NoRepresentation" value="${rep.noRepresentation}" />
                         <% 
                             List<Zone> listeCateg = (List<Zone>)request.getAttribute("listeZones");
                             request.setAttribute("listeZones",listeCateg);
@@ -42,47 +36,34 @@ Vous avez choisi la représentation suivante : <br/>
                                 <% 
                             }
                         %> 
-                       <input type="text" name="prix" style="display:none;" value="${prix}"/>  
                     <input type="submit" name="action" value="Choisir mes places" class="btnReserver"/> 
                 </form>
             </td>
         </tr>
     </table>
-</div>
-<br/>
-
+        
 <c:if test="${not empty representations}">
-    Le spectacle <%= request.getParameter("NomSpectacle")%> est aussi disponible aux dates suivantes : <br/><br/>
+    Le spectacle ${rep.spectacle.nom} est aussi disponible aux dates suivantes : <br/><br/>
+        
+    <c:forEach items="${representations}" var="rep">
+        <div class="reserverSmall">
+            <table>
+                <tr>
+                    <td><img alt="Affiche pour ${rep.spectacle.nom}" class="reserverImgSmall" src="images/${rep.spectacle.image}"/></td>
+                    <td><h3> Le  ${rep.getDate(null)}</h3></td>
+                    <td>
+                        <form action="ReservationControleur" method="post">
+                            <input type="hidden" name="NoSpectacle" value="${rep.noSpectacle}" />
+                            <input type="hidden" name="NoRepresentation" value="${rep.noRepresentation}" />
+                            <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </c:forEach> 
 </c:if>
-
-<c:forEach items="${representations}" var="rep">
-    <div class="reserverSmall" >
-        <table>
-            <tr>
-                <td>
-                    <img class="reserverImgSmall" src="images/${rep.spectacle.image}"/>
-                </td>
-                
-                <td>
-                    <h3> Le  ${rep.getDate(null)}</h3>
-                </td>
-                <td>
-                    <form action="ReservationControleur" method="post">
-                      <input type="text" name="NoSpectacle" style="display:none;" value="${rep.getNoSpectacle()}" />
-                      <input type="text" name="NoRepresentation" style="display:none;" value="${rep.getNoRepresentation()}" />
-                      <input type="text" name="listeZones" style="display:none;" value="${listeZones}" />
-                      <input type="text" name="Date" value="${rep.getDate(null)}" style="display:none;"/>
-                      <input type="text" name="Image" value="${Image}" style="display:none;"/>
-                      <input type="text" name="NomSpectacle" value="${NomSpectacle}" style="display:none;"/>
-                      <input type="text" name="prix" style="display:none;" value="${prix}"/>  
-                      <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
-                    </form>
-                </td>
-            </tr>
-        </table>
-    </div>
-</c:forEach>
-
-
-<c:import url="Layout/footer.jsp"/>
-
+    
+    
+                        <c:import url="Layout/footer.jsp"/>
+                        

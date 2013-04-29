@@ -5,8 +5,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 import javax.sql.DataSource;
 
 import modele.Client;
@@ -64,10 +66,39 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
     }
 
     /**
+     * Renvoie l'ensemble des places réservées et achetées pour une representation donnée.
+     */
+    public Set<Place> getPlacesReserveesPourRepresentation(Representation rep) throws DAOException {
+        Set<Place> result = new HashSet<Place>();
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_PLACES_RESERVEES"));
+            st.setInt(1, rep.getNoSpectacle());
+            st.setInt(2, rep.getNoRepresentation());
+            st.setInt(3, rep.getNoSpectacle());
+            st.setInt(4, rep.getNoRepresentation());
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(PlaceDAO.construire(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
+    }
+
+    /**
      * Renvoie la liste des reservations pour une representation donnee
      */
-    public LinkedList<Reservation> getListeReservationsPourRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
-        LinkedList<Reservation> result = new LinkedList<Reservation>();
+    public List<Reservation> getListeReservationsPourRepresentation(int noSpectacle, int noRepresentation) throws DAOException {
+        List<Reservation> result = new LinkedList<Reservation>();
         ResultSet rs = null;
         PreparedStatement st = null;
         Connection conn = null;

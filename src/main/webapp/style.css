@@ -248,29 +248,32 @@ table.indexTable tr {
     height : 2em;
 }
 
-div.reserver {
+.reserver {
     box-shadow: 0px 2px 5px #1c1a19;
     vertical-align: middle;
     width : 100%;
     margin-top : 1em;
-    margin-bottom : 2em;
+    margin-bottom : 4em;
 }
 
 
-
-div.reserverSmall {
+.reserverSmall {
+    width: 100%;
     box-shadow: 0px 2px 5px #1c1a19;
-    width : 100%;
-    margin-top : 0.5em;
-    margin-bottom : 1em;
+    margin-top: 0.5em;
+    margin-bottom: 1em;
 }
 
-div.reserver h3 {
+.reserverSmall table {
+    margin: auto;
+}
+
+.reserver h3 {
     text-align: center;
     margin-right : 4em;
 }
 
-div.reserverSmall h3 {
+.reserverSmall h3 {
     text-align: center;
     margin-right : 4em;
     margin-top : 1em;
@@ -365,78 +368,52 @@ span.price {
     margin-top : 2em;
 }
 
-#chairs tr td.sitstop {
-    width : 20px;
+/* Cacher le texte des cellules */
+#chairs span {
+    display: none;
 }
 
-#chairs tr.sitstop {
-    height : 20px;
+/* Forme d'une place */
+#chairs td {
+    display: block;
+    float: left;
+    margin: 1px;
+    padding: 0;
+    width : 22px;
+    height: 22px;
 }
-
-#chairs tr td.sat {
-    width : 20px;
-    height : 20px;
-    border: red solid 2px;
-    text-align: center;
-    color : white;
-    background: red;
+#chairs td.place {
+    width : 18px;
+    height : 18px;
+    border: black solid 2px;
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
-#chairs tr td.poulailler {
-    width : 20px;
-    height : 20px;
-    border: black solid 2px;
-    text-align: center;
-    color : white;
+/* Couleurs par zones */
+#chairs td.zone-1 {
     background: yellow;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
-#chairs tr td.orchestre {
-    width : 20px;
-    height : 20px;
-    border: black solid 2px;
-    text-align: center;
-    color : white;
+#chairs td.zone-2 {
     background: green;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
-#chairs tr td.balcon {
-    width : 20px;
-    height : 20px;
-    border: black solid 2px;
-    text-align: center;
-    color : white;
+#chairs td.zone-3 {
     background: orange;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
-#chairs tr td.loge {
-    width : 20px;
-    height : 20px;
-    border: black solid 2px;
-    text-align: center;
-    color : white;
+#chairs td.zone-4 {
     background: purple;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
 }
 
-#chairs tr td.occupe {
-    width : 20px;
-    height : 20px;
-    border: black solid 2px;
-    text-align: center;
-    color : white;
+#chairs td.occupee {
+    border-color: #282828;
     background: grey;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+}
+
+#chairs td.sat {
+    background: red;
 }
 
 div#pop-up {
@@ -448,7 +425,6 @@ div#pop-up {
     padding-right: 1em;
     padding-left: 1em;
     box-shadow: 0px 2px 5px #1c1a19;
-
 }
 
 div#pop-up h3 {

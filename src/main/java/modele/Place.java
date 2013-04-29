@@ -1,5 +1,7 @@
 package modele;
 
+import org.apache.commons.lang.builder.HashCodeBuilder;
+
 /**
  * Représente une place de la salle de spectacle.
  */
@@ -87,4 +89,19 @@ public class Place {
         return "Place " + this.noPlace + " Rang " + this.noRang;    
     }
 
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Place)) return false;
+        Place otherPlace = (Place) other;
+        return otherPlace.noPlace == this.noPlace
+                && otherPlace.noRang == this.noRang;
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(13, 41).
+            append(noPlace).append(noRang).toHashCode();
+    }
 }

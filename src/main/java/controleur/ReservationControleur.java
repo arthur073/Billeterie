@@ -6,6 +6,7 @@ package controleur;
 
 import dao.AchatDAO;
 import dao.DAOException;
+import dao.PlaceDAO;
 import dao.RepresentationDAO;
 import dao.ReservationDAO;
 import dao.ZoneDAO;
@@ -26,7 +27,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 import modele.Achat;
 import modele.Place;
+import modele.Representation;
 import modele.Reservation;
+import modele.Spectacle;
 
 import modele.Zone;
 import vue.FlashImpl;
@@ -86,37 +89,47 @@ public class ReservationControleur extends HttpServlet {
         }
     }
 
+    /**
+     * Construit l'objet Représentation à partir de ses identifiants reçus par
+     * GET ou POST, dans les variables NoSpectacle et NoRepresentation.
+     */
+    private Representation getRepresentation(HttpServletRequest request) throws DAOException {
+        RepresentationDAO repDAO = new RepresentationDAO(ds);
+        int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
+        int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
+        Representation rep = new Representation(noSpectacle, noRepresentation);
+        repDAO.lire(rep);
+        return rep;
+    }
+
     private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
-        ZoneDAO zone = new ZoneDAO(ds);
-        SpectacleDAO spec = new SpectacleDAO(ds);
-        List<Zone> listeZones = zone.getZones();
-        request.setAttribute("prix", TraitementPlaces.prixString(listeZones));
-        request.setAttribute("listeZones", listeZones);
         request.setAttribute("titre", "Reservation de billets");
-        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
-        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
-        request.setAttribute("NoSpectacle", NoSpectacle);
-        request.setAttribute("NoRepresentation", NoRepresentation);
-        request.setAttribute("Image", request.getParameter("Image"));
-        request.setAttribute("Date", request.getParameter("Date"));
-        request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
-        request.setAttribute("representations", spec.getRepresentationsPour(NoSpectacle, NoRepresentation));
+        // La représentation demandée
+        Representation rep = getRepresentation(request);
+        request.setAttribute("rep", rep);
+        // Les autres représentations du spectacle
+        SpectacleDAO specDAO = new SpectacleDAO(ds);
+        request.setAttribute("representations", specDAO.getAutresRepresentationsPour(rep));
+        // Les infos sur les catégories de places
+        ZoneDAO zone = new ZoneDAO(ds);
+        request.setAttribute("listeZones", zone.getZones());
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
 
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Reservation de billets");
+        // La représentation demandée
+        Representation rep = getRepresentation(request);
+        request.setAttribute("rep", rep);
+        // Toutes les zones
+        ZoneDAO zDAO = new ZoneDAO(ds);
+        request.setAttribute("Zones", zDAO.getZones());
+        // Toutes les places
+        PlaceDAO pDAO = new PlaceDAO(ds);
+        request.setAttribute("ToutesPlaces", pDAO.getMatricePlaces());
+        // Les places actuellement occupées
         ReservationDAO resDAO = new ReservationDAO(ds);
-        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle").toString());
-        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation").toString());
-        request.setAttribute("NoSpectacle", NoSpectacle);
-        request.setAttribute("NoRepresentation", NoRepresentation);
-        request.setAttribute("Image", request.getParameter("Image"));
-        request.setAttribute("Date", request.getParameter("Date"));
-        request.setAttribute("NomSpectacle", request.getParameter("NomSpectacle"));
-        request.setAttribute("prix", request.getParameter("prix"));
-        LinkedList<Reservation> PlacesOccupees = resDAO.getListeReservationsPourRepresentation(NoSpectacle, NoRepresentation);
-        request.setAttribute("PlacesOccupees", PlacesOccupees);
+        request.setAttribute("PlacesOccupees", resDAO.getPlacesReserveesPourRepresentation(rep));
         getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
     }
 
@@ -134,7 +147,7 @@ public class ReservationControleur extends HttpServlet {
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
 
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
-        
+
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             String from = request.getParameter("from");
             Map<String, String> params = parseToMap(request.getParameterMap());
@@ -142,7 +155,7 @@ public class ReservationControleur extends HttpServlet {
             request.setAttribute("from", from);
             request.setAttribute("params", params);
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-        }  else {
+        } else {
             String places = request.getParameter("places");
 
             Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
@@ -205,7 +218,7 @@ public class ReservationControleur extends HttpServlet {
                         p.getNoPlace(), NoDossier, NoSerie, new Date(), z.getTarifBase());
                 NoSerie++;
                 achatDAO.creer(achat);
-                
+
                 if (Integer.parseInt(request.getParameter("resAsupprimer")) == 1) {
                     ReservationDAO resDAO = new ReservationDAO(ds);
                     Reservation resa = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
