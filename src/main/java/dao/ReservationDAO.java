@@ -1,6 +1,5 @@
 package dao;
 
-import static dao.ProviderDAO.closeResultSet;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,10 +18,17 @@ import modele.Reservation;
  *
  * @author arthur
  */
-public class ReservationDAO extends ProviderDAO<Reservation> {
+public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation> {
+
+    private final ClientDAO cDAO;
+    private final RepresentationDAO rDAO;
+    private final PlaceDAO pDAO;
 
     public ReservationDAO(DataSource ds) {
         super(ds);
+        cDAO = new ClientDAO(ds);
+        rDAO = new RepresentationDAO(ds);
+        pDAO = new PlaceDAO(ds);
     }
 
     /**
@@ -151,9 +157,6 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
             closeStatement(st);
             closeConnection(conn);
         }
-
-
-
         return result;
     }
 
@@ -185,15 +188,12 @@ public class ReservationDAO extends ProviderDAO<Reservation> {
      */
     @Override
     public void lire(Reservation r) throws DAOException {
-        ClientDAO uDAO = new ClientDAO(dataSource);
         Client c = new Client(r.getLogin());
-        uDAO.lire(c);
+        cDAO.lire(c);
         r.setClient(c);
-        RepresentationDAO repDAO = new RepresentationDAO(dataSource);
         Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation());
-        repDAO.lire(rep);
+        rDAO.lire(rep);
         r.setRepresentation(rep);
-        PlaceDAO pDAO = new PlaceDAO(dataSource);
         Place p = new Place(r.getNoPlace(), r.getNoRang(), r.getNoZone());
         pDAO.lire(p);
         r.setPlace(p);

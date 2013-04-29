@@ -6,12 +6,13 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:import url="Layout/header.jsp"/>    
+<c:import url="Layout/header.jsp"/>
 
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-<script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
-<link rel="stylesheet" href="/resources/demos/style.css" />
+<style type="text/css" media="screen">
+    @import url(http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css);
+    @import url(statsstyle.css);
+</style>
+
 <script>
     $(function() {
         //en supposant que le debut d'une saison est le 1er janvier et la fin le 31 dec
@@ -59,51 +60,8 @@ function ProcessRequest()
             }
             else
             {
-                //parseur a deplacer surement
-                var parseXml;
-                if (typeof window.DOMParser !== "undefined") {
-                    racine = ( new window.DOMParser() ).parseFromString(xmlHttp.responseText, "text/xml");
-                } else if (typeof window.ActiveXObject !== "undefined" &&
-                       new window.ActiveXObject("Microsoft.XMLDOM")) {
-                    var racine = new window.ActiveXObject("Microsoft.XMLDOM");
-                    racine.async = "false";
-                    racine.loadXML(xmlHttp.responseText);
-                } else {
-                    alert("et merde ! ");
-                    throw new Error("No XML parser found");
-                }
-                //fin parseur
-
-                //root
-                var arbre = racine.childNodes[0];
-                
-                //noeuds principaux
-                var benefTotal = arbre.childNodes[0].textContent;
-                var listeSpectaclesPlacesVendues = arbre.childNodes[1];
-                var listeSpectaclesLesPlusRentables = arbre.childNodes[2];
-                var listeSpectaclesTauxRemplissage = arbre.childNodes[3];
-                
-                document.getElementById( "valeurBenefTotal"    ).innerHTML = benefTotal;
-                
-                // les 4 boucles de parcours ont été laissées comme tel pour
-                // vous simplifier la lecture, mais on peut factoriser si vous voulez :)
-                for(var i = 0; i< listeSpectaclesPlacesVendues.childNodes.length; i++){
-                    for(var j = 0; j< 2; j++){
-                        alert(listeSpectaclesPlacesVendues.childNodes[i].childNodes[j].textContent);
-                    }
-                }
-                
-                for(var i = 0; i< listeSpectaclesLesPlusRentables.childNodes.length; i++){
-                    for(var j = 0; j< 2; j++){
-                        alert(listeSpectaclesLesPlusRentables.childNodes[i].childNodes[j].textContent);
-                    }
-                }
-                
-                for(var i = 0; i< listeSpectaclesTauxRemplissage.childNodes.length; i++){
-                    for(var j = 0; j< 2; j++){
-                        alert(listeSpectaclesTauxRemplissage.childNodes[i].childNodes[j].textContent);
-                    }
-                }          
+                // on récupère direct du HTML
+                $("#stats-container").innerHTML = xmlHttp.responseText;
             }   
         }
     }
@@ -111,26 +69,12 @@ function ProcessRequest()
     
 </script>
  
-<div style="float:left;padding-left: 10%">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
-<div style="float:left;padding-left: 15%">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
-<br><br>
-<table style="clear:both; border: 1px solid black">
-    <tr>
-        <td>Bénéfice total</td>
-        <td id="valeurBenefTotal">100</td>
-    </tr>
-    <tr>
-        <td>Liste deroulante Spectacle </td>
-        <td id="listeSpectacles">vide</td>
-    </tr>
-    <tr>
-        <td>Liste des 5 spectacles les plus rentables</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Taux de remplissage les plus élevés</td>
-        <td></td>
-    </tr>
-</table>
+<div style="float:left;padding-left: 10%;">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 15%;">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
+
+<div id="stats-container" class="clearer">
+    <c:import url="stats.jsp"/>
+</div>
+
 <c:import url="Layout/footer.jsp"/>
 

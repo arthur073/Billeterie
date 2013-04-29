@@ -1,0 +1,37 @@
+/* 
+    Document   : statsstyle
+    Created on : 28 avr. 2013, 12:16:04
+    Author     : jany
+    Description:
+        Style des statistiques pour le responsable.
+*/
+
+#stats-container {
+    padding: 2em 0;
+}
+
+#stats-container table {
+    width: 100%;
+}
+
+#stats-container th {
+    background: #B42223;
+    color: white;
+}
+
+.colonne-stats {
+    width: 25%;
+}
+
+#stats-meilleurs th, #stats-meilleurs td {
+    width: 25%;
+}
+#stats-meilleurs th[colspan='2'] {
+    width: 50%;
+}
+
+#stats-globales th {
+    width: 50%;
+}
+
+

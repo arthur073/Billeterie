@@ -71,9 +71,10 @@ public class UtilisateursControleur extends HttpServlet {
             } else {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
             }
-        } catch (DAOException ex) {
-            request.setAttribute("erreurMessage", ex.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        } catch (DAOException e) {
+            throw new RuntimeException(e);
+            // request.setAttribute("erreurMessage", e.getMessage());
+            // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
 
@@ -93,8 +94,9 @@ public class UtilisateursControleur extends HttpServlet {
 
             }
         } catch (DAOException e) {
-            request.setAttribute("erreurMessage", e.getMessage());
-            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            throw new RuntimeException(e);
+            // request.setAttribute("erreurMessage", e.getMessage());
+            // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
 
     }
@@ -158,8 +160,9 @@ public class UtilisateursControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
     }
 
-    private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Admin");
+        StatsControleur.remplirRequeteDeStats(ds, request, response);
         getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 

@@ -14,7 +14,7 @@ import modele.Representation;
 import modele.Place;
 import modele.Zone;
 
-public class PlaceDAO extends ProviderDAO<Place> {
+public class PlaceDAO extends ProviderDAO implements DAOMetier<Place> {
 
     public PlaceDAO(DataSource ds) {
         super(ds);
@@ -35,13 +35,7 @@ public class PlaceDAO extends ProviderDAO<Place> {
             st = conn.prepareStatement(getRequete("SELECT_TOUTES_PLACES"));
             rs = st.executeQuery();
             while (rs.next()) {
-                // TODO check si NoZone ça marche ou bien si c'est z.NoZone
-                Place p = new Place(rs.getInt("NoPlace"),
-                        rs.getInt("NoRang"), rs.getInt("NoZone"));
-                Zone z = new Zone(rs.getInt("NoZone"),
-                        rs.getString("Categorie"), rs.getFloat("TarifBase"));
-                p.setZone(z);
-                places.add(p);
+                places.add(construire(rs));
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -51,6 +45,48 @@ public class PlaceDAO extends ProviderDAO<Place> {
             closeConnection(conn);
         }
         return places;
+    }
+
+    /**
+     * Renvoie le nombre total de places.
+     */
+    public int getNombrePlaces() throws DAOException {
+        int result = 0;
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_NOMBRE_PLACES"));
+            rs = st.executeQuery();
+            if (rs.next()) {
+                result = rs.getInt("NombrePlaces");
+            } else {
+                throw new DAOException("Le calcul du nombre total de places n'a rien donné.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
+    }
+
+
+
+    /**
+     * Construit une place à partir d'un ResultSet.
+     * @throws SQLException
+     */
+    public static Place construire(ResultSet rs) throws SQLException {
+        Place p = new Place(rs.getInt("NoPlace"),
+                rs.getInt("NoRang"), rs.getInt("NoZone"));
+        Zone z = new Zone(rs.getInt("NoZone"),
+                rs.getString("Categorie"), rs.getFloat("TarifBase"));
+        p.setZone(z);
+        return p;
     }
 
     /**
@@ -74,26 +110,10 @@ public class PlaceDAO extends ProviderDAO<Place> {
      */
     @Override
     public void lire(Place p) throws DAOException {
-        Connection conn = null;
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            conn = getConnection();
-            st = conn.prepareStatement(getRequete("SELECT_ZONE"));
-            st.setInt(1, p.getNoZone());
-            rs = st.executeQuery();
-            if (rs.next()) {
-                Zone z = new Zone(p.getNoZone(),
-                        rs.getString("Categorie"), rs.getFloat("TarifBase"));
-                p.setZone(z);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } finally {
-            closeResultSet(rs);
-            closeStatement(st);
-            closeConnection(conn);
-        }
+        ZoneDAO zdao = new ZoneDAO(dataSource);
+        Zone z = new Zone(p.getNoZone());
+        zdao.lire(z);
+        p.setZone(z);
     }
 
     @Override

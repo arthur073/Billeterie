@@ -21,35 +21,6 @@ import modele.Zone;
  */
 public class TraitementPlaces {
 
-    private float prixPoulailler;
-    private float prixOrchestre;
-    private float prixBalcon;
-    private float prixLoge;
-    private float prixTotalPoulailler;
-    private float prixTotalOrchestre;
-    private float prixTotalBalcon;
-    private float prixTotalLoge;
-
-    public void setPrixPlaces(List<Zone> listeCateg, float prixPoulailler, float prixOrchestre,
-            float prixBalcon, float prixLoge) {
-
-        for (Zone zone : listeCateg) {
-            if ("Poulailler".equals(zone.getCategorie())) {
-                this.prixPoulailler = zone.getTarifBase();
-                prixPoulailler = zone.getTarifBase();
-            } else if ("Orchestre".equals(zone.getCategorie())) {
-                this.prixOrchestre = zone.getTarifBase();
-                prixOrchestre = zone.getTarifBase();
-            } else if ("Balcon".equals(zone.getCategorie())) {
-                this.prixBalcon = zone.getTarifBase();
-                prixBalcon = zone.getTarifBase();
-            } else if ("Loge".equals(zone.getCategorie())) {
-                this.prixLoge = zone.getTarifBase();
-                prixLoge = zone.getTarifBase();
-            }
-        }
-    }
-
     public static Map<Zone, List<Place>> TraiterPlaces(DataSource ds, String places) throws DAOException {
         int noP, noR, noZ;
         String[] tmp;
@@ -73,10 +44,6 @@ public class TraitementPlaces {
             }
         }
         return map;
-        //  this.prixTotalPoulailler = this.getPrixPoulailler() * PlacesPoulailler.size();
-        //  this.prixTotalOrchestre = this.getPrixOrchestre() * PlacesOrchestre.size();
-        //  this.prixTotalBalcon = this.getPrixBalcon() * PlacesBalcon.size();
-        //  this.prixTotalLoge = this.getPrixLoge() * PlacesLoge.size();
     }
 
     public void TraiterPlacesPourBD(Map<Zone, List<Place>> map) {
@@ -95,7 +62,7 @@ public class TraitementPlaces {
         return total;
     }
     
-    public static String prixString(List<Zone> listeZones){
+    public static String prixString(List<Zone> listeZones) {
         float[] prices = new float[4];
         int i = 0;
         for(Zone z:listeZones) {
@@ -104,61 +71,5 @@ public class TraitementPlaces {
         Arrays.sort(prices);        
         String prix = prices[0] + "," + prices[1] + "," + prices[2] + "," + prices[3];
         return prix;
-    }
-
-    /**
-     * @return the prixPoulailler
-     */
-    public float getPrixPoulailler() {
-        return prixPoulailler;
-    }
-
-    /**
-     * @return the prixOrchestre
-     */
-    public float getPrixOrchestre() {
-        return prixOrchestre;
-    }
-
-    /**
-     * @return the prixBalcon
-     */
-    public float getPrixBalcon() {
-        return prixBalcon;
-    }
-
-    /**
-     * @return the prixLoge
-     */
-    public float getPrixLoge() {
-        return prixLoge;
-    }
-
-    /**
-     * @return the prixTotalPoulailler
-     */
-    public float getPrixTotalPoulailler() {
-        return prixTotalPoulailler;
-    }
-
-    /**
-     * @return the prixTotalOrchestre
-     */
-    public float getPrixTotalOrchestre() {
-        return prixTotalOrchestre;
-    }
-
-    /**
-     * @return the prixTotalBalcon
-     */
-    public float getPrixTotalBalcon() {
-        return prixTotalBalcon;
-    }
-
-    /**
-     * @return the prixTotalLoge
-     */
-    public float getPrixTotalLoge() {
-        return prixTotalLoge;
     }
 }

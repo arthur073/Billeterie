@@ -16,7 +16,7 @@ import modele.Utilisateur;
  *
  * @author Michel, Jany
  */
-public class UtilisateurDAO extends ProviderDAO<Utilisateur> {
+public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur> {
 
     public UtilisateurDAO(DataSource ds) {
         super(ds);

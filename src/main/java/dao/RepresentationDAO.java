@@ -26,7 +26,7 @@ import modele.Spectacle;
  *
  * @author arthur
  */
-public class RepresentationDAO extends ProviderDAO<Representation> {
+public class RepresentationDAO extends ProviderDAO implements DAOMetier<Representation> {
     public RepresentationDAO(DataSource ds) {
         super(ds);
     }
@@ -188,8 +188,7 @@ public class RepresentationDAO extends ProviderDAO<Representation> {
                 Date dat = df.parse(df.format(dateFormatted));
                 rep.setDate(dat);
                 System.out.println(rs.getInt("NoSpectacle"));
-                rep.setSpectacle(SpectacleDAO.construire(rs.getInt("NoSpectacle"), 
-                        rs.getString("nom"), rs.getString("image")));
+                rep.setSpectacle(SpectacleDAO.construire(rs));
             } else {
                 throw new DAOException(DAOException.Type.NON_TROUVE,
                         "Représentation non trouvée"+ st.toString());

@@ -580,4 +580,3 @@ insert into AReserveNPlaces values ('toto',1,1,1,1,3);
 insert into AAcheteNPlaces values ('toto', 1, 2, 1, 1, 3, 1, 1, 20130102);
 
 
-

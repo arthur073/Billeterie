@@ -67,6 +67,8 @@ public class ReservationControleur extends HttpServlet {
 
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
+                //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
+                //request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
                 actionConfirmation(request, response);
             } else if (action.equalsIgnoreCase("Reserver mes places")) {
                 reserverPlaces(request, response);

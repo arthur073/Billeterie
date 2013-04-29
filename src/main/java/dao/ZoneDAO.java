@@ -6,28 +6,44 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.sql.DataSource;
 
 import modele.Zone;
 import modele.Place;
 
-public class ZoneDAO extends ProviderDAO<Zone> {
+public class ZoneDAO extends ProviderDAO implements DAOMetier<Zone> {
 
     public ZoneDAO(DataSource ds) {
         super(ds);
     }
 
     /**
-     * Renvoie l'ensemble des zones de cette zone.
+     * Renvoie la liste des places de la zone donnée.
+     * @throws DAOException
      */
-    public Set<Place> getPlaces() {
-        // TODO
-        return null;
+    public List<Place> getPlaces(int noZone) throws DAOException {
+        List<Place> result = new ArrayList<Place>();
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_PLACES_PAR_ZONE"));
+            st.setInt(1, noZone);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result.add(PlaceDAO.construire(rs));
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
+        return result;
     }
-    
-    
 
     /**
      * Renvoie la liste des zones existantes, triées par tarifs de base
@@ -89,11 +105,11 @@ public class ZoneDAO extends ProviderDAO<Zone> {
 
     @Override
     public void mettreAJour(Zone obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles zones !");
+        throw new DAOException("Impossible de modifier les zones !");
     }
 
     @Override
     public void supprimer(Zone obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles zones !");
+        throw new DAOException("Impossible de supprimer les zones !");
     }
 }
