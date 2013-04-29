@@ -12,7 +12,7 @@
     </tr>
     <c:forEach items="${representations}" var="rep">
         <tr>
-            <td><img height="80"  src="images/${rep.spectacle.image}"/></td>
+            <td><img height="80"  src="images/${rep.spectacle.image}" class="shadowImg"/></td>
             <td>${rep.spectacle.nom}</td>
             <td>${rep.getDate(null)}</td>
             <td> 

@@ -237,7 +237,7 @@ public class UtilisateursControleur extends HttpServlet {
 
 
             Image img = Image.getInstance(new URL(imageUrl));
-            img.scalePercent(70);
+            img.scaleAbsolute(45, 55);
             img.setAbsolutePosition(60, 180);
 
             Paragraph corps = new Paragraph();
@@ -252,14 +252,12 @@ public class UtilisateursControleur extends HttpServlet {
             long randomNum;
             randomNum = (long)(Math.random() * (3999999999999L-3000000000000L)) + 3000000000000L;
             innerCode = String.valueOf(randomNum);
-
             codeEAN.setCode(innerCode);
 
             Image code = codeEAN.createImageWithBarcode(cb, null, null);
             code.scalePercent(150);
-            code.setAbsolutePosition(280, 180);
+            code.setAbsolutePosition(280, 90);
             addEmptyLine(corps, 2);
-
 
             Paragraph billet = new Paragraph();
             billet.add(new Paragraph(zone.toUpperCase(), grasFont));
@@ -267,19 +265,9 @@ public class UtilisateursControleur extends HttpServlet {
             billet.add(new Paragraph("Place " + place, grasFont));
             billet.add(new Paragraph("Rang " + rang, grasFont));
 
-
-
-
-
-
-
-
             Paragraph fin = new Paragraph();
             addEmptyLine(fin, 1);
             fin.add(new Paragraph("Imprimez ce e-billet et présentez-le à l'entrée du spectacle. "));
-
-
-
 
             document.add(preface);
             document.add(img);

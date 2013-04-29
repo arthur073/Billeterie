@@ -55,7 +55,7 @@
         <c:forEach items="${listAchatSuiv}" var="achat">
             <tr>
                 <td>
-                    <img height="80px"  src="images/${achat.representation.spectacle.image}"/>   
+                    <img height="80px"  src="images/${achat.representation.spectacle.image}" class="shadowImg"/>   
                 </td>
                 <td>
                     ${achat.representation.spectacle.nom}
@@ -108,7 +108,7 @@
         <c:forEach items="${listRes}" var="achat">
             <tr>
                 <td>
-                    <img height="80px"  src="images/${achat.representation.spectacle.image}"/>   
+                    <img height="80px"  src="images/${achat.representation.spectacle.image}" class="shadowImg"/>   
                 <td>
                     ${achat.representation.spectacle.nom}
                 </td>

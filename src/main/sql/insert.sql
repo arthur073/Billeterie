@@ -4,12 +4,12 @@
 
 insert into Spectacle values(1, '-M- Je viens du Sud', 'defaultSpectacle.jpg');
 insert into Spectacle values(2, 'Urban peace 3', 'urbanpeace.jpg');
-insert into Spectacle values(3, 'La Fouine', 'defaultSpectacle.jpg');
-insert into Spectacle values(4, 'Patrick S. - Patoche et ses bretelles', 'defaultSpectacle.jpg');
-insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'defaultSpectacle.jpg');
-insert into Spectacle values(6, 'Gad Elmaleh', 'defaultSpectacle.jpg');
-insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm', 'defaultSpectacle.jpg');
-insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', 'defaultSpectacle.jpg');
+insert into Spectacle values(3, 'La Fouine', 'la-fouine.jpg');
+insert into Spectacle values(4, 'Patrick S. - Patoche et ses bretelles', 'patrick-sebastien.jpg');
+insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'moulin-rouge.jpg');
+insert into Spectacle values(6, 'Gad Elmaleh', 'gad-el.jpg');
+insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm', 'michel.jpg');
+insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', 'vernadat.jpg');
 
 
 
