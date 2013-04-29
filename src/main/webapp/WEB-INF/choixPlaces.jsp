@@ -245,7 +245,7 @@ Cliquez sur les places que vous désirez : <br/>
 <div id="scene">SCÈNE</div>
 
 <form action="ReservationControleur"  class="reserverForm" method="post">
-    <input type="text" id="selected" name="places" style="display: none" /> <br/>
+    <input type="text" id="selected" name="places" style="" /> <br/>
     <input type="text" name="NomSpectacle" style="display:none;" value="${NomSpectacle}" />
     <input type="text" name="prix" id="prix" style="display:none;" value="${prix}" />
     <input type="text" name="NoSpectacle" style="display:none;" value="${NoSpectacle}" />
