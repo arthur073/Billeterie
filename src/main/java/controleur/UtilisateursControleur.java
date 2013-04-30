@@ -226,7 +226,6 @@ public class UtilisateursControleur extends HttpServlet {
             Paragraph corps = new Paragraph();
             corps.setIndentationLeft(80);
             corps.add(new Paragraph(nomS, grasFont));
-            // TODO vrais variables
             corps.add(new Paragraph("Le " + date));
             corps.add(new Paragraph(prix + " €", grasFont));
 

@@ -1,11 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8"%>
-
+<!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <script src="jquery-1.9.1.min.js"></script>
-        <script src="jquery-ui.min.js"></script>
+        <script src="jquery-1.9.1.min.js" type="text/javascript"></script>
+        <script src="jquery-ui.min.js" type="text/javascript"></script>
         <title>MesBillets.com</title>
 
         <script type="text/javascript">
@@ -31,9 +32,9 @@
 
         <% Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
             if (logged != null && logged) {%>
-        <a href="PagesControleur?action=goToLogOut" class="login"/>Me déconnecter</a>
+        <a href="PagesControleur?action=goToLogOut" class="login">Me déconnecter</a>
         <% } else {%>
-    <a href="PagesControleur?action=goToLogin&from=indexAll" class="login"/>Me connecter</a>
+    <a href="PagesControleur?action=goToLogin&from=indexAll" class="login">Me connecter</a>
     <% }%>
 
 

@@ -15,7 +15,6 @@ import javax.sql.DataSource;
 @WebServlet(name = "PagesControleur", urlPatterns = {"/PagesControleur"})
 public class PagesControleur extends HttpServlet {
 
-    // TODO: Changer quand on aura une bd correcte ! 
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
 
