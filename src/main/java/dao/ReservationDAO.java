@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.sql.DataSource;
-
 import modele.Client;
 import modele.Place;
 import modele.Representation;

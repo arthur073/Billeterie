@@ -71,8 +71,6 @@
                 </td>
                 <td>
                     <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
-                    <br/><br/>
-                    <a href="UtilisateursControleur?action=annulerAchat&login=${login}&noS=${achat.noSpectacle}&noR=${achat.noRepresentation}&noZ=${achat.noZone}&noRang=${achat.noRang}&noP=${achat.noPlace}&tarif=${achat.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet achat ?')">Annuler</a>
                 </td>
             </tr>
         </c:forEach>
