@@ -11,8 +11,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -45,7 +43,7 @@ public class StatsControleur extends HttpServlet {
                 remplirRequeteDeStats(ds, request, response);
                 getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
             } else {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (DAOException ex) {
             throw new RuntimeException(ex);

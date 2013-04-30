@@ -8,7 +8,6 @@ import dao.DAOException;
 import dao.RepresentationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -42,7 +41,7 @@ public class LoginControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         if (((HttpServletRequest) request).getMethod().equals("GET")) {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 

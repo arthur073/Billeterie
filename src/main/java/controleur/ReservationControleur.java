@@ -13,10 +13,8 @@ import dao.ZoneDAO;
 import dao.SpectacleDAO;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -32,7 +30,6 @@ import modele.Achat;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;
-import modele.Spectacle;
 
 import modele.Zone;
 import vue.FlashImpl;
@@ -53,7 +50,7 @@ public class ReservationControleur extends HttpServlet {
     HttpServletResponse response)
             throws IOException, ServletException {
         if (((HttpServletRequest) request).getMethod().equals("GET")) {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
     

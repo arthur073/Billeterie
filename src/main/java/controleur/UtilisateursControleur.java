@@ -67,12 +67,14 @@ public class UtilisateursControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("achatPlaces")) {
                 achatPlaces(request, response);
             } else {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (DAOException e) {
             throw new RuntimeException(e);
             // request.setAttribute("erreurMessage", e.getMessage());
             // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        } catch (NullPointerException e) {
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
