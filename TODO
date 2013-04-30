@@ -14,6 +14,7 @@ Thibault : - A vérifier lors de résa + achat, il reste au moins 70 places. Si 
 Arthur : - Tester l'annulation dans mes spectacles et dans mon compte
 
 Michel : - Empêcher les reservations dans l'heure précédant le spectacle
+====> en cours
 
 Arthur : - Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
 
