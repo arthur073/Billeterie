@@ -16,8 +16,9 @@ insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', '
 -- Les Réservations
 
 insert into Representation values(1, 1, '2013-04-01 20:00:00', 0);
-insert into Representation values(1, 2, '2013-05-02 20:00:00', 0);
-insert into Representation values(1, 3, '2013-05-04 17:00:00', 0);
+insert into Representation values(1, 2, '2013-05-01 01:00:00', 0);
+insert into Representation values(1, 3, '2013-05-02 20:00:00', 0);
+insert into Representation values(1, 4, '2013-05-04 17:00:00', 0);
 insert into Representation values(2, 3, '2013-05-11 17:00:00', 0);
 insert into Representation values(2, 4, '2013-05-10 20:00:00', 0);
 insert into Representation values(3, 5, '2013-05-12 17:00:00', 0);

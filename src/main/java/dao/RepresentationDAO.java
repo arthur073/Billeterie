@@ -69,7 +69,14 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
                     .prepareStatement(getRequete("SELECT_LISTE_REPRESENTATIONS_A_VENIR"));
             rs = st.executeQuery();
             while (rs.next()) {
-                result.add(construire(rs));
+                Representation r = construire(rs);
+                //TODO
+                if( r.isDateLessThanAnHour() ) {
+                    System.out.println("dtc");
+                } else {
+                    System.out.println("ok");
+                }
+                result.add(r);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);

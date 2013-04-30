@@ -1,6 +1,7 @@
 package modele;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -94,5 +95,14 @@ public class Representation {
     public void setListeZones(List<Zone> listeZones) {
         this.listeZones = listeZones;
     }
+    
+    public boolean isDateLessThanAnHour() {
+        Calendar now=Calendar.getInstance();
+        now.add(Calendar.HOUR, -1);
 
+        Calendar dateRepresentation = Calendar.getInstance();
+        dateRepresentation.setTime(getDate());
+        
+        return now.before(dateRepresentation);
+    }
 }
