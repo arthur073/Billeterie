@@ -22,7 +22,6 @@ import dao.UtilisateurDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -139,10 +138,12 @@ public class UtilisateursControleur extends HttpServlet {
         UtilisateurDAO uDAO = new UtilisateurDAO(ds);
         uDAO.lire(u);
 
-        // on regarde ses places achetées
+        // on regarde ses places achetées et réservées
         ReservationDAO resDAO = new ReservationDAO(ds);
         AchatDAO achDAO = new AchatDAO(ds);
 
+        //on supprime les réservations qui sont périmées
+        resDAO.supprimerReservationsNonPayees();
         List<Reservation> listRes = resDAO.getListeReservationsClient(login);
 
         // On complète les champs de classe
