@@ -62,13 +62,8 @@ public class LoginControleur extends HttpServlet {
                 getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
             }
         } catch (DAOException e) {
-            /*
-             * Pour avoir une page d'infos bien détaillée.
-             * TODO retirer ça pour le rendu.
-             */
-            throw new RuntimeException(e);
-            // request.setAttribute("erreurMessage", e.getMessage());
-            // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+            request.setAttribute("erreurMessage", e.getMessage());
+            getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
 
     }

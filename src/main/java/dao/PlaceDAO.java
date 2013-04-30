@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
-import modele.Client;
-import modele.Representation;
 import modele.Place;
 import modele.Zone;
 
@@ -140,18 +138,6 @@ public class PlaceDAO extends ProviderDAO implements DAOMetier<Place> {
                 rs.getString("Categorie"), rs.getFloat("TarifBase"));
         p.setZone(z);
         return p;
-    }
-
-    /**
-     * Renvoie le client qui a réservé cette place pour la réprésentation
-     * donnée.
-     *
-     * @return Le client, ou null si la place est libre.
-     * @param r
-     */
-    public Client getReservateurPour(Representation r) {
-        // TODO est-ce utile ?
-        return null;
     }
 
     @Override

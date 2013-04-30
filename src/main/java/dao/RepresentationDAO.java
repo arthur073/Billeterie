@@ -41,11 +41,9 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             Date dateFormatted = new Date( rs.getTimestamp("DateRepresentation").getTime() );
             DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
             Date dat = df.parse(df.format(dateFormatted));
-            //System.out.println(test);
             Representation representation = new Representation(
                     rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
                     dat );
-            // TODO ne pas créer deux objets Spectacle s'il s'agit deux fois du même spectacle.
             representation.setSpectacle(new Spectacle(rs.getInt("NoSpectacle"), rs
                     .getString("Nom"), rs.getString("Image")));
             return representation;
@@ -120,10 +118,6 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
         return result;
     }
 
-    public void libererReservationImpayees() {
-        // TODO
-    }
-
     public void annuler(Representation r) throws DAOException {
         annuler(r.getNoSpectacle(), r.getNoRepresentation());
     }
@@ -155,9 +149,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             st = conn.prepareStatement(getRequete("INSERT_REPRESENTATION"));
             st.setInt(1, rep.getNoSpectacle());
             st.setInt(2, rep.getNoRepresentation());
-            // TODO bien tester l'insertion d'une représentation : le
-            // cast ci-dessous est conseillé par eclipse (mais pas sûr)
-            st.setDate(3, (java.sql.Date) rep.getDate());
+            st.setDate(3, new java.sql.Date(rep.getDate().getTime()));
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -215,9 +207,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             st = conn.prepareStatement(getRequete("UPDATE_REPRESENTATION"));
             st.setInt(1, rep.getNoSpectacle());
             st.setInt(2, rep.getNoRepresentation());
-            // TODO bien tester le changement de date d'une représentation : le
-            // cast ci-dessous est conseillé par eclipse.
-            st.setDate(3, (java.sql.Date) (Date) rep.getDate());
+            st.setDate(3, new java.sql.Date(rep.getDate().getTime()));
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
