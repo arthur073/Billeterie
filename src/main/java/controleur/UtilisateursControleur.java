@@ -63,7 +63,7 @@ public class UtilisateursControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("annulerPlaces")) {
                 cancelPlaces(request, response);
             } else if (action.equalsIgnoreCase("imprPlaces")) {
-                imprPlaces(request, response); 
+                imprPlaces(request, response);
             } else if (action.equalsIgnoreCase("achatPlaces")) {
                 achatPlaces(request, response);
             } else {
@@ -100,15 +100,24 @@ public class UtilisateursControleur extends HttpServlet {
     }
 
     private void FormulaireCreerUnCompte(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+
         ClientDAO clientDAO = new ClientDAO(ds);
-        Client client = new Client(
-                (String) request.getParameter("username"),
-                Client.chiffrerMotDePasse((String) request.getParameter("passwd")),
-                (String) request.getParameter("nom"),
-                (String) request.getParameter("prenom"),
-                (String) request.getParameter("email"));
-        clientDAO.creer(client);
-        getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+        int bool = clientDAO.checkUtilisateurInexistant(request.getParameter("username"));
+        if (bool < 1) {
+            Client client = new Client(
+                    (String) request.getParameter("username"),
+                    Client.chiffrerMotDePasse((String) request.getParameter("passwd")),
+                    (String) request.getParameter("nom"),
+                    (String) request.getParameter("prenom"),
+                    (String) request.getParameter("email"));
+            clientDAO.creer(client);
+
+            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+        } else {
+            FlashImpl fl = new FlashImpl("Login déjà existant. Veuillez en choisir un autre.", request, "error");
+            getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response);
+        }
+
     }
 
     private void goToMyAccount(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
@@ -181,7 +190,7 @@ public class UtilisateursControleur extends HttpServlet {
         FlashImpl fl = new FlashImpl("Votre réservation a bien été annulée", request, "success");
         goToMyAccount(request, response);
     }
-    
+
     private void imprPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         response.setContentType("application/pdf"); // Code 1
 
@@ -207,11 +216,11 @@ public class UtilisateursControleur extends HttpServlet {
             PdfWriter writer = PdfWriter.getInstance(document,
                     response.getOutputStream()); // Code 2
             addMetaData(document);
-            
+
             document.open();
             //for barcode generation
             PdfContentByte cb = writer.getDirectContent();
-            
+
             Paragraph preface = new Paragraph();
             preface.add(new Paragraph("MesBillets.com", itaFont));
             addEmptyLine(preface, 1);
@@ -233,7 +242,7 @@ public class UtilisateursControleur extends HttpServlet {
             BarcodeEAN codeEAN = new BarcodeEAN();
             String innerCode;
             long randomNum;
-            randomNum = (long)(Math.random() * (3999999999999L-3000000000000L)) + 3000000000000L;
+            randomNum = (long) (Math.random() * (3999999999999L - 3000000000000L)) + 3000000000000L;
             innerCode = String.valueOf(randomNum);
             codeEAN.setCode(innerCode);
 
@@ -279,9 +288,9 @@ public class UtilisateursControleur extends HttpServlet {
     }
 
     private void achatPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
-         String places = request.getParameter("noP") + "/" + request.getParameter("noRang")
-                        + "/" + request.getParameter("noZ");
+
+        String places = request.getParameter("noP") + "/" + request.getParameter("noRang")
+                + "/" + request.getParameter("noZ");
         request.setAttribute("places", places);
         request.setAttribute("NoSpectacle", request.getParameter("noSpectacle"));
         request.setAttribute("NoRepresentation", request.getParameter("noRepresentation"));

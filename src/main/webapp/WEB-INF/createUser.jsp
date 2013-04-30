@@ -4,7 +4,7 @@
 <h2 align="center" class="header"> Formulaire de création d'un utilisateur  </h2>
      <br/>
           
-     <form action="UtilisateursControleur" method="post" class="loginForm" >
+     <form id="formCreateUser" action="UtilisateursControleur" method="post" class="loginForm" onsubmit="return checkFields()" >
          <label> Nom : </label><input type="text" name="nom"/> <br/> 
          <label> Prénom : </label><input type="text" name="prenom"/> <br/> 
          <label> Login : </label><input type="text" name="username"/> <br/> 
@@ -16,6 +16,34 @@
      
      <br/>
      
+     <script language="JavaScript">
+        function checkFields()
+        {
+            if( document.forms["formCreateUser"].elements["nom"].value == "" )
+            {
+                alert("Veuillez saisir un nom valide.");
+                return false;
+            }
+            if( document.forms["formCreateUser"].elements["prenom"].value == "" )
+            {
+                alert("Veuillez saisir un prénom valide.");
+                return false;
+            }
+            if( document.forms["formCreateUser"].elements["username"].value == "" )
+            {
+                alert("Veuillez saisir un login valide.");
+                return false;
+            }
+            if( document.forms["formCreateUser"].elements["passwd"].value == "" )
+            {
+                alert("Veuillez saisir un mot de passe valide.");
+                return false;
+            }
+            else
+                return true;    
+            
+        }
+    </script>
      
  <c:import url="Layout/footer.jsp"/>
 

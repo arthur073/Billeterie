@@ -4,11 +4,18 @@
  */
 package dao;
 
+import static dao.ProviderDAO.closeStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
+import modele.Achat;
 import modele.Utilisateur;
 
 /**
@@ -111,5 +118,28 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
     @Override
     public void supprimer(Utilisateur obj) throws DAOException {
         throw new DAOException("Impossible de suppriemer un utilisateur!");
+    }
+    
+    public int checkUtilisateurInexistant(String username) throws DAOException{
+        int result = 0;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("CHECK_LOGIN_INEXISTANT"));
+            st.setString(1, username);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeResultSet(rs);
+            closeConnection(conn);
+        }
+        return result;
     }
 }
