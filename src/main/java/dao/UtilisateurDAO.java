@@ -59,9 +59,7 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
             st.setString(4, u.getEmail());
             st.setString(5, u.getMotDePasseChiffre());
             st.executeUpdate();
-            // Le client a bien été inséré, le login était donc dispo.
         } catch (SQLException e) {
-            // TODO discriminer entre déjà existant et erreur BD.
             throw new DAOException("Erreur BD " + e.getMessage(), e);
         } finally {
             closeStatement(st);

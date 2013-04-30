@@ -2,7 +2,8 @@
 
 <c:import url="Layout/header.jsp"/>    
 
-<script language="javascript">
+<script type="text/javascript">
+    <!--
     $(document).ready(function () {
         // Constantes à afficher
         var Zones = {
@@ -85,6 +86,7 @@
             }
         }
     });
+    -->
 </script>
         
 <div class="confirmation">
