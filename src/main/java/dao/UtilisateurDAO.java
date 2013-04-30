@@ -9,13 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
-import modele.Achat;
 import modele.Utilisateur;
 
 /**
@@ -86,8 +80,7 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
         PreparedStatement st = null;
         try {
             conn = getConnection();
-            // FIXME : le getRequete() refusait de marcher
-            st = conn.prepareStatement("SELECT Prenom, Nom, Mail, MotDePasse, Type FROM Utilisateur WHERE Login = ?");
+            st = conn.prepareStatement(getRequete("SELECT_CONNEXION_CLIENT"));
             st.setString(1, u.getLogin());
             rs = st.executeQuery();
             if (rs.next()) {
