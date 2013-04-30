@@ -5,12 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-
 import javax.sql.DataSource;
-
 import modele.Client;
 import modele.Representation;
 import modele.Place;
@@ -177,11 +173,10 @@ public class PlaceDAO extends ProviderDAO implements DAOMetier<Place> {
 
     @Override
     public void mettreAJour(Place obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles places !");
+        throw new DAOException("Impossible de mettre à jour de novelles places !");
     }
 
-    @Override
-    public void supprimer(Place obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles places !");
+    @Override    public void supprimer(Place obj) throws DAOException {
+        throw new DAOException("Impossible de suppriemer  de novelles places !");
     }
 }

@@ -9,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.sql.DataSource;
-import modele.TypeUtilisateur;
 import modele.Utilisateur;
 
 /**
@@ -104,14 +103,13 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
     }
 
     @Override
-    public void mettreAJour(Utilisateur obj) {
-        // TODO Auto-generated method stub
+    public void mettreAJour(Utilisateur obj) throws DAOException{
+       throw new DAOException("Impossible de mettre à jour un utilisateur!");
 
     }
 
     @Override
-    public void supprimer(Utilisateur obj) {
-        // TODO Auto-generated method stub
-
+    public void supprimer(Utilisateur obj) throws DAOException {
+        throw new DAOException("Impossible de suppriemer un utilisateur!");
     }
 }

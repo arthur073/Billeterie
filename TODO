@@ -1,0 +1,10 @@
+- Une saison de spectacle est de septembre à juin
+- Archivage et vidage de la BDD au 1er juillet
+- Rediriger correctement après création de compte + s'identifier automatiquement après création d'un compte
+- Vérifier les champs non vide création utilisateur et que le login n'existe pas encore
+- Annulation d'une représentation
+- A vérifier lors de résa + achat, il reste au moins 70 places. Si déjà réservé alors on ne vérifie pas
+- Rajouter un booléen dans la BDD pour l'annulation d'une représentation
+- Tester l'annulation dans mes spectacles et dans mon compte
+- Annuler les places réservées mais non payées une heure avant la représentation
+Empêcher les représentations dans l'heure précédant le spectacle

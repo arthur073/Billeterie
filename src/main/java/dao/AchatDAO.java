@@ -9,12 +9,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.sql.DataSource;
 
 import modele.Achat;
@@ -57,30 +53,13 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
     }
 
     @Override
-    public void mettreAJour(Achat obj) {
-        // TODO Auto-generated method stub
+    public void mettreAJour(Achat obj) throws DAOException {
+        throw new DAOException("La fonction n'a pas de sens");
     }
 
     @Override
     public void supprimer(Achat ach) throws DAOException {
-        PreparedStatement st = null;
-        Connection conn = null;
-        try {
-            conn = getConnection();
-            st = conn.prepareStatement(getRequete("DELETE_ACHAT"));
-            st.setString(1, ach.getLogin());
-            st.setInt(2, ach.getNoSpectacle());
-            st.setInt(3, ach.getNoRepresentation());
-            st.setInt(4, ach.getNoZone());
-            st.setInt(5, ach.getNoRang());
-            st.setInt(6, ach.getNoPlace());
-            st.executeUpdate();
-        } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } finally {
-            closeStatement(st);
-            closeConnection(conn);
-        }
+        throw new DAOException("Impossible de supprimer un achat !");
     }
 
     /**
