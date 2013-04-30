@@ -102,7 +102,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        dat, rs.getFloat("TarifBase"));
+                        dat);
                 result.add(achat);
             }
         } catch (SQLException e) {

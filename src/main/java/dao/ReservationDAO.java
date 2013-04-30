@@ -50,8 +50,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"),
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -112,8 +111,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation("anonymous",
                         noSpectacle, noRepresentation,
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -145,8 +143,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"),
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -175,8 +172,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"),
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 this.lire(reservation);
                 result.add(reservation);
             }

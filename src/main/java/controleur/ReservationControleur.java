@@ -178,7 +178,7 @@ public class ReservationControleur extends HttpServlet {
         for (Map.Entry<Zone, List<Place>> entry : map.entrySet()) {
             Zone z = entry.getKey();
             for (Place p : entry.getValue()) {
-                Reservation res = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
+                Reservation res = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace());
                 resDAO.creer(res);
             }
             
@@ -208,7 +208,7 @@ public class ReservationControleur extends HttpServlet {
             Zone z = entry.getKey();
             for (Place p : entry.getValue()) {
                 Achat achat = new Achat(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(),
-                        p.getNoPlace(), NoDossier, NoSerie, new Date(), z.getTarifBase());
+                        p.getNoPlace(), NoDossier, NoSerie, new Date());
                 NoSerie++;
                 achatDAO.creer(achat);
                 // Si on vient de la liste des réservations
@@ -216,7 +216,7 @@ public class ReservationControleur extends HttpServlet {
                     ReservationDAO resDAO = new ReservationDAO(ds);
                     Reservation resa = new Reservation(login, NoSpectacle,
                             NoRepresentation, z.getNoZone(), p.getNoRang(),
-                            p.getNoPlace(), z.getTarifBase());
+                            p.getNoPlace());
                     resDAO.supprimer(resa);
                 }
             }

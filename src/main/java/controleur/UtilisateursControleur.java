@@ -22,7 +22,6 @@ import dao.UtilisateurDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Random;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -181,9 +180,8 @@ public class UtilisateursControleur extends HttpServlet {
         Integer noZ = Integer.parseInt(request.getParameter("noZ"));
         Integer noRang = Integer.parseInt(request.getParameter("noRang"));
         Integer noP = Integer.parseInt(request.getParameter("noP"));
-        Float tarif = Float.parseFloat(request.getParameter("tarif"));
 
-        Reservation resa = new Reservation(login, noS, noR, noZ, noRang, noP, tarif);
+        Reservation resa = new Reservation(login, noS, noR, noZ, noRang, noP);
         ReservationDAO resDAO = new ReservationDAO(ds);
         resDAO.supprimer(resa);
 
