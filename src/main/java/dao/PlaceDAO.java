@@ -62,7 +62,8 @@ public class PlaceDAO extends ProviderDAO implements DAOMetier<Place> {
             st = conn.prepareStatement(getRequete("SELECT_TOUTES_PLACES"));
             rs = st.executeQuery();
             while (rs.next()) {
-                places[rs.getInt("NoRang") - 1][rs.getInt("NoPlace") - 1] = construire(rs);
+                /* On veut un ordre décroissant sur les rangs. */
+                places[maxRang - rs.getInt("NoRang")][rs.getInt("NoPlace") - 1] = construire(rs);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
