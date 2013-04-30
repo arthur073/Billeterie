@@ -43,7 +43,7 @@
                 "<h3>" + Zones[zone].categorie + "</h3>" +
                 "<p>" + "Place : " + place + "</p>" +
                 "<p>" + "Rang : " + rang + "</p>" +
-                "<p>" + "Prix : " + Zones[zone].tarifBase + "</p>"
+                "<p>" + "Prix : " + Zones[zone].tarifBase + " &euro; </p>"
             );
             $('div#pop-up').show();
         },
