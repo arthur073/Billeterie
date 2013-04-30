@@ -19,22 +19,26 @@
      <script language="JavaScript">
         function checkFields()
         {
-            if( document.forms["formCreateUser"].elements["nom"].value == "" )
+            var nom_v = document.forms["formCreateUser"].elements["nom"].value.toString().replace(/^\s+|\s+$/g, '');
+            if( nom_v === "" )
             {
                 alert("Veuillez saisir un nom valide.");
                 return false;
             }
-            if( document.forms["formCreateUser"].elements["prenom"].value == "" )
+            var prenom_v = document.forms["formCreateUser"].elements["prenom"].value.toString().replace(/^\s+|\s+$/g, '');
+            if( prenom_v === "" )
             {
                 alert("Veuillez saisir un prénom valide.");
                 return false;
             }
-            if( document.forms["formCreateUser"].elements["username"].value == "" )
+            var login_v = document.forms["formCreateUser"].elements["username"].value.toString().replace(/^\s+|\s+$/g, '');
+            if( login_v === "" )
             {
                 alert("Veuillez saisir un login valide.");
                 return false;
             }
-            if( document.forms["formCreateUser"].elements["passwd"].value == "" )
+            var mdp_v = document.forms["formCreateUser"].elements["passwd"].value.toString().replace(/^\s+|\s+$/g, '');
+            if( mdp_v  === "" )
             {
                 alert("Veuillez saisir un mot de passe valide.");
                 return false;
