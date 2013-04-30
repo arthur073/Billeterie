@@ -8,7 +8,6 @@ import dao.DAOException;
 import dao.RepresentationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -106,18 +105,10 @@ public class LoginControleur extends HttpServlet {
                 response.sendRedirect("PagesControleur");
                 return;
             } else {
-                Map<String, String[]> params = (Map<String, String[]>) request.getSession().getAttribute("paramsConfirmation");
-                String places = params.get("places")[0];
-                Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
-                float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
-                request.setAttribute("map", map);
-                request.setAttribute("prixTotal", prixTotal);
-                RepresentationDAO repDAO = new RepresentationDAO(ds);
-                Representation rep = new Representation(
-                        Integer.parseInt(params.get("NoSpectacle")[0]),
-                        Integer.parseInt(params.get("NoRepresentation")[0]));
-                repDAO.lire(rep);
-                request.setAttribute("rep", rep);
+                Panier panier = new Panier(request.getSession(), ds);
+                request.setAttribute("map", panier.getPlacesParZone());
+                request.setAttribute("prixTotal", panier.getPrixTotal());
+                request.setAttribute("rep", panier.getRepresentation());
                 request.setAttribute("titre", "Confirmation de réservation");
             }
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);

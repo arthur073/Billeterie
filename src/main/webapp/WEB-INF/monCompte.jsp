@@ -70,7 +70,7 @@
                     ${achat.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
+                    <a href="UtilisateursControleur?action=imprPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noPlace=${achat.noPlace}&amp;noRang=${achat.noRang}&amp;noZone=${achat.noZone}&amp;" target="_blank" class="btnBlack">Imprimer</a>
                 </td>
             </tr>
         </c:forEach>
@@ -117,9 +117,9 @@
                     ${achat.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=achatPlaces&login=${login}&noSpectacle=${achat.noSpectacle}&noRepresentation=${achat.noRepresentation}&noZ=${achat.noZone}&noRang=${achat.noRang}&noP=${achat.noPlace}&prixTotal=${achat.tarifBase}&places=${places}resAsupprimer=1" class="btnBlack widthFixed" >Payer</a>
+                    <a href="UtilisateursControleur?action=achatPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}&amp;resAsupprimer=1" class="btnBlack widthFixed" >Payer</a>
                     <br/><br/>
-                    <a href="UtilisateursControleur?action=annulerPlaces&login=${login}&noS=${achat.noSpectacle}&noR=${achat.noRepresentation}&noZ=${achat.noZone}&noRang=${achat.noRang}&noP=${achat.noPlace}&tarif=${achat.tarifBase}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
+                    <a href="UtilisateursControleur?action=annulerPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
                 </td>
 
             </tr>

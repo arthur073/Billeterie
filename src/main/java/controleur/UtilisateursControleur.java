@@ -16,12 +16,15 @@ import com.lowagie.text.pdf.PdfWriter;
 import dao.AchatDAO;
 import dao.ClientDAO;
 import dao.DAOException;
+import dao.PlaceDAO;
 import dao.RepresentationDAO;
 import dao.ReservationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +35,7 @@ import javax.sql.DataSource;
 import modele.Achat;
 
 import modele.Client;
+import modele.Place;
 import modele.Representation;
 import modele.Reservation;
 import modele.Utilisateur;
@@ -110,7 +114,13 @@ public class UtilisateursControleur extends HttpServlet {
                     (String) request.getParameter("prenom"),
                     (String) request.getParameter("email"));
             clientDAO.creer(client);
-
+            FlashImpl fl = new FlashImpl("Bienvenue, " + client.getPrenom() + ". Votre compte a bien été créé.", request, "success");
+            request.getSession().setAttribute("LoggedIn", true);
+            request.getSession().setAttribute("Login", client.getLogin());
+            request.getSession().setAttribute("FailedLogIn", false);
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+            request.setAttribute("titre", "Mes billets en ligne");
             getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
         } else {
             FlashImpl fl = new FlashImpl("Login déjà existant. Veuillez en choisir un autre.", request, "error");
@@ -175,11 +185,11 @@ public class UtilisateursControleur extends HttpServlet {
     private void cancelPlaces(HttpServletRequest request, HttpServletResponse response) throws IOException, DAOException, ServletException {
 
         String login = request.getParameter("login");
-        Integer noS = Integer.parseInt(request.getParameter("noS"));
-        Integer noR = Integer.parseInt(request.getParameter("noR"));
-        Integer noZ = Integer.parseInt(request.getParameter("noZ"));
+        Integer noS = Integer.parseInt(request.getParameter("noSpectacle"));
+        Integer noR = Integer.parseInt(request.getParameter("noRepresentation"));
+        Integer noZ = Integer.parseInt(request.getParameter("noZone"));
         Integer noRang = Integer.parseInt(request.getParameter("noRang"));
-        Integer noP = Integer.parseInt(request.getParameter("noP"));
+        Integer noP = Integer.parseInt(request.getParameter("noPlace"));
 
         Reservation resa = new Reservation(login, noS, noR, noZ, noRang, noP);
         ReservationDAO resDAO = new ReservationDAO(ds);
@@ -198,16 +208,25 @@ public class UtilisateursControleur extends HttpServlet {
         Document document = new Document(new Rectangle(450, 350));
 
         // on récupère les informations
-        String nomS = request.getParameter("nomS");
-        String rootUrl = request.getRequestURL().toString().split("billeterie")[0];
-        String image = request.getParameter("image");
-        String imageUrl = rootUrl + "billeterie/images/" + image;
-        String date = request.getParameter("date");
-        String prix = request.getParameter("prix");
-        String place = request.getParameter("place");
-        String rang = request.getParameter("rang");
-        String zone = request.getParameter("zone");
-        String numero = request.getParameter("numero");
+        AchatDAO aDAO = new AchatDAO(ds);
+        Achat a = new Achat((String) request.getSession().getAttribute("Login"),
+                Integer.parseInt(request.getParameter("noSpectacle")),
+                Integer.parseInt(request.getParameter("noRepresentation")),
+                Integer.parseInt(request.getParameter("noZone")),
+                Integer.parseInt(request.getParameter("noRang")),
+                Integer.parseInt(request.getParameter("noPlace")));
+        aDAO.lire(a);
+        
+        String nomS = a.getRepresentation().getSpectacle().getNom();
+        String image = a.getRepresentation().getSpectacle().getImage();
+        String imageUrl = new URL(request.getScheme(), request.getServerName(), 
+        request.getServerPort(), request.getContextPath() + "/images/" + image).toString();
+        String date = a.getDateAchat(null);
+        String prix = a.getPlace().getZone().getTarifBase().toString();
+        String place = "" + a.getPlace().getNoPlace();
+        String rang = "" + a.getPlace().getNoRang();
+        String zone = a.getPlace().getZone().getCategorie();
+        String numero = "" + a.getNoSerie();
 
 
         try {
@@ -284,13 +303,21 @@ public class UtilisateursControleur extends HttpServlet {
         }
     }
 
-    private void achatPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        String places = request.getParameter("noP") + "/" + request.getParameter("noRang")
-                + "/" + request.getParameter("noZ");
-        request.setAttribute("places", places);
-        request.setAttribute("NoSpectacle", request.getParameter("noSpectacle"));
-        request.setAttribute("NoRepresentation", request.getParameter("noRepresentation"));
+    private void achatPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        Panier panier = new Panier(request.getSession(), ds);
+        panier.vider();
+        PlaceDAO pDAO = new PlaceDAO(ds);
+        Place place = new Place(Integer.parseInt(request.getParameter("noPlace")),
+                Integer.parseInt(request.getParameter("noRang")),
+                Integer.parseInt(request.getParameter("noZone")));
+        pDAO.lire(place);
+        panier.ajouterPlace(place);
+        RepresentationDAO repDAO = new RepresentationDAO(ds);
+        Representation rep = new Representation(
+                Integer.parseInt(request.getParameter("noSpectacle")),
+                Integer.parseInt(request.getParameter("noRepresentation")));
+        panier.setRepresentation(rep);
+        request.setAttribute("panier", new Panier(request.getSession(), ds));
         request.setAttribute("resAsupprimer", "1");
         getServletContext().getRequestDispatcher("/WEB-INF/payer.jsp").forward(request, response);
     }

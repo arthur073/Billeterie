@@ -51,6 +51,8 @@
         function (e) {
             $('div#pop-up').hide();
         });
+        // Caché au début
+        $('div#pop-up').hide();
     
         // Change l'état du bouton action
         $("#action").attr("disabled", "disabled");         
