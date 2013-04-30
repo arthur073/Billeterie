@@ -14,3 +14,5 @@ Michel : - Annuler les places réservées mais non payées une heure avant la re
 Empêcher les reservations dans l'heure précédant le spectacle
 
 Arthur : -Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
+
+Michel : -Pages d'erreurs lorsque url n'existe pas / mauvaise
