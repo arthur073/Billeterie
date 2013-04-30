@@ -36,7 +36,7 @@ Author     : Jany
             info = mieuxRemplis.next();
             out.println("<td><strong>" + info.spectacle.getNom() +
                 "</strong></th><td>" + info.nbPlacesVendues +
-                " (" + df.format(info.tauxRemplissage) + ")</td></th>");
+                " (" + df.format(info.tauxRemplissage) + "&nbsp;%)</td></th>");
         } else {
             out.println("<td colspan=\"2\" class=\"invisible\"></td");
         }
@@ -59,6 +59,5 @@ Author     : Jany
 		<tr><td><strong><%= stat.spectacle.getNom() %></strong></td><td><%= stat.benefTotal %>&nbsp;&euro;</td><td><%= stat.nbPlacesVendues %> (<%= df.format(stat.tauxRemplissage) %>&nbsp;%)</td></tr>
     <% } %>
 </table>
-
 
 <% } %>

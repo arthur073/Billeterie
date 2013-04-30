@@ -19,6 +19,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,36 +44,36 @@ import vue.TraitementPlaces;
  */
 @WebServlet(name = "ReservationControleur", urlPatterns = {"/ReservationControleur"})
 public class ReservationControleur extends HttpServlet {
-
+    
     @Resource(name = "jdbc/billeterie")
     private DataSource ds;
-
+    
     @Override
     public void doGet(HttpServletRequest request,
-            HttpServletResponse response)
+    HttpServletResponse response)
             throws IOException, ServletException {
         if (((HttpServletRequest) request).getMethod().equals("GET")) {
             ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
         }
     }
-
+    
     @Override
     public void doPost(HttpServletRequest request,
-            HttpServletResponse response)
+    HttpServletResponse response)
             throws IOException, ServletException {
-
-
+        
+        
         request.setCharacterEncoding("UTF-8");
         String action = request.getParameter("action");
-
+        
         try {
             request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
             request.setAttribute("NoRepresentation", request.getParameter("NoRepresentation"));
-
+            
             if (action.equalsIgnoreCase("Reserver")) {
                 actionReserver(request, response);
             } else if (action.equalsIgnoreCase("Choisir mes places")) {
-
+                
                 actionChoixPlaces(request, response);
             } else if (action.equalsIgnoreCase("Valider mes places")) {
                 //request.setAttribute("NoSpectacle", request.getParameter("NoSpectacle"));
@@ -94,7 +96,7 @@ public class ReservationControleur extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
-
+    
     /**
      * Construit l'objet Représentation à partir de ses identifiants reçus par
      * GET ou POST, dans les variables NoSpectacle et NoRepresentation.
@@ -107,7 +109,7 @@ public class ReservationControleur extends HttpServlet {
         repDAO.lire(rep);
         return rep;
     }
-
+    
     private void actionReserver(HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException, IOException {
         request.setAttribute("titre", "Reservation de billets");
         // La représentation demandée
@@ -121,12 +123,16 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("listeZones", zone.getZones());
         getServletContext().getRequestDispatcher("/WEB-INF/reserver.jsp").forward(request, response);
     }
-
+    
     private void actionChoixPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        
         request.setAttribute("titre", "Reservation de billets");
         // La représentation demandée
         Representation rep = getRepresentation(request);
         request.setAttribute("rep", rep);
+        RepresentationDAO repDAO = new RepresentationDAO(ds);
+        int nbPlacesRestantes = repDAO.getNbPlacesRestantes(rep.getNoSpectacle(), rep.getNoRepresentation());
+        
         // Toutes les zones
         ZoneDAO zDAO = new ZoneDAO(ds);
         request.setAttribute("Zones", zDAO.getZones());
@@ -136,17 +142,23 @@ public class ReservationControleur extends HttpServlet {
         // Les places actuellement occupées
         ReservationDAO resDAO = new ReservationDAO(ds);
         request.setAttribute("PlacesOccupees", resDAO.getPlacesReserveesPourRepresentation(rep));
-        getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
+        if (nbPlacesRestantes == 0) {
+            FlashImpl fl = new FlashImpl("Plus de places disponibles pour cette représentation", request, "error");
+            actionReserver(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/WEB-INF/choixPlaces.jsp").forward(request, response);
+        }
+       
     }
-
+    
     private void actionConfirmation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         Object loggedIn = request.getSession().getAttribute("LoggedIn");
         // Pour la suite (paiement, réservation, login si besoin...), toutes les
         // infos concernant la transaction en cours seront dans la session.
-        // De plus on la copie pour régler un bug 
+        // De plus on la copie pour régler un bug
         request.getSession().setAttribute("paramsConfirmation",
                 new HashMap<String, String[]>(request.getParameterMap()));
-
+        
         if (loggedIn == null || (loggedIn != null && loggedIn.equals(false))) {
             request.setAttribute("redirectionVers", "confirmation");
             getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
@@ -163,12 +175,24 @@ public class ReservationControleur extends HttpServlet {
             repDAO.lire(rep);
             request.setAttribute("rep", rep);
             request.setAttribute("titre", "Confirmation de la réservation");
-            getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+            int NbPlacesRestantes = repDAO.getNbPlacesRestantes(Integer.parseInt(request.getParameter("NoSpectacle")), Integer.parseInt(request.getParameter("NoRepresentation")));
+            int NbPlacesMap = regexOccur(places, "!");
+            if (NbPlacesRestantes <= 0) {
+                FlashImpl fl = new FlashImpl("Plus de places disponibles à la réservation en ligne", request, "error");
+                actionChoixPlaces(request, response);
+            }
+            if (NbPlacesRestantes - NbPlacesMap < 0) {
+                FlashImpl fl = new FlashImpl("Il reste seulement " + NbPlacesRestantes + " places disponibles à la réservation en ligne", request, "error");
+                actionChoixPlaces(request, response);
+            } else {                
+                getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+            }
         }
     }
-
+    
     private void reserverPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         ReservationDAO resDAO = new ReservationDAO(ds);
+        RepresentationDAO repDAO = new RepresentationDAO(ds);
         Map<String, String[]> params = (Map<String, String[]>) request.getSession().getAttribute("paramsConfirmation");
         String places = params.get("places")[0];
         Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
@@ -181,28 +205,26 @@ public class ReservationControleur extends HttpServlet {
                 Reservation res = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
                 resDAO.creer(res);
             }
-
+            
         }
         FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte jusqu'à une heure avant le début de la représentation. Au dela de ce délai, vos places seront remises en vente.", request, "success");
-        RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
-
-
     }
-
+    
     private void sortirCarteBleue(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         getServletContext().getRequestDispatcher("/WEB-INF/payer.jsp").forward(request, response);
     }
-
+    
     private void payerPlaces(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         AchatDAO achatDAO = new AchatDAO(ds);
-        String places = request.getParameter("places");
+        Map<String, String[]> params = (Map<String, String[]>) request.getSession().getAttribute("paramsConfirmation");
+        String places = params.get("places")[0];
         Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
         String login = (String) request.getSession().getAttribute("Login");
-        int NoSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
-        int NoRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
+        int NoSpectacle = Integer.parseInt(params.get("NoSpectacle")[0]);
+        int NoRepresentation = Integer.parseInt(params.get("NoRepresentation")[0]);
         int NoSerie = 1;
         int NoDossier = achatDAO.getProchainNumDossier(NoSpectacle, NoRepresentation);
         for (Map.Entry<Zone, List<Place>> entry : map.entrySet()) {
@@ -212,21 +234,30 @@ public class ReservationControleur extends HttpServlet {
                         p.getNoPlace(), NoDossier, NoSerie, new Date(), z.getTarifBase());
                 NoSerie++;
                 achatDAO.creer(achat);
-
+                // Si on vient de la liste des réservations
                 if (Integer.parseInt(request.getParameter("resAsupprimer")) == 1) {
                     ReservationDAO resDAO = new ReservationDAO(ds);
-                    Reservation resa = new Reservation(login, NoSpectacle, NoRepresentation, z.getNoZone(), p.getNoRang(), p.getNoPlace(), z.getTarifBase());
+                    Reservation resa = new Reservation(login, NoSpectacle,
+                            NoRepresentation, z.getNoZone(), p.getNoRang(),
+                            p.getNoPlace(), z.getTarifBase());
                     resDAO.supprimer(resa);
                 }
             }
         }
-
-
+        // Après l'achat, redirection vers l'index
         FlashImpl fl = new FlashImpl("Places correctement payées!", request, "success");
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
-
+        
+    }
+    public static int regexOccur(String text, String regex) {
+                            Matcher matcher = Pattern.compile(regex).matcher(text);
+                       int occur = 0;
+                   while(matcher.find()) {
+                       occur ++;
+                   }
+                   return occur;
     }
 }

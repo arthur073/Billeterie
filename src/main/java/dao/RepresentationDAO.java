@@ -4,6 +4,7 @@
  */
 package dao;
 
+import static dao.ProviderDAO.closeStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,11 +41,9 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             Date dateFormatted = new Date( rs.getTimestamp("DateRepresentation").getTime() );
             DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
             Date dat = df.parse(df.format(dateFormatted));
-            //System.out.println(test);
             Representation representation = new Representation(
                     rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
                     dat );
-            // TODO ne pas créer deux objets Spectacle s'il s'agit deux fois du même spectacle.
             representation.setSpectacle(new Spectacle(rs.getInt("NoSpectacle"), rs
                     .getString("Nom"), rs.getString("Image")));
             return representation;
@@ -119,10 +118,6 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
         return result;
     }
 
-    public void libererReservationImpayees() {
-        // TODO
-    }
-
     public void annuler(Representation r) throws DAOException {
         annuler(r.getNoSpectacle(), r.getNoRepresentation());
     }
@@ -154,9 +149,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             st = conn.prepareStatement(getRequete("INSERT_REPRESENTATION"));
             st.setInt(1, rep.getNoSpectacle());
             st.setInt(2, rep.getNoRepresentation());
-            // TODO bien tester l'insertion d'une représentation : le
-            // cast ci-dessous est conseillé par eclipse (mais pas sûr)
-            st.setDate(3, (java.sql.Date) rep.getDate());
+            st.setDate(3, new java.sql.Date(rep.getDate().getTime()));
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -214,9 +207,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             st = conn.prepareStatement(getRequete("UPDATE_REPRESENTATION"));
             st.setInt(1, rep.getNoSpectacle());
             st.setInt(2, rep.getNoRepresentation());
-            // TODO bien tester le changement de date d'une représentation : le
-            // cast ci-dessous est conseillé par eclipse.
-            st.setDate(3, (java.sql.Date) (Date) rep.getDate());
+            st.setDate(3, new java.sql.Date(rep.getDate().getTime()));
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -246,5 +237,31 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             closeStatement(st);
             closeConnection(conn);
         }
+    }
+    
+    public int getNbPlacesRestantes(int NoSpectacle, int NoRepresentation) throws DAOException {
+        int result = 450;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_NB_PLACES_RESTANTES"));
+            st.setInt(1, NoSpectacle);
+            st.setInt(2, NoRepresentation);
+            st.setInt(3, NoSpectacle);
+            st.setInt(4, NoRepresentation);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result -= rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeStatement(st);
+            closeResultSet(rs);
+            closeConnection(conn);
+        }        
+        return result;
     }
 }
