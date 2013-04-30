@@ -1,5 +1,6 @@
 package dao;
 
+import static dao.ProviderDAO.closeStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -261,4 +262,23 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             closeConnection(conn);
         }
     }
+    /**
+     * Supprime les réservations non payées 1h avant la représentation
+     * @throws DAOException 
+     */
+    public void supprimerReservationsNonPayees() throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("DELETE_PLACES_NON_PAYEES_UNE_H_REPRESENTATION"));
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
+     }
+    
 }

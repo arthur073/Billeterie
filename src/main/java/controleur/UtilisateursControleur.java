@@ -23,8 +23,6 @@ import dao.UtilisateurDAO;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -70,12 +68,14 @@ public class UtilisateursControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("achatPlaces")) {
                 achatPlaces(request, response);
             } else {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (DAOException e) {
             throw new RuntimeException(e);
             // request.setAttribute("erreurMessage", e.getMessage());
             // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        } catch (NullPointerException e) {
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
@@ -146,10 +146,12 @@ public class UtilisateursControleur extends HttpServlet {
         UtilisateurDAO uDAO = new UtilisateurDAO(ds);
         uDAO.lire(u);
 
-        // on regarde ses places achetées
+        // on regarde ses places achetées et réservées
         ReservationDAO resDAO = new ReservationDAO(ds);
         AchatDAO achDAO = new AchatDAO(ds);
 
+        //on supprime les réservations qui sont périmées
+        resDAO.supprimerReservationsNonPayees();
         List<Reservation> listRes = resDAO.getListeReservationsClient(login);
 
         // On complète les champs de classe

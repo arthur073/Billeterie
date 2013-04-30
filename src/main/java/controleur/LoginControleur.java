@@ -41,7 +41,7 @@ public class LoginControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         if (((HttpServletRequest) request).getMethod().equals("GET")) {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
