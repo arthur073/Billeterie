@@ -570,14 +570,10 @@ insert into Place values (43,1,3);
 -- AReserveNPlaces
 -- insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
 -- insert into AReserveNPlaces values ('vernadat',1,1,3,25,4);
--- insert into AReserveNPlaces values ('Michel57390',1,1,3,22,4);
--- insert into AReserveNPlaces values ('Michel57390',1,1,4,22,4);
 insert into AReserveNPlaces values ('toto',1,1,1,1,3);
 
 -- AAcheteNPlaces
 -- insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
--- insert into AAcheteNPlaces values ('Michel57390', 2, 3, 1, 1, 1, 2, 2, 20130102);
--- insert into AAcheteNPlaces values ('Michel57390', 6, 8, 1, 1, 1, 3, 3, 20130102);
 insert into AAcheteNPlaces values ('toto', 1, 2, 1, 1, 3, 1, 1, 20130102);
 
 

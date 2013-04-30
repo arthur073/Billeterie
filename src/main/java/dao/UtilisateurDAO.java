@@ -4,6 +4,7 @@
  */
 package dao;
 
+import static dao.ProviderDAO.closeStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -79,8 +80,7 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
         PreparedStatement st = null;
         try {
             conn = getConnection();
-            // FIXME : le getRequete() refusait de marcher
-            st = conn.prepareStatement("SELECT Prenom, Nom, Mail, MotDePasse, Type FROM Utilisateur WHERE Login = ?");
+            st = conn.prepareStatement(getRequete("SELECT_CONNEXION_CLIENT"));
             st.setString(1, u.getLogin());
             rs = st.executeQuery();
             if (rs.next()) {
@@ -111,5 +111,28 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
     @Override
     public void supprimer(Utilisateur obj) throws DAOException {
         throw new DAOException("Impossible de suppriemer un utilisateur!");
+    }
+    
+    public int checkUtilisateurInexistant(String username) throws DAOException{
+        int result = 0;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("CHECK_LOGIN_INEXISTANT"));
+            st.setString(1, username);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeResultSet(rs);
+            closeConnection(conn);
+        }
+        return result;
     }
 }

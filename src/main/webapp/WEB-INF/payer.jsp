@@ -25,7 +25,8 @@
     <script language="JavaScript">
         function checkCbNumber()
         {
-            if( document.forms["form"].elements["carteBleue"].value == "" )
+            var cb_v = document.forms["form"].elements["carteBleue"].value.toString().replace(/^\s+|\s+$/g, '');
+            if( cb_v === "" )
             {
                 alert("Veuillez saisir un numéro valide.");
                 return false;

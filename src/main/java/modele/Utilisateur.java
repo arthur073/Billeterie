@@ -42,18 +42,17 @@ public class Utilisateur {
      * @param        clair
      */
     public static String chiffrerMotDePasse(String clair) {
-        StringBuffer hexPass = new StringBuffer();
         try {
             byte[] passwdMd5 = MessageDigest.getInstance("MD5").digest(clair.getBytes("UTF-8"));
-            for (int i = 0; i < passwdMd5.length; i++) {
-                hexPass.append(Integer.toHexString(0xFF & passwdMd5[i]));
-            }
+            StringBuilder sb = new StringBuilder();
+            for(byte b: passwdMd5)
+                sb.append(String.format("%02x", b&0xff));
+            return sb.toString();
         } catch (NoSuchAlgorithmException e1) {
-            e1.printStackTrace();
+            throw new RuntimeException("algorith not found :",e1);
         } catch (UnsupportedEncodingException e1) {
-            e1.printStackTrace();
+            throw new RuntimeException("encodage non supporté (UTF-8)", e1);
         }
-        return new String(hexPass);
     }
 
     public String getLogin() {
