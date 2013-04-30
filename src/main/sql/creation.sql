@@ -28,6 +28,7 @@ CREATE TABLE Representation (
     NoSpectacle int,
     NoRepresentation int,
     DateRepresentation datetime NOT NULL,
+    Annule bool NOT NULL default 0,
     CONSTRAINT pk_Representation PRIMARY KEY (NoSpectacle, NoRepresentation),
     CONSTRAINT fk_Representation FOREIGN KEY (NoSpectacle) REFERENCES Spectacle (NoSpectacle)
 );
