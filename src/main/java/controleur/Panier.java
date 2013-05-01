@@ -1,17 +1,13 @@
 package controleur;
 
-import dao.ClientDAO;
 import dao.DAOException;
 import dao.PlaceDAO;
-import dao.RepresentationDAO;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
-import modele.Client;
 import modele.Place;
 import modele.Representation;
 import modele.Zone;
