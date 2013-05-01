@@ -1,7 +1,5 @@
-Michel : - Archivage et vidage de la BDD au 1er juillet
+Michel : - vidage de la BDD au 1er juillet
 
-======> vidage c'est faisable mais archivage il faudrait le faire manuellement ..
-Je fais un truc degueu ?
 
 Jany : - Rediriger correctement après création de compte + s'identifier automatiquement après création d'un compte
 
@@ -11,4 +9,4 @@ Arthur : - Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 
 
 Jany : - corriger achat direct
 
-Jany : - empêcher d'acceder aux pages / fonctions admin/etc.. lorsque pas connecté en tant que user/admin
+Réafecté à Thibault : - empêcher d'acceder aux pages / fonctions admin/etc.. lorsque pas connecté en tant que user/admin
