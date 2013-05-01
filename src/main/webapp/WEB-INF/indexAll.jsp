@@ -22,14 +22,25 @@
                     <input type="text" name="NomSpectacle" value="${rep.spectacle.nom}" style="display:none"/>
                     <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
                     <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
+                    <input type="text" name="Annule" value="${rep.annule}" style="display:none"/>
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
-                            <input type="submit" name="action" value="Annuler" class="btnRed"/>
+                           <c:choose>
+                            <c:when test="${rep.getAnnule() == 1}">
+                                <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                            </c:when>    
+                            <c:otherwise>
+                               <input type="submit" name="action" value="Annuler" class="btnBlack"/>
+                            </c:otherwise>
+                        </c:choose>
                     <% } else { %>
                         <c:choose>
                             <c:when test="${rep.isDateLessThanAnHour()}">
                                 <input type="submit" name="action" value="Indisponible" class="btnBlack" disabled="disabled"/>
                             </c:when>
+                            <c:when test="${rep.getAnnule() == 1}">
+                                <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                            </c:when>    
                             <c:otherwise>
                                 <input type="submit" name="action" value="Reserver" class="btnBlack"/>
                             </c:otherwise>

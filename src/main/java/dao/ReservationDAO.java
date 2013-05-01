@@ -218,7 +218,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
         Client c = new Client(r.getLogin());
         cDAO.lire(c);
         r.setClient(c);
-        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation());
+        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation(),0);
         rDAO.lire(rep);
         r.setRepresentation(rep);
         Place p = new Place(r.getNoPlace(), r.getNoRang(), r.getNoZone());

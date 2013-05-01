@@ -84,6 +84,8 @@ public class ReservationControleur extends HttpServlet {
                 sortirCarteBleue(request, response);
             } else if (action.equalsIgnoreCase("Proceder au paiement")) {
                 payerPlaces(request, response);
+            } else if (action.equalsIgnoreCase("Annuler")) {
+                annulerRepresentation(request,response);
             } else {
                 throw new DAOException("méthode non reconnue");
             }
@@ -102,7 +104,8 @@ public class ReservationControleur extends HttpServlet {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
         int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
-        Representation rep = new Representation(noSpectacle, noRepresentation);
+        //int annule = Integer.parseInt(request.getParameter("Annule"));
+        Representation rep = new Representation(noSpectacle, noRepresentation,0);
         repDAO.lire(rep);
         return rep;
     }
@@ -250,5 +253,17 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("titre", "Mes billets en ligne");
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
         
+    }
+    
+    private void annulerRepresentation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        // Pas besoin de passer d'autres infos, tout est dans le panier.
+        RepresentationDAO repDAO = new RepresentationDAO(ds);
+        int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
+        int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
+        repDAO.annuler(noSpectacle, noRepresentation);
+        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+        request.setAttribute("titre", "Mes billets en ligne");
+        FlashImpl fl = new FlashImpl("La representation a bien été annulée", request, "success");
+        getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 }

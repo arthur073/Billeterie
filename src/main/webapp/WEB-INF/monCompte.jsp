@@ -70,7 +70,15 @@
                     ${achat.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=imprPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noPlace=${achat.noPlace}&amp;noRang=${achat.noRang}&amp;noZone=${achat.noZone}&amp;" target="_blank" class="btnBlack">Imprimer</a>
+                    <c:choose>
+                        <c:when test="${achat.representation.annule == 1}">
+                           <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                        </c:when>    
+                        <c:otherwise>
+                            <a href="UtilisateursControleur?action=imprPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noPlace=${achat.noPlace}&amp;noRang=${achat.noRang}&amp;noZone=${achat.noZone}&amp;" target="_blank" class="btnBlack">Imprimer</a>
+                        </c:otherwise>
+                    </c:choose>
+                   
                 </td>
             </tr>
         </c:forEach>
@@ -117,9 +125,16 @@
                     ${achat.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=achatPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}&amp;resAsupprimer=1" class="btnBlack widthFixed" >Payer</a>
-                    <br/><br/>
-                    <a href="UtilisateursControleur?action=annulerPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
+                    <c:choose>
+                        <c:when test="${achat.representation.annule == 1}">
+                           <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                        </c:when>    
+                        <c:otherwise>
+                            <a href="UtilisateursControleur?action=achatPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}&amp;resAsupprimer=1" class="btnBlack widthFixed" >Payer</a>
+                            <br/><br/>
+                            <a href="UtilisateursControleur?action=annulerPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
+                        </c:otherwise>
+                    </c:choose>
                 </td>
 
             </tr>
