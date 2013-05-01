@@ -5,10 +5,6 @@ Je fais un truc degueu ?
 
 Jany : - Rediriger correctement après création de compte + s'identifier automatiquement après création d'un compte
 
-Thibault : - Annulation d'une représentation (booleen à 1)
-
-Thibault : - A vérifier lors de résa + achat, il reste au moins 70 places. Si déjà réservé alors on ne vérifie pas
-
 Arthur : - Tester l'annulation dans mes spectacles et dans mon compte
 
 Arthur : - Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
