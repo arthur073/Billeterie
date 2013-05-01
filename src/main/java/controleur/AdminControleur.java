@@ -5,12 +5,11 @@
 package controleur;
 
 import dao.DAOException;
-import dao.StatsDAO;
+import dao.ReservationDAO;
+import dao.ResponsableDAO;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
@@ -41,8 +40,10 @@ public class AdminControleur extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equalsIgnoreCase("archiverBD")) {
                 archiverBD(ds, request, response);
-            } else if( action.equalsIgnoreCase("annulerResaNonPayees"){
-                
+            } else if( action.equalsIgnoreCase("annulerResaNonPayees")){
+                supprimerResaNonPayees(ds, request, response);
+            } else if( action.equalsIgnoreCase("peuplerBD")) {
+                peuplerBD(ds, request, response);
             } else {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
@@ -53,35 +54,57 @@ public class AdminControleur extends HttpServlet {
         }
     }
 
-	/**
-	 * Ajoute à l'objet request donné les attributs nécessaires au rendu de
-	 * la template stats.jsp.
-	 */
-	public static void remplirRequeteDeStats(DataSource ds,
+/**
+ * Archive et vide la BD
+ * @param ds
+ * @param request
+ * @param response
+ * @throws ServletException
+ * @throws DAOException 
+ */
+	public void archiverBD(DataSource ds,
         HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
-        try {
-            DateFormat fmt = new SimpleDateFormat("yy-mm-dd");
-            Date debut, fin;
-            String sDebut = (String) request.getParameter("dateDebut");
-            String sFin = (String) request.getParameter("dateFin");
-            if (sDebut == null) {
-                sDebut = "2013-01-01";
+            try {
+                ResponsableDAO respo = new ResponsableDAO(ds);
+                String resultat = respo.getBackup();
+                request.setAttribute("backupFile", resultat);
+                getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+
+            } catch (IOException ex) {
+                Logger.getLogger(AdminControleur.class.getName()).log(Level.SEVERE, null, ex);
+                throw new RuntimeException("IO exception", ex);
             }
-            debut = fmt.parse(sDebut);
-            if (sFin == null) {
-                sFin = "2014-01-01";
-            }
-            fin = fmt.parse(sFin);
-            StatsDAO sDAO = new StatsDAO(ds);
-            request.setAttribute("benefTotal", sDAO.getBenefTotalPeriode(debut, fin));
-            request.setAttribute("totalPlacesVendues", sDAO.getNbAchatsPeriode(debut, fin));
-            request.setAttribute("mieuxRemplis", sDAO.getStatsSpectaclesLesPlusRemplis(5, debut, fin));
-            request.setAttribute("plusRentables", sDAO.getStatsSpectaclesLesPlusRentables(5, debut, fin));
-            request.setAttribute("statsSpectacles", sDAO.getStatsTousSpectacles(debut, fin));
-        } catch (ParseException ex) {
-            request.setAttribute("erreurFormatageDate", "<p class=\"erreur\">"
-                    + "Erreur : les dates données sont mal formattées."
-                    + "</p>");
-        }
+    }
+        
+/**
+ * Supprime les réservations non payées moins d'1h avant la représentation
+ * @param ds
+ * @param request
+ * @param response
+ * @throws ServletException
+ * @throws DAOException 
+ */
+    public static void supprimerResaNonPayees(DataSource ds,
+    HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
+
+    ReservationDAO resDAO = new ReservationDAO(ds);
+    //on supprime les réservations qui sont périmées
+    resDAO.supprimerReservationsNonPayees();
+    }
+    
+    /**
+     * Peuple la base
+     * @param ds
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws DAOException 
+     */
+    public static void peuplerBD(DataSource ds,
+    HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
+
+    ReservationDAO resDAO = new ReservationDAO(ds);
+    //on supprime les réservations qui sont périmées
+    resDAO.supprimerReservationsNonPayees();
     }
 }
