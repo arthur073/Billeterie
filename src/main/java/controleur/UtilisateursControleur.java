@@ -59,6 +59,8 @@ public class UtilisateursControleur extends HttpServlet {
 
                 goToMyAccount(request, response);
 
+            } else if (action.equalsIgnoreCase("goToStats")) {
+                goToStats(request, response);
             } else if (action.equalsIgnoreCase("goToAdmin")) {
                 goToAdmin(request, response);
             } else if (action.equalsIgnoreCase("annulerPlaces")) {
@@ -178,10 +180,15 @@ public class UtilisateursControleur extends HttpServlet {
         getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
     }
 
-    private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-        request.setAttribute("titre", "Admin");
+    private void goToStats(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+        request.setAttribute("titre", "Stats");
         StatsControleur.remplirRequeteDeStats(ds, request, response);
-        getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
+    }
+    private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
+    request.setAttribute("titre", "Admin");
+    StatsControleur.remplirRequeteDeStats(ds, request, response);
+    getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 
     private void cancelPlaces(HttpServletRequest request, HttpServletResponse response) throws IOException, DAOException, ServletException {

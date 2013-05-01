@@ -171,6 +171,20 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
     text-decoration: none;
 }
 
+.btnRed {
+    color: red;
+    background-color: #282828;
+    border-style: none;
+    box-shadow: 0px 2px 5px #1c1a19;
+    padding: 0.3em;
+    padding-left: 1em;
+    padding-right: 1em;
+    font-size: 100%;
+    margin-left : 2em;
+    cursor: pointer;
+    text-decoration: none;
+}
+
 .widthFixed {
     font-size : 117%;
     width : 200px;
