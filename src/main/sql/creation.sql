@@ -70,8 +70,6 @@ CREATE TABLE AAcheteNPlaces (
     DateAchat datetime,
     CONSTRAINT pk_AAcheteNPlaces PRIMARY KEY (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace, NoDossier, NoSerie),
     CONSTRAINT uq_AAcheteNPlaces UNIQUE (Login, NoSpectacle, NoRepresentation, NoZone, NoRang, NoPlace),
-    -- Le numéro de dossier peut être le même pour plusieurs places, dans le cas d'un achat groupé.
-    CONSTRAINT uq_AAcheteNPlaces_NoDos UNIQUE (NoZone, NoRang, NoPlace, NoDossier),
     -- CONSTRAINT uq_AAcheteNPlaces_NoSer UNIQUE (NoSerie),
     CONSTRAINT fk_AAcheteNPlaces_Place FOREIGN KEY (NoPlace, NoRang, NoZone) REFERENCES Place (NoPlace, NoRang, NoZone),
     CONSTRAINT fk_AAcheteNPlaces_Representation FOREIGN KEY (NoSpectacle, NoRepresentation) REFERENCES Representation (NoSpectacle, NoRepresentation),

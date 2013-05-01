@@ -42,7 +42,7 @@
                                 <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
                             </c:when>    
                             <c:otherwise>
-                                <input type="submit" name="action" value="Réserver" class="btnBlack"/>
+                                <input type="submit" name="action" value="Reserver" class="btnBlack"/>
                             </c:otherwise>
                         </c:choose>
                     <% } %>

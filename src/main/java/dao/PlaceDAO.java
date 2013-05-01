@@ -142,19 +142,37 @@ public class PlaceDAO extends ProviderDAO implements DAOMetier<Place> {
 
     @Override
     public void creer(Place obj) throws DAOException {
-        throw new DAOException("Impossible de créer de novelles places !");
+        throw new DAOException("Impossible de créer de nouvelles places !");
     }
 
     /**
      * Cette méthode sert à compléter l'attribut Zone d'un place dont on connait
-     * la clé.
+     * la clé, et à vérifier que cette place est bien dans la BDD.
      */
     @Override
     public void lire(Place p) throws DAOException {
-        ZoneDAO zdao = new ZoneDAO(dataSource);
-        Zone z = new Zone(p.getNoZone());
-        zdao.lire(z);
-        p.setZone(z);
+        Connection conn = null;
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_PLACE"));
+            st.setInt(1, p.getNoPlace());
+            st.setInt(2, p.getNoRang());
+            st.setInt(3, p.getNoZone());
+            rs = st.executeQuery();
+            if (rs.next()) {
+                p.setZone(ZoneDAO.construire(rs));
+            } else {
+                throw new DAOException(DAOException.Type.NON_TROUVE, "La place donnée n'existe pas.");
+            }
+        } catch (SQLException e) {
+            throw new DAOException(DAOException.Type.MAUVAIS_SQL, "Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closeStatement(st);
+            closeConnection(conn);
+        }
     }
 
     @Override

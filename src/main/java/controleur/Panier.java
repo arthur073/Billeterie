@@ -58,8 +58,16 @@ public class Panier {
             noR = Integer.parseInt(tmp[1]);
             noZ = Integer.parseInt(tmp[2]);
             Place place = new Place(noP, noR, noZ);
-            placeDAO.lire(place);
-            ajouterPlace(place);
+            /* Si la place n'est pas trouvée dans la BD, c'est que notre truc en
+             * javascript a merdé. On ignore juste la mauvaise place. */
+            try {
+                placeDAO.lire(place);
+                ajouterPlace(place);
+            } catch (DAOException e) {
+                if (e.getType() != DAOException.Type.NON_TROUVE) {
+                    throw e;
+                }
+            }
         }
     }
 
