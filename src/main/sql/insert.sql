@@ -29,6 +29,7 @@ insert into Representation values(6, 8, '2013-02-10 20:00:00', 0);
 insert into Representation values(7, 9, '2013-01-10 18:00:00', 0);
 insert into Representation values(8, 10, '2014-05-10 20:00:00', 0);
 insert into Representation values(8, 6, '2014-05-11 19:30:00', 0);
+insert into Representation values(8, 7, '2014-05-01 11:54:00', 0);
 
 
 -- Les Zones

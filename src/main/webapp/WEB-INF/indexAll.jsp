@@ -25,9 +25,16 @@
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
                             <input type="submit" name="action" value="Reserver" class="btnBlack" disabled="disabled"/>
-                    <% } else {%>
-                            <input type="submit" name="action" value="Reserver" class="btnBlack"/>
-                    <% }%>
+                    <% } else { %>
+                        <c:choose>
+                            <c:when test="${rep.isDateLessThanAnHour()}">
+                                <input type="submit" name="action" value="Indisponible" class="btnBlack" disabled="disabled"/>
+                            </c:when>
+                            <c:otherwise>
+                                <input type="submit" name="action" value="Reserver" class="btnBlack"/>
+                            </c:otherwise>
+                        </c:choose>
+                    <% } %>
                 </form>
             </td>
         </tr>

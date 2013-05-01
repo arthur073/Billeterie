@@ -1,9 +1,13 @@
 package modele;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Correspond à une représentation d'un spectable.
@@ -97,12 +101,19 @@ public class Representation {
     }
     
     public boolean isDateLessThanAnHour() {
-        Calendar now=Calendar.getInstance();
-        now.add(Calendar.HOUR, -1);
+        try {
+            //get and format now date
+            Calendar now=Calendar.getInstance();
+            now.add(Calendar.HOUR, +1);
 
-        Calendar dateRepresentation = Calendar.getInstance();
-        dateRepresentation.setTime(getDate());
-        
-        return now.before(dateRepresentation);
+            Date dateFormatted;
+            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
+            Date nowFormatted = df.parse(df.format(now.getTime()));
+            
+            return nowFormatted.after(getDate());
+        } catch (ParseException ex) {
+            Logger.getLogger(Representation.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Parsing error", ex);
+        }
     }
 }
