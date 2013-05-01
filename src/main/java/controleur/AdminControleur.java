@@ -112,6 +112,8 @@ public class AdminControleur extends HttpServlet {
     public void peuplerBD(DataSource ds,
     HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
         try {
+            ResponsableDAO respo = new ResponsableDAO(ds);
+            respo.peuplerBase();
             FlashImpl fl = new FlashImpl("Base correctement peuplée.", request, "success");
             getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
         } catch (IOException ex) {

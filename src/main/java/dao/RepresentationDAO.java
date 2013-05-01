@@ -70,12 +70,6 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             rs = st.executeQuery();
             while (rs.next()) {
                 Representation r = construire(rs);
-                //TODO
-                if( r.isDateLessThanAnHour() ) {
-                    System.out.println("dtc");
-                } else {
-                    System.out.println("ok");
-                }
                 result.add(r);
             }
         } catch (SQLException e) {

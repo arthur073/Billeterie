@@ -4,13 +4,19 @@
  */
 package dao;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.ServletContext;
 import javax.sql.DataSource;
+import modele.ScriptRunner;
 
 /**
  *
@@ -92,31 +98,29 @@ public class ResponsableDAO extends ProviderDAO {
         }
         return result;
     }
-     
-         /**
-     * Renvoie la liste des ouvrages de la table bibliographie sous la forme
-     * d'un ResultSet
+    
+     /**
+     * Peuple la base
+     * 
      */
-    /*public List<Representation> getListeRepresentations() throws DAOException {
-        List<Representation> result = new ArrayList<Representation>();
-        ResultSet rs = null;
-        String requeteSQL = "";
+    public void peuplerBase() throws DAOException {
         Connection conn = null;
         try {
             conn = getConnection();
             Statement st = conn.createStatement();
-            requeteSQL = "select r.*, s.Nom from Spectacle s, Representation r where s.NoSpectacle=r.NoSpectacle";
-            rs = st.executeQuery(requeteSQL);
-
-            while (rs.next()) {
-                Representation representation = new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"), rs.getDate("Date"), rs.getString("Nom"));
-                result.add(representation);
-            }
-        } catch (SQLException e) {
-            throw new DAOException("Erreur BD " + e.getMessage(), e);
-        } finally {
-            closeConnection(conn);
-        }
-        return result;
-    }*/
+            ScriptRunner runner = new ScriptRunner(conn, false, false);
+            
+            String path = this.getClass().getClassLoader().getResource("../sql/insert.sql").toString();
+            String modifiedPath;
+            //on enleve le file:
+            modifiedPath = path.substring(5);
+            runner.runScript(new BufferedReader(new FileReader(modifiedPath)));
+        }   catch (SQLException ex) {
+            Logger.getLogger(ResponsableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("erreur BD", ex);
+        } catch (IOException ex) {
+             Logger.getLogger(ResponsableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("erreur fichier insert", ex);
+         }
+    }
 }
