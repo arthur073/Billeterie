@@ -14,8 +14,10 @@
 </style>
 
 Page à construire..
-    <li> <a href="AdminControleur?action=viderBD" id="li1">Les spectacles</a> </li>
-
+<ul>
+    <li> <a href="AdminControleur?action=archiverBD" id="li1">Archiver BD</a> </li>
+    <li> <a href="AdminControleur?action=annulerResaNonPayees" id="li1">Annuler réservations non payées à temps</a> </li>
+</ul>
 
 <c:import url="Layout/footer.jsp"/>
 

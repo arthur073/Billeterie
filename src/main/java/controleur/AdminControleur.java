@@ -23,7 +23,7 @@ import javax.sql.DataSource;
 /**
  * @author Michel
  */
-@WebServlet(name = "StatsControleur", urlPatterns = {"/StatsControleur"})
+@WebServlet(name = "AdminControleur", urlPatterns = {"/AdminControleur"})
 public class AdminControleur extends HttpServlet {
 
 	@Resource(name = "jdbc/billeterie")
@@ -39,9 +39,10 @@ public class AdminControleur extends HttpServlet {
         try {
             request.setCharacterEncoding("UTF-8");
             String action = request.getParameter("action");
-            if (action.equalsIgnoreCase("rafraichir")) {
-                remplirRequeteDeStats(ds, request, response);
-                getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
+            if (action.equalsIgnoreCase("archiverBD")) {
+                archiverBD(ds, request, response);
+            } else if( action.equalsIgnoreCase("annulerResaNonPayees"){
+                
             } else {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
