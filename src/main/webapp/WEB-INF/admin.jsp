@@ -15,12 +15,12 @@
     @import url(statsstyle.css);
 </style>
 
-Page à construire..
-<ul>
-    <li> <a href="AdminControleur?action=archiverBD" id="li1">Archiver BD</a> </li>
-    <li> <a href="AdminControleur?action=annulerResaNonPayees" id="li1">Annuler réservations non payées à temps</a> </li>
-    <li> <a href="AdminControleur?action=peuplerBD" id="li1">Peupler BD</a> </li>
-</ul>
+<button class="btnBlack" onclick='document.location.href="AdminControleur?action=archiverBD"'>Archiver BD</button>
+<br/><br/>
+<button class="btnBlack" onclick='document.location.href="AdminControleur?action=annulerResaNonPayees"'>Annuler réservations non payées à temps</button>
+<br/><br/>
+<button class="btnBlack" onclick='document.location.href="AdminControleur?action=peuplerBD"'>Peupler BD</button>
+<br/>
 
 <%
 

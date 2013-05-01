@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
+import vue.FlashImpl;
 
 /**
  * @author Michel
@@ -67,7 +68,9 @@ public class AdminControleur extends HttpServlet {
             try {
                 ResponsableDAO respo = new ResponsableDAO(ds);
                 String resultat = respo.getBackup();
+                respo.viderBase();
                 request.setAttribute("backupFile", resultat);
+                FlashImpl fl = new FlashImpl("Base correctement archivée.", request, "success");
                 getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
 
             } catch (IOException ex) {
@@ -84,12 +87,18 @@ public class AdminControleur extends HttpServlet {
  * @throws ServletException
  * @throws DAOException 
  */
-    public static void supprimerResaNonPayees(DataSource ds,
+    public void supprimerResaNonPayees(DataSource ds,
     HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
+        try {
+            ReservationDAO resDAO = new ReservationDAO(ds);
+            //on supprime les réservations qui sont périmées
+            resDAO.supprimerReservationsNonPayees();
+            FlashImpl fl = new FlashImpl("Réservations non payées correctement annulées.", request, "success");
+            getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        } catch (IOException ex) {
+            Logger.getLogger(AdminControleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-    ReservationDAO resDAO = new ReservationDAO(ds);
-    //on supprime les réservations qui sont périmées
-    resDAO.supprimerReservationsNonPayees();
     }
     
     /**
@@ -100,11 +109,13 @@ public class AdminControleur extends HttpServlet {
      * @throws ServletException
      * @throws DAOException 
      */
-    public static void peuplerBD(DataSource ds,
+    public void peuplerBD(DataSource ds,
     HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
-
-    ReservationDAO resDAO = new ReservationDAO(ds);
-    //on supprime les réservations qui sont périmées
-    resDAO.supprimerReservationsNonPayees();
+        try {
+            FlashImpl fl = new FlashImpl("Base correctement peuplée.", request, "success");
+            getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        } catch (IOException ex) {
+            Logger.getLogger(AdminControleur.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

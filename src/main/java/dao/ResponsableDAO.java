@@ -27,6 +27,28 @@ public class ResponsableDAO extends ProviderDAO {
      * Sauvegarde la base et donne un fichier à l'utilisateur
      * 
      */
+    public void viderBase() throws DAOException {
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            Statement st = conn.createStatement();
+            String listeRequetes[] = {"DELETE_ALL_TABLE_ACHETE", "DELETE_ALL_TABLE_RESERVE",
+            "DELETE_ALL_TABLE_REPRESENTATION", "DELETE_ALL_TABLE_SPECTACLE"};
+
+            for(int i = 0; i<listeRequetes.length; i++)
+            {
+                st.executeUpdate(getRequete(listeRequetes[i]));
+            }
+        }   catch (SQLException ex) {
+            Logger.getLogger(ResponsableDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("erreur BD", ex);
+        }
+    }
+    
+         /**
+     * Sauvegarde la base et donne un fichier à l'utilisateur
+     * 
+     */
     public String getBackup() throws DAOException {
         ResultSet rs = null;
         String result = "";
