@@ -48,15 +48,19 @@
 
 <ul class="menu">    
     <li> <a href="PagesControleur?action=listeSpectacles" id="li1">Les spectacles</a> </li>
-    <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
-    <li> <a href="PagesControleur?action=goToAbout" id="li3">A propos</a> </li>
         <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
             logged = (Boolean) request.getSession().getAttribute("LoggedIn");
             if (logged != null && logged) {
                 if (loggedAdmin != null && loggedAdmin) {%>
-    <li> <a href="UtilisateursControleur?action=goToAdmin" id="li4">Admin</a> </li>
-        <% }
-            }%>
+                    <li> <a href="UtilisateursControleur?action=goToAdmin" id="li4">Admin</a> </li>
+                    <li> <a href="UtilisateursControleur?action=goToStats" id="li4">Stats</a> </li>
+             <% } else { %>
+                    <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
+             <%   }
+           } else { %>
+                   <li> <a href="UtilisateursControleur?action=goToMyAccount" id="li2">Mon compte</a> </li>
+          <% }%>
+    <li> <a href="PagesControleur?action=goToAbout" id="li3">A propos</a> </li>
 </ul>
 
 <c:if test="${!flash.emptyMessage}" >
