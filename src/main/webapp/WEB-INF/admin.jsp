@@ -15,13 +15,14 @@
     @import url(statsstyle.css);
 </style>
 
-<button class="btnBlack" onclick='document.location.href="AdminControleur?action=archiverBD"'>Archiver BD</button>
-<br/><br/>
-<button class="btnBlack" onclick='document.location.href="AdminControleur?action=annulerResaNonPayees"'>Annuler réservations non payées à temps</button>
-<br/><br/>
-<button class="btnBlack" onclick='document.location.href="AdminControleur?action=peuplerBD"'>Peupler BD</button>
-<br/>
-
+<center>
+    <button class="btnBlack" onclick='document.location.href="AdminControleur?action=annulerResaNonPayees"'>Annuler réservations non payées à temps</button>
+    <br/><br/>
+    <button class="btnBlack" onclick='document.location.href="AdminControleur?action=archiverBD"'>Archiver BD</button>
+    <br/><br/>
+    <button class="btnBlack" onclick='document.location.href="AdminControleur?action=peuplerBD"'>Peupler BD</button>
+    <br/>
+</center>
 <%
 
     String backupPresent = (String)request.getAttribute("backupFile");
