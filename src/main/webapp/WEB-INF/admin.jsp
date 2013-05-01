@@ -14,6 +14,8 @@
 </style>
 
 Page à construire..
+    <li> <a href="AdminControleur?action=viderBD" id="li1">Les spectacles</a> </li>
+
 
 <c:import url="Layout/footer.jsp"/>
 
