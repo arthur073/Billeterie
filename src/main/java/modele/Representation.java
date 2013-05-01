@@ -18,6 +18,8 @@ public class Representation {
     int noRepresentation;
     Date date = null;
     private List<Zone> listeZones;
+    /* Status de la représentation : 0 réservation ouverte, 1 reservation annulée */
+    int status;
 
     /**
      * Spectacle associé à cette représentation.
@@ -27,18 +29,20 @@ public class Representation {
     /**
      * Constructeur minimal.
      */
-    public Representation(int noSpectacle, int noRepresentation) {
+    public Representation(int noSpectacle, int noRepresentation, int status) {
         this.noSpectacle = noSpectacle;
         this.noRepresentation = noRepresentation;
+        this.status = status;
     }
 
     /**
      * Constructeur complet.
      */
-    public Representation(int noSpectacle, int noRepresentation, Date date) {
+    public Representation(int noSpectacle, int noRepresentation, Date date, int status) {
         this.noSpectacle = noSpectacle;
         this.noRepresentation = noRepresentation;
         this.date = date;
+        this.status = status;
     }
 
     public int getNoSpectacle() {
@@ -52,7 +56,11 @@ public class Representation {
     public Date getDate() {
         return date;
     }
-    /**
+    
+    public int getStatus(){
+        return status;
+    }
+        /**
      * Format param only to override method
      * @param format
      * @return 

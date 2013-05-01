@@ -43,7 +43,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             Date dat = df.parse(df.format(dateFormatted));
             Representation representation = new Representation(
                     rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                    dat );
+                    dat, rs.getInt("Annule"));
             representation.setSpectacle(new Spectacle(rs.getInt("NoSpectacle"), rs
                     .getString("Nom"), rs.getString("Image")));
             return representation;

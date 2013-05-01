@@ -24,7 +24,7 @@
                     <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
-                            <input type="submit" name="action" value="Reserver" class="btnBlack" disabled="disabled"/>
+                            <input type="submit" name="action" value="Annuler" class="btnBlack"/>
                     <% } else { %>
                         <c:choose>
                             <c:when test="${rep.isDateLessThanAnHour()}">

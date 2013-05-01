@@ -158,7 +158,7 @@ public class UtilisateursControleur extends HttpServlet {
         for (Reservation cur : listRes) {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             Representation rep = new Representation(cur.getNoSpectacle(),
-                    cur.getNoRepresentation());
+                    cur.getNoRepresentation(),0);
 
             repDAO.lire(rep);
             cur.setRepresentation(rep);
@@ -317,7 +317,7 @@ public class UtilisateursControleur extends HttpServlet {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         Representation rep = new Representation(
                 Integer.parseInt(request.getParameter("noSpectacle")),
-                Integer.parseInt(request.getParameter("noRepresentation")));
+                Integer.parseInt(request.getParameter("noRepresentation")),0);
         panier.setRepresentation(rep);
         request.setAttribute("panier", new Panier(request.getSession(), ds));
         request.setAttribute("resAsupprimer", "1");

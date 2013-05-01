@@ -158,7 +158,7 @@ public class ReservationControleur extends HttpServlet {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         Representation rep = new Representation(
                 Integer.parseInt(request.getParameter("NoSpectacle")),
-                Integer.parseInt(request.getParameter("NoRepresentation")));
+                Integer.parseInt(request.getParameter("NoRepresentation")),0);
         repDAO.lire(rep);
         panier.setRepresentation(rep);
         panier.ajouterPlaces(request.getParameter("places"));
