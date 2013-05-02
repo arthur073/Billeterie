@@ -3,6 +3,6 @@ Arthur : [DONE] Tester l'annulation dans mes spectacles et dans mon compte
 
 Arthur : [DONE] Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
 
-Réafecté à Thibault : - empêcher d'acceder aux pages / fonctions admin/etc.. lorsque pas connecté en tant que user/admin
+Réafecté à Arthur parce que Thibault a peur : - empêcher d'acceder aux pages / fonctions admin/etc.. lorsque pas connecté en tant que user/admin
 
 Jany : vérifier que les stats affichées sont correctes
