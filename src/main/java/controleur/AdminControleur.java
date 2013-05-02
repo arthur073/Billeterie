@@ -65,18 +65,18 @@ public class AdminControleur extends HttpServlet {
  */
 	public void archiverBD(DataSource ds,
         HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
-            try {
+         //   try {
                 ResponsableDAO respo = new ResponsableDAO(ds);
                 String resultat = respo.getBackup();
                 respo.viderBase();
                 request.setAttribute("backupFile", resultat);
                 FlashImpl fl = new FlashImpl("Base correctement archivée.", request, "success");
-                getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+               // getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
 
-            } catch (IOException ex) {
+         /*   } catch (IOException ex) {
                 Logger.getLogger(AdminControleur.class.getName()).log(Level.SEVERE, null, ex);
                 throw new RuntimeException("IO exception", ex);
-            }
+            }*/
     }
         
 /**
