@@ -21,19 +21,36 @@
                 if (name[name.length - 1] === "2") {
                     return;
                 }
-                $("table.about tr td img").each(function() {
+                $("table.about tr td img").each(function(i) {
                     var image = $(this), originalSrc = image.attr('src');
                     image.attr('src', originalSrc + "2");
                     image.attr('class', "profilePic2");
+
+                    if (i === 0) {
+                        image.hover(
+                                function() {
+                                    //alert("h");
+                                    image.animate({opacity: 0}, 1000, function() {
+                                        image.attr('src', "images/singe.jpg");
+                                    });
+                                },
+                                function() {
+                                    image.animate({opacity: 1}, 1000);
+                                });
+                    }
                 });
-                $("#flashDiv").html("<strong> Bravo : </strong> Vous avez découvert la page secrête");
+                $("#flashDiv").html("<strong> Bravo </strong> Vous avez découvert la page secrête");
                 $("#flashDiv").attr("class", "success");
                 $("table.about tr.top").append('<td><img src="images/soeurThib.jpg" class="profilePic2"/></td>');
                 $("table.about tr.bottom").append('<td>La soeur à Thibault</td>');
             }
         }, true);
     }
+
+
+
 </script>
+
 
 
 
@@ -79,5 +96,8 @@
     Nous promettons également qu'aucun pc n'a été maltraité et que nous nous livrons
     à des sacrifices rituels en faveur de jsp chaque jour. </p>
 
+
+
 <c:import url="Layout/footer.jsp"/>
+
 
