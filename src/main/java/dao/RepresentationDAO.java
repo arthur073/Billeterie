@@ -4,6 +4,7 @@
  */
 package dao;
 
+import static dao.ProviderDAO.closeStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -68,7 +69,8 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
                     .prepareStatement(getRequete("SELECT_LISTE_REPRESENTATIONS_A_VENIR"));
             rs = st.executeQuery();
             while (rs.next()) {
-                result.add(construire(rs));
+                Representation r = construire(rs);
+                result.add(r);
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -102,7 +104,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        dat, rs.getFloat("TarifBase"));
+                        dat);
                 result.add(achat);
             }
         } catch (SQLException e) {
@@ -237,5 +239,31 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             closeStatement(st);
             closeConnection(conn);
         }
+    }
+    
+    public int getNbPlacesRestantes(int NoSpectacle, int NoRepresentation) throws DAOException {
+        int result = 450;
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_NB_PLACES_RESTANTES"));
+            st.setInt(1, NoSpectacle);
+            st.setInt(2, NoRepresentation);
+            st.setInt(3, NoSpectacle);
+            st.setInt(4, NoRepresentation);
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result -= rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeStatement(st);
+            closeResultSet(rs);
+            closeConnection(conn);
+        }        
+        return result;
     }
 }

@@ -14,8 +14,15 @@
 
         $(".place").click(function () {
             if ($(this).hasClass("occupee")) {
+                $("#indicationChoixPlaces").html("Cette place est déjà prise.").css("visibility", "visible");
                 return false;
             }
+            // Si on essaye de prendre une place et qu'on est en dessous de 70, pas content
+            if (!$(this).hasClass("occupee") && $(".place").not(".sat, .occupee").length <= 70) {
+                $("#indicationChoixPlaces").html("Vous ne pouvez pas prendre plus de places.").css("visibility", "visible");
+                return false;
+            }
+            $("#indicationChoixPlaces").css("visibility", "hidden");
             var zone = $(this).find(".zone").html();
             var place = $(this).find(".numero").html();
             var rang = $(this).find(".rang").html();
@@ -51,6 +58,8 @@
         function (e) {
             $('div#pop-up').hide();
         });
+        // Caché au début
+        $('div#pop-up').hide();
     
         // Change l'état du bouton action
         $("#action").attr("disabled", "disabled");         
@@ -104,7 +113,9 @@
 </div>
 
 
-Cliquez sur les places que vous désirez : <br/>
+<p>Cliquez sur les places que vous désirez :</p>
+
+<div id="indicationChoixPlaces" class="error" style="visibility: hidden;">Sélectionnez vos places.</div>
 
 <table id="chairs">
     <c:forEach items="${ToutesPlaces}" var="rang">

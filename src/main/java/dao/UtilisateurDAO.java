@@ -86,7 +86,6 @@ public class UtilisateurDAO extends ProviderDAO implements DAOMetier<Utilisateur
                 u.setNom(rs.getString("Nom"));
                 u.setPrenom(rs.getString("Prenom"));
                 u.setEmail(rs.getString("Mail"));
-                // FIXME : erreur java.lang.IllegalArgumentException: No enum constant modele.TypeUtilisateur.Client
                 u.setType(rs.getString("Type"));
             } else {
                 throw new DAOException(DAOException.Type.NON_TROUVE, "Le login fourni n'existe pas.");

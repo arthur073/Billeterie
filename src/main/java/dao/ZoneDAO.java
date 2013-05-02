@@ -45,6 +45,11 @@ public class ZoneDAO extends ProviderDAO implements DAOMetier<Zone> {
         return result;
     }
 
+    static Zone construire(ResultSet rs) throws SQLException {
+        return new Zone(rs.getInt("NoZone"), rs.getString("Categorie"),
+                rs.getFloat("TarifBase"));
+    }
+
     /**
      * Renvoie la liste des zones existantes, triées par tarifs de base
      * croissants.
@@ -60,8 +65,7 @@ public class ZoneDAO extends ProviderDAO implements DAOMetier<Zone> {
             st = conn.prepareStatement(getRequete("SELECT_TOUTES_ZONES"));
             rs = st.executeQuery();
             while (rs.next()) {
-                result.add(new Zone(rs.getInt("NoZone"),
-                            rs.getString("Categorie"), rs.getFloat("TarifBase")));
+                result.add(construire(rs));
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);
@@ -92,7 +96,7 @@ public class ZoneDAO extends ProviderDAO implements DAOMetier<Zone> {
                 z.setCategorie(rs.getString("Categorie"));
                 z.setTarifBase(rs.getFloat("TarifBase"));
             } else {
-                throw new DAOException(DAOException.Type.NON_TROUVE, "Zone non trouvé.");
+                throw new DAOException(DAOException.Type.NON_TROUVE, "Zone non trouvée.");
             }
         } catch (SQLException e) {
             throw new DAOException("Erreur BD " + e.getMessage(), e);

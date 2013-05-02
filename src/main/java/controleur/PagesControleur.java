@@ -30,7 +30,7 @@ public class PagesControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            if (action == null || action.equalsIgnoreCase("annuler")) {
+            if (action.equalsIgnoreCase("listeSpectacles") || action.equalsIgnoreCase("annuler")) {
                 actionAfficher(request, response);
             } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
@@ -41,7 +41,7 @@ public class PagesControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
             } else {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());

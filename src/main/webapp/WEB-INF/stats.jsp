@@ -1,63 +1,80 @@
 <%-- 
-Document   : Statistiques en HTML, à inclure dans une page complète
-Created on : 21 avr. 2013, 11:34:17
-Author     : Jany
+    Document   : stats
+    Created on : 17 avr. 2013, 11:34:17
+    Author     : michel
 --%>
-<%@page import="java.text.DecimalFormat"%>
-<%@page import="java.util.Iterator"%>
-<%@page import="dao.StatsDAO.InfoRenta"%>
-<%@page import="java.util.List"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<% if (request.getAttribute("erreurFormatageDate") != null) { %>
-<p class="erreur">${erreurFormatageDate}</p>
-<% } else { %>
+<c:import url="Layout/header.jsp"/>
 
-<h2>Statistiques globales sur la période</h2>
-<table id="stats-globales">
-    <tr><th>Bénéfice total</th><td>${benefTotal}&nbsp;&euro;</td></tr>
-    <tr><th>Nombre de places vendues</th><td>${totalPlacesVendues}</td></tr>
-</table>
+<style type="text/css" media="screen">
+    @import url(http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css);
+    @import url(statsstyle.css);
+</style>
 
-<h2>Meilleurs spectacles</h2>
+<script>
+    $(function() {
+        //en supposant que le debut d'une saison est le 1er sept et la fin le 30 juin
+        // on met le 1er juillet  pour prendre en compte la journée du 30 juin complete
+        // on initialise les champs a cette valeur pour avoir des stats qui s'affichent direct
+      $( "#datepickerDebut" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '01-09-2013');
+      $( "#datepickerFin" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '01-07-2014');
+    });
+    
+    function checkDate() {
+        if( $("#datepickerDebut").datepicker("getDate") > $("#datepickerFin").datepicker("getDate") )
+            {
+                alert("La date de fin ne peut être inférieur à la date de début");
+                var date = new Date($( "#datepickerDebut" ).datepicker("getDate"));
+                date.setDate(date.getDate() + 1);
+                $("#datepickerFin").datepicker('setDate', date);
+            }
+    }
+    function changeStats() {
+        var Url = "StatsControleur?action=rafraichir&dateDebut=" + getDateDebut() +"&dateFin=" + getDateFin();
+        xmlHttp = new XMLHttpRequest(); 
+        xmlHttp.onreadystatechange = ProcessRequest;
+        xmlHttp.open( "GET", Url, true );
+        xmlHttp.send( null );
+    }
 
-<table id="stats-meilleurs">
-    <tr><th colspan="2">Remplissage</th><th colspan="2">Rentabilité</th></tr>
-    <%
-    DecimalFormat df = new DecimalFormat("###.##");
-    List<InfoRenta> mieuxRemplisListe = (List<InfoRenta>)request.getAttribute("mieuxRemplis");
-    Iterator<InfoRenta> mieuxRemplis = mieuxRemplisListe.iterator();
-    List<InfoRenta> plusRentablesListe = (List<InfoRenta>)request.getAttribute("plusRentables");
-    Iterator<InfoRenta> plusRentables = plusRentablesListe.iterator();
-    InfoRenta info;
-    while (mieuxRemplis.hasNext() || plusRentables.hasNext()) {
-        out.println("<tr>");
-        if (mieuxRemplis.hasNext()) {
-            info = mieuxRemplis.next();
-            out.println("<td><strong>" + info.spectacle.getNom() +
-                "</strong></th><td>" + info.nbPlacesVendues +
-                " (" + df.format(info.tauxRemplissage) + "&nbsp;%)</td></th>");
-        } else {
-            out.println("<td colspan=\"2\" class=\"invisible\"></td");
+    function getDateDebut() {
+        return $("#datepickerDebut").datepicker({ dateFormat: 'yy-mm-dd' }).val();
+    }
+    function getDateFin() {
+        return $("#datepickerFin").datepicker({ dateFormat: 'yy-mm-dd' }).val();
+    }
+    
+    var xmlHttp = null;
+
+function ProcessRequest() 
+{
+    if ( xmlHttp.readyState === 4 ) 
+    {
+        if( xmlHttp.status === 200 )
+        {            
+            if ( xmlHttp.responseText === "Not found" ) 
+            {
+                alert("error");
+            }
+            else
+            {
+                // on récupère direct du HTML
+                $("#stats-container").innerHTML = xmlHttp.responseText;
+            }   
         }
-        if (plusRentables.hasNext()) {
-            info = plusRentables.next();
-            out.println("<td><strong>" + info.spectacle.getNom() +
-                "</strong></td><td>" + info.benefTotal + "&nbsp;&euro;</td></th>");
-        } else {
-            out.println("<td colspan=\"2\" class=\"invisible\"></td");
-        }
-        out.println("</tr>\n");
-    } %>
-</table>
+    }
+}
+    
+</script>
+ 
+<div style="float:left;padding-left: 10%;">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 15%;">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
 
-<h2>Tous les spectacles</h2>
+<div id="stats-container" class="clearer">
+    <c:import url="statsWidget.jsp"/>
+</div>
 
-<table id="stats-tous">
-	<tr><th>Nom</th><th class="colonne-stats">Bénéfice total</th><th class="colonne-stats">Nombre de places vendues</th></tr>
-    <% for (InfoRenta stat : (List<InfoRenta>) request.getAttribute("statsSpectacles")) { %>
-		<tr><td><strong><%= stat.spectacle.getNom() %></strong></td><td><%= stat.benefTotal %>&nbsp;&euro;</td><td><%= stat.nbPlacesVendues %> (<%= df.format(stat.tauxRemplissage) %>&nbsp;%)</td></tr>
-    <% } %>
-</table>
+<c:import url="Layout/footer.jsp"/>
 
-<% } %>

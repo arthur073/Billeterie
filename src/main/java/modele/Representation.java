@@ -1,8 +1,13 @@
 package modele;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Correspond à une représentation d'un spectable.
@@ -13,6 +18,7 @@ public class Representation {
     int noRepresentation;
     Date date = null;
     private List<Zone> listeZones;
+    /* Status de la représentation : 0 réservation ouverte, 1 reservation annulée */
     private Boolean annule;
 
     /**
@@ -23,9 +29,10 @@ public class Representation {
     /**
      * Constructeur minimal.
      */
-    public Representation(int noSpectacle, int noRepresentation) {
+    public Representation(int noSpectacle, int noRepresentation, Boolean annule) {
         this.noSpectacle = noSpectacle;
         this.noRepresentation = noRepresentation;
+        this.annule = annule;
     }
 
     /**
@@ -50,7 +57,11 @@ public class Representation {
     public Date getDate() {
         return date;
     }
-    /**
+    
+    public Boolean getAnnule(){
+        return annule;
+    }
+        /**
      * Format param only to override method
      * @param format
      * @return 
@@ -83,6 +94,11 @@ public class Representation {
         this.spectacle = spectacle;
         return this;
     }
+    
+    public Representation setAnnule(Boolean annule) {
+        this.annule = annule;
+        return this;
+    }
 
     /**
      * @return the listeZones
@@ -97,18 +113,21 @@ public class Representation {
     public void setListeZones(List<Zone> listeZones) {
         this.listeZones = listeZones;
     }
+    
+    public boolean isDateLessThanAnHour() {
+        try {
+            //get and format now date
+            Calendar now=Calendar.getInstance();
+            now.add(Calendar.HOUR, +1);
 
-    /**
-     * @return the annule
-     */
-    public Boolean getAnnule() {
-        return annule;
+            Date dateFormatted;
+            DateFormat df = DateFormat.getDateTimeInstance(DateFormat.LONG,DateFormat.LONG);
+            Date nowFormatted = df.parse(df.format(now.getTime()));
+            
+            return nowFormatted.after(getDate());
+        } catch (ParseException ex) {
+            Logger.getLogger(Representation.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException("Parsing error", ex);
+        }
     }
-
-    public void setAnnule(boolean annule) {
-        this.annule = annule;
-    }
-
-  
-
 }

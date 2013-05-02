@@ -1,20 +1,8 @@
-- Une saison de spectacle est de septembre à juin
-
-Michel : - Archivage et vidage de la BDD au 1er juillet
-
-Jany : - Rediriger correctement après création de compte + s'identifier automatiquement après création d'un compte
-
-Thibault : - Annulation d'une représentation (booleen à 1)
-
-Thibault : - A vérifier lors de résa + achat, il reste au moins 70 places. Si déjà réservé alors on ne vérifie pas
 
 Arthur : - Tester l'annulation dans mes spectacles et dans mon compte
 
-Michel : - Annuler les places réservées mais non payées une heure avant la représentation
-Empêcher les reservations dans l'heure précédant le spectacle
-
 Arthur : - Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
 
-Michel : - Pages d'erreurs lorsque url n'existe pas / mauvaise
+Réafecté à Thibault : - empêcher d'acceder aux pages / fonctions admin/etc.. lorsque pas connecté en tant que user/admin
 
-Jany : - corriger achat direct
+Jany : vérifier que les stats affichées sont correctes

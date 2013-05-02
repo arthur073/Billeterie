@@ -41,11 +41,14 @@ public class AchatControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            // TODO : if à mettre
-            actionAcheter(request, response);
+                            //utilisé uniquement pour verifier que pas mauvaise url (null pointer except)
+                if( !action.equals(""))
+                    actionAcheter(request, response);
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
             //getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
+        } catch (NullPointerException e) {
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
 
     }

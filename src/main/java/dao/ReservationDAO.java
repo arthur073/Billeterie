@@ -1,5 +1,6 @@
 package dao;
 
+import static dao.ProviderDAO.closeStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -50,8 +51,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"),
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -112,8 +112,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation("anonymous",
                         noSpectacle, noRepresentation,
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -145,8 +144,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"),
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 result.add(reservation);
             }
         } catch (SQLException e) {
@@ -175,8 +173,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             while (rs.next()) {
                 Reservation reservation = new Reservation(rs.getString("Login"),
                         rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getFloat("TarifBase"));
+                        rs.getInt("NoZone"), rs.getInt("NoRang"), rs.getInt("NoPlace"));
                 this.lire(reservation);
                 result.add(reservation);
             }
@@ -221,7 +218,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
         Client c = new Client(r.getLogin());
         cDAO.lire(c);
         r.setClient(c);
-        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation());
+        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation(),false);
         rDAO.lire(rep);
         r.setRepresentation(rep);
         Place p = new Place(r.getNoPlace(), r.getNoRang(), r.getNoZone());
@@ -265,4 +262,23 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
             closeConnection(conn);
         }
     }
+    /**
+     * Supprime les réservations non payées 1h avant la représentation
+     * @throws DAOException 
+     */
+    public void supprimerReservationsNonPayees() throws DAOException {
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("DELETE_PLACES_NON_PAYEES_UNE_H_REPRESENTATION"));
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("Erreur BD " + e.getMessage(), e);
+        } finally {
+            closeStatement(st);
+            closeConnection(conn);
+        }
+     }
+    
 }

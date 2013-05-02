@@ -30,7 +30,8 @@
     </table>
 </div>
 
-
+Il reste : ${nbPlacesRestantes}
+<br/>
 <br/>
 <h3 align="center" class="titre"> Vos places </h3>
 

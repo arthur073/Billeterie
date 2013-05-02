@@ -15,6 +15,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <jsp:forward page="/PagesControleur"/>
+        <jsp:forward page="/PagesControleur?action=listeSpectacles"/>
     </body>
 </html>

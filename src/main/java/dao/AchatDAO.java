@@ -85,8 +85,7 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        new Date(rs.getTimestamp("DateAchat").getTime()),
-			rs.getFloat("TarifBase"));
+                        new Date(rs.getTimestamp("DateAchat").getTime()));
                 resaDAO.lire(achat);
                 result.add(achat);
             }
@@ -167,8 +166,7 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
                         rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        new Date( rs.getTimestamp("DateAchat").getTime() ),
-			rs.getFloat("TarifBase"));
+                        new Date(rs.getTimestamp("DateAchat").getTime()));
                 resaDAO.lire(achat);
                 result.add(achat);
             }
@@ -204,8 +202,7 @@ public class AchatDAO extends ProviderDAO implements DAOMetier<Achat> {
                         rs.getInt("NoSpectacle"),
                         rs.getInt("NoRepresentation"), rs.getInt("NoZone"),
                         rs.getInt("NoRang"), rs.getInt("NoPlace"),
-                        rs.getInt("NoDossier"), rs.getInt("NoSerie"),
-                        dat, rs.getFloat("TarifBase"));
+                        rs.getInt("NoDossier"), rs.getInt("NoSerie"), dat);
                 resaDAO.lire(achat);
                 result.add(achat);
             }

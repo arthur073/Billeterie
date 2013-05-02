@@ -4,10 +4,25 @@
     Author     : arthur
 --%>
 
+<%@page import="vue.FlashImpl"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="vue.RangToZone"%> 
 
 <c:import url="Layout/header.jsp"/>    
+
+<script>
+    if ( window.addEventListener ) {
+        var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
+        window.addEventListener("keydown", function(e){
+            kkeys.push( e.keyCode );
+            if ( kkeys.toString().indexOf( konami ) >= 0 ) {
+                 alert("La requête suivante a bien été exécutée :\nUPDATE notes2AEnsimag\nSET noteWeb=20\n"
+                        + "WHERE login = 'kuhmm' OR login = 'vernadat' OR login = 'belluzj' OR login = 'vergera'");              
+            }
+        }, true);
+    }
+    
+</script>
 
 <p style="padding-left: 40px">Bienvenue sur le site de réservation et d'achats de places du théâtre E=MC2,<br/> 
 vous pouvez ici consulter la liste des spectacles à venir ainsi que réserver<br/>

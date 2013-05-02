@@ -55,7 +55,15 @@ Vous avez choisi la représentation suivante : <br/>
                         <form action="ReservationControleur" method="post">
                             <input type="hidden" name="NoSpectacle" value="${rep.noSpectacle}" />
                             <input type="hidden" name="NoRepresentation" value="${rep.noRepresentation}" />
-                            <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
+                            <c:choose>
+                                <c:when test="${rep.annule == 1}">
+                                    <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                                </c:when>    
+                                <c:otherwise>
+                                    <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
+                                </c:otherwise>
+                            </c:choose>
+                            
                         </form>
                     </td>
                 </tr>

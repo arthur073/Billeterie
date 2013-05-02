@@ -8,9 +8,6 @@ import dao.DAOException;
 import dao.RepresentationDAO;
 import dao.UtilisateurDAO;
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -18,14 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
-import modele.Place;
-import modele.Representation;
 import modele.TypeUtilisateur;
 
 import modele.Utilisateur;
-import modele.Zone;
 import vue.FlashImpl;
-import vue.TraitementPlaces;
 
 /**
  *
@@ -42,7 +35,7 @@ public class LoginControleur extends HttpServlet {
             HttpServletResponse response)
             throws IOException, ServletException {
         if (((HttpServletRequest) request).getMethod().equals("GET")) {
-            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
@@ -106,18 +99,10 @@ public class LoginControleur extends HttpServlet {
                 response.sendRedirect("PagesControleur");
                 return;
             } else {
-                Map<String, String[]> params = (Map<String, String[]>) request.getSession().getAttribute("paramsConfirmation");
-                String places = params.get("places")[0];
-                Map<Zone, List<Place>> map = TraitementPlaces.TraiterPlaces(ds, places);
-                float prixTotal = TraitementPlaces.getPrixTotalPlaces(map);
-                request.setAttribute("map", map);
-                request.setAttribute("prixTotal", prixTotal);
-                RepresentationDAO repDAO = new RepresentationDAO(ds);
-                Representation rep = new Representation(
-                        Integer.parseInt(params.get("NoSpectacle")[0]),
-                        Integer.parseInt(params.get("NoRepresentation")[0]));
-                repDAO.lire(rep);
-                request.setAttribute("rep", rep);
+                Panier panier = new Panier(request.getSession(), ds);
+                request.setAttribute("map", panier.getPlacesParZone());
+                request.setAttribute("prixTotal", panier.getPrixTotal());
+                request.setAttribute("rep", panier.getRepresentation());
                 request.setAttribute("titre", "Confirmation de réservation");
             }
             getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);

@@ -12,7 +12,6 @@ public class Reservation {
     private int noZone;
     private int noRang;
     private int noPlace;
-    private float tarifBase;
 
     /*
      * Objets associés à la réservation.
@@ -24,7 +23,7 @@ public class Reservation {
     /**
      * Constructeur minimal par objets.
      */
-    public Reservation(Client c, Representation r, Place p, float tarifBase) {
+    public Reservation(Client c, Representation r, Place p) {
         this.login = c.getLogin();
         this.noSpectacle = r.getNoSpectacle();
         this.noRepresentation = r.getNoRepresentation();
@@ -34,14 +33,13 @@ public class Reservation {
         this.client = c;
         this.representation = r;
         this.place = p;
-        this.tarifBase = tarifBase;
     }
     
     /**
      * Constructeur minimal.
      */
     public Reservation(String login, int noSpectacle, int noRepresentation,
-            int noZone, int noRang, int noPlace, float tarifBase) {
+            int noZone, int noRang, int noPlace) {
         this.login = login;
         this.noSpectacle = noSpectacle;
         this.noRepresentation = noRepresentation;
@@ -175,29 +173,4 @@ public class Reservation {
     public void setPlace(Place place) {
         this.place = place;
     }
-    
-    /**
-     * @return the tarifBase
-     */
-    public float getTarifBase() {
-        return tarifBase;
-    }
-    
-    /**
-     * @param tarifBase to set
-     */
-    public void setTarifBase(float tarifBase) {
-        this.tarifBase = tarifBase;
-    }
-    
-    public String getNomZone() {
-       switch (noZone) {
-           case 1: return "Poulailler";
-           case 2: return "Orchestre";
-           case 3: return "Balcon";
-           case 4: return "Loge";
-           default : return null;
-       }        
-    }
-
 }
