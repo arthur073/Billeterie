@@ -1,7 +1,7 @@
 
-Arthur : - Tester l'annulation dans mes spectacles et dans mon compte
+Arthur : [DONE] Tester l'annulation dans mes spectacles et dans mon compte 
 
-Arthur : - Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
+Arthur : [DONE] Afficher bandeau rouge admin pas droit acheter places (cf. ligne 111 loginControleur)
 
 Réafecté à Thibault : - empêcher d'acceder aux pages / fonctions admin/etc.. lorsque pas connecté en tant que user/admin
 
