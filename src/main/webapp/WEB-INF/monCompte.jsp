@@ -133,7 +133,7 @@
                 </td>
                 <td>
                     <c:choose>
-                        <c:when test="${achat.representation.annule == 1}">
+                        <c:when test="${achat.representation.annule}">
                            <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
                         </c:when>    
                         <c:otherwise>

@@ -56,8 +56,8 @@ Vous avez choisi la représentation suivante : <br/>
                             <input type="hidden" name="NoSpectacle" value="${rep.noSpectacle}" />
                             <input type="hidden" name="NoRepresentation" value="${rep.noRepresentation}" />
                             <c:choose>
-                                <c:when test="${rep.annule == 1}">
-                                    <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                                <c:when test="${rep.annule}">
+                                    <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                                 </c:when>    
                                 <c:otherwise>
                                     <input type="submit" name="action" value="Reserver" class="btnBlack btnReserverSmall"/>
