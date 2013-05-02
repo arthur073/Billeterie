@@ -18,7 +18,7 @@
                 return false;
             }
             // Si on essaye de prendre une place et qu'on est en dessous de 70, pas content
-            if (!$(this).hasClass("occupee") && $(".place").not(".sat, .occupee").length <= 70) {
+            if (!$(this).hasClass("sat") && $(".place").not(".sat, .occupee").length <= 70) {
                 $("#indicationChoixPlaces").html("Vous ne pouvez pas prendre plus de places.").css("visibility", "visible");
                 return false;
             }
