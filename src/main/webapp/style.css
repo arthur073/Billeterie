@@ -26,7 +26,8 @@ h2.titre  {
     margin-top : 1em;
     font-size : 200%;
     font-family: header_font;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
+    padding-left: 40%;
 }
 
 h2.header {
@@ -547,4 +548,28 @@ div.confirmation {
 
 .clearer {
     clear: both;
+}
+
+.theatreImg {
+    box-shadow: 0px 2px 5px #1c1a19;
+    display: block;
+    margin: auto;
+    width : 60%;
+}
+
+.profilePic {
+    box-shadow: 0px 2px 5px #1c1a19;
+    height: 200px;
+    border-radius: 10px;
+}
+
+p.about, table.about {
+    padding: 0 50px;
+    text-align: justify;
+    padding-bottom: 1em;
+}
+
+table.about tr td {
+    text-align: center;
+    padding-left: 2em;
 }

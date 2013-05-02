@@ -42,7 +42,7 @@
 <a href="PagesControleur?action=listeSpectacles" class="login"/>Accueil</a>
 <% }%>
 
-<h2 style="padding-left: 37%" > ${titre} </h2>
+<h2 class="titre"> ${titre} </h2>
 
 
 
