@@ -64,7 +64,7 @@
 </ul>
 
 <c:if test="${!flash.emptyMessage}" >
-    <div class="flash ${flash.klass}"><strong> ${flash.start} </strong> ${flash.message}</div>
+    <div id="flashDiv" class="flash ${flash.klass}" ><strong> ${flash.start} </strong> ${flash.message}</div>
 </c:if>
 
 

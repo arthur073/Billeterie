@@ -560,6 +560,12 @@ div.confirmation {
 
 .profilePic {
     box-shadow: 0px 2px 5px #1c1a19;
+    height: 150px;
+    border-radius: 10px;
+}
+
+.profilePic2 {
+    box-shadow: 0px 2px 5px #1c1a19;
     height: 180px;
     border-radius: 10px;
 }
