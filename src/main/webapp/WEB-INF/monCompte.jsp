@@ -53,7 +53,13 @@
             </th>
         </tr>
         <c:forEach items="${listAchatSuiv}" var="achat">
-            <tr>
+            
+            <c:if test="${achat.representation.annule}" >
+                <tr class="trAnnule">
+            </c:if>
+            <c:if test="not ${achat.representation.annule}" >
+                <tr>
+            </c:if>
                 <td>
                     <img height="80px"  src="images/${achat.representation.spectacle.image}" class="shadowImg"/>   
                 </td>
@@ -70,7 +76,12 @@
                     ${achat.place.zone.tarifBase} &euro;
                 </td>
                 <td>
-                    <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
+                    <c:if test="${achat.representation.annule}" >
+                        <a class="btnBlack Annule">Annulé</a>
+                    </c:if>
+                    <c:if test="not ${achat.representation.annule}" >
+                        <a href="UtilisateursControleur?action=imprPlaces&nomS=${achat.representation.spectacle.nom}&image=${achat.representation.spectacle.image}&date=${achat.representation.getDate(null)}&prix=${achat.place.zone.tarifBase}&numero=${achat.noSerie}&place=${achat.noPlace}&rang=${achat.noRang}&zone=${achat.nomZone}" target="_blank" class="btnBlack">Imprimer</a>
+                    </c:if>
                 </td>
             </tr>
         </c:forEach>

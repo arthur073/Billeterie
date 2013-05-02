@@ -1,3 +1,4 @@
+<%@page import="modele.Representation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>
@@ -11,7 +12,11 @@
         <th> </th>
     </tr>
     <c:forEach items="${representations}" var="rep">
+        <% if (((Representation) pageContext.getAttribute("rep")).getAnnule()) { %>
+        <tr class="trAnnule">
+        <% } else { %>
         <tr>
+        <% } %>
             <td><img height="80"  src="images/${rep.spectacle.image}" class="shadowImg"/></td>
             <td>${rep.spectacle.nom}</td>
             <td>${rep.getDate(null)}</td>
@@ -25,6 +30,8 @@
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
                             <input type="submit" name="action" value="Reserver" class="btnBlack" disabled="disabled"/>
+                            <% } else if (((Representation) pageContext.getAttribute("rep")).getAnnule()) { %>
+                            <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                     <% } else {%>
                             <input type="submit" name="action" value="Reserver" class="btnBlack"/>
                     <% }%>

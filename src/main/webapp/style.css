@@ -158,7 +158,6 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
 
 
 .btnBlack {
-    color: white;
     background-color: #282828;
     border-style: none;
     box-shadow: 0px 2px 5px #1c1a19;
@@ -169,7 +168,31 @@ form.loginForm input[type=text], form.loginForm input[type=password] {
     margin-left : 2em;
     cursor: pointer;
     text-decoration: none;
+    color: white;
+
 }
+
+.Annule {
+    background-color: #B42223 !important;
+    font-weight: bold;
+}
+
+.trAnnule {
+    color : gray;
+    font-style: italic;
+}
+
+
+a.Annule:hover, a.Annule {
+    text-decoration: none;
+    cursor : default;
+    font-style: normal;
+}
+
+.trAnnule img {
+    opacity: 0.2;
+}
+
 
 .widthFixed {
     font-size : 117%;
@@ -508,7 +531,7 @@ div.confirmation {
 .shadowImg {
     box-shadow: 0px 2px 5px #1c1a19;
 }
-    
+
 .clearer {
     clear: both;
 }

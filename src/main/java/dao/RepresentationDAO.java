@@ -42,7 +42,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             Date dat = df.parse(df.format(dateFormatted));
             Representation representation = new Representation(
                     rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation"),
-                    dat );
+                    dat, rs.getBoolean("Annule") );
             representation.setSpectacle(new Spectacle(rs.getInt("NoSpectacle"), rs
                     .getString("Nom"), rs.getString("Image")));
             return representation;
@@ -179,6 +179,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
                 rep.setDate(dat);
                 System.out.println(rs.getInt("NoSpectacle"));
                 rep.setSpectacle(SpectacleDAO.construire(rs));
+                rep.setAnnule(rs.getBoolean("Annule"));
             } else {
                 throw new DAOException(DAOException.Type.NON_TROUVE,
                         "Représentation non trouvée"+ st.toString());

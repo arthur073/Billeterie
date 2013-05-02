@@ -13,6 +13,7 @@ public class Representation {
     int noRepresentation;
     Date date = null;
     private List<Zone> listeZones;
+    private Boolean annule;
 
     /**
      * Spectacle associé à cette représentation.
@@ -30,10 +31,12 @@ public class Representation {
     /**
      * Constructeur complet.
      */
-    public Representation(int noSpectacle, int noRepresentation, Date date) {
+    public Representation(int noSpectacle, int noRepresentation, Date date, 
+            Boolean annule) {
         this.noSpectacle = noSpectacle;
         this.noRepresentation = noRepresentation;
         this.date = date;
+        this.annule = annule;
     }
 
     public int getNoSpectacle() {
@@ -94,5 +97,18 @@ public class Representation {
     public void setListeZones(List<Zone> listeZones) {
         this.listeZones = listeZones;
     }
+
+    /**
+     * @return the annule
+     */
+    public Boolean getAnnule() {
+        return annule;
+    }
+
+    public void setAnnule(boolean annule) {
+        this.annule = annule;
+    }
+
+  
 
 }
