@@ -31,8 +31,8 @@
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
                            <c:choose>
-                            <c:when test="${rep.getAnnule() == 1}">
-                                <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                            <c:when test="${rep.getAnnule()}">
+                                <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                             </c:when>    
                             <c:otherwise>
                                <input type="submit" name="action" value="Annuler" class="btnBlack"/>
@@ -43,8 +43,8 @@
                             <c:when test="${rep.isDateLessThanAnHour()}">
                                 <input type="submit" name="action" value="Indisponible" class="btnBlack" disabled="disabled"/>
                             </c:when>
-                            <c:when test="${rep.getAnnule() == 1}">
-                                <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                            <c:when test="${rep.getAnnule()}">
+                                <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                             </c:when>    
                             <c:otherwise>
                                 <input type="submit" name="action" value="Reserver" class="btnBlack"/>

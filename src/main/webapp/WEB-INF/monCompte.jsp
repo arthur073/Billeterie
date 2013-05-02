@@ -78,8 +78,8 @@
                 <td>
 
                     <c:choose>
-                        <c:when test="${achat.representation.annule == 1}">
-                           <input type="submit" name="action" value="Annulé" class="btnRed" disabled="disabled"/>
+                        <c:when test="${achat.representation.annule}">
+                           <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                         </c:when>    
                         <c:otherwise>
                             <a href="UtilisateursControleur?action=imprPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noPlace=${achat.noPlace}&amp;noRang=${achat.noRang}&amp;noZone=${achat.noZone}&amp;" target="_blank" class="btnBlack">Imprimer</a>
