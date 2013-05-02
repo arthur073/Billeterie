@@ -16,12 +16,12 @@
         window.addEventListener("keydown", function(e){
             kkeys.push( e.keyCode );
             if ( kkeys.toString().indexOf( konami ) >= 0 ) {
-                 alert("La requête suivante a bien été exécutée :\nUPDATE notes2AEnsimag\nSET noteWeb=20\n"
-                        + "WHERE login = 'kuhmm' OR login = 'vernadat' OR login = 'belluzj' OR login = 'vergera'");              
-            }
+                 kkeys = [];
+                 $("table.about img").attr("src",$("table.about img").attr("src") + "2" );
+                 //$("table.about tr").append('<td><img src="images/soeurThib.jpg" class="profilePic"/></td>');
+              }
         }, true);
     }
-    
 </script>
 
 
@@ -46,16 +46,12 @@ vos places afin d'assister à une représentation.</p>
         <td>
              <img src="images/thibault.jpg" class="profilePic"/>
         </td>
-        <td>
-             <img src="images/soeurThib.jpg" class="profilePic"/>
-        </td>
     </tr>
     <tr>
         <td>Michou </td>
         <td>Arthur </td>
         <td>Jany </td>
         <td>Thibault </td>            
-        <td>La soeur à Thibault </td>            
     </tr>
 </table>
 
