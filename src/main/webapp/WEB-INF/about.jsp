@@ -26,7 +26,7 @@
                     image.attr('src', originalSrc + "2");
                     image.attr('class', "profilePic2");
 
-                    if (i === 0) {
+                    if (i === 1) {
                         image.hover(
                                 function() {
                                     //alert("h");
