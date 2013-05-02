@@ -38,35 +38,39 @@ vos places afin d'assister à une représentation.</p>
              <img src="images/michel.jpg" class="profilePic"/>
         </td>
         <td>
-             <img src="images/michel.jpg" class="profilePic"/>
+             <img src="images/arthur.jpg" class="profilePic"/>
         </td>
         <td>
-             <img src="images/michel.jpg" class="profilePic"/>
+             <img src="images/jany.jpg" class="profilePic"/>
         </td>
         <td>
-             <img src="images/michel.jpg" class="profilePic"/>
+             <img src="images/thibault.jpg" class="profilePic"/>
+        </td>
+        <td>
+             <img src="images/soeurThib.jpg" class="profilePic"/>
         </td>
     </tr>
     <tr>
         <td>Michou </td>
-        <td>Michou </td>
-        <td>Michou </td>
-        <td>Michou </td>            
+        <td>Arthur </td>
+        <td>Jany </td>
+        <td>Thibault </td>            
+        <td>La soeur à Thibault </td>            
     </tr>
 </table>
 
-<p class="about">
+<p class="about disclaimer">
 Disclaimer : this website is provided as is without warranty of any kind,
 either express or implied, including but not limited to the implied warranties
 of merchantability and fitness for a particular purpose. In no event shall
 the North Front Range Metropolitan Planning Organization be liable for any 
 damages whatsoever including direct, indirect, incidental consequential, 
 loss of business profits, or special damages.</p>
+<img src="images/salle_theatre.jpeg" class="theatreImg"/>
 
 <p class="about">
 Nous promettons également qu'aucun pc n'a été maltraité et que nous nous livrons
 à des sacrifices rituels en faveur de jsp chaque jour. </p>
 
-<img src="images/salle_theatre.jpeg" class="theatreImg"/>
 <c:import url="Layout/footer.jsp"/>
 
