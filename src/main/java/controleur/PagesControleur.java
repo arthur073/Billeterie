@@ -30,7 +30,8 @@ public class PagesControleur extends HttpServlet {
         String action = request.getParameter("action");
 
         try {
-            if (action.equalsIgnoreCase("listeSpectacles") || action.equalsIgnoreCase("annuler")) {
+            
+            if ( action == null || action.equalsIgnoreCase("listeSpectacles") || action.equalsIgnoreCase("annuler")) {
                 actionAfficher(request, response);
             } else if (action.equalsIgnoreCase("goToLogin")) {
                 goToLogIn(request, response);
@@ -41,13 +42,14 @@ public class PagesControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("Creer un compte")) {
                 CreerUnCompte(request, response);
             } else {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
+                actionAfficher(request, response);
             }
         } catch (DAOException e) {
             request.setAttribute("erreurMessage", e.getMessage());
             getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         }
     }
+        
 
     public void actionAfficher(HttpServletRequest request,
             HttpServletResponse response) throws DAOException, ServletException, IOException {
@@ -59,7 +61,6 @@ public class PagesControleur extends HttpServlet {
 
     private void goToLogIn(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
         request.setAttribute("titre", "Connexion a mon compte");
-
         request.setAttribute("from", request.getParameter("from"));
         request.getSession().setAttribute("LoggedIn", false);
         request.getSession().setAttribute("FailedLogIn", false);
@@ -81,5 +82,4 @@ public class PagesControleur extends HttpServlet {
         request.setAttribute("titre", "A propos");
         getServletContext().getRequestDispatcher("/WEB-INF/about.jsp").forward(request, response);
     }
- 
 }

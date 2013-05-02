@@ -11,38 +11,93 @@
 <c:import url="Layout/header.jsp"/>    
 
 <script>
-    if ( window.addEventListener ) {
+    if (window.addEventListener) {
         var kkeys = [], konami = "38,38,40,40,37,39,37,39,66,65";
-        window.addEventListener("keydown", function(e){
-            kkeys.push( e.keyCode );
-            if ( kkeys.toString().indexOf( konami ) >= 0 ) {
-                 alert("La requête suivante a bien été exécutée :\nUPDATE notes2AEnsimag\nSET noteWeb=20\n"
-                        + "WHERE login = 'kuhmm' OR login = 'vernadat' OR login = 'belluzj' OR login = 'vergera'");              
+        window.addEventListener("keydown", function(e) {
+            kkeys.push(e.keyCode);
+            if (kkeys.toString().indexOf(konami) >= 0) {
+                kkeys = [];
+                var name = $("table.about tr td img").attr('src');
+                if (name[name.length - 1] === "2") {
+                    return;
+                }
+                $("table.about tr td img").each(function(i) {
+                    var image = $(this), originalSrc = image.attr('src');
+                    image.attr('src', originalSrc + "2");
+                    image.attr('class', "profilePic2");
+
+                    if (i === 1) {
+                        image.hover(
+                                function() {
+                                    //alert("h");
+                                    image.animate({opacity: 0}, 1000, function() {
+                                        image.attr('src', "images/singe.jpg");
+                                    });
+                                },
+                                function() {
+                                    image.animate({opacity: 1}, 1000);
+                                });
+                    }
+                });
+                $("#flashDiv").html("<strong> Bravo </strong> Vous avez découvert la page secrête");
+                $("#flashDiv").attr("class", "success");
+                $("table.about tr.top").append('<td><img src="images/soeurThib.jpg" class="profilePic2"/></td>');
+                $("table.about tr.bottom").append('<td>La soeur à Thibault</td>');
             }
         }, true);
     }
-    
+
+
+
 </script>
 
-<p style="padding-left: 40px">Bienvenue sur le site de réservation et d'achats de places du théâtre E=MC2,<br/> 
-vous pouvez ici consulter la liste des spectacles à venir ainsi que réserver<br/>
-vos places afin d'assister à une représentation.<br/><br/>
 
-Ce site vous est présenté par la dream team ACVL :<br/><br/>
 
-Arthur Verger (et sa super <a href="http://a1.ec-images.myspacecdn.com/profile01/150/3f2043da29064aec88ab68cba313437f/p.jpg">photo</a> !)
-                             , Thibault Vernadat, Jany Belluz et Michel Kuhm (et son super 
-<a href="http://cv-michel-kuhm.olympe.in/">CV</a> !!)<br/><br/>
 
-Disclaimer : this website is provided as is without warranty of any kind,<br/> 
-either express or implied, including but not limited to the implied warranties<br/> 
-of merchantability and fitness for a particular purpose. In no event shall<br/> 
-the North Front Range Metropolitan Planning Organization be liable for any<br/> 
-damages whatsoever including direct, indirect, incidental consequential,<br/> 
-loss of business profits, or special damages.<br/><br/>
+<p class="about">Bienvenue sur le site de réservation et d'achats de places du théâtre E=MC2,
+    vous pouvez ici consulter la liste des spectacles à venir ainsi que réserver
+    vos places afin d'assister à une représentation.</p>
 
-Nous promettons également qu'aucun pc n'a été maltraité et que nous nous livrons<br/>
-à des sacrifices rituels en faveur de jsp chaque jour.
-</p>
+
+<p class="about">Ce site vous est présenté par la dream team ACVL :</p>
+<table class="about">
+    <tr class="top">
+        <td>
+            <img src="images/michel.jpg" class="profilePic"/>
+        </td>
+        <td>
+            <img src="images/arthur.jpg" class="profilePic"/>
+        </td>
+        <td>
+            <img src="images/jany.jpg" class="profilePic"/>
+        </td>
+        <td>
+            <img src="images/thibault.jpg" class="profilePic"/>
+        </td>
+    </tr>
+    <tr class="bottom">
+        <td>Michou </td>
+        <td>Arthur </td>
+        <td>Jany </td>
+        <td>Thibault </td>            
+    </tr>
+</table>
+
+<p class="about disclaimer">
+    Disclaimer : this website is provided as is without warranty of any kind,
+    either express or implied, including but not limited to the implied warranties
+    of merchantability and fitness for a particular purpose. In no event shall
+    the North Front Range Metropolitan Planning Organization be liable for any 
+    damages whatsoever including direct, indirect, incidental consequential, 
+    loss of business profits, or special damages.</p>
+<img src="images/salle_theatre.jpeg" class="theatreImg"/>
+
+<p class="about">
+    Nous promettons également qu'aucun pc n'a été maltraité et que nous nous livrons
+    à des sacrifices rituels en faveur de jsp chaque jour. </p>
+
+
+
 <c:import url="Layout/footer.jsp"/>
+
 
