@@ -10,16 +10,14 @@ import dao.DAOException;
 import dao.PlaceDAO;
 import dao.RepresentationDAO;
 import dao.ReservationDAO;
-import dao.ZoneDAO;
 import dao.SpectacleDAO;
+import dao.UtilisateurDAO;
+import dao.ZoneDAO;
 
 import java.io.IOException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,10 +30,10 @@ import modele.Client;
 import modele.Place;
 import modele.Representation;
 import modele.Reservation;
+import modele.Utilisateur;
 
 import modele.Zone;
 import vue.FlashImpl;
-import vue.TraitementPlaces;
 
 /**
  *
@@ -248,10 +246,42 @@ public class ReservationControleur extends HttpServlet {
             FlashImpl fl = new FlashImpl("veuillez choisir vos places.", request, "error");
         }
         // Après l'achat, redirection vers l'index
-        RepresentationDAO repDAO = new RepresentationDAO(ds);
-        request.setAttribute("representations", repDAO.getRepresentationsAVenir());
-        request.setAttribute("titre", "Mes billets en ligne");
-        getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+                // On recherche les attributs de l'utilisateur
+        String monLogin = (String) request.getSession().getAttribute("Login");
+        Utilisateur u = new Utilisateur(monLogin);
+        UtilisateurDAO uDAO = new UtilisateurDAO(ds);
+        uDAO.lire(u);
+
+        // on regarde ses places achetées et réservées
+        ReservationDAO resDAO = new ReservationDAO(ds);
+        AchatDAO achDAO = new AchatDAO(ds);
+
+        //on supprime les réservations qui sont périmées
+        resDAO.supprimerReservationsNonPayees();
+        List<Reservation> listRes = resDAO.getListeReservationsClient(login);
+
+        // On complète les champs de classe
+        for (Reservation cur : listRes) {
+            RepresentationDAO repDAO = new RepresentationDAO(ds);
+            Representation rep = new Representation(cur.getNoSpectacle(),
+                    cur.getNoRepresentation(),false);
+
+            repDAO.lire(rep);
+            cur.setRepresentation(rep);
+        }
+
+        List<Achat> listAchatPrec = achDAO.getListeAchatsClientAvecHistorique(login);
+        List<Achat> listAchatSuiv = achDAO.getListeAchatsClientSansHistorique(login);
+        request.setAttribute("login", login);
+        request.setAttribute("nom", u.getNom());
+        request.setAttribute("prenom", u.getPrenom());
+        request.setAttribute("email", u.getEmail());
+        request.setAttribute("listRes", listRes);
+        request.setAttribute("listAchatPrec", listAchatPrec);
+        request.setAttribute("listAchatSuiv", listAchatSuiv);
+
+        request.setAttribute("titre", "Mon compte");
+        getServletContext().getRequestDispatcher("/WEB-INF/monCompte.jsp").forward(request, response);
         
     }
     
