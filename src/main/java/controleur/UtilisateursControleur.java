@@ -55,23 +55,38 @@ public class UtilisateursControleur extends HttpServlet {
 
         String action = request.getParameter("action");
         try {
+            Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
+            Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
+            //pas de login necessaire
             if (action.equalsIgnoreCase("goToMyAccount")) {
-
-                goToMyAccount(request, response);
-
-            } else if (action.equalsIgnoreCase("goToStats")) {
-                goToStats(request, response);
-            } else if (action.equalsIgnoreCase("goToAdmin")) {
-                goToAdmin(request, response);
-            } else if (action.equalsIgnoreCase("annulerPlaces")) {
-                cancelPlaces(request, response);
-            } else if (action.equalsIgnoreCase("imprPlaces")) {
-                imprPlaces(request, response);
-            } else if (action.equalsIgnoreCase("achatPlaces")) {
-                achatPlaces(request, response);
+                    goToMyAccount(request, response);                  
             } else {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
-            }
+                //login necessaire
+                if (logged != null && logged) {
+                    if (action.equalsIgnoreCase("goToStats")) {
+                        goToStats(request, response);
+                    } else if (action.equalsIgnoreCase("goToAdmin")) {
+                        //login admin necessaire
+                        if (loggedAdmin != null && loggedAdmin) {
+                            goToAdmin(request, response);
+                        }
+                        else {
+                           ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);                      
+                        }
+                    } else if (action.equalsIgnoreCase("annulerPlaces")) {
+                        cancelPlaces(request, response);
+                    } else if (action.equalsIgnoreCase("imprPlaces")) {
+                        imprPlaces(request, response);
+                    } else if (action.equalsIgnoreCase("achatPlaces")) {
+                        achatPlaces(request, response);
+                    } else {
+                        ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
+                    }
+                }
+                else {
+                    ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND); 
+                }
+            }              
         } catch (DAOException e) {
             throw new RuntimeException(e);
             // request.setAttribute("erreurMessage", e.getMessage());
