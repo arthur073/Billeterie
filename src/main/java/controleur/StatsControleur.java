@@ -41,7 +41,7 @@ public class StatsControleur extends HttpServlet {
             String action = request.getParameter("action");
             if (action.equalsIgnoreCase("rafraichir")) {
                 remplirRequeteDeStats(ds, request, response);
-                getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
+                getServletContext().getRequestDispatcher("/WEB-INF/statsWidget.jsp").forward(request, response);
             } else {
                 ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
             }
@@ -54,23 +54,26 @@ public class StatsControleur extends HttpServlet {
 
 	/**
 	 * Ajoute à l'objet request donné les attributs nécessaires au rendu de
-	 * la template stats.jsp.
+	 * la template statsWidget.jsp.
 	 */
 	public static void remplirRequeteDeStats(DataSource ds,
         HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
         try {
-            DateFormat fmt = new SimpleDateFormat("yy-mm-dd");
+            String dateFormat = "dd-mm-yyyy";
+            DateFormat fmt = new SimpleDateFormat(dateFormat);
             Date debut, fin;
             String sDebut = (String) request.getParameter("dateDebut");
             String sFin = (String) request.getParameter("dateFin");
             if (sDebut == null) {
-                sDebut = "2013-01-01";
+                sDebut = "25-12-2012";
             }
             debut = fmt.parse(sDebut);
+            request.setAttribute("dateDebutLue", fmt.format(debut));
             if (sFin == null) {
-                sFin = "2014-01-01";
+                sFin = "01-01-2014";
             }
             fin = fmt.parse(sFin);
+            request.setAttribute("dateFinLue", fmt.format(fin));
             StatsDAO sDAO = new StatsDAO(ds);
             request.setAttribute("benefTotal", sDAO.getBenefTotalPeriode(debut, fin));
             request.setAttribute("totalPlacesVendues", sDAO.getNbAchatsPeriode(debut, fin));

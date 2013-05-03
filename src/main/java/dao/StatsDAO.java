@@ -72,7 +72,8 @@ public class StatsDAO extends ProviderDAO {
             conn = getConnection();
             st = conn.prepareStatement(getRequete("SELECT_BENEF_TOTAL_PERIODE"));
             st.setDate(1, new java.sql.Date(debut.getTime()));
-            st.setDate(2, new java.sql.Date(fin.getTime()));
+            java.sql.Date sqlFin = new java.sql.Date(fin.getTime());
+            st.setDate(2, sqlFin);
             rs = st.executeQuery();
             if (rs.next()) {
                 result = rs.getFloat("BenefTotal");

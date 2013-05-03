@@ -18,8 +18,8 @@
         //en supposant que le debut d'une saison est le 1er sept et la fin le 30 juin
         // on met le 1er juillet  pour prendre en compte la journée du 30 juin complete
         // on initialise les champs a cette valeur pour avoir des stats qui s'affichent direct
-      $( "#datepickerDebut" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '01-09-2013');
-      $( "#datepickerFin" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '01-07-2014');
+      $( "#datepickerDebut" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '${dateDebutLue}');
+      $( "#datepickerFin" ).datepicker({dateFormat: "dd-mm-yy"}).datepicker('setDate', '${dateFinLue}');
     });
     
     function checkDate() {
@@ -40,10 +40,10 @@
     }
 
     function getDateDebut() {
-        return $("#datepickerDebut").datepicker({ dateFormat: 'yy-mm-dd' }).val();
+        return $("#datepickerDebut").datepicker({ dateFormat: 'dd-mm-yy' }).val();
     }
     function getDateFin() {
-        return $("#datepickerFin").datepicker({ dateFormat: 'yy-mm-dd' }).val();
+        return $("#datepickerFin").datepicker({ dateFormat: 'dd-mm-yy' }).val();
     }
     
     var xmlHttp = null;
@@ -60,8 +60,8 @@ function ProcessRequest()
             }
             else
             {
-                // on récupère direct du HTML
-                $("#stats-container").innerHTML = xmlHttp.responseText;
+                // on récupère directement du HTML
+                $("#stats-container").html(xmlHttp.responseText);
             }   
         }
     }

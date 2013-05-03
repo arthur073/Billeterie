@@ -7,7 +7,7 @@ insert into Spectacle values(4, 'Patrick S. - Patoche et ses bretelles', 'patric
 insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'moulin-rouge.jpg');
 insert into Spectacle values(6, 'Gad Elmaleh', 'gad-el.jpg');
 insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm', 'michel.jpg');
-insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', 'vernadat.jpg');
+insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', 'thibault.jpg');
 
 
 
