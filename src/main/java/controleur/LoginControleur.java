@@ -72,7 +72,6 @@ public class LoginControleur extends HttpServlet {
             request.getSession().setAttribute("FailedLogIn", false);
             if (utilisateur.getType().equals(TypeUtilisateur.RESPONSABLE)) {
                 request.getSession().setAttribute("Admin", true);
-                FlashImpl fl = new FlashImpl("L'administrateur du système ne peut pas réserver de place", request, "error");
             } else {
                 FlashImpl fl = new FlashImpl("Vous êtes loggué en tant que " + utilisateur.getLogin(), request, "success");
             }
@@ -97,6 +96,7 @@ public class LoginControleur extends HttpServlet {
             Object admin = request.getSession().getAttribute("Admin");
             //on test si on vient de se logguer en admin
             if (admin != null && admin.equals(true)) {
+                FlashImpl fl = new FlashImpl("L'administrateur du système ne peut pas réserver de place", request, "error");
                 RepresentationDAO repDAO = new RepresentationDAO(ds);
                 request.setAttribute("representations", repDAO.getRepresentationsAVenir());
                 request.setAttribute("titre", "Mes billets en ligne");

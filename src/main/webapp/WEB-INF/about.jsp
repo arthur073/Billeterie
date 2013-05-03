@@ -29,13 +29,9 @@
                     if (i === 0) {
                         image.hover(
                                 function() {
-                                    //alert("h");
-                                    image.animate({opacity: 0}, 1000, function() {
-                                        image.attr('src', "images/singe.jpg");
-                                    });
+                                    image.attr('src', "images/singe.gif");
                                 },
                                 function() {
-                                    image.animate({opacity: 1}, 1000);
                                 });
                     }
                 });
