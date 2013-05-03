@@ -1,1 +1,0 @@
-src/main/sql/creation.sql
