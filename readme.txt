@@ -7,3 +7,4 @@ Dans context.xml :
 Dans settings.xml :
 	
 	* Changer username et password pour le serveur tomcat
+
