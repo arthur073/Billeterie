@@ -25,15 +25,6 @@
                     var image = $(this), originalSrc = image.attr('src');
                     image.attr('src', originalSrc + "2");
                     image.attr('class', "profilePic2");
-
-                    if (i === 1) {
-                        image.hover(
-                                function() {
-                                    image.attr('src', "images/singe.gif");
-                                },
-                                function() {
-                                });
-                    }
                 });
                 $("#flashDiv").html("<strong> Bravo </strong> Vous avez découvert la page secrête");
                 $("#flashDiv").attr("class", "success");
