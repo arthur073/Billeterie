@@ -1,3 +1,6 @@
 Enlever le dossier conception
 
-Arthur : lors d'une reservation, après le choix des places, si l'utilisateur n'a pas de compte et donc en crée un, il n'est pas redirigé vers le récapitulatif des places qu'il a choisi mais vers la page d'accueil.
+[DONE] Arthur : lors d'une reservation, après le choix des places, si l'utilisateur n'a pas de compte et donc en crée un, il n'est pas redirigé vers le récapitulatif des places qu'il a choisi mais vers la page d'accueil.
+
+
+Thibault : Ton script de vérification de champs dans la view createUser.jsp n'est pas bon : quand on clique sur annuler il est exécuté quand même.
