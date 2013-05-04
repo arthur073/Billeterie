@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -59,18 +60,28 @@ public class StatsControleur extends HttpServlet {
 	public static void remplirRequeteDeStats(DataSource ds,
         HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
         try {
-            String dateFormat = "dd-mm-yyyy";
+            String dateFormat = "dd-MM-yyyy";
             DateFormat fmt = new SimpleDateFormat(dateFormat);
             Date debut, fin;
             String sDebut = (String) request.getParameter("dateDebut");
             String sFin = (String) request.getParameter("dateFin");
+            Calendar c = Calendar.getInstance();
+            int mois = c.get(Calendar.MONTH);
+            int anneeDebut = 0;;
             if (sDebut == null) {
-                sDebut = "25-12-2012";
+                //on a dépassé le 1er janvier de la saison        
+                if( mois < 6 ) {
+                    c.set(c.YEAR, c.get(Calendar.YEAR)-1);
+                } else {
+                    c.set(c.YEAR, c.get(Calendar.YEAR));
+                }
+                anneeDebut = c.get(Calendar.YEAR);
+                sDebut = "01-09-" + anneeDebut;
             }
             debut = fmt.parse(sDebut);
             request.setAttribute("dateDebutLue", fmt.format(debut));
             if (sFin == null) {
-                sFin = "01-01-2014";
+                sFin = "01-07-"+(anneeDebut+1);
             }
             fin = fmt.parse(sFin);
             request.setAttribute("dateFinLue", fmt.format(fin));

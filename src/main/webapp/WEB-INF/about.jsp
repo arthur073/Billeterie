@@ -63,7 +63,7 @@
         </td>
     </tr>
     <tr class="bottom">
-        <td>Michou </td>
+        <td>Michel </td>
         <td>Arthur </td>
         <td>Jany </td>
         <td>Thibault </td>            

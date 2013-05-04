@@ -68,10 +68,8 @@ function ProcessRequest()
 }
     
 </script>
- 
-<div style="float:left;padding-left: 10%;">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
+<div style="float:left;padding-left: 10%;"">D&eacute;but période : <input type="text" id="datepickerDebut" onchange="checkDate();changeStats()"/></div>
 <div style="float:left;padding-left: 15%;">Fin période : <input type="text" id="datepickerFin" onchange="checkDate();changeStats()"/></div>
-
 <div id="stats-container" class="clearer">
     <c:import url="statsWidget.jsp"/>
 </div>

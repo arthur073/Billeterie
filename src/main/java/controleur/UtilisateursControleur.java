@@ -59,19 +59,19 @@ public class UtilisateursControleur extends HttpServlet {
             Boolean logged = (Boolean) request.getSession().getAttribute("LoggedIn");
             //pas de login necessaire
             if (action.equalsIgnoreCase("goToMyAccount")) {
-                    goToMyAccount(request, response);                  
+                goToMyAccount(request, response);
             } else {
                 //login necessaire
                 if (logged != null && logged) {
                     if (action.equalsIgnoreCase("goToStats")) {
+                        FlashImpl f = new FlashImpl("Les pourcentages s'entendent par spectacle, toutes représentations passées ou futures incluses.", request, "success");
                         goToStats(request, response);
                     } else if (action.equalsIgnoreCase("goToAdmin")) {
                         //login admin necessaire
                         if (loggedAdmin != null && loggedAdmin) {
                             goToAdmin(request, response);
-                        }
-                        else {
-                           ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);                      
+                        } else {
+                            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
                         }
                     } else if (action.equalsIgnoreCase("annulerPlaces")) {
                         cancelPlaces(request, response);
@@ -82,17 +82,16 @@ public class UtilisateursControleur extends HttpServlet {
                     } else {
                         ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
                     }
+                } else {
+                    ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
                 }
-                else {
-                    ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND); 
-                }
-            }              
+            }
         } catch (DAOException e) {
             throw new RuntimeException(e);
             // request.setAttribute("erreurMessage", e.getMessage());
             // getServletContext().getRequestDispatcher("/WEB-INF/bdErreur.jsp").forward(request, response);
         } catch (NullPointerException e) {
-                ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
+            ((HttpServletResponse) response).sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 
@@ -109,7 +108,6 @@ public class UtilisateursControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("Annuler")) {
                 // Retour à la page précédente
                 getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
-
             }
         } catch (DAOException e) {
             throw new RuntimeException(e);
@@ -135,10 +133,24 @@ public class UtilisateursControleur extends HttpServlet {
             request.getSession().setAttribute("LoggedIn", true);
             request.getSession().setAttribute("Login", client.getLogin());
             request.getSession().setAttribute("FailedLogIn", false);
-            RepresentationDAO repDAO = new RepresentationDAO(ds);
-            request.setAttribute("representations", repDAO.getRepresentationsAVenir());
-            request.setAttribute("titre", "Mes billets en ligne");
-            getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+
+            // on redirige vers la bonne page
+            String from = request.getParameter("redirectionVers");
+
+            if (from != null && from.equals("confirmation")) {
+                // on redirige vers ses places
+                Panier panier = new Panier(request.getSession(), ds);
+                request.setAttribute("map", panier.getPlacesParZone());
+                request.setAttribute("prixTotal", panier.getPrixTotal());
+                request.setAttribute("rep", panier.getRepresentation());
+                request.setAttribute("titre", "Confirmation de réservation");
+                getServletContext().getRequestDispatcher("/WEB-INF/confirmation.jsp").forward(request, response);
+            } else {
+                RepresentationDAO repDAO = new RepresentationDAO(ds);
+                request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+                request.setAttribute("titre", "Mes billets en ligne");
+                getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
+            }
         } else {
             FlashImpl fl = new FlashImpl("Login déjà existant. Veuillez en choisir un autre.", request, "error");
             getServletContext().getRequestDispatcher("/WEB-INF/createUser.jsp").forward(request, response);
@@ -175,7 +187,7 @@ public class UtilisateursControleur extends HttpServlet {
         for (Reservation cur : listRes) {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             Representation rep = new Representation(cur.getNoSpectacle(),
-                    cur.getNoRepresentation(),false);
+                    cur.getNoRepresentation(), false);
 
             repDAO.lire(rep);
             cur.setRepresentation(rep);
@@ -200,10 +212,11 @@ public class UtilisateursControleur extends HttpServlet {
         StatsControleur.remplirRequeteDeStats(ds, request, response);
         getServletContext().getRequestDispatcher("/WEB-INF/stats.jsp").forward(request, response);
     }
+
     private void goToAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, DAOException {
-    request.setAttribute("titre", "Admin");
-    StatsControleur.remplirRequeteDeStats(ds, request, response);
-    getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
+        request.setAttribute("titre", "Admin");
+        StatsControleur.remplirRequeteDeStats(ds, request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/admin.jsp").forward(request, response);
     }
 
     private void cancelPlaces(HttpServletRequest request, HttpServletResponse response) throws IOException, DAOException, ServletException {
@@ -240,11 +253,11 @@ public class UtilisateursControleur extends HttpServlet {
                 Integer.parseInt(request.getParameter("noRang")),
                 Integer.parseInt(request.getParameter("noPlace")));
         aDAO.lire(a);
-        
+
         String nomS = a.getRepresentation().getSpectacle().getNom();
         String image = a.getRepresentation().getSpectacle().getImage();
-        String imageUrl = new URL(request.getScheme(), request.getServerName(), 
-        request.getServerPort(), request.getContextPath() + "/images/" + image).toString();
+        String imageUrl = new URL(request.getScheme(), request.getServerName(),
+                request.getServerPort(), request.getContextPath() + "/images/" + image).toString();
         String date = a.getDateAchat(null);
         String prix = a.getPlace().getZone().getTarifBase().toString();
         String place = "" + a.getPlace().getNoPlace();
@@ -339,7 +352,7 @@ public class UtilisateursControleur extends HttpServlet {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         Representation rep = new Representation(
                 Integer.parseInt(request.getParameter("noSpectacle")),
-                Integer.parseInt(request.getParameter("noRepresentation")),false);
+                Integer.parseInt(request.getParameter("noRepresentation")), false);
         panier.setRepresentation(rep);
         request.setAttribute("panier", new Panier(request.getSession(), ds));
         request.setAttribute("resAsupprimer", "1");
