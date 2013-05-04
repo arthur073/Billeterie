@@ -12,6 +12,8 @@ Veuillez remplir le formulaire suivant pour créer votre compte : <br/>
          <label> Mot de passe : </label><input type="password" name="passwd"/> <br/>
          <label> Adresse e-mail : </label><input type="email" name="email" size='40'/> <br/>  <br/>
          <input type="submit" class="btnBlack" name="action" value="Creer" /> 
+     </form>
+     <form id="formCreateUser2" action="UtilisateursControleur" method="post" class="loginForm">
          <input type="submit" class="btnBlack" name="action" value="Annuler" />
      </form>
      
