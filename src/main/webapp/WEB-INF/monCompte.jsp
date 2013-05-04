@@ -4,6 +4,7 @@
     Author     : arthur
 --%>
 
+<%@page import="modele.Reservation"%>
 <%@page import="modele.Representation"%>
 <%@page import="modele.Achat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -128,7 +129,7 @@
                     ${achat.representation.spectacle.nom}
                 </td>
                 <td>
-                   <%= ((Achat) pageContext.getAttribute("achat")).getRepresentation().getDate(null) %>
+                   <%= ((Reservation) pageContext.getAttribute("achat")).getRepresentation().getDate(null) %>
                 </td>
                 <td>
                     ${achat.place.zone.tarifBase} &euro;
