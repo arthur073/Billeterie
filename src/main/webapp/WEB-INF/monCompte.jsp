@@ -4,6 +4,8 @@
     Author     : arthur
 --%>
 
+<%@page import="modele.Representation"%>
+<%@page import="modele.Achat"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
@@ -67,10 +69,10 @@
                     ${achat.representation.spectacle.nom}
                 </td>
                 <td>
-                    ${achat.representation.getDate(null)}
+                   <%= ((Achat) pageContext.getAttribute("achat")).getRepresentation().getDate(null) %>
                 </td>
                 <td>
-                    ${achat.getDateAchat(null)}
+                   <%= ((Achat) pageContext.getAttribute("achat")).getDateAchat(null) %>
                 </td>
                 <td>
                     ${achat.place.zone.tarifBase} &euro;
@@ -126,7 +128,7 @@
                     ${achat.representation.spectacle.nom}
                 </td>
                 <td>
-                    ${achat.representation.getDate(null)}
+                   <%= ((Achat) pageContext.getAttribute("achat")).getRepresentation().getDate(null) %>
                 </td>
                 <td>
                     ${achat.place.zone.tarifBase} &euro;

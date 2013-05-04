@@ -6,7 +6,7 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.Map"%>
 <%@page import="modele.Zone"%>
-<%@page import="modele.Zone"%>
+<%@page import="modele.Representation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>    
@@ -19,7 +19,7 @@ Vous avez choisi la représentation suivante : <br/>
             </td>
             <td>
                 <h3>${rep.spectacle.nom}</h3>
-                <h3>Le ${rep.getDate(null)}</h3>
+                <h3>Le <%= ((Representation) request.getAttribute("rep")).getDate(null) %></h3>
             </td>
             <td>
                 <form action="ReservationControleur"  class="reserverForm" method="post">
@@ -50,7 +50,7 @@ Vous avez choisi la représentation suivante : <br/>
             <table>
                 <tr>
                     <td><img alt="Affiche pour ${rep.spectacle.nom}" class="reserverImgSmall" src="images/${rep.spectacle.image}"/></td>
-                    <td><h3> Le  ${rep.getDate(null)}</h3></td>
+                    <td><h3> Le  <%= ((Representation) pageContext.getAttribute("rep")).getDate(null) %></h3></td>
                     <td>
                         <form action="ReservationControleur" method="post">
                             <input type="hidden" name="NoSpectacle" value="${rep.noSpectacle}" />

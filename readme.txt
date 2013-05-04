@@ -1,13 +1,13 @@
 Sources à modifier :
 
-Dans context.xml :
+Dans src/main/webapp/META-INF/context.xml :
 
    *Changer PORT, BDNAME, USERNAME et PASSWORD
 
    => exemple de configuration valide sous Ensibm :
 
    <?xml version="1.0" encoding="UTF-8"?>
-   <Context antiJARLocking="true" path="/billeterie">
+   <Context antiJARLocking="true" path="/Billeterie">
       <Resource 
          auth="Container" 
          driverClassName="com.mysql.jdbc.Driver" 
@@ -23,7 +23,7 @@ Dans context.xml :
       />
    </Context> 
 
-Dans settings.xml :
+Dans pom.xml :
 
    * Changer username et password pour le serveur tomcat
 
