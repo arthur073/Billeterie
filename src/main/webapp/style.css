@@ -140,8 +140,6 @@ a.login, a.reserver {
 }
 
 
-
-
 form.loginForm {
     margin-top: 1em;
 }
@@ -153,7 +151,7 @@ form.loginForm label {
     width : 10em;
 }
 
-form.loginForm input[type=text], form.loginForm input[type=password] {
+form.loginForm input[type=text], form.loginForm input[type=password], form.loginForm input[type=email] {
     width: 20em;
 }
 
