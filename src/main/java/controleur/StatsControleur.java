@@ -60,7 +60,7 @@ public class StatsControleur extends HttpServlet {
 	public static void remplirRequeteDeStats(DataSource ds,
         HttpServletRequest request, HttpServletResponse response) throws ServletException, DAOException {
         try {
-            String dateFormat = "dd-mm-yyyy";
+            String dateFormat = "dd-MM-yyyy";
             DateFormat fmt = new SimpleDateFormat(dateFormat);
             Date debut, fin;
             String sDebut = (String) request.getParameter("dateDebut");
