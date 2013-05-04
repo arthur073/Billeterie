@@ -64,6 +64,7 @@ public class UtilisateursControleur extends HttpServlet {
                 //login necessaire
                 if (logged != null && logged) {
                     if (action.equalsIgnoreCase("goToStats")) {
+                        FlashImpl f = new FlashImpl("Les pourcentages s'entendent par spectacle, toutes représentations passées ou futures incluses.", request, "success");
                         goToStats(request, response);
                     } else if (action.equalsIgnoreCase("goToAdmin")) {
                         //login admin necessaire
