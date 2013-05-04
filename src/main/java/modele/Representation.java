@@ -17,7 +17,6 @@ public class Representation {
     int noSpectacle;
     int noRepresentation;
     Date date = null;
-    private List<Zone> listeZones;
     /* Status de la représentation : 0 réservation ouverte, 1 reservation annulée */
     private Boolean annule;
 
@@ -100,19 +99,6 @@ public class Representation {
         return this;
     }
 
-    /**
-     * @return the listeZones
-     */
-    public List<Zone> getListeZones() {
-        return listeZones;
-    }
-
-    /**
-     * @param listeZones the listeZones to set
-     */
-    public void setListeZones(List<Zone> listeZones) {
-        this.listeZones = listeZones;
-    }
     
     public boolean isDateLessThanAnHour() {
         try {
