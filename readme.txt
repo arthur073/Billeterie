@@ -1,3 +1,8 @@
+Identifiants site web : Login - password
+
+Admin :  root - root
+Client : user - toto
+
 Sources à modifier :
 
 Dans src/main/webapp/META-INF/context.xml :
