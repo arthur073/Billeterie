@@ -1,6 +1,7 @@
 Identifiants site web : Login - password
 
 Admin :  root - root
+Client : toto - toto   (avec plein d'achats)
 Client : user - toto
 
 Sources à modifier :

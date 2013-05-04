@@ -42,6 +42,7 @@ insert into Zone values(4, 'Loge', 120);
 -- Les Utilisateurs
 
 insert into Utilisateur values ('vernadat','Vernadat','Thibault', 'titi@ensimag.fr','5d933eef19aee7da192608de61b6c23d','Client');
+insert into Utilisateur values ('toto','Titi','Toto', 'toto@toto.fr','f71dbe52628a3f83a77ab494817525c6','Client');
 insert into Utilisateur values ('root', 'Israteur', 'Admin', 'admin@mes-billets.com', '63a9f0ea7bb98050796b649e85481845', 'Responsable');
 insert into Utilisateur values ('user','Kuhm','Michel','Michel@ensimag.fr','f71dbe52628a3f83a77ab494817525c6','Client');
 
