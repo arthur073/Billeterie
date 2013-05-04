@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="modele.Representation"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -27,19 +28,24 @@
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
                            <c:choose>
-                            <c:when test="${rep.getAnnule()}">
+                            <c:when test="${rep.annule}">
                                 <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                             </c:when>    
                             <c:otherwise>
                                <input type="submit" name="action" value="Annuler" class="btnBlack"/>
                             </c:otherwise>
                         </c:choose>
-                    <% } else { %>
+                    <% } else { 
+                    Representation rep = (Representation) pageContext.getAttribute("rep");
+                    %>
                         <c:choose>
-                            <c:when test="${rep.isDateLessThanAnHour()}">
+                            <c:when test="<%=
+                                    ((Representation) pageContext.getAttribute(\"rep\")).isDateLessThanAnHour() || (
+                            ((Map<Representation, Integer>) request.getAttribute(\"placesRestantes\")).get(pageContext.getAttribute(\"rep\")) != null
+                            && ((Map<Representation, Integer>) request.getAttribute(\"placesRestantes\")).get(pageContext.getAttribute(\"rep\")) <= 70) %>">
                                 <input type="submit" name="action" value="Indisponible" class="btnBlack" disabled="disabled"/>
                             </c:when>
-                            <c:when test="${rep.getAnnule()}">
+                            <c:when test="${rep.annule}">
                                 <input type="submit" name="action" value="Annulé" class="btnBlack Annule" disabled="disabled"/>
                             </c:when>    
                             <c:otherwise>

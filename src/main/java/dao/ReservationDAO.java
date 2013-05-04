@@ -26,7 +26,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
     private final RepresentationDAO rDAO;
     private final PlaceDAO pDAO;
 
-    public ReservationDAO(DataSource ds) {
+    public ReservationDAO(DataSource ds) throws DAOException {
         super(ds);
         cDAO = new ClientDAO(ds);
         rDAO = new RepresentationDAO(ds);
@@ -218,7 +218,7 @@ public class ReservationDAO extends ProviderDAO implements DAOMetier<Reservation
         Client c = new Client(r.getLogin());
         cDAO.lire(c);
         r.setClient(c);
-        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation(),false);
+        Representation rep = new Representation(r.getNoSpectacle(), r.getNoRepresentation());
         rDAO.lire(rep);
         r.setRepresentation(rep);
         Place p = new Place(r.getNoPlace(), r.getNoRang(), r.getNoZone());

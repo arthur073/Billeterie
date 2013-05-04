@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 
 /**
  * Correspond à une représentation d'un spectable.
@@ -28,10 +29,9 @@ public class Representation {
     /**
      * Constructeur minimal.
      */
-    public Representation(int noSpectacle, int noRepresentation, Boolean annule) {
+    public Representation(int noSpectacle, int noRepresentation) {
         this.noSpectacle = noSpectacle;
         this.noRepresentation = noRepresentation;
-        this.annule = annule;
     }
 
     /**
@@ -115,5 +115,22 @@ public class Representation {
             Logger.getLogger(Representation.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Parsing error", ex);
         }
+    }
+    
+    
+    @Override
+    public boolean equals(Object other){
+        if (other == null) return false;
+        if (other == this) return true;
+        if (!(other instanceof Representation)) return false;
+        Representation otherRep = (Representation) other;
+        return otherRep.noRepresentation == this.noRepresentation
+                && otherRep.noSpectacle == this.noSpectacle;
+    }
+    
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 43).
+            append(noSpectacle).append(noRepresentation).toHashCode();
     }
 }

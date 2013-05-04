@@ -13,7 +13,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.sql.DataSource;
@@ -26,8 +28,13 @@ import modele.Spectacle;
  * @author arthur
  */
 public class RepresentationDAO extends ProviderDAO implements DAOMetier<Representation> {
-    public RepresentationDAO(DataSource ds) {
+
+    // Calculé une fois pour être dispo dans toutes les requêtes.
+    private final int nbTotalPlaces;
+    
+    public RepresentationDAO(DataSource ds) throws DAOException {
         super(ds);
+        this.nbTotalPlaces = (new PlaceDAO(ds)).getNombrePlaces();
     }
 
     /**
@@ -242,7 +249,7 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
     }
     
     public int getNbPlacesRestantes(int NoSpectacle, int NoRepresentation) throws DAOException {
-        int result = 450;
+        int result = nbTotalPlaces;
         ResultSet rs = null;
         PreparedStatement st = null;
         Connection conn = null;
@@ -256,6 +263,37 @@ public class RepresentationDAO extends ProviderDAO implements DAOMetier<Represen
             rs = st.executeQuery();
             while (rs.next()) {
                 result -= rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            closeStatement(st);
+            closeResultSet(rs);
+            closeConnection(conn);
+        }        
+        return result;
+    }
+
+    /**
+     * Associe à toutes les représentations le nombre de places non achetées ni réservées.
+     * 
+     * Les réservations utilisées comme clés de la map ne sont pas complètes 
+     * (seule les champs clés sont remplis). Toutes n'ont pas une valeur 
+     * associée : en cas d'absence de valeur associée, cela signifie que 
+     * toutes les places sont libres.
+     */
+    public Map<Representation, Integer> getNbPlacesRestantesReps() throws DAOException {
+        Map<Representation, Integer> result = new  HashMap<Representation, Integer>();
+        ResultSet rs = null;
+        PreparedStatement st = null;
+        Connection conn = null;
+        try {
+            conn = getConnection();
+            st = conn.prepareStatement(getRequete("SELECT_NB_PLACES_PRISES_REPS"));
+            rs = st.executeQuery();
+            while (rs.next()) {
+                result.put(new Representation(rs.getInt("NoSpectacle"), rs.getInt("NoRepresentation")),
+                        new Integer(nbTotalPlaces - rs.getInt("NbPlacesPrises")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

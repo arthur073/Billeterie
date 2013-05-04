@@ -52,6 +52,7 @@ public class LoginControleur extends HttpServlet {
             } else if (action.equalsIgnoreCase("Annuler")) {
                 RepresentationDAO repDAO = new RepresentationDAO(ds);
                 request.setAttribute("representations", repDAO.getRepresentationsAVenir());
+                request.setAttribute("placesRestantes", repDAO.getNbPlacesRestantesReps());
                 getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
             }
         } catch (DAOException e) {
@@ -100,6 +101,7 @@ public class LoginControleur extends HttpServlet {
                 RepresentationDAO repDAO = new RepresentationDAO(ds);
                 request.setAttribute("representations", repDAO.getRepresentationsAVenir());
                 request.setAttribute("titre", "Mes billets en ligne");
+                request.setAttribute("placesRestantes", repDAO.getNbPlacesRestantesReps());
                 getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
                 return;
             } else {
@@ -114,6 +116,7 @@ public class LoginControleur extends HttpServlet {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             request.setAttribute("representations", repDAO.getRepresentationsAVenir());
             request.setAttribute("titre", "Mes billets en ligne");
+            request.setAttribute("placesRestantes", repDAO.getNbPlacesRestantesReps());
             getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
         }
     }

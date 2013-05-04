@@ -55,6 +55,7 @@ public class PagesControleur extends HttpServlet {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
+        request.setAttribute("placesRestantes", repDAO.getNbPlacesRestantesReps());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 

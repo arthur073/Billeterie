@@ -103,7 +103,7 @@ public class ReservationControleur extends HttpServlet {
         int noSpectacle = Integer.parseInt(request.getParameter("NoSpectacle"));
         int noRepresentation = Integer.parseInt(request.getParameter("NoRepresentation"));
         //int annule = Integer.parseInt(request.getParameter("Annule"));
-        Representation rep = new Representation(noSpectacle, noRepresentation,false);
+        Representation rep = new Representation(noSpectacle, noRepresentation);
         repDAO.lire(rep);
         return rep;
     }
@@ -159,7 +159,7 @@ public class ReservationControleur extends HttpServlet {
         RepresentationDAO repDAO = new RepresentationDAO(ds);
         Representation rep = new Representation(
                 Integer.parseInt(request.getParameter("NoSpectacle")),
-                Integer.parseInt(request.getParameter("NoRepresentation")),false);
+                Integer.parseInt(request.getParameter("NoRepresentation")));
         repDAO.lire(rep);
         panier.setRepresentation(rep);
         panier.ajouterPlaces(request.getParameter("places"));
@@ -204,6 +204,7 @@ public class ReservationControleur extends HttpServlet {
         FlashImpl fl = new FlashImpl("Places correctement réservées! Vous pouvez les payer depuis votre compte jusqu'à une heure avant le début de la représentation. Au dela de ce délai, vos places seront remises en vente.", request, "success");
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
+        request.setAttribute("placesRestantes", repDAO.getNbPlacesRestantesReps());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
     
@@ -264,8 +265,7 @@ public class ReservationControleur extends HttpServlet {
         for (Reservation cur : listRes) {
             RepresentationDAO repDAO = new RepresentationDAO(ds);
             Representation rep = new Representation(cur.getNoSpectacle(),
-                    cur.getNoRepresentation(),false);
-
+                    cur.getNoRepresentation());
             repDAO.lire(rep);
             cur.setRepresentation(rep);
         }
@@ -294,6 +294,7 @@ public class ReservationControleur extends HttpServlet {
         request.setAttribute("representations", repDAO.getRepresentationsAVenir());
         request.setAttribute("titre", "Mes billets en ligne");
         FlashImpl fl = new FlashImpl("La representation a bien été annulée", request, "success");
+        request.setAttribute("placesRestantes", repDAO.getNbPlacesRestantesReps());
         getServletContext().getRequestDispatcher("/WEB-INF/indexAll.jsp").forward(request, response);
     }
 }
