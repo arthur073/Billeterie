@@ -19,15 +19,11 @@
         <% } %>
             <td><img height="80"  src="images/${rep.spectacle.image}" class="shadowImg"/></td>
             <td>${rep.spectacle.nom}</td>
-            <td>${rep.getDate(null)}</td>
+            <td><%= ((Representation) pageContext.getAttribute("rep")).getDate(null) %></td>
             <td> 
                 <form action="ReservationControleur" method="post" >
-                    <input type="text" name="Date" value="${rep.getDate(null)}" style="display:none"/>
-                    <input type="text" name="Image" value="${rep.spectacle.image}" style="display:none"/>
-                    <input type="text" name="NomSpectacle" value="${rep.spectacle.nom}" style="display:none"/>
-                    <input type="text" name="NoSpectacle" value="${rep.noSpectacle}" style="display:none"/>
-                    <input type="text" name="NoRepresentation" value="${rep.noRepresentation}" style="display:none"/>
-                    <input type="text" name="Annule" value="${rep.annule}" style="display:none"/>
+                    <input type="hidden" name="NoSpectacle" value="${rep.noSpectacle}" />
+                    <input type="hidden" name="NoRepresentation" value="${rep.noRepresentation}" />
                     <%  Boolean loggedAdmin = (Boolean) request.getSession().getAttribute("Admin");
                         if (loggedAdmin != null && loggedAdmin) {%>
                            <c:choose>

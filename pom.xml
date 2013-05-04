@@ -62,12 +62,6 @@
         <version>9.1-901.jdbc4</version>
         <scope>runtime</scope>
     </dependency>
-    <dependency>
-        <groupId>org.javatuples</groupId>
-        <artifactId>javatuples</artifactId>
-        <version>1.2</version>
-        <scope>compile</scope>
-    </dependency>
 
     </dependencies>
 
@@ -99,9 +93,7 @@
                 <version>1.1</version>
                 <configuration>
                     <server>mytomcat</server> 
-                    <url>http://localhost:8080/manager/text</url>           
-                    <username>manager</username>
-                    <password>pouetpouetpouet</password>
+                    <url>http://localhost:20462/manager/text</url>           
                 </configuration>   
             </plugin>
         </plugins>

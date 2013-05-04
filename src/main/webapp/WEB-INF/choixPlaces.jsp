@@ -1,3 +1,6 @@
+<%@page import="modele.Representation"%>
+<%@page import="modele.Place"%>
+<%@page import="java.util.Set"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <c:import url="Layout/header.jsp"/>    
@@ -106,7 +109,7 @@
             </td>
             <td>
                 <h3> ${rep.spectacle.nom}</h3>
-                <h3> Le ${rep.getDate(null)}</h3>
+                <h3> Le <%= ((Representation) request.getAttribute("rep")).getDate(null) %></h3>
             </td>
         </tr>
     </table>
@@ -125,7 +128,7 @@
                     <c:when test="${empty place}">
                         <td class="vide"></td>
                     </c:when>
-                    <c:when test="${PlacesOccupees.contains(place)}">
+                    <c:when test="<%= ((Set<Place>) request.getAttribute(\"PlacesOccupees\")).contains((Place) pageContext.getAttribute(\"place\")) %>">
                         <td class="place occupee"></td>
                     </c:when>
                     <c:otherwise>

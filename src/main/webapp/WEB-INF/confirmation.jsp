@@ -1,7 +1,7 @@
 <%@page import="java.lang.Integer"%>
+<%@page import="modele.Representation"%>
 <%@page import="modele.Zone"%>
 <%@page import="java.util.List"%>
-<%@page import="vue.TraitementPlaces"%>
 <%@page import="modele.Place"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.regex.Matcher"%>
@@ -24,7 +24,7 @@
             </td>
             <td>
                 <h3> ${rep.spectacle.nom}</h3>
-                <h3> Le ${rep.getDate(null)}</h3>
+                <h3> Le <%= ((Representation) request.getAttribute("rep")).getDate(null) %></h3>
             </td>
         </tr>
     </table>
