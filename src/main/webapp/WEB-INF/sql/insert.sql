@@ -8,6 +8,7 @@ insert into Spectacle values(5, 'Le Moulin Rouge - Le dessous des choses', 'moul
 insert into Spectacle values(6, 'Gad Elmaleh', 'gad-el.jpg');
 insert into Spectacle values(7, 'Coder en JSP facilement par Michel Kuhm', 'michel.jpg');
 insert into Spectacle values(8, 'Le TP web pour les nuls - Thibault Vernadat', 'thibault.jpg');
+insert into Spectacle values(9, 'Bien vu l\'aveugle ! - Arthur Verger', 'arthur.jpg2');
 
 
 
@@ -17,18 +18,19 @@ insert into Representation values(1, 1, '2013-04-01 20:00:00', 0);
 insert into Representation values(1, 2, '2013-05-06 01:00:00', 0);
 insert into Representation values(1, 3, '2013-05-14 20:00:00', 0);
 insert into Representation values(1, 4, '2013-05-30 17:00:00', 1);
-insert into Representation values(2, 3, '2013-05-13 17:00:00', 0);
-insert into Representation values(2, 4, '2013-05-29 20:00:00', 0);
-insert into Representation values(3, 5, '2013-05-11 17:00:00', 0);
+insert into Representation values(2, 1, '2013-05-13 17:00:00', 0);
+insert into Representation values(2, 2, '2013-05-29 20:00:00', 0);
+insert into Representation values(3, 1, '2013-05-11 17:00:00', 0);
 insert into Representation values(3, 2, '2013-05-16 20:00:00', 0);
-insert into Representation values(4, 6, '2013-05-03 17:00:00', 0);
-insert into Representation values(5, 7, '2013-05-17 20:00:00', 0);
-insert into Representation values(6, 8, '2013-02-10 20:00:00', 0);
-insert into Representation values(7, 9, '2013-01-10 18:00:00', 0);
-insert into Representation values(8, 10, '2013-06-10 20:00:00', 0);
-insert into Representation values(8, 6, '2013-06-11 21:00:00', 0);
-insert into Representation values(8, 7, '2013-06-12 18:00:00', 0);
-
+insert into Representation values(4, 1, '2013-05-03 17:00:00', 0);
+insert into Representation values(5, 1, '2013-05-17 20:00:00', 0);
+insert into Representation values(6, 1, '2013-02-10 20:00:00', 0);
+insert into Representation values(7, 1, '2013-01-10 18:00:00', 0);
+insert into Representation values(8, 1, '2013-06-10 20:00:00', 0);
+insert into Representation values(8, 2, '2013-06-11 21:00:00', 0);
+insert into Representation values(8, 3, '2013-06-12 18:00:00', 0);
+insert into Representation values(9, 1, '2013-05-11 21:00:00', 0);
+insert into Representation values(9, 2, '2013-05-20 18:00:00', 0);
 
 -- Les Zones
 insert into Zone values(1, 'Poulailler', 16);
