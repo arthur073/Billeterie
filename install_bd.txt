@@ -650,12 +650,9 @@ insert into Place values (43,1,3);
 
 
 -- AReserveNPlaces
--- insert into AReserveNPlaces values ('vernadat',1,1,1,1,1);
--- insert into AReserveNPlaces values ('vernadat',1,1,3,25,4);
 insert into AReserveNPlaces values ('toto',1,1,1,1,3);
 
 -- AAcheteNPlaces
--- insert into AAcheteNPlaces values ('vernadat',1,1,1,1,1,1,1,20130102);
 insert into AAcheteNPlaces values ('toto', 1, 2, 1, 1, 3, 1, 1, 20130102);
 
 
