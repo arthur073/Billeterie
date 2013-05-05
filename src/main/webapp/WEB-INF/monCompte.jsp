@@ -142,7 +142,7 @@
                         <c:otherwise>
                             <a href="UtilisateursControleur?action=achatPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}&amp;resAsupprimer=1" class="btnBlack widthFixed" >Payer</a>
                             <br/><br/>
-                            <a href="UtilisateursControleur?action=annulerPlaces&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
+                            <a href="UtilisateursControleur?action=annulerPlaces&amp;login=${achat.login}&amp;noSpectacle=${achat.noSpectacle}&amp;noRepresentation=${achat.noRepresentation}&amp;noZone=${achat.noZone}&amp;noRang=${achat.noRang}&amp;noPlace=${achat.noPlace}" class="btnBlack" onclick="return confirm('Êtes-vous sûr de vouloir supprimer la réservation ?')">Annuler</a>
                         </c:otherwise>
                     </c:choose>
                 </td>

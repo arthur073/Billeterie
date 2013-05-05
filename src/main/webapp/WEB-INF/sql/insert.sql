@@ -1096,6 +1096,6 @@ insert into AAcheteNPlaces values ('toto',2,3,41,1,3,   1,518,20130102);
 insert into AAcheteNPlaces values ('toto',2,3,42,1,3,   1,519,20130102);
 insert into AAcheteNPlaces values ('toto',2,3,43,1,3,  1,520,20130102); 
 
-insert into AAcheteNPlaces values ('toto', 1, 2, 1, 1, 3, 1, 521, 20130304);
+insert into AAcheteNPlaces values ('toto', 1, 2, 1, 1, 3, 2, 521, 20130304);
 
 
